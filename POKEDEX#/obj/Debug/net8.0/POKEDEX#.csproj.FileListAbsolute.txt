@@ -1,0 +1,15 @@
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\bin\Debug\net8.0\POKEDEX#.exe
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\bin\Debug\net8.0\POKEDEX#.deps.json
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\bin\Debug\net8.0\POKEDEX#.runtimeconfig.json
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\bin\Debug\net8.0\POKEDEX#.dll
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\bin\Debug\net8.0\POKEDEX#.pdb
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\POKEDEX#.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\POKEDEX#.AssemblyInfoInputs.cache
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\POKEDEX#.AssemblyInfo.cs
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\POKEDEX#.csproj.CoreCompileInputs.cache
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\POKEDEX#.sourcelink.json
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\POKEDEX#.dll
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\refint\POKEDEX#.dll
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\POKEDEX#.pdb
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\POKEDEX#.genruntimeconfig.cache
+C:\Users\andre\Downloads\POKEDEX#\POKEDEX#\obj\Debug\net8.0\ref\POKEDEX#.dll
