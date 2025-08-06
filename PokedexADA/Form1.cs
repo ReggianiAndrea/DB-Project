@@ -2,41 +2,58 @@ namespace PokedexADA
 {
     public partial class Form1 : Form
     {
-        private List<string> output = new List<string>();
+        // esempio di test
+        Allenatore ash = new Allenatore("Ash", "Ketchum", 10, 50.0f, 1.5f, EssereVivente.Genere.MASCHIO, "Ash007", 1);
+
+        Pokemon pikachu = new Pokemon("Pikachu", 25, 6.0f, 0.4f, "scintilla", EssereVivente.Genere.MASCHIO, Pokemon.Tipo.ELETTRO);
+        Pokemon bulbasaur = new Pokemon("Bulbasaur", 1, 6.9f, 0.7f, "foglia", EssereVivente.Genere.MASCHIO, Pokemon.Tipo.ERBA, Pokemon.Tipo.VELENO);
+        Pokemon charmander = new Pokemon("Charmander", 4, 7.1f, 0.6f, "fiamma", EssereVivente.Genere.FEMMINA, Pokemon.Tipo.FUOCO);
+
+        List<Pokemon> pokedex;
 
         public Form1()
         {
             InitializeComponent();
-            // esempio di test
 
-            //Allenatore(string Nome, string Cognome, int età, float peso, float altezza, string sesso,string NickNameAllenatore,int IdAllenatore)
-            Allenatore ash = new Allenatore("Ash", "Ketchum", 10, 50.0f, 1.5f, EssereVivente.Genere.MASCHIO, "Ash007", 1);
-            Allenatore gary = new Allenatore("Gary", "Oak", 10, 50.0f, 1.5f, EssereVivente.Genere.MASCHIO, "Gary008", 1);
+            pokedex = new List<Pokemon> { pikachu, bulbasaur, charmander };
 
-            //Pokemon(string nome, float peso, float altezza, string sesso, int IdDex, string tipoPrimario,string Impronta)
-            Pokemon pikachu = new Pokemon("Pikachu", 25, 6.0f, 0.4f, "scintilla", EssereVivente.Genere.MASCHIO, Pokemon.Tipo.ELETTRO);
-            Pokemon bulbasaur = new Pokemon("Bulbasaur", 1, 6.9f, 0.7f, "foglia", EssereVivente.Genere.MASCHIO, Pokemon.Tipo.ERBA, Pokemon.Tipo.VELENO);
-            Pokemon charmander = new Pokemon("Charmander", 4, 7.1f, 0.6f, "fiamma", EssereVivente.Genere.FEMMINA, Pokemon.Tipo.FUOCO);
+            pokemonDisponibiliBox.Items.AddRange(pokedex.Select(p => p.Nome).ToArray());
+            pokemonDisponibiliBox.SelectedItem = pokedex[0].Nome;
 
-            output.Add(ash.Saluta());
+            outputBox.AppendText(ash.Saluta());
+        }
 
-            output.Add(ash.Incontra(pikachu.Nome));
-            output.Add(ash.Incontra(pikachu.Nome)); // già incontrato
-                                        // --> incontro senza ridondanza perchè osservo dalla lista INCONTRI che tiene conto solo di incontri nuovi
-            output.Add(ash.Incontra(bulbasaur.Nome));
-            output.Add(ash.Incontra(charmander.Nome));
+        private void MostraStatoButtonOnClick(object sender, EventArgs e)
+        {
+            outputBox.Text = ash.MostraStato();
+        }
 
-            output.Add(ash.Cattura(pikachu.Nome));
-            output.Add(ash.CatturaFallita(pikachu.Nome));
+        private void CercaPokemonSelezionatoButtonOnClick(object sender, EventArgs e)
+        {
+            outputBox.Text = ash.Incontra(pokedex[pokemonDisponibiliBox.SelectedIndex].Nome);
+        }
 
-            output.Add(ash.Cattura(bulbasaur.Nome));
-            output.Add(ash.CatturaFallita(charmander.Nome));
+        private void CercaPokemonButtonOnClick(object sender, EventArgs e)
+        {
+            int index = new Random().Next(pokedex.Count);
+            string nome = pokedex[index].Nome;
+            pokemonDisponibiliBox.SelectedIndex = index;
+            outputBox.Text = ash.Incontra(nome);
+        }
 
-            output.Add(ash.MostraStato());
-
-            output.Add($"Totale incontri globali: {Allenatore.NumeroIncontri}");
-
-            output.ForEach(p => richTextBox1.Text += p + "\n");
+        private void TentaCatturaButtonOnClick(object sender, EventArgs e)
+        {
+            double catchRate = 0.5;
+            string nome = pokedex[pokemonDisponibiliBox.SelectedIndex].Nome;
+            outputBox.Text = ash.Incontra(nome);
+            if (new Random().NextDouble() < catchRate)
+            {
+                outputBox.Text += ash.Cattura(nome);
+            }
+            else
+            {
+                outputBox.Text += ash.CatturaFallita(nome);
+            }
         }
     }
 }

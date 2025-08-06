@@ -2,18 +2,23 @@
 {
     internal class Allenatore : Persona
     {
-        int IdAllenatore;
-        string NickNameAllenatore;
+        private int idAllenatore;
+        private string nickNameAllenatore;
+        private List<string> pokemonIncontrati;
+        private List<string> pokemonCatturati;
 
-        static public int NumeroIncontri = 0; //per statistiche globali (per statistiche amici)
-        static public int NumeroCatture = 0;
-        List<string> PokemonIncontrati = new List<string>();
-        List<string> PokemonCatturati = new List<string>();
+        public int NumeroIncontri { get; private set; }
+        public int NumeroCatture { get; private set; }
 
-        public Allenatore(string nome, string cognome, int età, float peso, float altezza, Genere sesso, string nickNameAllenatore, int idAllenatore) : base(nome, cognome, età, peso, altezza, sesso)
+        public Allenatore(string nome, string cognome, int età, float peso, float altezza, Genere sesso, string nickNameAllenatore, int idAllenatore)
+            : base(nome, cognome, età, peso, altezza, sesso)
         {
-            NickNameAllenatore = nickNameAllenatore;
-            IdAllenatore= idAllenatore;
+            this.nickNameAllenatore = nickNameAllenatore;
+            this.idAllenatore = idAllenatore;
+            NumeroIncontri = 0;
+            NumeroCatture = 0;
+            pokemonIncontrati = new List<string>();
+            pokemonCatturati = new List<string>();
         }
 
         public override string Saluta()
@@ -25,82 +30,81 @@
         {
             string output = "";
             NumeroIncontri++;
-            if (PokemonIncontrati.Contains(NomePokemon))
+            if (pokemonIncontrati.Contains(NomePokemon))
             {
                 output += $"{NomePokemon} è un Pokemon già incontrato\n";
             }
             else
             {
-                PokemonIncontrati.Add(NomePokemon);
+                pokemonIncontrati.Add(NomePokemon);
                 output += $"{NomePokemon} è un Pokemon mai incontrato prima\n";
             }
             return output;
         }
 
-        public string Cattura(string NomePokemon)
+        public string Cattura(string nomePokemon)
         {
             string output = "";
             NumeroCatture++;
-            if (PokemonCatturati.Contains(NomePokemon))
+            if (pokemonCatturati.Contains(nomePokemon))
             {
-                output += $"{NomePokemon} è un Pokemon già catturato, ma {NumeroCatture} aumentato\n";
+                output += $"{nomePokemon} è un Pokemon già catturato, ma {NumeroCatture} aumentato\n";
             }
             else
             {
-                PokemonCatturati.Add(NomePokemon);
-                output += $"{NickNameAllenatore} ha catturato il suo primo esemplare di {NomePokemon}!\n";
+                pokemonCatturati.Add(nomePokemon);
+                output += $"{nickNameAllenatore} ha catturato il suo primo esemplare di {nomePokemon}!\n";
             }
             return output;
         }
 
-        public string CatturaFallita(string NomePokemon)
+        public string CatturaFallita(string nomePokemon)
         {
             string output = "";
             NumeroIncontri++;
-            if (PokemonIncontrati.Contains(NomePokemon))
+            if (pokemonIncontrati.Contains(nomePokemon))
             {
-                output += $"Non importa, {NomePokemon} lo abbiamo gia visto\n";
-                if (PokemonCatturati.Contains(NomePokemon)) 
+                output += $"Non importa, {nomePokemon} lo abbiamo gia visto\n";
+                if (pokemonCatturati.Contains(nomePokemon)) 
                 {
                     output += "e anche catturato\n";
                 }
             }
             else
             {
-                PokemonIncontrati.Add(NomePokemon);
-                output += $"Era un {NomePokemon} Pokemon mai incontrato prima,peccato\n";
+                pokemonIncontrati.Add(nomePokemon);
+                output += $"Era un {nomePokemon} Pokemon mai incontrato prima,peccato\n";
             }
             return output;
         }
 
         public string MostraStato()
         {
-            string output = $"Allenatore: {NickNameAllenatore} (ID: {IdAllenatore})\n";
+            string output = $"Allenatore: {nickNameAllenatore} (ID: {idAllenatore})\n";
 
-            output += $"Pokémon incontrati ({PokemonIncontrati.Count}):\n";
-            if (PokemonIncontrati.Count == 0)
+            output += $"Pokémon incontrati ({pokemonIncontrati.Count}):\n";
+            if (pokemonIncontrati.Count == 0)
             {
                 output += "— Nessun Pokémon incontrato.\n";
             }
             else
             {
-                foreach (var P_Incontrato in PokemonIncontrati)
+                foreach (var incontrato in pokemonIncontrati)
                 {
-                    output += $"- {P_Incontrato}\n";
+                    output += $"- {incontrato}\n";
                 }
             }
 
-            output += $"Pokémon catturati ({PokemonCatturati.Count}):\n";
-            
-            if (PokemonCatturati.Count == 0)
+            output += $"Pokémon catturati ({pokemonCatturati.Count}):\n";
+            if (pokemonCatturati.Count == 0)
             {
                 output += "Nessun Pokémon catturato.\n";
             }
             else
             {
-                foreach (var P_Catturato in PokemonCatturati)
+                foreach (var incontrato in pokemonCatturati)
                 {
-                    output += $"- {P_Catturato}-\n";
+                    output += $"- {incontrato}-\n";
                 }
             }
 
