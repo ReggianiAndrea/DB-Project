@@ -12,8 +12,8 @@
 -- Database Section
 -- ________________ 
 
-create database PokedexLogico;
-use PokedexLogico;
+create database PokedexADA;
+use PokedexADA;
 
 -- DBSpace Section
 -- _______________
@@ -163,67 +163,67 @@ create table SQUADRA (
 
 alter table ACQUISIZIONE add constraint REF_ACQUI_POKEM_FK
      foreign key (NumeroPokemon)
-     references POKEMON;
+     references POKEMON(NumeroPokemon);
 
 alter table ACQUISIZIONE add constraint REF_ACQUI_MOSSA
      foreign key (NomeMossa)
-     references MOSSA;
+     references MOSSA(NomeMossa);
 
 alter table AMICIZIA add constraint REF_AMICI_GIOCA_1_FK
      foreign key (IdGiocatore)
-     references GIOCATORE;
+     references GIOCATORE(IdGiocatore);
 
 alter table AMICIZIA add constraint REF_AMICI_GIOCA
      foreign key (IdGiocatoreAmico)
-     references GIOCATORE;
+     references GIOCATORE(IdGiocatore);
 
 alter table AVVISTAMENTO add constraint REF_AVVIS_POKEM_FK
      foreign key (NumeroPokemon)
-     references POKEMON;
+     references POKEMON(NumeroPokemon);
 
 alter table AVVISTAMENTO add constraint REF_AVVIS_GIOCA
      foreign key (IdGiocatore)
-     references GIOCATORE;
+     references GIOCATORE(IdGiocatore);
 
 alter table BATTAGLIA add constraint REF_BATTA_SQUAD_1
      foreign key (IdGiocatoreSfidante)
-     references SQUADRA;
+     references SQUADRA(IdGiocatore);
 
 alter table BATTAGLIA add constraint REF_BATTA_SQUAD_FK
      foreign key (IdGiocatoreSfidato)
-     references SQUADRA;
+     references SQUADRA(IdGiocatore);
 
-alter table BIOMA add constraint ID_BIOMA_CHK
-     check(exists(select * from PERMANENZA
-                  where PERMANENZA.IdBioma = IdBioma)); 
+-- alter table BIOMA add constraint ID_BIOMA_CHK
+--      check(exists(select * from PERMANENZA
+--                   where PERMANENZA.IdBioma = IdBioma)); 
 
 alter table BOX_POKEMON add constraint REF_BOX_P_GIOCA_FK
      foreign key (IdGiocatore)
-     references GIOCATORE;
+     references GIOCATORE(IdGiocatore);
 
 alter table CATTURA add constraint REF_CATTU_POKEM_FK
      foreign key (NumeroPokemon)
-     references POKEMON;
+     references POKEMON(NumeroPokemon);
 
 alter table CATTURA add constraint REF_CATTU_GIOCA
      foreign key (IdGiocatore)
-     references GIOCATORE;
+     references GIOCATORE(IdGiocatore);
 
 alter table ESEMPLARE_POKEMON add constraint REF_ESEMP_BOX_P_FK
      foreign key (IdBox)
-     references BOX_POKEMON;
+     references BOX_POKEMON(IdBox);
 
 alter table ESEMPLARE_POKEMON add constraint REF_ESEMP_GIOCA_FK
      foreign key (IdGiocatoreProprietario)
-     references GIOCATORE;
+     references GIOCATORE(IdGiocatore);
 
 alter table ESEMPLARE_POKEMON add constraint EQU_ESEMP_SQUAD_FK
      foreign key (IdSquadra)
-     references SQUADRA;
+     references SQUADRA(IdGiocatore);
 
 alter table ESEMPLARE_POKEMON add constraint REF_ESEMP_POKEM_FK
      foreign key (NumeroPokemon)
-     references POKEMON;
+     references POKEMON(NumeroPokemon);
 
 alter table EVOLUZIONE add constraint EQU_EVOLU_METOD
      foreign key (IdMetodo)
@@ -231,75 +231,75 @@ alter table EVOLUZIONE add constraint EQU_EVOLU_METOD
 
 alter table EVOLUZIONE add constraint SID_EVOLU_POKEM_1_FK
      foreign key (NumeroPokemonStadioSuccessivo)
-     references POKEMON;
+     references POKEMON(NumeroPokemon);
 
 alter table EVOLUZIONE add constraint SID_EVOLU_POKEM_FK
      foreign key (NumeroPokemonStadioCorrente)
-     references POKEMON;
+     references POKEMON(NumeroPokemon);
 
-alter table GIOCATORE add constraint ID_GIOCATORE_CHK
-     check(exists(select * from SQUADRA
-                  where SQUADRA.IdGiocatore = IdGiocatore)); 
+-- alter table GIOCATORE add constraint ID_GIOCATORE_CHK
+--      check(exists(select * from SQUADRA
+--                   where SQUADRA.IdGiocatore = IdGiocatore)); 
 
 alter table GIOCATORE add constraint REF_GIOCA_ESEMP_FK
      foreign key (IdEsemplarePreferito)
-     references ESEMPLARE_POKEMON;
+     references ESEMPLARE_POKEMON(IdEsemplare);
 
-alter table METODO_EVOLUTIVO add constraint ID_METODO_EVOLUTIVO_CHK
-     check(exists(select * from EVOLUZIONE
-                  where EVOLUZIONE.IdMetodo = IdMetodo)); 
+-- alter table METODO_EVOLUTIVO add constraint ID_METODO_EVOLUTIVO_CHK
+--      check(exists(select * from EVOLUZIONE
+--                   where EVOLUZIONE.IdMetodo = IdMetodo)); 
 
 alter table MOSSA add constraint REF_MOSSA_ELEME_FK
      foreign key (IdElemento)
-     references ELEMENTO;
+     references ELEMENTO(IdElemento);
 
 alter table PERMANENZA add constraint EQU_PERMA_POKEM
      foreign key (NumeroPokemon)
-     references POKEMON;
+     references POKEMON(NumeroPokemon);
 
 alter table PERMANENZA add constraint EQU_PERMA_BIOMA_FK
      foreign key (IdBioma)
-     references BIOMA;
+     references BIOMA(IdBioma);
 
-alter table POKEMON add constraint ID_POKEMON_CHK
-     check(exists(select * from PERMANENZA
-                  where PERMANENZA.NumeroPokemon = NumeroPokemon)); 
+-- alter table POKEMON add constraint ID_POKEMON_CHK
+--      check(exists(select * from PERMANENZA
+--                   where PERMANENZA.NumeroPokemon = NumeroPokemon)); 
 
-alter table POKEMON add constraint ID_POKEMON_CHK
-     check(exists(select * from EVOLUZIONE
-                  where EVOLUZIONE.NumeroPokemonStadioCorrente = NumeroPokemon)); 
+-- alter table POKEMON add constraint ID_POKEMON_CHK
+--      check(exists(select * from EVOLUZIONE
+--                   where EVOLUZIONE.NumeroPokemonStadioCorrente = NumeroPokemon)); 
 
 alter table POKEMON add constraint REF_POKEM_ELEME_1_FK
      foreign key (IdElementoSecondario)
-     references ELEMENTO;
+     references ELEMENTO(IdElemento);
 
 alter table POKEMON add constraint REF_POKEM_ELEME_FK
      foreign key (IdElementoPrimario)
-     references ELEMENTO;
+     references ELEMENTO(IdElemento);
 
 alter table POKEMON add constraint EQU_POKEM_SET_S_FK
      foreign key (IdStatistiche)
-     references SET_STATISTICHE;
+     references SET_STATISTICHE(IdStatistiche);
 
 alter table POKEMON add constraint SID_POKEM_POKEM_FK
      foreign key (NumeroPokemonStadioPrecedente)
-     references POKEMON;
+     references POKEMON(NumeroPokemon);
 
 alter table POKEMON add constraint REF_POKEM_ABILI_FK
      foreign key (NomeAbilita)
-     references ABILITA;
+     references ABILITA(NomeAbilita);
 
-alter table SET_STATISTICHE add constraint ID_SET_STATISTICHE_CHK
-     check(exists(select * from POKEMON
-                  where POKEMON.IdStatistiche = IdStatistiche)); 
+-- alter table SET_STATISTICHE add constraint ID_SET_STATISTICHE_CHK
+--      check(exists(select * from POKEMON
+--                   where POKEMON.IdStatistiche = IdStatistiche)); 
 
-alter table SQUADRA add constraint ID_SQUAD_GIOCA_CHK
-     check(exists(select * from ESEMPLARE_POKEMON
-                  where ESEMPLARE_POKEMON.IdSquadra = IdGiocatore)); 
+-- alter table SQUADRA add constraint ID_SQUAD_GIOCA_CHK
+--      check(exists(select * from ESEMPLARE_POKEMON
+--                   where ESEMPLARE_POKEMON.IdSquadra = IdGiocatore)); 
 
 alter table SQUADRA add constraint ID_SQUAD_GIOCA_FK
      foreign key (IdGiocatore)
-     references GIOCATORE;
+     references GIOCATORE(IdGiocatore);
 
 
 -- Index Section

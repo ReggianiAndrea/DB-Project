@@ -1,4 +1,4 @@
-use PokedexLogico;
+use PokedexADA;
 
 -- Inserimenti
 
