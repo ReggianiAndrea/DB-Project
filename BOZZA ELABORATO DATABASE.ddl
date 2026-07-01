@@ -124,7 +124,7 @@ create table PERMANENZA (
 
 create table POKEMON (
      NumeroPokemon int not null,
-     NumeroPokemonStadioPrecedente int not null,
+     NumeroPokemonStadioPrecedente int,
      Specie varchar(20) not null,
      Nome varchar(30) not null,
      DescrizionePokemon varchar(100) not null,
@@ -153,6 +153,57 @@ create table SQUADRA (
      IdGiocatore int not null,
      constraint FKpossesso_ID primary key (IdGiocatore));
 
+-- Inserimenti
+
+insert into ELEMENTO values (1, "Normale");
+insert into ELEMENTO values (2, "Fuoco");
+insert into ELEMENTO values (3, "Lotta");
+insert into ELEMENTO values (4, "Acqua");
+insert into ELEMENTO values (5, "Volante");
+insert into ELEMENTO values (6, "Erba");
+insert into ELEMENTO values (7, "Veleno");
+insert into ELEMENTO values (8, "Elettro");
+insert into ELEMENTO values (9, "Terra");
+insert into ELEMENTO values (10, "Psico");
+insert into ELEMENTO values (11, "Roccia");
+insert into ELEMENTO values (12, "Ghiaccio");
+insert into ELEMENTO values (13, "Coleottero");
+insert into ELEMENTO values (14, "Drago");
+insert into ELEMENTO values (15, "Spettro");
+insert into ELEMENTO values (16, "Buio");
+insert into ELEMENTO values (17, "Acciaio");
+insert into ELEMENTO values (18, "Folletto");
+
+insert into METODO_EVOLUTIVO values (1, "Livello", "Un Pokémon potrebbe evolversi facendo tanta esperienza in battaglia.");
+insert into METODO_EVOLUTIVO values (2, "Oggetto", "Un Pokémon potrebbe evolversi quanto va a contatto con un oggetto specifico.");
+insert into METODO_EVOLUTIVO values (3, "Scambio", "Un Pokémon potrebbe evolversi quando viene scambiato con un Pokémon di un altro allenatore.");
+
+insert into BIOMA values (1, "Prateria", "");
+insert into BIOMA values (2, "Bosco", "");
+insert into BIOMA values (3, "Costa", "");
+insert into BIOMA values (4, "Mare", "");
+insert into BIOMA values (5, "Grotta", "");
+insert into BIOMA values (6, "Montagna", "");
+insert into BIOMA values (7, "Terreno Spoglio", "");
+insert into BIOMA values (8, "Città", "");
+
+-- Dede
+
+insert into POKEMON values (1, null, "Seme", "Bulbasaur", "Ha uno strano bulbo piantato sul dorso fin dalla nascita che cresce e si sviluppa assieme a lui.", 0.7, 6.9, "Bestia", "bulbasaur.png", "Verde", 6, 7);
+insert into POKEMON values (2, 1, "Seme", "Ivysaur", "Dicono che il bocciolo sul suo dorso si schiuda in un grande fiore dopo aver assorbito nutrimento.", 1.0, 13.0, "Bestia", "ivysaur.png", "Verde", 6, 7);
+insert into POKEMON values (3, 2, "Seme", "Venusaur", "Il giorno dopo che è piovuto, il fiore sul suo dorso emana un profumo più intenso e attira gli altri Pokémon.", 2.0, 100.0, "Dinosauro", "venusaur.png", "Verde", 6, 7);
+insert into POKEMON values (4, null, "Lucertola", "Charmander", "La fiamma che Charmander ha sulla coda indica la sua forza vitale. Se è in forma, la fiamma è vivace.", 0.6, 8.5, "Rettile", "charmander.png", "Rosso", 2, null);
+insert into POKEMON values (5, 4, "Fiamma", "Charmeleon", "Fa cadere a terra il nemico colpendolo con la coda, per poi finirlo con gli artigli affilati.", 1.1, 19.0, "Rettile", "charmeleon.png", "Rosso", 2, null);
+insert into POKEMON values (6, 5, "Fiamma", "Charizard", "Grazie alle sue ali può volare fino a 1.400 m d'altezza. Sputa fiamme incandescenti.", 1.7, 90.5, "Drago", "charizard.png", "Rosso", 2, 5);
+insert into POKEMON values (7, null, "Tartaghina", "Squirtle", "Si ritira nel suo guscio per proteggersi e, alla prima occasione, contrattacca colpendo il nemico con spruzzi d'acqua.", 0.5, 9.0, "Bestia", "squirtle.png", "Blu", 4, null);
+insert into POKEMON values (8, 7, "Tartaruga", "Wartortle", "Quando sta per ricevere un colpo sulla testa si ritira nella corazza per evitarlo. La coda, però, resta sempre un po' fuori.", 1.0, 22.5, "Tartaruga", "wartortle.png", "Blu", 4, null);
+insert into POKEMON values (9, 8, "Carapace", "Blastoise", "Mette KO gli avversari schiacciandoli sotto il corpo possente. Se è in difficoltà, si ritrae nella corazza.", 1.6, 85.5, "Tartaruga", "blastoise.png", "Blu", 4, null);
+insert into POKEMON values (16, null, "Uccellino", "Pidgey", "È docile e preferisce evitare conflitti, ma se viene disturbato contrattacca ferocemente.", 0.3, 1.8, "Uccello", "pidgey.png", "Marrone", 1, 5);
+insert into POKEMON values (17, 16, "Uccello", "Pidgeotto", "Controlla un vasto territorio e prende a beccate qualsiasi intruso.", 1.1, 30.0, "Uccello", "pidgeotto.png", "Marrone", 1, 5);
+insert into POKEMON values (18, 17, "Uccello", "Pidgeot", "Quando caccia, vola rasente alla superficie dell'acqua e cattura Magikarp e altre prede afferrandole con gli artigli.", 1.5, 39.5, "Uccello", "pidgeot.png", "Marrone", 1, 5);
+insert into POKEMON values (25, null, "Topo", "Pikachu", "Quando si sente minacciato emette scariche elettriche dalle due piccole sacche sulle guance.", 0.4, 6.0, "Topo", "pikachu.png", "Giallo", 8, null);
+insert into POKEMON values (26, 25, "Topo", "Raichu", "Quando l'elettricità al suo interno si accumula finisce per stimolarne i muscoli, rendendolo più aggressivo del solito.", 0.8, 30.0, "Topo", "raichu.png", "Giallo", 8, null);
+insert into POKEMON values (27, null, "Topo", "Sandshrew", "Se cade da una grande altezza, questo Pokémon può salvarsi appallottolandosi e rimbalzando.", 0.6, 12.0, "Bestia", "sandshrew.png", "Giallo", 9, null);
 
 -- Constraints Section
 -- ___________________ 
