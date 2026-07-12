@@ -1,37 +1,18 @@
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.Runtime.InteropServices;
+using PokedexADA.PokedexADA;
 
 namespace PokedexADA
 {
     public partial class Form1 : Form
     {
         // esempio di test
-        Allenatore ash = new Allenatore("Ash", "Ketchum", 10, 50.0f, 1.5f, EssereVivente.Genere.MASCHIO, "Ash007", 1);
-        List<Pokemon> pokedex;
+        Allenatore ash = new Allenatore("Ash", "Ketchum", Allenatore.Genere.MASCHIO, "Ash007", 1);
+        List<Pokemon> pokedex = Database.Instance.GetPokedex();
 
         public Form1()
         {
-            MySqlConnection db = new MySqlConnection("Server=localhost; Database=PokedexADA; Uid=root; Password=;");
-            db.Open();
-
             InitializeComponent();
 
             tabControl1.Selecting += new TabControlCancelEventHandler(tabControl1_Selecting);
-
-            MySqlCommand cmd = new MySqlCommand("select * from pokemon", db);
-            MySqlDataReader q = cmd.ExecuteReader();
-            pokedex = new List<Pokemon>();
-            while (q.Read())
-            {
-                Pokemon p = new Pokemon((string)q["nome"], (int)q["numeropokemon"], (float)q["altezza"], (float)q["peso"],
-                    (string)q["impronta"], (string)q["specie"], (string)q["descrizionepokemon"], (string)q["immagine"],
-                    (Pokemon.Tipo)q["idelementoprimario"],
-                    (q["idelementosecondario"] is System.DBNull ? null : (Pokemon.Tipo)q["idelementosecondario"]));
-                pokedex.Add(p);
-            }
-            q.Close();
-
 
             pokemonDisponibiliBox.Items.AddRange(pokedex.Select(p => p.Nome).ToArray());
             pokemonDisponibiliBox.SelectedItem = pokedex[0].Nome;
@@ -40,7 +21,7 @@ namespace PokedexADA
 
             foreach (Pokemon p in pokedex)
             {
-                var item = new ListViewItem(new[] { p.IdDex.ToString(), p.Nome, "" });
+                var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), p.Nome, "" });
                 pokedexList.Items.Add(item);
             }
         }
@@ -89,32 +70,33 @@ namespace PokedexADA
             Pokemon pokemon = pokedex[index];
             Bitmap picture = (Bitmap)Image.FromFile(@"..\..\..\res\" + pokemon.Immagine);
             string nome, specie, altezza, peso, impronta, descrizione;
-            if (!ash.PokemonIncontrati.Contains(pokemon.Nome))
-            {
-                picture = filterPicture(picture);
-                nome = "???";
-                specie = "???";
-                altezza = "???";
-                peso = "???";
-                impronta = "???";
-                descrizione = "";
-            }
-            else
+            nome = "???";
+            specie = "???";
+            altezza = "???";
+            peso = "???";
+            impronta = "???";
+            descrizione = "";
+            pokedexPicture.Image = null;
+            if (ash.PokemonIncontrati.Contains(pokemon.Nome))
             {
                 nome = pokemon.Nome;
                 specie = pokemon.Specie;
+                pokedexPicture.Image = filterPicture(picture);
+            }
+            if (ash.PokemonCatturati.Contains(pokemon.Nome))
+            {
                 altezza = "" + pokemon.Altezza;
                 peso = "" + pokemon.Peso;
                 impronta = pokemon.Impronta;
-                descrizione = pokemon.Descrizione;
+                descrizione = pokemon.DescrizionePokemon;
+                pokedexPicture.Image = picture;
             }
-            pokemonLabel.Text = $"{pokemon.IdDex}: {nome}";
+            pokemonLabel.Text = $"{pokemon.NumeroPokemon}: {nome}";
             speciePokemonLabel.Text = $"Pokemon: {specie}";
             altezzaPokemonLabel.Text = $"Altezza: {altezza} m";
             pesoPokemonLabel.Text = $"Peso: {peso} kg";
             improntaPokemonLabel.Text = $"Impronta: {impronta}";
             descrizionePokemonTextBox.Text = descrizione;
-            pokedexPicture.Image = picture;
         }
 
         private Bitmap filterPicture(Bitmap picture)
