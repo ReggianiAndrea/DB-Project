@@ -15,11 +15,11 @@ public partial class PokedexAdaContext : DbContext
     {
     }
 
-    public virtual DbSet<Abilitum> Abilita { get; set; }
+    public virtual DbSet<Abilita> Abilita { get; set; }
 
-    public virtual DbSet<Amicizium> Amicizia { get; set; }
+    public virtual DbSet<Amicizia> Amicizia { get; set; }
 
-    public virtual DbSet<Battaglium> Battaglia { get; set; }
+    public virtual DbSet<Battaglia> Battaglia { get; set; }
 
     public virtual DbSet<Bioma> Biomas { get; set; }
 
@@ -49,7 +49,7 @@ public partial class PokedexAdaContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Abilitum>(entity =>
+        modelBuilder.Entity<Abilita>(entity =>
         {
             entity.HasKey(e => e.NomeAbilita).HasName("PRIMARY");
 
@@ -61,7 +61,7 @@ public partial class PokedexAdaContext : DbContext
             entity.Property(e => e.DescrizioneAbilita).HasMaxLength(200);
         });
 
-        modelBuilder.Entity<Amicizium>(entity =>
+        modelBuilder.Entity<Amicizia>(entity =>
         {
             entity.HasKey(e => new { e.IdGiocatoreAmico, e.IdGiocatore }).HasName("PRIMARY");
 
@@ -75,18 +75,18 @@ public partial class PokedexAdaContext : DbContext
                 .HasMaxLength(1)
                 .IsFixedLength();
 
-            entity.HasOne(d => d.IdGiocatoreNavigation).WithMany(p => p.AmiciziumIdGiocatoreNavigations)
+            entity.HasOne(d => d.IdGiocatoreNavigation).WithMany(p => p.AmiciziaIdGiocatoreNavigations)
                 .HasForeignKey(d => d.IdGiocatore)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_AMICI_GIOCA_1_FK");
 
-            entity.HasOne(d => d.IdGiocatoreAmicoNavigation).WithMany(p => p.AmiciziumIdGiocatoreAmicoNavigations)
+            entity.HasOne(d => d.IdGiocatoreAmicoNavigation).WithMany(p => p.AmiciziaIdGiocatoreAmicoNavigations)
                 .HasForeignKey(d => d.IdGiocatoreAmico)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_AMICI_GIOCA");
         });
 
-        modelBuilder.Entity<Battaglium>(entity =>
+        modelBuilder.Entity<Battaglia>(entity =>
         {
             entity.HasKey(e => e.IdBattaglia).HasName("PRIMARY");
 
@@ -106,12 +106,12 @@ public partial class PokedexAdaContext : DbContext
                 .HasMaxLength(1)
                 .IsFixedLength();
 
-            entity.HasOne(d => d.IdGiocatoreSfidanteNavigation).WithMany(p => p.BattagliumIdGiocatoreSfidanteNavigations)
+            entity.HasOne(d => d.IdGiocatoreSfidanteNavigation).WithMany(p => p.BattagliaIdGiocatoreSfidanteNavigations)
                 .HasForeignKey(d => d.IdGiocatoreSfidante)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_BATTA_SQUAD_1");
 
-            entity.HasOne(d => d.IdGiocatoreSfidatoNavigation).WithMany(p => p.BattagliumIdGiocatoreSfidatoNavigations)
+            entity.HasOne(d => d.IdGiocatoreSfidatoNavigation).WithMany(p => p.BattagliaIdGiocatoreSfidatoNavigations)
                 .HasForeignKey(d => d.IdGiocatoreSfidato)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_BATTA_SQUAD_FK");

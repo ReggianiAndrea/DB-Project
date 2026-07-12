@@ -17,9 +17,9 @@ public partial class Giocatore
 
     public int? IdEsemplarePreferito { get; set; }
 
-    public virtual ICollection<Amicizium> AmiciziumIdGiocatoreAmicoNavigations { get; set; } = new List<Amicizium>();
+    public virtual ICollection<Amicizia> AmiciziaIdGiocatoreAmicoNavigations { get; set; } = new List<Amicizia>();
 
-    public virtual ICollection<Amicizium> AmiciziumIdGiocatoreNavigations { get; set; } = new List<Amicizium>();
+    public virtual ICollection<Amicizia> AmiciziaIdGiocatoreNavigations { get; set; } = new List<Amicizia>();
 
     public virtual ICollection<BoxPokemon> BoxPokemons { get; set; } = new List<BoxPokemon>();
 

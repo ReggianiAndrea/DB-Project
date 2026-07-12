@@ -47,7 +47,7 @@ public partial class Pokemon
 
     public virtual Pokemon? InverseNumeroPokemonStadioPrecedenteNavigation { get; set; }
 
-    public virtual Abilitum NomeAbilitaNavigation { get; set; } = null!;
+    public virtual Abilita NomeAbilitaNavigation { get; set; } = null!;
 
     public virtual Pokemon? NumeroPokemonStadioPrecedenteNavigation { get; set; }
 

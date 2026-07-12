@@ -7,9 +7,9 @@ public partial class Squadra
 {
     public int IdGiocatore { get; set; }
 
-    public virtual ICollection<Battaglium> BattagliumIdGiocatoreSfidanteNavigations { get; set; } = new List<Battaglium>();
+    public virtual ICollection<Battaglia> BattagliaIdGiocatoreSfidanteNavigations { get; set; } = new List<Battaglia>();
 
-    public virtual ICollection<Battaglium> BattagliumIdGiocatoreSfidatoNavigations { get; set; } = new List<Battaglium>();
+    public virtual ICollection<Battaglia> BattagliaIdGiocatoreSfidatoNavigations { get; set; } = new List<Battaglia>();
 
     public virtual ICollection<EsemplarePokemon> EsemplarePokemons { get; set; } = new List<EsemplarePokemon>();
 
