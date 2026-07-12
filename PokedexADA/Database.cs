@@ -13,15 +13,15 @@ namespace PokedexADA
             db = new PokedexAdaContext();
         }
 
-        public List<Pokemon> GetPokedex()
+        public static List<Pokemon> GetPokedex()
         {
-            var query = from p in db.Pokemons select p;
+            var query = from p in Instance.db.Pokemons select p;
             return query.ToList();
         }
 
         private static Database instance;
 
-        public static Database Instance
+        private static Database Instance
         {
             get
             {

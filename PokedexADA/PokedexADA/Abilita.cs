@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PokedexADA.PokedexADA;
 
-public partial class Abilitum
+public partial class Abilita
 {
     public string NomeAbilita { get; set; } = null!;
 

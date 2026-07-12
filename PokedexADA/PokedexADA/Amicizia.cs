@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PokedexADA.PokedexADA;
 
-public partial class Amicizium
+public partial class Amicizia
 {
     public int IdGiocatore { get; set; }
 

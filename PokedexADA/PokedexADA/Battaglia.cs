@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PokedexADA.PokedexADA;
 
-public partial class Battaglium
+public partial class Battaglia
 {
     public int IdBattaglia { get; set; }
 

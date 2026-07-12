@@ -6,7 +6,7 @@ namespace PokedexADA
     {
         // esempio di test
         Allenatore ash = new Allenatore("Ash", "Ketchum", Allenatore.Genere.MASCHIO, "Ash007", 1);
-        List<Pokemon> pokedex = Database.Instance.GetPokedex();
+        List<Pokemon> pokedex = Database.GetPokedex();
 
         public Form1()
         {
@@ -58,6 +58,7 @@ namespace PokedexADA
             else
             {
                 outputBox.Text += ash.CatturaFallita(nome);
+                pokedexList.Items[id].SubItems[2].Text = "o";
             }
         }
 
@@ -107,7 +108,7 @@ namespace PokedexADA
                 for (int x = 0; x < filteredPicture.Width; x++)
                 {
                     Color px = picture.GetPixel(x, y);
-                    if (px.A != 0)
+                    if (px.A > 0.8)
                     {
                         px = Color.Gray;
                     }
