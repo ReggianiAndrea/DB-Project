@@ -1,24 +1,37 @@
+using MySql.Data;
+using MySql.Data.MySqlClient;
+using System.Runtime.InteropServices;
+
 namespace PokedexADA
 {
     public partial class Form1 : Form
     {
         // esempio di test
         Allenatore ash = new Allenatore("Ash", "Ketchum", 10, 50.0f, 1.5f, EssereVivente.Genere.MASCHIO, "Ash007", 1);
-
-        Pokemon pikachu = new Pokemon("Pikachu", 25, 6.0f, 0.4f, "scintilla", EssereVivente.Genere.MASCHIO, Pokemon.Tipo.ELETTRO);
-        Pokemon bulbasaur = new Pokemon("Bulbasaur", 1, 6.9f, 0.7f, "foglia", EssereVivente.Genere.MASCHIO, Pokemon.Tipo.ERBA, Pokemon.Tipo.VELENO);
-        Pokemon charmander = new Pokemon("Charmander", 4, 7.1f, 0.6f, "fiamma", EssereVivente.Genere.FEMMINA, Pokemon.Tipo.FUOCO);
-
         List<Pokemon> pokedex;
 
         public Form1()
         {
+            MySqlConnection db = new MySqlConnection("Server=localhost; Database=PokedexADA; Uid=root; Password=;");
+            db.Open();
+
             InitializeComponent();
 
             tabControl1.Selecting += new TabControlCancelEventHandler(tabControl1_Selecting);
 
-            pokedex = new List<Pokemon> { pikachu, bulbasaur, charmander };
-            pokedex.Sort((p1, p2) => p1.IdDex.CompareTo(p2.IdDex));
+            MySqlCommand cmd = new MySqlCommand("select * from pokemon", db);
+            MySqlDataReader q = cmd.ExecuteReader();
+            pokedex = new List<Pokemon>();
+            while (q.Read())
+            {
+                Pokemon p = new Pokemon((string)q["nome"], (int)q["numeropokemon"], (float)q["altezza"], (float)q["peso"],
+                    (string)q["impronta"], (string)q["specie"], (string)q["descrizionepokemon"], (string)q["immagine"],
+                    (Pokemon.Tipo)q["idelementoprimario"],
+                    (q["idelementosecondario"] is System.DBNull ? null : (Pokemon.Tipo)q["idelementosecondario"]));
+                pokedex.Add(p);
+            }
+            q.Close();
+
 
             pokemonDisponibiliBox.Items.AddRange(pokedex.Select(p => p.Nome).ToArray());
             pokemonDisponibiliBox.SelectedItem = pokedex[0].Nome;
@@ -74,17 +87,33 @@ namespace PokedexADA
 
             int index = pokedexList.SelectedItems[0].Index;
             Pokemon pokemon = pokedex[index];
-            Bitmap picture = (Bitmap) pokemonImageList.Images[index];
+            Bitmap picture = (Bitmap)Image.FromFile(@"..\..\..\res\" + pokemon.Immagine);
+            string nome, specie, altezza, peso, impronta, descrizione;
             if (!ash.PokemonIncontrati.Contains(pokemon.Nome))
             {
                 picture = filterPicture(picture);
+                nome = "???";
+                specie = "???";
+                altezza = "???";
+                peso = "???";
+                impronta = "???";
+                descrizione = "";
             }
-            pokemonLabel.Text = $"{pokemon.IdDex} Pokemon: {pokemon.Nome}";
-            if (ash.PokemonCatturati.Contains(pokemon.Nome))
+            else
             {
-                altezzaPokemonLabel.Text = $"Altezza: {pokemon.Altezza} m";
-                pesoPokemonLabel.Text = $"Peso: {pokemon.Peso} kg";
+                nome = pokemon.Nome;
+                specie = pokemon.Specie;
+                altezza = "" + pokemon.Altezza;
+                peso = "" + pokemon.Peso;
+                impronta = pokemon.Impronta;
+                descrizione = pokemon.Descrizione;
             }
+            pokemonLabel.Text = $"{pokemon.IdDex}: {nome}";
+            speciePokemonLabel.Text = $"Pokemon: {specie}";
+            altezzaPokemonLabel.Text = $"Altezza: {altezza} m";
+            pesoPokemonLabel.Text = $"Peso: {peso} kg";
+            improntaPokemonLabel.Text = $"Impronta: {impronta}";
+            descrizionePokemonTextBox.Text = descrizione;
             pokedexPicture.Image = picture;
         }
 

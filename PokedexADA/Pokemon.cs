@@ -1,42 +1,39 @@
-﻿using System.Runtime.InteropServices;
-
+﻿using Mysqlx.Crud;
 namespace PokedexADA
 {
-    public class Pokemon : EssereVivente
+    public class Pokemon
     {
         public enum Tipo
         {
-            NORMALE, FUOCO, LOTTA, ACQUA,
+            NORMALE = 1, FUOCO, LOTTA, ACQUA,
             VOLANTE, ERBA, VELENO, ELETTRO,
             TERRA, PSICO, ROCCIA, GHIACCIO,
             COLEOTTERO, DRAGO, SPETTRO
         }
 
         public int IdDex { get; }
-        public Tipo TipoPrimario { get; }
-        public Tipo TipoSecondario { get; }
+        public string Nome { get; }
+        public float Peso { get; }
+        public float Altezza { get; }
         public string Impronta { get; }
+        public string Specie { get; }
+        public string Descrizione { get; }
+        public string Immagine { get; }
+        public Tipo TipoPrimario { get; }
+        public Tipo? TipoSecondario { get; }
 
-        private string verso;
-
-        public Pokemon(string nome, int idDex, float peso, float altezza, string impronta, Genere sesso, Tipo tipoPrimario, [Optional] Tipo tipoSecondario)
-            : base(nome, peso, altezza, sesso)
+        public Pokemon(string nome, int idDex, float altezza, float peso, string impronta, string specie, string descrizione, string immagine, Tipo tipoPrimario, Tipo? tipoSecondario)
         {
+            Nome = nome;
             IdDex = idDex;
+            Peso = peso;
+            Altezza = altezza;
+            Impronta = impronta;
+            Specie = specie;
+            Descrizione = descrizione;
+            Immagine = immagine;
             TipoPrimario = tipoPrimario;
             TipoSecondario = tipoSecondario;
-            Impronta = impronta;
-            verso = $"{Nome} fa un verso selvaggio";
-        }
-
-        public override string Comunica()
-        {
-            return verso;
-        }
-
-        public string OttieniImpronta()
-        {
-            return $"il pokemon ha impronta {Impronta}";
         }
     }
 }

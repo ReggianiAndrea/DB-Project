@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             outputBox = new RichTextBox();
             mostraStato = new Button();
             cercaPokemonButton = new Button();
@@ -39,6 +37,12 @@
             tabControl1 = new TabControl();
             cercaECattura = new TabPage();
             visualizzaPokedex = new TabPage();
+            descrizionePokemonLabel = new Label();
+            improntaPokemonLabel = new Label();
+            descrizionePokemonTextBox = new RichTextBox();
+            pesoPokemonLabel = new Label();
+            altezzaPokemonLabel = new Label();
+            speciePokemonLabel = new Label();
             pokemonLabel = new Label();
             pokedexPicture = new PictureBox();
             pokedexList = new ListView();
@@ -46,12 +50,6 @@
             names = new ColumnHeader();
             captured = new ColumnHeader();
             visualizzaAmici = new TabPage();
-            pokemonImageList = new ImageList(components);
-            speciePokemonLabel = new Label();
-            altezzaPokemonLabel = new Label();
-            pesoPokemonLabel = new Label();
-            descrizionePokemonTextBox = new RichTextBox();
-            improntaPokemonLabel = new Label();
             tabControl1.SuspendLayout();
             cercaECattura.SuspendLayout();
             visualizzaPokedex.SuspendLayout();
@@ -143,6 +141,7 @@
             // 
             // visualizzaPokedex
             // 
+            visualizzaPokedex.Controls.Add(descrizionePokemonLabel);
             visualizzaPokedex.Controls.Add(improntaPokemonLabel);
             visualizzaPokedex.Controls.Add(descrizionePokemonTextBox);
             visualizzaPokedex.Controls.Add(pesoPokemonLabel);
@@ -158,6 +157,60 @@
             visualizzaPokedex.TabIndex = 1;
             visualizzaPokedex.Text = "Visualizza Pokedex";
             visualizzaPokedex.UseVisualStyleBackColor = true;
+            // 
+            // descrizionePokemonLabel
+            // 
+            descrizionePokemonLabel.AutoSize = true;
+            descrizionePokemonLabel.Location = new Point(329, 174);
+            descrizionePokemonLabel.Name = "descrizionePokemonLabel";
+            descrizionePokemonLabel.Size = new Size(70, 15);
+            descrizionePokemonLabel.TabIndex = 8;
+            descrizionePokemonLabel.Text = "Descrizione:";
+            // 
+            // improntaPokemonLabel
+            // 
+            improntaPokemonLabel.AutoSize = true;
+            improntaPokemonLabel.Location = new Point(495, 66);
+            improntaPokemonLabel.Name = "improntaPokemonLabel";
+            improntaPokemonLabel.Size = new Size(59, 15);
+            improntaPokemonLabel.TabIndex = 7;
+            improntaPokemonLabel.Text = "Impronta:";
+            // 
+            // descrizionePokemonTextBox
+            // 
+            descrizionePokemonTextBox.Location = new Point(329, 192);
+            descrizionePokemonTextBox.Name = "descrizionePokemonTextBox";
+            descrizionePokemonTextBox.ReadOnly = true;
+            descrizionePokemonTextBox.Size = new Size(409, 93);
+            descrizionePokemonTextBox.TabIndex = 6;
+            descrizionePokemonTextBox.Text = "";
+            // 
+            // pesoPokemonLabel
+            // 
+            pesoPokemonLabel.AutoSize = true;
+            pesoPokemonLabel.Location = new Point(495, 51);
+            pesoPokemonLabel.Name = "pesoPokemonLabel";
+            pesoPokemonLabel.Size = new Size(35, 15);
+            pesoPokemonLabel.TabIndex = 5;
+            pesoPokemonLabel.Text = "Peso:";
+            // 
+            // altezzaPokemonLabel
+            // 
+            altezzaPokemonLabel.AutoSize = true;
+            altezzaPokemonLabel.Location = new Point(495, 36);
+            altezzaPokemonLabel.Name = "altezzaPokemonLabel";
+            altezzaPokemonLabel.Size = new Size(47, 15);
+            altezzaPokemonLabel.TabIndex = 4;
+            altezzaPokemonLabel.Text = "Altezza:";
+            // 
+            // speciePokemonLabel
+            // 
+            speciePokemonLabel.AutoSize = true;
+            speciePokemonLabel.Location = new Point(495, 21);
+            speciePokemonLabel.Name = "speciePokemonLabel";
+            speciePokemonLabel.Size = new Size(61, 15);
+            speciePokemonLabel.TabIndex = 3;
+            speciePokemonLabel.Text = "Pokemon:";
             // 
             // pokemonLabel
             // 
@@ -214,60 +267,6 @@
             visualizzaAmici.Text = "Visualizza Amici";
             visualizzaAmici.UseVisualStyleBackColor = true;
             // 
-            // pokemonImageList
-            // 
-            pokemonImageList.ColorDepth = ColorDepth.Depth32Bit;
-            pokemonImageList.ImageStream = (ImageListStreamer)resources.GetObject("pokemonImageList.ImageStream");
-            pokemonImageList.TransparentColor = Color.Transparent;
-            pokemonImageList.Images.SetKeyName(0, "001.png");
-            pokemonImageList.Images.SetKeyName(1, "004.png");
-            pokemonImageList.Images.SetKeyName(2, "025.png");
-            // 
-            // speciePokemonLabel
-            // 
-            speciePokemonLabel.AutoSize = true;
-            speciePokemonLabel.Location = new Point(495, 21);
-            speciePokemonLabel.Name = "speciePokemonLabel";
-            speciePokemonLabel.Size = new Size(61, 15);
-            speciePokemonLabel.TabIndex = 3;
-            speciePokemonLabel.Text = "Pokemon:";
-            // 
-            // altezzaPokemonLabel
-            // 
-            altezzaPokemonLabel.AutoSize = true;
-            altezzaPokemonLabel.Location = new Point(495, 36);
-            altezzaPokemonLabel.Name = "altezzaPokemonLabel";
-            altezzaPokemonLabel.Size = new Size(47, 15);
-            altezzaPokemonLabel.TabIndex = 4;
-            altezzaPokemonLabel.Text = "Altezza:";
-            // 
-            // pesoPokemonLabel
-            // 
-            pesoPokemonLabel.AutoSize = true;
-            pesoPokemonLabel.Location = new Point(495, 51);
-            pesoPokemonLabel.Name = "pesoPokemonLabel";
-            pesoPokemonLabel.Size = new Size(35, 15);
-            pesoPokemonLabel.TabIndex = 5;
-            pesoPokemonLabel.Text = "Peso:";
-            // 
-            // descrizionePokemonTextBox
-            // 
-            descrizionePokemonTextBox.Location = new Point(329, 192);
-            descrizionePokemonTextBox.Name = "descrizionePokemonTextBox";
-            descrizionePokemonTextBox.ReadOnly = true;
-            descrizionePokemonTextBox.Size = new Size(409, 93);
-            descrizionePokemonTextBox.TabIndex = 6;
-            descrizionePokemonTextBox.Text = "";
-            // 
-            // improntaPokemonLabel
-            // 
-            improntaPokemonLabel.AutoSize = true;
-            improntaPokemonLabel.Location = new Point(495, 66);
-            improntaPokemonLabel.Name = "improntaPokemonLabel";
-            improntaPokemonLabel.Size = new Size(59, 15);
-            improntaPokemonLabel.TabIndex = 7;
-            improntaPokemonLabel.Text = "Impronta:";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -301,7 +300,6 @@
         private PictureBox pokedexPicture;
         private ColumnHeader ids;
         private ColumnHeader names;
-        private ImageList pokemonImageList;
         private ColumnHeader captured;
         private Label pokemonLabel;
         private Label speciePokemonLabel;
@@ -309,5 +307,6 @@
         private Label pesoPokemonLabel;
         private RichTextBox descrizionePokemonTextBox;
         private Label improntaPokemonLabel;
+        private Label descrizionePokemonLabel;
     }
 }
