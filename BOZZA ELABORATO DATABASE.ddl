@@ -23,140 +23,139 @@ use PokedexADA;
 -- _____________ 
 
 create table ABILITA (
-     NomeAbilita varchar(20) not null,
-     DescrizioneAbilita varchar(50) not null,
+     NomeAbilita varchar(30) not null,
+     DescrizioneAbilita varchar(200) not null,
      constraint ID_ABILITA_ID primary key (NomeAbilita));
 
 create table ACQUISIZIONE (
-     NomeMossa varchar(20) not null,
-     NumeroPokemon numeric(1) not null,
+     NomeMossa varchar(30) not null,
+     NumeroPokemon int not null,
      constraint ID_ACQUISIZIONE_ID primary key (NomeMossa, NumeroPokemon));
 
 create table AMICIZIA (
-     IdGiocatore numeric(1) not null,
-     IdGiocatoreAmico numeric(1) not null,
+     IdGiocatore int not null,
+     IdGiocatoreAmico int not null,
      Bloccato char not null,
      constraint ID_AMICIZIA_ID primary key (IdGiocatoreAmico, IdGiocatore));
 
 create table AVVISTAMENTO (
-     IdGiocatore numeric(1) not null,
-     NumeroPokemon numeric(1) not null,
+     IdGiocatore int not null,
+     NumeroPokemon int not null,
      constraint ID_AVVISTAMENTO_ID primary key (IdGiocatore, NumeroPokemon));
 
 create table BATTAGLIA (
-     IdBattaglia numeric(1) not null,
+     IdBattaglia int not null,
      SfidanteVincitore char not null,
      Data date not null,
-     IdGiocatoreSfidante numeric(1) not null,
-     IdGiocatoreSfidato numeric(1) not null,
+     IdGiocatoreSfidante int not null,
+     IdGiocatoreSfidato int not null,
      Luogo varchar(30) not null,
      constraint SID_BATTAGLIA_ID unique (IdGiocatoreSfidante, IdGiocatoreSfidato, Data),
      constraint ID_BATTAGLIA_ID primary key (IdBattaglia));
 
 create table BIOMA (
-     IdBioma numeric(1) not null,
-     Habitat varchar(10) not null,
-     DescrizioneHabitat varchar(50) not null,
+     IdBioma int not null,
+     Habitat varchar(30) not null,
+     DescrizioneHabitat varchar(200) not null,
      constraint ID_BIOMA_ID primary key (IdBioma));
 
 create table BOX_POKEMON (
-     IdBox numeric(1) not null,
-     IdGiocatore numeric(1) not null,
+     IdBox int not null,
+     IdGiocatore int not null,
      constraint ID_BOX_POKEMON_ID primary key (IdBox));
 
 create table CATTURA (
-     IdGiocatore numeric(1) not null,
-     NumeroPokemon numeric(1) not null,
+     IdGiocatore int not null,
+     NumeroPokemon int not null,
      constraint ID_CATTURA_ID primary key (IdGiocatore, NumeroPokemon));
 
 create table ELEMENTO (
-     IdElemento numeric(1) not null,
+     IdElemento int not null,
      Tipologia varchar(10) not null,
      constraint ID_ELEMENTO_ID primary key (IdElemento));
 
 create table ESEMPLARE_POKEMON (
-     IdEsemplare numeric(1) not null,
+     IdEsemplare int not null,
      NomeAllenatore varchar(30) not null,
      NomePrimoAllenatore varchar(30) not null,
-     Livello numeric(1) not null,
+     Livello int not null,
      DataCattura date not null,
      InBox char not null,
-     Sesso char(1) not null,
+     Sesso char not null,
      Cromatico char not null,
-     NumeroPokemon numeric(1) not null,
-     IdGiocatoreProprietario numeric(1) not null,
-     IdSquadra numeric(1),
-     IdBox numeric(1),
+     NumeroPokemon int not null,
+     IdGiocatoreProprietario int not null,
+     IdSquadra int,
+     IdBox int,
      constraint ID_ESEMPLARE_POKEMON_ID primary key (IdEsemplare));
 
 create table EVOLUZIONE (
-     NumeroPokemonStadioCorrente numeric(1) not null,
-     NumeroPokemonStadioSuccessivo numeric(1) not null,
-     IdMetodo numeric(1) not null,
+     NumeroPokemonStadioCorrente int not null,
+     NumeroPokemonStadioSuccessivo int not null,
+     IdMetodo int not null,
      constraint ID_EVOLUZIONE_ID primary key (IdMetodo, NumeroPokemonStadioCorrente, NumeroPokemonStadioSuccessivo),
      constraint SID_EVOLU_POKEM_1_ID unique (NumeroPokemonStadioSuccessivo),
      constraint SID_EVOLU_POKEM_ID unique (NumeroPokemonStadioCorrente));
 
 create table GIOCATORE (
-     IdGiocatore numeric(1) not null,
+     IdGiocatore int not null,
      Nome varchar(30) not null,
      Cognome varchar(30) not null,
      Nickname varchar(30) not null,
      Immagine varchar(100) not null,
-     IdEsemplarePreferito numeric(1),
+     IdEsemplarePreferito int,
      constraint ID_GIOCATORE_ID primary key (IdGiocatore));
 
 create table METODO_EVOLUTIVO (
-     IdMetodo numeric(1) not null,
-     Nome varchar(20) not null,
-     Descrizione varchar(50) not null,
+     IdMetodo int not null,
+     Nome varchar(30) not null,
+     Descrizione varchar(100) not null,
      constraint ID_METODO_EVOLUTIVO_ID primary key (IdMetodo));
 
 create table MOSSA (
-     NomeMossa varchar(20) not null,
-     DescrizioneMossa varchar(50) not null,
-     Precisione numeric(1) not null,
-     Danno numeric(1),
-     IdElemento numeric(1) not null,
+     NomeMossa varchar(30) not null,
+     DescrizioneMossa varchar(200) not null,
+     Precisione int not null,
+     Danno int,
+     IdElemento int not null,
      constraint ID_MOSSA_ID primary key (NomeMossa));
 
 create table PERMANENZA (
-     IdBioma numeric(1) not null,
-     NumeroPokemon numeric(1) not null,
+     IdBioma int not null,
+     NumeroPokemon int not null,
      constraint ID_PERMANENZA_ID primary key (NumeroPokemon, IdBioma));
 
 create table POKEMON (
-     NumeroPokemon numeric(1) not null,
-     NumeroPokemonStadioPrecedente numeric(1),
-     Specie varchar(20) not null,
+     NumeroPokemon int not null,
+     NumeroPokemonStadioPrecedente int,
+     Specie varchar(30) not null,
      Nome varchar(30) not null,
-     DescrizionePokemon varchar(100) not null,
-     Altezza float(1) not null,
-     Peso float(1) not null,
-     Impronta numeric(1) not null,
+     DescrizionePokemon varchar(200) not null,
+     Altezza float not null,
+     Peso float not null,
+     Impronta varchar(30) not null,
      Immagine varchar(100) not null,
-     ColoreDominante varchar(10) not null,
-     IdElementoPrimario numeric(1) not null,
-     IdElementoSecondario numeric(1),
-     IdStatistiche numeric(1) not null,
-     NomeAbilita varchar(20) not null,
+     ColoreDominante varchar(20) not null,
+     IdElementoPrimario int not null,
+     IdElementoSecondario int,
+     IdStatistiche int not null,
+     NomeAbilita varchar(30) not null,
      constraint ID_POKEMON_ID primary key (NumeroPokemon),
      constraint SID_POKEM_POKEM_ID unique (NumeroPokemonStadioPrecedente));
 
 create table SET_STATISTICHE (
-     IdStatistiche numeric(1) not null,
-     Attacco numeric(1) not null,
-     Difesa numeric(1) not null,
-     PuntiSalute numeric(1) not null,
-     AttaccoSpeciale numeric(1) not null,
-     DifesaSpeciale numeric(1) not null,
-     Velocita numeric(1) not null,
+     IdStatistiche int not null auto_increment,
+     Attacco int not null,
+     Difesa int not null,
+     PuntiSalute int not null,
+     AttaccoSpeciale int not null,
+     DifesaSpeciale int not null,
+     Velocita int not null,
      constraint ID_SET_STATISTICHE_ID primary key (IdStatistiche));
 
 create table SQUADRA (
-     IdGiocatore numeric(1) not null,
+     IdGiocatore int not null,
      constraint ID_SQUAD_GIOCA_ID primary key (IdGiocatore));
-
 
 -- Constraints Section
 -- ___________________ 
@@ -225,9 +224,9 @@ alter table ESEMPLARE_POKEMON add constraint REF_ESEMP_POKEM_FK
      foreign key (NumeroPokemon)
      references POKEMON(NumeroPokemon);
 
-alter table EVOLUZIONE add constraint EQU_EVOLU_METOD
-     foreign key (IdMetodo)
-     references METODO_EVOLUTIVO;
+-- alter table EVOLUZIONE add constraint EQU_EVOLU_METOD
+     -- foreign key (IdMetodo)
+     -- references METODO_EVOLUTIVO;
 
 alter table EVOLUZIONE add constraint SID_EVOLU_POKEM_1_FK
      foreign key (NumeroPokemonStadioSuccessivo)

@@ -1,27 +1,38 @@
 ﻿namespace PokedexADA
 {
-    internal class Allenatore : Persona
+    internal class Allenatore
     {
         private int idAllenatore;
         private string nickNameAllenatore;
+        public enum Genere
+        {
+            MASCHIO,
+            FEMMINA,
+            NON_SPECIFICATO
+        }
 
+        public string Nome { get; set; }
+        public string Cognome { get; set; }
         public int NumeroIncontri { get; private set; }
         public int NumeroCatture { get; private set; }
+        public Genere Sesso { get; set; }
         public List<string> PokemonIncontrati { get; private set; }
         public List<string> PokemonCatturati { get; private set; }
 
-        public Allenatore(string nome, string cognome, int età, float peso, float altezza, Genere sesso, string nickNameAllenatore, int idAllenatore)
-            : base(nome, cognome, età, peso, altezza, sesso)
+        public Allenatore(string nome, string cognome, Genere sesso, string nickNameAllenatore, int idAllenatore)
         {
             this.nickNameAllenatore = nickNameAllenatore;
             this.idAllenatore = idAllenatore;
+            Nome = nome;
+            Cognome = cognome;
+            Sesso = sesso;
             NumeroIncontri = 0;
             NumeroCatture = 0;
             PokemonIncontrati = new List<string>();
             PokemonCatturati = new List<string>();
         }
 
-        public override string Saluta()
+        public string Saluta()
         {
             return $"sono l'allenatore {Nome} {Cognome}"; ; 
         }
