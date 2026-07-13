@@ -94,8 +94,7 @@ create table EVOLUZIONE (
      NumeroPokemonStadioSuccessivo int not null,
      IdMetodo int not null,
      constraint ID_EVOLUZIONE_ID primary key (IdMetodo, NumeroPokemonStadioCorrente, NumeroPokemonStadioSuccessivo),
-     constraint SID_EVOLU_POKEM_1_ID unique (NumeroPokemonStadioSuccessivo),
-     constraint SID_EVOLU_POKEM_ID unique (NumeroPokemonStadioCorrente));
+     constraint SID_EVOLU_POKEM_ID unique (NumeroPokemonStadioSuccessivo));
 
 create table GIOCATORE (
      IdGiocatore int not null,
@@ -127,7 +126,6 @@ create table PERMANENZA (
 
 create table POKEMON (
      NumeroPokemon int not null,
-     NumeroPokemonStadioPrecedente int,
      Specie varchar(30) not null,
      Nome varchar(30) not null,
      DescrizionePokemon varchar(200) not null,
@@ -140,8 +138,7 @@ create table POKEMON (
      IdElementoSecondario int,
      IdStatistiche int not null,
      NomeAbilita varchar(30) not null,
-     constraint ID_POKEMON_ID primary key (NumeroPokemon),
-     constraint SID_POKEM_POKEM_ID unique (NumeroPokemonStadioPrecedente));
+     constraint ID_POKEMON_ID primary key (NumeroPokemon));
 
 create table SET_STATISTICHE (
      IdStatistiche int not null auto_increment,
@@ -228,12 +225,12 @@ alter table ESEMPLARE_POKEMON add constraint REF_ESEMP_POKEM_FK
      -- foreign key (IdMetodo)
      -- references METODO_EVOLUTIVO;
 
-alter table EVOLUZIONE add constraint SID_EVOLU_POKEM_1_FK
-     foreign key (NumeroPokemonStadioSuccessivo)
+alter table EVOLUZIONE add constraint REF_EVOLU_POKEM_FK
+     foreign key (NumeroPokemonStadioCorrente)
      references POKEMON(NumeroPokemon);
 
 alter table EVOLUZIONE add constraint SID_EVOLU_POKEM_FK
-     foreign key (NumeroPokemonStadioCorrente)
+     foreign key (NumeroPokemonStadioSuccessivo)
      references POKEMON(NumeroPokemon);
 
 -- alter table GIOCATORE add constraint ID_GIOCATORE_CHK
@@ -279,10 +276,6 @@ alter table POKEMON add constraint REF_POKEM_ELEME_FK
 alter table POKEMON add constraint EQU_POKEM_SET_S_FK
      foreign key (IdStatistiche)
      references SET_STATISTICHE(IdStatistiche);
-
-alter table POKEMON add constraint SID_POKEM_POKEM_FK
-     foreign key (NumeroPokemonStadioPrecedente)
-     references POKEMON(NumeroPokemon);
 
 alter table POKEMON add constraint REF_POKEM_ABILI_FK
      foreign key (NomeAbilita)
@@ -370,11 +363,11 @@ create index REF_ESEMP_POKEM_IND
 create unique index ID_EVOLUZIONE_IND
      on EVOLUZIONE (IdMetodo, NumeroPokemonStadioCorrente, NumeroPokemonStadioSuccessivo);
 
-create unique index SID_EVOLU_POKEM_1_IND
-     on EVOLUZIONE (NumeroPokemonStadioSuccessivo);
+create index REF_EVOLU_POKEM_IND
+     on EVOLUZIONE (NumeroPokemonStadioCorrente);
 
 create unique index SID_EVOLU_POKEM_IND
-     on EVOLUZIONE (NumeroPokemonStadioCorrente);
+     on EVOLUZIONE (NumeroPokemonStadioSuccessivo);
 
 create unique index ID_GIOCATORE_IND
      on GIOCATORE (IdGiocatore);
@@ -408,9 +401,6 @@ create index REF_POKEM_ELEME_IND
 
 create index EQU_POKEM_SET_S_IND
      on POKEMON (IdStatistiche);
-
-create unique index SID_POKEM_POKEM_IND
-     on POKEMON (NumeroPokemonStadioPrecedente);
 
 create index REF_POKEM_ABILI_IND
      on POKEMON (NomeAbilita);

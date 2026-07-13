@@ -61,21 +61,21 @@ insert into ABILITA values ("Sguardofermo", "La vista acuta del Pokémon impedis
 insert into ABILITA values ("Statico", "Il Pokémon si ricopre di elettricità statica e può causare paralisi a chi è entrato in contatto con lui.");
 insert into ABILITA values ("Sabbiavelo", "L'elusione aumenta durante le tempeste di sabbia.");
 
-insert into POKEMON values (1, null, "Seme", "Bulbasaur", "Ha uno strano bulbo piantato sul dorso fin dalla nascita che cresce e si sviluppa assieme a lui.", 0.7, 6.9, "Bestia", "001.png", "Verde", 6, 7, 1, "Erbaiuto");
-insert into POKEMON values (2, 1, "Seme", "Ivysaur", "Dicono che il bocciolo sul suo dorso si schiuda in un grande fiore dopo aver assorbito nutrimento.", 1.0, 13.0, "Bestia", "002.png", "Verde", 6, 7, 2, "Erbaiuto");
-insert into POKEMON values (3, 2, "Seme", "Venusaur", "Il giorno dopo che è piovuto, il fiore sul suo dorso emana un profumo più intenso e attira gli altri Pokémon.", 2.0, 100.0, "Dinosauro", "003.png", "Verde", 6, 7, 3, "Erbaiuto");
-insert into POKEMON values (4, null, "Lucertola", "Charmander", "La fiamma che Charmander ha sulla coda indica la sua forza vitale. Se è in forma, la fiamma è vivace.", 0.6, 8.5, "Rettile", "004.png", "Rosso", 2, null, 4, "Aiutofuoco");
-insert into POKEMON values (5, 4, "Fiamma", "Charmeleon", "Fa cadere a terra il nemico colpendolo con la coda, per poi finirlo con gli artigli affilati.", 1.1, 19.0, "Rettile", "005.png", "Rosso", 2, null, 5, "Aiutofuoco");
-insert into POKEMON values (6, 5, "Fiamma", "Charizard", "Grazie alle sue ali può volare fino a 1.400 m d'altezza. Sputa fiamme incandescenti.", 1.7, 90.5, "Drago", "006.png", "Rosso", 2, 5, 6, "Aiutofuoco");
-insert into POKEMON values (7, null, "Tartaghina", "Squirtle", "Si ritira nel suo guscio per proteggersi e, alla prima occasione, contrattacca colpendo il nemico con spruzzi d'acqua.", 0.5, 9.0, "Bestia", "007.png", "Blu", 4, null, 7, "Acquaiuto");
-insert into POKEMON values (8, 7, "Tartaruga", "Wartortle", "Quando sta per ricevere un colpo sulla testa si ritira nella corazza per evitarlo. La coda, però, resta sempre un po' fuori.", 1.0, 22.5, "Tartaruga", "008.png", "Blu", 4, null, 8, "Acquaiuto");
-insert into POKEMON values (9, 8, "Carapace", "Blastoise", "Mette KO gli avversari schiacciandoli sotto il corpo possente. Se è in difficoltà, si ritrae nella corazza.", 1.6, 85.5, "Tartaruga", "009.png", "Blu", 4, null, 9, "Acquaiuto");
-insert into POKEMON values (16, null, "Uccellino", "Pidgey", "È docile e preferisce evitare conflitti, ma se viene disturbato contrattacca ferocemente.", 0.3, 1.8, "Uccello", "016.png", "Marrone", 1, 5, 10, "Sguardofermo");
-insert into POKEMON values (17, 16, "Uccello", "Pidgeotto", "Controlla un vasto territorio e prende a beccate qualsiasi intruso.", 1.1, 30.0, "Uccello", "017.png", "Marrone", 1, 5, 11, "Sguardofermo");
-insert into POKEMON values (18, 17, "Uccello", "Pidgeot", "Quando caccia, vola rasente alla superficie dell'acqua e cattura Magikarp e altre prede afferrandole con gli artigli.", 1.5, 39.5, "Uccello", "018.png", "Marrone", 1, 5, 12, "Sguardofermo");
-insert into POKEMON values (25, null, "Topo", "Pikachu", "Quando si sente minacciato emette scariche elettriche dalle due piccole sacche sulle guance.", 0.4, 6.0, "Topo", "025.png", "Giallo", 8, null, 13, "Statico");
-insert into POKEMON values (26, 25, "Topo", "Raichu", "Quando l'elettricità al suo interno si accumula finisce per stimolarne i muscoli, rendendolo più aggressivo del solito.", 0.8, 30.0, "Topo", "026.png", "Giallo", 8, null, 14, "Statico");
-insert into POKEMON values (27, null, "Topo", "Sandshrew", "Se cade da una grande altezza, questo Pokémon può salvarsi appallottolandosi e rimbalzando.", 0.6, 12.0, "Bestia", "027.png", "Giallo", 9, null, 15, "Sabbiavelo");
+insert into POKEMON values (1, "Seme", "Bulbasaur", "Ha uno strano bulbo piantato sul dorso fin dalla nascita che cresce e si sviluppa assieme a lui.", 0.7, 6.9, "Bestia", "001.png", "Verde", 6, 7, 1, "Erbaiuto");
+insert into POKEMON values (2, "Seme", "Ivysaur", "Dicono che il bocciolo sul suo dorso si schiuda in un grande fiore dopo aver assorbito nutrimento.", 1.0, 13.0, "Bestia", "002.png", "Verde", 6, 7, 2, "Erbaiuto");
+insert into POKEMON values (3, "Seme", "Venusaur", "Il giorno dopo che è piovuto, il fiore sul suo dorso emana un profumo più intenso e attira gli altri Pokémon.", 2.0, 100.0, "Dinosauro", "003.png", "Verde", 6, 7, 3, "Erbaiuto");
+insert into POKEMON values (4, "Lucertola", "Charmander", "La fiamma che Charmander ha sulla coda indica la sua forza vitale. Se è in forma, la fiamma è vivace.", 0.6, 8.5, "Rettile", "004.png", "Rosso", 2, null, 4, "Aiutofuoco");
+insert into POKEMON values (5, "Fiamma", "Charmeleon", "Fa cadere a terra il nemico colpendolo con la coda, per poi finirlo con gli artigli affilati.", 1.1, 19.0, "Rettile", "005.png", "Rosso", 2, null, 5, "Aiutofuoco");
+insert into POKEMON values (6, "Fiamma", "Charizard", "Grazie alle sue ali può volare fino a 1.400 m d'altezza. Sputa fiamme incandescenti.", 1.7, 90.5, "Drago", "006.png", "Rosso", 2, 5, 6, "Aiutofuoco");
+insert into POKEMON values (7, "Tartaghina", "Squirtle", "Si ritira nel suo guscio per proteggersi e, alla prima occasione, contrattacca colpendo il nemico con spruzzi d'acqua.", 0.5, 9.0, "Bestia", "007.png", "Blu", 4, null, 7, "Acquaiuto");
+insert into POKEMON values (8, "Tartaruga", "Wartortle", "Quando sta per ricevere un colpo sulla testa si ritira nella corazza per evitarlo. La coda, però, resta sempre un po' fuori.", 1.0, 22.5, "Tartaruga", "008.png", "Blu", 4, null, 8, "Acquaiuto");
+insert into POKEMON values (9, "Carapace", "Blastoise", "Mette KO gli avversari schiacciandoli sotto il corpo possente. Se è in difficoltà, si ritrae nella corazza.", 1.6, 85.5, "Tartaruga", "009.png", "Blu", 4, null, 9, "Acquaiuto");
+insert into POKEMON values (16, "Uccellino", "Pidgey", "È docile e preferisce evitare conflitti, ma se viene disturbato contrattacca ferocemente.", 0.3, 1.8, "Uccello", "016.png", "Marrone", 1, 5, 10, "Sguardofermo");
+insert into POKEMON values (17, "Uccello", "Pidgeotto", "Controlla un vasto territorio e prende a beccate qualsiasi intruso.", 1.1, 30.0, "Uccello", "017.png", "Marrone", 1, 5, 11, "Sguardofermo");
+insert into POKEMON values (18, "Uccello", "Pidgeot", "Quando caccia, vola rasente alla superficie dell'acqua e cattura Magikarp e altre prede afferrandole con gli artigli.", 1.5, 39.5, "Uccello", "018.png", "Marrone", 1, 5, 12, "Sguardofermo");
+insert into POKEMON values (25, "Topo", "Pikachu", "Quando si sente minacciato emette scariche elettriche dalle due piccole sacche sulle guance.", 0.4, 6.0, "Topo", "025.png", "Giallo", 8, null, 13, "Statico");
+insert into POKEMON values (26, "Topo", "Raichu", "Quando l'elettricità al suo interno si accumula finisce per stimolarne i muscoli, rendendolo più aggressivo del solito.", 0.8, 30.0, "Topo", "026.png", "Giallo", 8, null, 14, "Statico");
+insert into POKEMON values (27, "Topo", "Sandshrew", "Se cade da una grande altezza, questo Pokémon può salvarsi appallottolandosi e rimbalzando.", 0.6, 12.0, "Bestia", "027.png", "Giallo", 9, null, 15, "Sabbiavelo");
 
 insert into MOSSA values ("Azione", "Infligge danno e non ha nessun effetto aggiuntivo.", 100, 40, 1);
 insert into MOSSA values ("Graffio", "Infligge danno e non ha nessun effetto aggiuntivo.", 100, 40, 1);
@@ -248,6 +248,9 @@ insert into PERMANENZA values (8, 27);
 # Bulbasaur, Ivysaur, Venusaur
 insert into EVOLUZIONE values (1, 2, 1);
 insert into EVOLUZIONE values (2, 3, 1);
+
+# Ivysaur si evolve in Charizard per oggetto
+insert into EVOLUZIONE values (2, 25, 2);
 
 # Charmander, Charmeleon, Charizard
 insert into EVOLUZIONE values (4, 5, 1);
