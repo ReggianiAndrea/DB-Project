@@ -9,7 +9,7 @@ public partial class Amicizia
 
     public int IdGiocatoreAmico { get; set; }
 
-    public string Bloccato { get; set; } = null!;
+    public bool Bloccato { get; set; } = false;
 
     public virtual Giocatore IdGiocatoreAmicoNavigation { get; set; } = null!;
 

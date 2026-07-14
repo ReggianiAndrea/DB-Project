@@ -72,7 +72,6 @@ public partial class PokedexAdaContext : DbContext
             entity.HasIndex(e => e.IdGiocatore, "REF_AMICI_GIOCA_1_IND");
 
             entity.Property(e => e.Bloccato)
-                .HasMaxLength(1)
                 .IsFixedLength();
 
             entity.HasOne(d => d.IdGiocatoreNavigation).WithMany(p => p.AmiciziaIdGiocatoreNavigations)

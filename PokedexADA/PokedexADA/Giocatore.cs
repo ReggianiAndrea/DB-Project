@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace PokedexADA.PokedexADA;
 
@@ -32,6 +33,74 @@ public partial class Giocatore
 
     public virtual ICollection<Pokemon> NumeroPokemonCatturati { get; set; } = new List<Pokemon>();
 
+    public string AggiungiAmico(int idAmico)
+    {
+        return GestioneAmicizia(idAmico, true);
+    }
+    public string RimuoviAmico(int idAmico)
+    {
+        return GestioneAmicizia(idAmico, true);
+    }
+
+    private string GestioneAmicizia(int idAmico, bool aggiunto)
+    {
+        string output;
+        using var db = new PokedexAdaContext();
+        db.Database.EnsureCreated();
+        Giocatore g = db.Giocatores.Where(go => go.IdGiocatore == idAmico).First();
+        if (g == null)
+        {
+            output = "Giocatore con id " + idAmico + " non trovato";
+            return output;
+        }
+        if (aggiunto)
+        {
+            Amicizia amicizia = new Amicizia();
+            amicizia.IdGiocatore = IdGiocatore;
+            amicizia.IdGiocatoreAmico = idAmico;
+            db.Amicizia.Add(amicizia);
+            output = "Giocatore " + g.Nickname +" aggiunto tra gli amici";
+        }
+        else
+        {
+            Amicizia amicizia = db.Amicizia.Where(am => am.IdGiocatore == IdGiocatore && am.IdGiocatoreAmico == idAmico).First();
+            db.Amicizia.Remove(amicizia);
+            output = "Giocatore " + g.Nickname + " rimosso dagli amici";
+        }
+        db.SaveChanges();
+        return output;
+    }
+
+    public string BloccaAmico(int idAmico)
+    {
+        return GestioneBloccoAmico(idAmico, true);
+    }
+
+    public string SbloccaAmico(int idAmico)
+    {
+        return GestioneBloccoAmico(idAmico, false);
+    }
+
+    private string GestioneBloccoAmico(int idAmico, bool bloccato)
+    {
+        string output = "";
+        using var db = new PokedexAdaContext();
+        db.Database.EnsureCreated();
+        Amicizia a = db.Amicizia.Where(am => am.IdGiocatore == IdGiocatore && am.IdGiocatoreAmico == idAmico).First();
+        if (a != null)
+        {
+            a.Bloccato = bloccato;
+            Giocatore amico = db.Giocatores.Where(g => g.IdGiocatore == idAmico).First();
+            output = $"Amico {amico.Nickname} " + (bloccato ? "" : "s") + "bloccato con successo";
+            db.SaveChanges();
+        }
+        else
+        {
+            output = "Amico con id " + idAmico + "non trovato";
+        }
+        return output;
+    }
+
     public string Incontra(int numeroPokemon)
     {
         using var db = new PokedexAdaContext();
@@ -40,8 +109,8 @@ public partial class Giocatore
             from g in db.Giocatores
             from pok in g.NumeroPokemonAvvistati
             where pok.NumeroPokemon == numeroPokemon
-            select pok.NumeroPokemon
-            ).Any();
+            select pok.NumeroPokemon)
+            .Any();
         Pokemon p = (
             from pok in db.Pokemons
             where pok.NumeroPokemon == numeroPokemon
@@ -50,18 +119,32 @@ public partial class Giocatore
         string output = "";
         if (visto)
         {
-            output += $"{p.Nome} è un Pokemon già incontrato\n";
+            output = $"{p.Nome} è un Pokemon già incontrato\n";
         }
         else
         {
-            db.Database.ExecuteSql($"INSERT INTO AVVISTAMENTO VALUES ({IdGiocatore}, {p.NumeroPokemon})");
+            db.Database.ExecuteSql($"INSERT INTO AVVISTAMENTO VALUES ({IdGiocatore}, {numeroPokemon})");
             db.SaveChanges();
-            output += $"{p.Nome} è un Pokemon mai incontrato prima\n";
+            output = $"{p.Nome} è un Pokemon mai incontrato prima\n";
         }
         return output;
     }
 
-    public string Cattura(int numeroPokemon)
+    public string TentaCattura(int numeroPokemon, double catchRate)
+    {
+        string output;
+        if (new Random().NextDouble() < catchRate)
+        {
+            output = Cattura(numeroPokemon);
+        }
+        else
+        {
+            output = CatturaFallita(numeroPokemon);
+        }
+        return output;
+    }
+
+    private string Cattura(int numeroPokemon)
     {
         using var db = new PokedexAdaContext();
         db.Database.EnsureCreated();
@@ -69,28 +152,28 @@ public partial class Giocatore
             from g in  db.Giocatores
             from pok in g.NumeroPokemonCatturati
             where pok.NumeroPokemon == numeroPokemon
-            select pok.NumeroPokemon
-            ).Any();
+            select pok.NumeroPokemon)
+            .Any();
         Pokemon p = (
             from pokemon in db.Pokemons
             where pokemon.NumeroPokemon == numeroPokemon
             select pokemon)
             .First();
-        string output = "";
+        string output;
         if (catturato)
         {
-            output += $"{p.Nome} è un Pokemon già catturato\n";
+            output = $"{Nickname} ha catturato un {p.Nome}!\n";
         }
         else
         {
             db.Database.ExecuteSql($"INSERT INTO CATTURA VALUES ({IdGiocatore}, {p.NumeroPokemon})");
             db.SaveChanges();
-            output += $"{Nickname} ha catturato il suo primo esemplare di {p.Nome}!\n";
+            output = $"{Nickname} ha catturato il suo primo esemplare di {p.Nome}!\n";
         }
         return output;
     }
 
-    public string CatturaFallita(int numeroPokemon)
+    private string CatturaFallita(int numeroPokemon)
     {
         using var db = new PokedexAdaContext();
         db.Database.EnsureCreated();
@@ -98,35 +181,18 @@ public partial class Giocatore
             from g in db.Giocatores
             from pok in g.NumeroPokemonAvvistati
             where pok.NumeroPokemon == numeroPokemon
-            select pok.NumeroPokemon
-            ).Any();
-        bool catturato = (
-            from g in db.Giocatores
-            from pok in g.NumeroPokemonCatturati
-            where pok.NumeroPokemon == numeroPokemon
-            select pok.NumeroPokemon
-            ).Any();
+            select pok.NumeroPokemon).Any();
         Pokemon p = (
             from pok in db.Pokemons
             where pok.NumeroPokemon == numeroPokemon
             select pok)
             .First();
-        string output = "";
-        if (visto)
-        {
-            output += $"Non importa, {p.Nome} lo abbiamo gia visto\n";
-            if (catturato)
-            {
-                output += "e anche catturato\n";
-            }
-        }
-        else
+        if (!visto)
         {
             db.Database.ExecuteSql($"INSERT INTO AVVISTAMENTO VALUES ({IdGiocatore}, {p.NumeroPokemon})");
             db.SaveChanges();
-            output += $"Era un {p.Nome} Pokemon mai incontrato prima, peccato\n";
         }
-        return output;
+        return $"{Nickname} ha fallito la cattura di {p.Nome}\n";
     }
 
     public string MostraStato()

@@ -19,7 +19,6 @@ namespace PokedexADA
 
             using var db = new PokedexAdaContext();
             pokemonDisponibiliBox.Items.AddRange(db.Pokemons.Select(p => p.Nome).ToArray());
-            pokemonDisponibiliBox.SelectedItem = db.Pokemons.First().Nome;
             giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
 
             foreach (Pokemon p in db.Pokemons)
@@ -52,20 +51,17 @@ namespace PokedexADA
 
         private void TentaCatturaButtonOnClick(object sender, EventArgs e)
         {
+            if (pokemonDisponibiliBox.SelectedIndex == -1)
+            {
+                outputBox.Text = "Prima cerca un Pokemon";
+                return;
+            }
             using var db = new PokedexAdaContext();
             double catchRate = 0.5;
             int id = pokemonDisponibiliBox.SelectedIndex;
             Pokemon pokemon = db.Pokemons.ElementAt(id);
             string nome = db.Pokemons.ElementAt(id).Nome;
-            outputBox.Text = giocatore.Incontra(pokemon.NumeroPokemon);
-            if (new Random().NextDouble() < catchRate)
-            {
-                outputBox.Text += giocatore.Cattura(pokemon.NumeroPokemon);
-            }
-            else
-            {
-                outputBox.Text += giocatore.CatturaFallita(pokemon.NumeroPokemon);
-            }
+            outputBox.Text += giocatore.TentaCattura(pokemon.NumeroPokemon, catchRate);
         }
 
         private void pokedexList_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,27 +142,24 @@ namespace PokedexADA
             pokedexList.SelectedItems.Clear();
 
             using var db = new PokedexAdaContext();
+            List<Pokemon> visti = (
+                from g in db.Giocatores
+                from p in g.NumeroPokemonAvvistati
+                select p)
+                .ToList();
+            List<Pokemon> catturati = (
+                from g in db.Giocatores
+                from p in g.NumeroPokemonCatturati
+                select p)
+                .ToList();
             foreach (Pokemon p in db.Pokemons)
             {
                 string status;
-                using var context = new PokedexAdaContext();
-                bool visto = (
-                    from g in context.Giocatores
-                    from pok in g.NumeroPokemonAvvistati
-                    where pok.NumeroPokemon == p.NumeroPokemon
-                    select p)
-                    .Any();
-                bool catturato = (
-                    from g in context.Giocatores
-                    from pok in g.NumeroPokemonCatturati
-                    where pok.NumeroPokemon == p.NumeroPokemon
-                    select p)
-                    .Any();
-                if (catturato)
+                if (catturati.Any(pok => pok.NumeroPokemon == p.NumeroPokemon))
                 {
                     status = "x";
                 }
-                else if (visto)
+                else if (visti.Any(pok => pok.NumeroPokemon == p.NumeroPokemon))
                 {
                     status = "o";
                 }

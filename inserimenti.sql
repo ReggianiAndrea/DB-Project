@@ -267,6 +267,7 @@ insert into EVOLUZIONE values (25, 26, 2);
 -- TEST
 
 insert into GIOCATORE values (1, "Ash", "Ketchup", "ash", "", null);
+insert into GIOCATORE values (2, "Ash2", "Ketchup2", "ash2", "", null);
 
 insert into AVVISTAMENTO values (1, 1);
 insert into AVVISTAMENTO values (1, 4);

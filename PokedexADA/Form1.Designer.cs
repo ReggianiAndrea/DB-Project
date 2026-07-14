@@ -50,10 +50,14 @@
             names = new ColumnHeader();
             captured = new ColumnHeader();
             visualizzaAmici = new TabPage();
+            amico = new ColumnHeader();
+            data = new ColumnHeader();
+            listaAmici = new ListView();
             tabControl1.SuspendLayout();
             cercaECattura.SuspendLayout();
             visualizzaPokedex.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pokedexPicture).BeginInit();
+            visualizzaAmici.SuspendLayout();
             SuspendLayout();
             // 
             // outputBox
@@ -278,6 +282,7 @@
             // 
             // visualizzaAmici
             // 
+            visualizzaAmici.Controls.Add(listaAmici);
             visualizzaAmici.Location = new Point(4, 34);
             visualizzaAmici.Margin = new Padding(4, 5, 4, 5);
             visualizzaAmici.Name = "visualizzaAmici";
@@ -285,6 +290,28 @@
             visualizzaAmici.TabIndex = 2;
             visualizzaAmici.Text = "Visualizza Amici";
             visualizzaAmici.UseVisualStyleBackColor = true;
+            // 
+            // amico
+            // 
+            amico.Text = "Amico";
+            amico.Width = 250;
+            // 
+            // data
+            // 
+            data.Text = "Data";
+            data.Width = 100;
+            // 
+            // listaAmici
+            // 
+            listaAmici.Columns.AddRange(new ColumnHeader[] { amico, data });
+            listaAmici.FullRowSelect = true;
+            listaAmici.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            listaAmici.Location = new Point(18, 16);
+            listaAmici.Name = "listaAmici";
+            listaAmici.Size = new Size(379, 638);
+            listaAmici.TabIndex = 0;
+            listaAmici.UseCompatibleStateImageBehavior = false;
+            listaAmici.View = View.Details;
             // 
             // Form1
             // 
@@ -301,6 +328,7 @@
             visualizzaPokedex.ResumeLayout(false);
             visualizzaPokedex.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pokedexPicture).EndInit();
+            visualizzaAmici.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -328,5 +356,8 @@
         private RichTextBox descrizionePokemonTextBox;
         private Label improntaPokemonLabel;
         private Label descrizionePokemonLabel;
+        private ListView listaAmici;
+        private ColumnHeader amico;
+        private ColumnHeader data;
     }
 }
