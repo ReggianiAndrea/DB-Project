@@ -249,9 +249,6 @@ insert into PERMANENZA values (8, 27);
 insert into EVOLUZIONE values (1, 2, 1);
 insert into EVOLUZIONE values (2, 3, 1);
 
-# Ivysaur si evolve in Charizard per oggetto
-insert into EVOLUZIONE values (2, 25, 2);
-
 # Charmander, Charmeleon, Charizard
 insert into EVOLUZIONE values (4, 5, 1);
 insert into EVOLUZIONE values (5, 6, 1);
