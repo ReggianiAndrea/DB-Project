@@ -30,10 +30,10 @@
         {
             outputBox = new RichTextBox();
             mostraStato = new Button();
-            cercaPokemonButton = new Button();
+            cercaPokemonSelezionatoButton = new Button();
             pokemonDisponibiliBox = new ComboBox();
-            button1 = new Button();
-            button2 = new Button();
+            tentaCatturaButton = new Button();
+            cercaPokemonButton = new Button();
             tabControl1 = new TabControl();
             cercaECattura = new TabPage();
             visualizzaPokedex = new TabPage();
@@ -50,14 +50,28 @@
             names = new ColumnHeader();
             captured = new ColumnHeader();
             visualizzaAmici = new TabPage();
+            cercaGiocatoreFallitaLabel = new Label();
+            cercaGiocatoreButton = new Button();
+            cercaGiocatoreGroupBox = new GroupBox();
+            cercaGiocatoreSbloccaButton = new Button();
+            cercaGiocatoreBloccaButton = new Button();
+            cercaGiocatoreAggiungiButton = new Button();
+            cercaGiocatorePictureBox = new PictureBox();
+            nicknameCercaGiocatoreLabel = new Label();
+            cognomeCercaGiocatoreLabel = new Label();
+            nomeCercaGiocatoreLabel = new Label();
+            cercaGiocatoreTextBox = new TextBox();
+            cercaGiocatoreLabel = new Label();
+            amiciList = new ListView();
             amico = new ColumnHeader();
-            data = new ColumnHeader();
-            listaAmici = new ListView();
+            bloccato = new ColumnHeader();
             tabControl1.SuspendLayout();
             cercaECattura.SuspendLayout();
             visualizzaPokedex.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pokedexPicture).BeginInit();
             visualizzaAmici.SuspendLayout();
+            cercaGiocatoreGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cercaGiocatorePictureBox).BeginInit();
             SuspendLayout();
             // 
             // outputBox
@@ -80,16 +94,16 @@
             mostraStato.UseVisualStyleBackColor = true;
             mostraStato.Click += MostraStatoButtonOnClick;
             // 
-            // cercaPokemonButton
+            // cercaPokemonSelezionatoButton
             // 
-            cercaPokemonButton.Location = new Point(917, 172);
-            cercaPokemonButton.Margin = new Padding(4, 5, 4, 5);
-            cercaPokemonButton.Name = "cercaPokemonButton";
-            cercaPokemonButton.Size = new Size(171, 65);
-            cercaPokemonButton.TabIndex = 3;
-            cercaPokemonButton.Text = "Cerca Pokemon selezionato";
-            cercaPokemonButton.UseVisualStyleBackColor = true;
-            cercaPokemonButton.Click += CercaPokemonSelezionatoButtonOnClick;
+            cercaPokemonSelezionatoButton.Location = new Point(917, 172);
+            cercaPokemonSelezionatoButton.Margin = new Padding(4, 5, 4, 5);
+            cercaPokemonSelezionatoButton.Name = "cercaPokemonSelezionatoButton";
+            cercaPokemonSelezionatoButton.Size = new Size(171, 65);
+            cercaPokemonSelezionatoButton.TabIndex = 3;
+            cercaPokemonSelezionatoButton.Text = "Cerca Pokemon selezionato";
+            cercaPokemonSelezionatoButton.UseVisualStyleBackColor = true;
+            cercaPokemonSelezionatoButton.Click += CercaPokemonSelezionatoButtonOnClick;
             // 
             // pokemonDisponibiliBox
             // 
@@ -100,27 +114,27 @@
             pokemonDisponibiliBox.Size = new Size(170, 33);
             pokemonDisponibiliBox.TabIndex = 4;
             // 
-            // button1
+            // tentaCatturaButton
             // 
-            button1.Location = new Point(917, 327);
-            button1.Margin = new Padding(4, 5, 4, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(171, 38);
-            button1.TabIndex = 5;
-            button1.Text = "Tenta cattura";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += TentaCatturaButtonOnClick;
+            tentaCatturaButton.Location = new Point(917, 327);
+            tentaCatturaButton.Margin = new Padding(4, 5, 4, 5);
+            tentaCatturaButton.Name = "tentaCatturaButton";
+            tentaCatturaButton.Size = new Size(171, 38);
+            tentaCatturaButton.TabIndex = 5;
+            tentaCatturaButton.Text = "Tenta cattura";
+            tentaCatturaButton.UseVisualStyleBackColor = true;
+            tentaCatturaButton.Click += TentaCatturaButtonOnClick;
             // 
-            // button2
+            // cercaPokemonButton
             // 
-            button2.Location = new Point(917, 263);
-            button2.Margin = new Padding(4, 5, 4, 5);
-            button2.Name = "button2";
-            button2.Size = new Size(171, 38);
-            button2.TabIndex = 6;
-            button2.Text = "Cerca Pokemon";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += CercaPokemonButtonOnClick;
+            cercaPokemonButton.Location = new Point(917, 263);
+            cercaPokemonButton.Margin = new Padding(4, 5, 4, 5);
+            cercaPokemonButton.Name = "cercaPokemonButton";
+            cercaPokemonButton.Size = new Size(171, 38);
+            cercaPokemonButton.TabIndex = 6;
+            cercaPokemonButton.Text = "Cerca Pokemon";
+            cercaPokemonButton.UseVisualStyleBackColor = true;
+            cercaPokemonButton.Click += CercaPokemonButtonOnClick;
             // 
             // tabControl1
             // 
@@ -137,11 +151,11 @@
             // cercaECattura
             // 
             cercaECattura.Controls.Add(outputBox);
-            cercaECattura.Controls.Add(button1);
-            cercaECattura.Controls.Add(button2);
+            cercaECattura.Controls.Add(tentaCatturaButton);
+            cercaECattura.Controls.Add(cercaPokemonButton);
             cercaECattura.Controls.Add(mostraStato);
             cercaECattura.Controls.Add(pokemonDisponibiliBox);
-            cercaECattura.Controls.Add(cercaPokemonButton);
+            cercaECattura.Controls.Add(cercaPokemonSelezionatoButton);
             cercaECattura.Location = new Point(4, 34);
             cercaECattura.Margin = new Padding(4, 5, 4, 5);
             cercaECattura.Name = "cercaECattura";
@@ -282,7 +296,12 @@
             // 
             // visualizzaAmici
             // 
-            visualizzaAmici.Controls.Add(listaAmici);
+            visualizzaAmici.Controls.Add(cercaGiocatoreFallitaLabel);
+            visualizzaAmici.Controls.Add(cercaGiocatoreButton);
+            visualizzaAmici.Controls.Add(cercaGiocatoreGroupBox);
+            visualizzaAmici.Controls.Add(cercaGiocatoreTextBox);
+            visualizzaAmici.Controls.Add(cercaGiocatoreLabel);
+            visualizzaAmici.Controls.Add(amiciList);
             visualizzaAmici.Location = new Point(4, 34);
             visualizzaAmici.Margin = new Padding(4, 5, 4, 5);
             visualizzaAmici.Name = "visualizzaAmici";
@@ -291,27 +310,147 @@
             visualizzaAmici.Text = "Visualizza Amici";
             visualizzaAmici.UseVisualStyleBackColor = true;
             // 
+            // cercaGiocatoreFallitaLabel
+            // 
+            cercaGiocatoreFallitaLabel.AutoSize = true;
+            cercaGiocatoreFallitaLabel.Location = new Point(844, 62);
+            cercaGiocatoreFallitaLabel.Name = "cercaGiocatoreFallitaLabel";
+            cercaGiocatoreFallitaLabel.Size = new Size(0, 25);
+            cercaGiocatoreFallitaLabel.TabIndex = 7;
+            // 
+            // cercaGiocatoreButton
+            // 
+            cercaGiocatoreButton.Location = new Point(713, 62);
+            cercaGiocatoreButton.Name = "cercaGiocatoreButton";
+            cercaGiocatoreButton.Size = new Size(125, 31);
+            cercaGiocatoreButton.TabIndex = 6;
+            cercaGiocatoreButton.Text = "Cerca";
+            cercaGiocatoreButton.UseVisualStyleBackColor = true;
+            cercaGiocatoreButton.Click += cercaGiocatoreButton_Click;
+            // 
+            // cercaGiocatoreGroupBox
+            // 
+            cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreSbloccaButton);
+            cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreBloccaButton);
+            cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreAggiungiButton);
+            cercaGiocatoreGroupBox.Controls.Add(cercaGiocatorePictureBox);
+            cercaGiocatoreGroupBox.Controls.Add(nicknameCercaGiocatoreLabel);
+            cercaGiocatoreGroupBox.Controls.Add(cognomeCercaGiocatoreLabel);
+            cercaGiocatoreGroupBox.Controls.Add(nomeCercaGiocatoreLabel);
+            cercaGiocatoreGroupBox.Location = new Point(518, 122);
+            cercaGiocatoreGroupBox.Name = "cercaGiocatoreGroupBox";
+            cercaGiocatoreGroupBox.Size = new Size(561, 530);
+            cercaGiocatoreGroupBox.TabIndex = 3;
+            cercaGiocatoreGroupBox.TabStop = false;
+            cercaGiocatoreGroupBox.Text = "Giocatore";
+            cercaGiocatoreGroupBox.Visible = false;
+            // 
+            // cercaGiocatoreSbloccaButton
+            // 
+            cercaGiocatoreSbloccaButton.Location = new Point(23, 258);
+            cercaGiocatoreSbloccaButton.Name = "cercaGiocatoreSbloccaButton";
+            cercaGiocatoreSbloccaButton.Size = new Size(136, 34);
+            cercaGiocatoreSbloccaButton.TabIndex = 6;
+            cercaGiocatoreSbloccaButton.Text = "Sblocca";
+            cercaGiocatoreSbloccaButton.UseVisualStyleBackColor = true;
+            cercaGiocatoreSbloccaButton.Visible = false;
+            cercaGiocatoreSbloccaButton.Click += cercaGiocatoreSbloccaButton_Click;
+            // 
+            // cercaGiocatoreBloccaButton
+            // 
+            cercaGiocatoreBloccaButton.Location = new Point(23, 258);
+            cercaGiocatoreBloccaButton.Name = "cercaGiocatoreBloccaButton";
+            cercaGiocatoreBloccaButton.Size = new Size(136, 34);
+            cercaGiocatoreBloccaButton.TabIndex = 5;
+            cercaGiocatoreBloccaButton.Text = "Blocca";
+            cercaGiocatoreBloccaButton.UseVisualStyleBackColor = true;
+            cercaGiocatoreBloccaButton.Visible = false;
+            cercaGiocatoreBloccaButton.Click += cercaGiocatoreBloccaButton_Click;
+            // 
+            // cercaGiocatoreAggiungiButton
+            // 
+            cercaGiocatoreAggiungiButton.Location = new Point(23, 258);
+            cercaGiocatoreAggiungiButton.Name = "cercaGiocatoreAggiungiButton";
+            cercaGiocatoreAggiungiButton.Size = new Size(136, 67);
+            cercaGiocatoreAggiungiButton.TabIndex = 4;
+            cercaGiocatoreAggiungiButton.Text = "Aggiungi come amico";
+            cercaGiocatoreAggiungiButton.UseVisualStyleBackColor = true;
+            cercaGiocatoreAggiungiButton.Visible = false;
+            cercaGiocatoreAggiungiButton.Click += cercaGiocatoreAggiungiButton_Click;
+            // 
+            // cercaGiocatorePictureBox
+            // 
+            cercaGiocatorePictureBox.Location = new Point(23, 41);
+            cercaGiocatorePictureBox.Name = "cercaGiocatorePictureBox";
+            cercaGiocatorePictureBox.Size = new Size(180, 180);
+            cercaGiocatorePictureBox.TabIndex = 3;
+            cercaGiocatorePictureBox.TabStop = false;
+            // 
+            // nicknameCercaGiocatoreLabel
+            // 
+            nicknameCercaGiocatoreLabel.AutoSize = true;
+            nicknameCercaGiocatoreLabel.Location = new Point(209, 40);
+            nicknameCercaGiocatoreLabel.Name = "nicknameCercaGiocatoreLabel";
+            nicknameCercaGiocatoreLabel.Size = new Size(94, 25);
+            nicknameCercaGiocatoreLabel.TabIndex = 2;
+            nicknameCercaGiocatoreLabel.Text = "Nickname:";
+            // 
+            // cognomeCercaGiocatoreLabel
+            // 
+            cognomeCercaGiocatoreLabel.AutoSize = true;
+            cognomeCercaGiocatoreLabel.Location = new Point(208, 90);
+            cognomeCercaGiocatoreLabel.Name = "cognomeCercaGiocatoreLabel";
+            cognomeCercaGiocatoreLabel.Size = new Size(95, 25);
+            cognomeCercaGiocatoreLabel.TabIndex = 1;
+            cognomeCercaGiocatoreLabel.Text = "Cognome:";
+            // 
+            // nomeCercaGiocatoreLabel
+            // 
+            nomeCercaGiocatoreLabel.AutoSize = true;
+            nomeCercaGiocatoreLabel.Location = new Point(209, 65);
+            nomeCercaGiocatoreLabel.Name = "nomeCercaGiocatoreLabel";
+            nomeCercaGiocatoreLabel.Size = new Size(65, 25);
+            nomeCercaGiocatoreLabel.TabIndex = 0;
+            nomeCercaGiocatoreLabel.Text = "Nome:";
+            // 
+            // cercaGiocatoreTextBox
+            // 
+            cercaGiocatoreTextBox.Location = new Point(518, 62);
+            cercaGiocatoreTextBox.Name = "cercaGiocatoreTextBox";
+            cercaGiocatoreTextBox.Size = new Size(189, 31);
+            cercaGiocatoreTextBox.TabIndex = 2;
+            // 
+            // cercaGiocatoreLabel
+            // 
+            cercaGiocatoreLabel.AutoSize = true;
+            cercaGiocatoreLabel.Location = new Point(518, 34);
+            cercaGiocatoreLabel.Name = "cercaGiocatoreLabel";
+            cercaGiocatoreLabel.Size = new Size(135, 25);
+            cercaGiocatoreLabel.TabIndex = 1;
+            cercaGiocatoreLabel.Text = "Cerca giocatore";
+            // 
+            // amiciList
+            // 
+            amiciList.Columns.AddRange(new ColumnHeader[] { amico, bloccato });
+            amiciList.FullRowSelect = true;
+            amiciList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            amiciList.Location = new Point(12, 14);
+            amiciList.Name = "amiciList";
+            amiciList.Size = new Size(379, 638);
+            amiciList.TabIndex = 0;
+            amiciList.UseCompatibleStateImageBehavior = false;
+            amiciList.View = View.Details;
+            amiciList.SelectedIndexChanged += amiciList_SelectedIndexChanged;
+            // 
             // amico
             // 
             amico.Text = "Amico";
             amico.Width = 250;
             // 
-            // data
+            // bloccato
             // 
-            data.Text = "Data";
-            data.Width = 100;
-            // 
-            // listaAmici
-            // 
-            listaAmici.Columns.AddRange(new ColumnHeader[] { amico, data });
-            listaAmici.FullRowSelect = true;
-            listaAmici.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listaAmici.Location = new Point(18, 16);
-            listaAmici.Name = "listaAmici";
-            listaAmici.Size = new Size(379, 638);
-            listaAmici.TabIndex = 0;
-            listaAmici.UseCompatibleStateImageBehavior = false;
-            listaAmici.View = View.Details;
+            bloccato.Text = "";
+            bloccato.Width = 100;
             // 
             // Form1
             // 
@@ -329,6 +468,10 @@
             visualizzaPokedex.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pokedexPicture).EndInit();
             visualizzaAmici.ResumeLayout(false);
+            visualizzaAmici.PerformLayout();
+            cercaGiocatoreGroupBox.ResumeLayout(false);
+            cercaGiocatoreGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)cercaGiocatorePictureBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -336,10 +479,10 @@
 
         private RichTextBox outputBox;
         private Button mostraStato;
-        private Button cercaPokemonButton;
+        private Button cercaPokemonSelezionatoButton;
         private ComboBox pokemonDisponibiliBox;
-        private Button button1;
-        private Button button2;
+        private Button tentaCatturaButton;
+        private Button cercaPokemonButton;
         private TabControl tabControl1;
         private TabPage cercaECattura;
         private TabPage visualizzaPokedex;
@@ -356,8 +499,20 @@
         private RichTextBox descrizionePokemonTextBox;
         private Label improntaPokemonLabel;
         private Label descrizionePokemonLabel;
-        private ListView listaAmici;
+        private ListView amiciList;
         private ColumnHeader amico;
-        private ColumnHeader data;
+        private ColumnHeader bloccato;
+        private TextBox cercaGiocatoreTextBox;
+        private Label cercaGiocatoreLabel;
+        private GroupBox cercaGiocatoreGroupBox;
+        private Label nomeCercaGiocatoreLabel;
+        private Label nicknameCercaGiocatoreLabel;
+        private Label cognomeCercaGiocatoreLabel;
+        private Button cercaGiocatoreBloccaButton;
+        private Button cercaGiocatoreAggiungiButton;
+        private PictureBox cercaGiocatorePictureBox;
+        private Button cercaGiocatoreButton;
+        private Label cercaGiocatoreFallitaLabel;
+        private Button cercaGiocatoreSbloccaButton;
     }
 }
