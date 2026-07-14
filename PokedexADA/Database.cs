@@ -6,22 +6,16 @@ namespace PokedexADA
 {
     internal class Database
     {
-        PokedexAdaContext db;
+        public PokedexAdaContext Db { get; private set; }
 
         private Database()
         {
-            db = new PokedexAdaContext();
-        }
-
-        public static List<Pokemon> GetPokedex()
-        {
-            var query = from p in Instance.db.Pokemons select p;
-            return query.ToList();
+            Db = new PokedexAdaContext();
         }
 
         private static Database instance;
 
-        private static Database Instance
+        public static Database Instance
         {
             get
             {
@@ -31,6 +25,18 @@ namespace PokedexADA
                 }
                 return instance;
             }
+        }
+
+        public static List<Pokemon> GetPokedex()
+        {
+            var query = from p in Instance.Db.Pokemons select p;
+            return query.ToList();
+        }
+
+        public static Giocatore GetGiocatore(int id)
+        {
+            var query = from g in Instance.Db.Giocatores select g;
+            return query.First();
         }
     }
 }

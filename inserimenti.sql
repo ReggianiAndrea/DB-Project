@@ -263,3 +263,15 @@ insert into EVOLUZIONE values (17, 18, 1);
 
 # Pikachu, Raichu
 insert into EVOLUZIONE values (25, 26, 2);
+
+-- TEST
+
+insert into GIOCATORE values (1, "Ash", "Ketchup", "ash", "", null);
+
+insert into AVVISTAMENTO values (1, 1);
+insert into AVVISTAMENTO values (1, 4);
+insert into AVVISTAMENTO values (1, 25);
+
+insert into CATTURA values (1, 25);
+
+insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 10, "2026-01-01", false, 'M', false, 25, 1, null, null);

@@ -45,7 +45,7 @@ public partial class PokedexAdaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySQL("server=localhost;uid=root;password=;database=PokedexADA");
+        => optionsBuilder.UseMySQL("server=localhost;uid=root;password=;database=pokedexada");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -212,23 +212,21 @@ public partial class PokedexAdaContext : DbContext
 
             entity.HasIndex(e => new { e.IdMetodo, e.NumeroPokemonStadioCorrente, e.NumeroPokemonStadioSuccessivo }, "ID_EVOLUZIONE_IND").IsUnique();
 
-            entity.HasIndex(e => e.NumeroPokemonStadioSuccessivo, "SID_EVOLU_POKEM_1_ID").IsUnique();
+            entity.HasIndex(e => e.NumeroPokemonStadioCorrente, "REF_EVOLU_POKEM_IND");
 
-            entity.HasIndex(e => e.NumeroPokemonStadioSuccessivo, "SID_EVOLU_POKEM_1_IND").IsUnique();
+            entity.HasIndex(e => e.NumeroPokemonStadioSuccessivo, "SID_EVOLU_POKEM_ID").IsUnique();
 
-            entity.HasIndex(e => e.NumeroPokemonStadioCorrente, "SID_EVOLU_POKEM_ID").IsUnique();
+            entity.HasIndex(e => e.NumeroPokemonStadioSuccessivo, "SID_EVOLU_POKEM_IND").IsUnique();
 
-            entity.HasIndex(e => e.NumeroPokemonStadioCorrente, "SID_EVOLU_POKEM_IND").IsUnique();
-
-            entity.HasOne(d => d.NumeroPokemonStadioCorrenteNavigation).WithOne(p => p.EvoluzioneNumeroPokemonStadioCorrenteNavigation)
-                .HasForeignKey<Evoluzione>(d => d.NumeroPokemonStadioCorrente)
+            entity.HasOne(d => d.NumeroPokemonStadioCorrenteNavigation).WithMany(p => p.EvoluzioneNumeroPokemonStadioCorrenteNavigations)
+                .HasForeignKey(d => d.NumeroPokemonStadioCorrente)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("SID_EVOLU_POKEM_FK");
+                .HasConstraintName("REF_EVOLU_POKEM_FK");
 
             entity.HasOne(d => d.NumeroPokemonStadioSuccessivoNavigation).WithOne(p => p.EvoluzioneNumeroPokemonStadioSuccessivoNavigation)
                 .HasForeignKey<Evoluzione>(d => d.NumeroPokemonStadioSuccessivo)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("SID_EVOLU_POKEM_1_FK");
+                .HasConstraintName("SID_EVOLU_POKEM_FK");
         });
 
         modelBuilder.Entity<Giocatore>(entity =>
@@ -250,7 +248,7 @@ public partial class PokedexAdaContext : DbContext
                 .HasForeignKey(d => d.IdEsemplarePreferito)
                 .HasConstraintName("REF_GIOCA_ESEMP_FK");
 
-            entity.HasMany(d => d.NumeroPokemons).WithMany(p => p.IdGiocatores)
+            entity.HasMany(d => d.NumeroPokemonAvvistati).WithMany(p => p.IdGiocatores)
                 .UsingEntity<Dictionary<string, object>>(
                     "Avvistamento",
                     r => r.HasOne<Pokemon>().WithMany()
@@ -269,7 +267,7 @@ public partial class PokedexAdaContext : DbContext
                         j.HasIndex(new[] { "NumeroPokemon" }, "REF_AVVIS_POKEM_IND");
                     });
 
-            entity.HasMany(d => d.NumeroPokemonsNavigation).WithMany(p => p.IdGiocatoresNavigation)
+            entity.HasMany(d => d.NumeroPokemonCatturati).WithMany(p => p.IdGiocatoresNavigation)
                 .UsingEntity<Dictionary<string, object>>(
                     "Cattura",
                     r => r.HasOne<Pokemon>().WithMany()
@@ -356,10 +354,6 @@ public partial class PokedexAdaContext : DbContext
 
             entity.HasIndex(e => e.IdElementoPrimario, "REF_POKEM_ELEME_IND");
 
-            entity.HasIndex(e => e.NumeroPokemonStadioPrecedente, "SID_POKEM_POKEM_ID").IsUnique();
-
-            entity.HasIndex(e => e.NumeroPokemonStadioPrecedente, "SID_POKEM_POKEM_IND").IsUnique();
-
             entity.Property(e => e.ColoreDominante).HasMaxLength(20);
             entity.Property(e => e.DescrizionePokemon).HasMaxLength(200);
             entity.Property(e => e.Immagine).HasMaxLength(100);
@@ -386,10 +380,6 @@ public partial class PokedexAdaContext : DbContext
                 .HasForeignKey(d => d.NomeAbilita)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_POKEM_ABILI_FK");
-
-            entity.HasOne(d => d.NumeroPokemonStadioPrecedenteNavigation).WithOne(p => p.InverseNumeroPokemonStadioPrecedenteNavigation)
-                .HasForeignKey<Pokemon>(d => d.NumeroPokemonStadioPrecedente)
-                .HasConstraintName("SID_POKEM_POKEM_FK");
 
             entity.HasMany(d => d.IdBiomas).WithMany(p => p.NumeroPokemons)
                 .UsingEntity<Dictionary<string, object>>(

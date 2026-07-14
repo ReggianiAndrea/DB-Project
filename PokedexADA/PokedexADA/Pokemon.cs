@@ -7,8 +7,6 @@ public partial class Pokemon
 {
     public int NumeroPokemon { get; set; }
 
-    public int? NumeroPokemonStadioPrecedente { get; set; }
-
     public string Specie { get; set; } = null!;
 
     public string Nome { get; set; } = null!;
@@ -35,7 +33,7 @@ public partial class Pokemon
 
     public virtual ICollection<EsemplarePokemon> EsemplarePokemons { get; set; } = new List<EsemplarePokemon>();
 
-    public virtual Evoluzione? EvoluzioneNumeroPokemonStadioCorrenteNavigation { get; set; }
+    public virtual ICollection<Evoluzione> EvoluzioneNumeroPokemonStadioCorrenteNavigations { get; set; } = new List<Evoluzione>();
 
     public virtual Evoluzione? EvoluzioneNumeroPokemonStadioSuccessivoNavigation { get; set; }
 
@@ -45,11 +43,7 @@ public partial class Pokemon
 
     public virtual SetStatistiche IdStatisticheNavigation { get; set; } = null!;
 
-    public virtual Pokemon? InverseNumeroPokemonStadioPrecedenteNavigation { get; set; }
-
     public virtual Abilita NomeAbilitaNavigation { get; set; } = null!;
-
-    public virtual Pokemon? NumeroPokemonStadioPrecedenteNavigation { get; set; }
 
     public virtual ICollection<Bioma> IdBiomas { get; set; } = new List<Bioma>();
 
