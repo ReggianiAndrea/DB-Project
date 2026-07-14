@@ -8,8 +8,8 @@ namespace PokedexADA
         Dictionary<int, int> mapPokedexToGUIList = new Dictionary<int, int>();
 
         // esempio di test
-        Giocatore ash = Database.GetGiocatore(1);
-        List<Pokemon> pokedex = Database.GetPokedex();
+        int idGiocatore = 1;
+        Giocatore giocatore;
 
         public Form1()
         {
@@ -17,10 +17,12 @@ namespace PokedexADA
 
             tabControl1.Selecting += new TabControlCancelEventHandler(tabControl1_Selecting);
 
-            pokemonDisponibiliBox.Items.AddRange(pokedex.Select(p => p.Nome).ToArray());
-            pokemonDisponibiliBox.SelectedItem = pokedex[0].Nome;
+            using var db = new PokedexAdaContext();
+            pokemonDisponibiliBox.Items.AddRange(db.Pokemons.Select(p => p.Nome).ToArray());
+            pokemonDisponibiliBox.SelectedItem = db.Pokemons.First().Nome;
+            giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
 
-            foreach (Pokemon p in pokedex)
+            foreach (Pokemon p in db.Pokemons)
             {
                 var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), p.Nome, "" });
                 pokedexList.Items.Add(item);
@@ -30,36 +32,39 @@ namespace PokedexADA
 
         private void MostraStatoButtonOnClick(object sender, EventArgs e)
         {
-            outputBox.Text = ash.MostraStato();
+            outputBox.Text = giocatore.MostraStato();
         }
 
         private void CercaPokemonSelezionatoButtonOnClick(object sender, EventArgs e)
         {
-            outputBox.Text = ash.Incontra(pokedex[pokemonDisponibiliBox.SelectedIndex].NumeroPokemon);
+            using var db = new PokedexAdaContext();
+            outputBox.Text = giocatore.Incontra(db.Pokemons.ElementAt(pokemonDisponibiliBox.SelectedIndex).NumeroPokemon);
         }
 
         private void CercaPokemonButtonOnClick(object sender, EventArgs e)
         {
-            int id = new Random().Next(pokedex.Count);
-            Pokemon pokemon = pokedex[id];
+            using var db = new PokedexAdaContext();
+            int id = new Random().Next(db.Pokemons.Count());
+            Pokemon pokemon = db.Pokemons.ElementAt(id);
             pokemonDisponibiliBox.SelectedIndex = id;
-            outputBox.Text = ash.Incontra(pokemon.NumeroPokemon);
+            outputBox.Text = giocatore.Incontra(pokemon.NumeroPokemon);
         }
 
         private void TentaCatturaButtonOnClick(object sender, EventArgs e)
         {
+            using var db = new PokedexAdaContext();
             double catchRate = 0.5;
             int id = pokemonDisponibiliBox.SelectedIndex;
-            Pokemon pokemon = pokedex[id];
-            string nome = pokedex[id].Nome;
-            outputBox.Text = ash.Incontra(pokemon.NumeroPokemon);
+            Pokemon pokemon = db.Pokemons.ElementAt(id);
+            string nome = db.Pokemons.ElementAt(id).Nome;
+            outputBox.Text = giocatore.Incontra(pokemon.NumeroPokemon);
             if (new Random().NextDouble() < catchRate)
             {
-                outputBox.Text += ash.Cattura(pokemon.NumeroPokemon);
+                outputBox.Text += giocatore.Cattura(pokemon.NumeroPokemon);
             }
             else
             {
-                outputBox.Text += ash.CatturaFallita(pokemon.NumeroPokemon);
+                outputBox.Text += giocatore.CatturaFallita(pokemon.NumeroPokemon);
             }
         }
 
@@ -68,8 +73,9 @@ namespace PokedexADA
             if (pokedexList.SelectedItems.Count == 0)
                 return;
 
+            using var db = new PokedexAdaContext();
             int id = pokedexList.SelectedItems[0].Index;
-            Pokemon pokemon = pokedex[id];
+            Pokemon pokemon = db.Pokemons.ElementAt(id);
             Bitmap picture = (Bitmap)Image.FromFile(@"..\..\..\res\" + pokemon.Immagine);
             string nome, specie, altezza, peso, impronta, descrizione;
             nome = "???";
@@ -79,13 +85,28 @@ namespace PokedexADA
             impronta = "???";
             descrizione = "";
             pokedexPicture.Image = null;
-            if (ash.NumeroPokemonAvvistati.Select(p => p.NumeroPokemon).Contains(pokemon.NumeroPokemon))
+            bool visto = (
+                from g in db.Giocatores
+                from p in g.NumeroPokemonAvvistati
+                where p.NumeroPokemon == pokemon.NumeroPokemon
+                select p)
+                .Any();
+            bool catturato = (
+                from g in db.Giocatores
+                from p in g.NumeroPokemonCatturati
+                where p.NumeroPokemon == pokemon.NumeroPokemon
+                select p)
+                .Any();
+            if (visto && !catturato)
+            {
+                pokedexPicture.Image = filterPicture(picture);
+            }
+            if (visto)
             {
                 nome = pokemon.Nome;
                 specie = pokemon.Specie;
-                pokedexPicture.Image = filterPicture(picture);
             }
-            if (ash.NumeroPokemonCatturati.Select(p => p.NumeroPokemon).Contains(pokemon.NumeroPokemon))
+            if (catturato)
             {
                 altezza = "" + pokemon.Altezza;
                 peso = "" + pokemon.Peso;
@@ -124,14 +145,28 @@ namespace PokedexADA
             pokedexPicture.Image = new Bitmap(pokedexPicture.Width, pokedexPicture.Height);
             pokedexList.SelectedItems.Clear();
 
-            foreach (Pokemon p in pokedex)
+            using var db = new PokedexAdaContext();
+            foreach (Pokemon p in db.Pokemons)
             {
                 string status;
-                if (ash.NumeroPokemonCatturati.Select(p => p.NumeroPokemon).Contains(p.NumeroPokemon))
+                using var context = new PokedexAdaContext();
+                bool visto = (
+                    from g in context.Giocatores
+                    from pok in g.NumeroPokemonAvvistati
+                    where pok.NumeroPokemon == p.NumeroPokemon
+                    select p)
+                    .Any();
+                bool catturato = (
+                    from g in context.Giocatores
+                    from pok in g.NumeroPokemonCatturati
+                    where pok.NumeroPokemon == p.NumeroPokemon
+                    select p)
+                    .Any();
+                if (catturato)
                 {
                     status = "x";
                 }
-                else if (ash.NumeroPokemonAvvistati.Select(p => p.NumeroPokemon).Contains(p.NumeroPokemon))
+                else if (visto)
                 {
                     status = "o";
                 }
