@@ -65,6 +65,7 @@
             amiciList = new ListView();
             amico = new ColumnHeader();
             bloccato = new ColumnHeader();
+            cercaGiocatoreRimuoviButton = new Button();
             tabControl1.SuspendLayout();
             cercaECattura.SuspendLayout();
             visualizzaPokedex.SuspendLayout();
@@ -330,6 +331,7 @@
             // 
             // cercaGiocatoreGroupBox
             // 
+            cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreRimuoviButton);
             cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreSbloccaButton);
             cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreBloccaButton);
             cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreAggiungiButton);
@@ -347,9 +349,9 @@
             // 
             // cercaGiocatoreSbloccaButton
             // 
-            cercaGiocatoreSbloccaButton.Location = new Point(23, 258);
+            cercaGiocatoreSbloccaButton.Location = new Point(165, 258);
             cercaGiocatoreSbloccaButton.Name = "cercaGiocatoreSbloccaButton";
-            cercaGiocatoreSbloccaButton.Size = new Size(136, 34);
+            cercaGiocatoreSbloccaButton.Size = new Size(136, 67);
             cercaGiocatoreSbloccaButton.TabIndex = 6;
             cercaGiocatoreSbloccaButton.Text = "Sblocca";
             cercaGiocatoreSbloccaButton.UseVisualStyleBackColor = true;
@@ -358,9 +360,9 @@
             // 
             // cercaGiocatoreBloccaButton
             // 
-            cercaGiocatoreBloccaButton.Location = new Point(23, 258);
+            cercaGiocatoreBloccaButton.Location = new Point(167, 258);
             cercaGiocatoreBloccaButton.Name = "cercaGiocatoreBloccaButton";
-            cercaGiocatoreBloccaButton.Size = new Size(136, 34);
+            cercaGiocatoreBloccaButton.Size = new Size(136, 67);
             cercaGiocatoreBloccaButton.TabIndex = 5;
             cercaGiocatoreBloccaButton.Text = "Blocca";
             cercaGiocatoreBloccaButton.UseVisualStyleBackColor = true;
@@ -452,6 +454,17 @@
             bloccato.Text = "";
             bloccato.Width = 100;
             // 
+            // cercaGiocatoreRimuoviButton
+            // 
+            cercaGiocatoreRimuoviButton.Location = new Point(23, 258);
+            cercaGiocatoreRimuoviButton.Name = "cercaGiocatoreRimuoviButton";
+            cercaGiocatoreRimuoviButton.Size = new Size(136, 67);
+            cercaGiocatoreRimuoviButton.TabIndex = 7;
+            cercaGiocatoreRimuoviButton.Text = "Rimuovi amico";
+            cercaGiocatoreRimuoviButton.UseVisualStyleBackColor = true;
+            cercaGiocatoreRimuoviButton.Visible = false;
+            cercaGiocatoreRimuoviButton.Click += cercaGiocatoreRimuoviButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -514,5 +527,6 @@
         private Button cercaGiocatoreButton;
         private Label cercaGiocatoreFallitaLabel;
         private Button cercaGiocatoreSbloccaButton;
+        private Button cercaGiocatoreRimuoviButton;
     }
 }

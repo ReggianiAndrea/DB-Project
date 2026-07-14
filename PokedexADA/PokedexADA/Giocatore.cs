@@ -38,7 +38,7 @@ public partial class Giocatore
     }
     public bool RimuoviAmico(int idAmico)
     {
-        return GestioneAmicizia(idAmico, true);
+        return GestioneAmicizia(idAmico, false);
     }
 
     private bool GestioneAmicizia(int idAmico, bool aggiunto)

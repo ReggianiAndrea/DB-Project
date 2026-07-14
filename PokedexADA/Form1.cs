@@ -1,4 +1,5 @@
 using PokedexADA.PokedexADA;
+using System.Linq;
 
 namespace PokedexADA
 {
@@ -9,6 +10,7 @@ namespace PokedexADA
         // esempio di test
         int idGiocatore = 1;
         Giocatore giocatore;
+        Giocatore? giocatoreSelezionato;
 
         public Form1()
         {
@@ -229,40 +231,40 @@ namespace PokedexADA
         private void cercaGiocatoreButton_Click(object sender, EventArgs e)
         {
             string nickname = cercaGiocatoreTextBox.Text;
-            MostraGiocatore(nickname);
+            using var db = new PokedexAdaContext();
+            cercaGiocatoreTextBox.Text = "";
+            giocatoreSelezionato = db.Giocatores.Where(p => p.Nickname == nickname).FirstOrDefault();
+            MostraGiocatore(giocatoreSelezionato);
         }
 
-        private void MostraGiocatore(string nickname)
+        private void MostraGiocatore(Giocatore? amico)
         {
             cercaGiocatoreBloccaButton.Hide();
             cercaGiocatoreSbloccaButton.Hide();
             cercaGiocatoreAggiungiButton.Hide();
+            cercaGiocatoreRimuoviButton.Hide();
             nomeCercaGiocatoreLabel.Hide();
             cognomeCercaGiocatoreLabel.Hide();
             cercaGiocatoreFallitaLabel.Text = "";
             using var db = new PokedexAdaContext();
-            var query =
-                from g in db.Giocatores
-                where g.Nickname == nickname
-                select g;
-            Giocatore? giocatoreTrovato = query.FirstOrDefault();
-            if (giocatoreTrovato == null)
+            if (amico == null)
             {
                 cercaGiocatoreFallitaLabel.Text = "Giocatore non trovato";
                 return;
             }
             cercaGiocatoreGroupBox.Show();
-            cercaGiocatorePictureBox.ImageLocation = giocatoreTrovato.Immagine;
-            nomeCercaGiocatoreLabel.Text = $"Nome: {giocatoreTrovato.Nome}";
-            cognomeCercaGiocatoreLabel.Text = $"Cognome: {giocatoreTrovato.Cognome}";
-            nicknameCercaGiocatoreLabel.Text = $"Nickname: {giocatoreTrovato.Nickname}";
+            cercaGiocatorePictureBox.ImageLocation = amico.Immagine;
+            nomeCercaGiocatoreLabel.Text = $"Nome: {amico.Nome}";
+            cognomeCercaGiocatoreLabel.Text = $"Cognome: {amico.Cognome}";
+            nicknameCercaGiocatoreLabel.Text = $"Nickname: {amico.Nickname}";
             var query2 =
                 from a in db.Amicizia
-                where a.IdGiocatore == giocatore.IdGiocatore && a.IdGiocatoreAmico == giocatoreTrovato.IdGiocatore
+                where a.IdGiocatore == giocatore.IdGiocatore && a.IdGiocatoreAmico == amico.IdGiocatore
                 select a;
             Amicizia? amicizia = query2.FirstOrDefault();
             if (amicizia != null)
             {
+                cercaGiocatoreRimuoviButton.Show();
                 nomeCercaGiocatoreLabel.Show();
                 cognomeCercaGiocatoreLabel.Show();
                 if (amicizia.Bloccato)
@@ -274,7 +276,7 @@ namespace PokedexADA
                     cercaGiocatoreBloccaButton.Show();
                 }
             }
-            else if (giocatore.IdGiocatore != giocatoreTrovato.IdGiocatore)
+            else if (giocatore.IdGiocatore != amico.IdGiocatore)
             {
                 cercaGiocatoreAggiungiButton.Show();
             }
@@ -288,32 +290,60 @@ namespace PokedexADA
 
         private void cercaGiocatoreBloccaButton_Click(object sender, EventArgs e)
         {
-            string nickname = cercaGiocatoreTextBox.Text;
-            using var db = new PokedexAdaContext();
-            giocatore.BloccaAmico(db.Giocatores.Where(p => p.Nickname == nickname).Select(p => p.IdGiocatore).First());
-            MostraGiocatore(nickname);
+            if (giocatoreSelezionato != null)
+            {
+                giocatore.BloccaAmico(giocatoreSelezionato.IdGiocatore);
+                MostraGiocatore(giocatoreSelezionato);
+            }
         }
 
         private void cercaGiocatoreSbloccaButton_Click(object sender, EventArgs e)
         {
-            string nickname = cercaGiocatoreTextBox.Text;
-            using var db = new PokedexAdaContext();
-            giocatore.SbloccaAmico(db.Giocatores.Where(p => p.Nickname == nickname).Select(p => p.IdGiocatore).First());
-            MostraGiocatore(nickname);
+            if (giocatoreSelezionato != null)
+            {
+                giocatore.SbloccaAmico(giocatoreSelezionato.IdGiocatore);
+                MostraGiocatore(giocatoreSelezionato);
+            }
         }
 
         private void cercaGiocatoreAggiungiButton_Click(object sender, EventArgs e)
         {
-            string nickname = cercaGiocatoreTextBox.Text;
-            using var db = new PokedexAdaContext();
-            giocatore.AggiungiAmico(db.Giocatores.Where(p => p.Nickname == nickname).Select(p => p.IdGiocatore).First());
-            MostraGiocatore(nickname);
+            if (giocatoreSelezionato != null)
+            {
+                giocatore.AggiungiAmico(giocatoreSelezionato.IdGiocatore);
+                var item = new ListViewItem(new[] { giocatoreSelezionato.Nickname, "" });
+                amiciList.Items.Add(item);
+                MostraGiocatore(giocatoreSelezionato);
+            }
+        }
+
+        private void cercaGiocatoreRimuoviButton_Click(object sender, EventArgs e)
+        {
+            if (giocatoreSelezionato != null)
+            {
+                using var db = new PokedexAdaContext();
+                amiciList.Items.Clear();
+                for (int i = 0; i < amiciList.Items.Count; i++)
+                {
+                    if (amiciList.Items[i].SubItems[0].Text == giocatoreSelezionato.Nickname)
+                    {
+                        amiciList.Items.RemoveAt(i);
+                        break;
+                    }
+                }
+                giocatore.RimuoviAmico(giocatoreSelezionato.IdGiocatore);
+                MostraGiocatore(giocatoreSelezionato);
+            }
         }
 
         private void amiciList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string nickname = amiciList.SelectedItems[0].SubItems[0].Text;
-            MostraGiocatore(nickname);
+            if (giocatoreSelezionato != null && giocatoreSelezionato.Nickname != amiciList.SelectedItems[0].SubItems[0].Text)
+            {
+                using var db = new PokedexAdaContext();
+                giocatoreSelezionato = db.Giocatores.Where(p => p.Nickname == amiciList.SelectedItems[0].SubItems[0].Text).FirstOrDefault();
+                MostraGiocatore(giocatoreSelezionato);
+            }
         }
     }
 
