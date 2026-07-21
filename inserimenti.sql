@@ -54,12 +54,44 @@ insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, Attacc
 insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 60, 90, 55, 90, 80, 110);
 insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 50, 75, 85, 20, 30, 40);
 
+-- andre
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 60, 65, 60, 130, 75, 110);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 30, 40, 70, 70, 25, 60);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 55, 65, 95, 95, 45, 85);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 70, 110, 80, 55, 80, 105);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 20, 10, 55, 15, 20, 80);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 95, 125, 79, 60, 100, 81);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 130, 85, 80, 85, 95, 60);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 55, 55, 50, 45, 65, 55);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 130, 65, 60, 110, 95, 65);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 65, 65, 60, 110, 95, 130);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 65, 130, 60, 95, 110, 65);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 160, 110, 65, 65, 110, 30);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 41, 64, 45, 50, 50, 50);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 61, 84, 65, 70, 70, 70);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 91, 134, 95, 100, 100, 80);
+-- fine andre
+
 insert into ABILITA values ("Erbaiuto", "Quando al Pokémon rimangono pochi PS, la potenza delle sue mosse di tipo Erba aumenta.");
 insert into ABILITA values ("Aiutofuoco", "Quando al Pokémon rimangono pochi PS, la potenza delle sue mosse di tipo Fuoco aumenta.");
 insert into ABILITA values ("Acquaiuto", "Quando al Pokémon rimangono pochi PS, la potenza delle sue mosse di tipo Acqua aumenta.");
 insert into ABILITA values ("Sguardofermo", "La vista acuta del Pokémon impedisce che la sua precisione diminuisca.");
 insert into ABILITA values ("Statico", "Il Pokémon si ricopre di elettricità statica e può causare paralisi a chi è entrato in contatto con lui.");
 insert into ABILITA values ("Sabbiavelo", "L'elusione aumenta durante le tempeste di sabbia.");
+
+-- andre
+insert into ABILITA values ("Corpochiaro", "Impedisce alle mosse degli avversari di diminuire le statistiche del Pokémon.");
+insert into ABILITA values ("Nuotoveloce", "Aumenta la Velocità del Pokémon quando piove.");
+insert into ABILITA values ("Cecchino", "Aumenta la potenza dei brutti colpi messi a segno dal Pokémon.");
+insert into ABILITA values ("Svegliatesta", "Aumenta la potenza delle mosse che hanno effetti secondari, ma ne annulla gli effetti.");
+insert into ABILITA values ("Sgomento", "Può far tentennare il bersaglio quando il Pokémon lo colpisce con un attacco.");
+insert into ABILITA values ("Assorbacqua", "Se il Pokémon viene colpito da una mossa di tipo Acqua, recupera PS anziché subire danni.");
+insert into ABILITA values ("Fuga", "Consente di fuggire sempre dai Pokémon selvatici.");
+insert into ABILITA values ("Assorbelettro", "Se il Pokémon viene colpito da una mossa di tipo Elettro, recupera PS anziché subire danni.");
+insert into ABILITA values ("Immondezza", "Aumenta le difese del Pokémon se viene colpito da una mossa di tipo Veleno.");
+insert into ABILITA values ("Grassochecola", "Dimezza i danni subiti dalle mosse di tipo Fuoco e Ghiaccio.");
+-- fine andre
+
 
 insert into POKEMON values (1, "Seme", "Bulbasaur", "Ha uno strano bulbo piantato sul dorso fin dalla nascita che cresce e si sviluppa assieme a lui.", 0.7, 6.9, "Bestia", "001.png", "Verde", 6, 7, 1, "Erbaiuto");
 insert into POKEMON values (2, "Seme", "Ivysaur", "Dicono che il bocciolo sul suo dorso si schiuda in un grande fiore dopo aver assorbito nutrimento.", 1.0, 13.0, "Bestia", "002.png", "Verde", 6, 7, 2, "Erbaiuto");
@@ -76,6 +108,24 @@ insert into POKEMON values (18, "Uccello", "Pidgeot", "Quando caccia, vola rasen
 insert into POKEMON values (25, "Topo", "Pikachu", "Quando si sente minacciato emette scariche elettriche dalle due piccole sacche sulle guance.", 0.4, 6.0, "Topo", "025.png", "Giallo", 8, null, 13, "Statico");
 insert into POKEMON values (26, "Topo", "Raichu", "Quando l'elettricità al suo interno si accumula finisce per stimolarne i muscoli, rendendolo più aggressivo del solito.", 0.8, 30.0, "Topo", "026.png", "Giallo", 8, null, 14, "Statico");
 insert into POKEMON values (27, "Topo", "Sandshrew", "Se cade da una grande altezza, questo Pokémon può salvarsi appallottolandosi e rimbalzando.", 0.6, 12.0, "Bestia", "027.png", "Giallo", 9, null, 15, "Sabbiavelo");
+
+-- andre
+insert into POKEMON values (94, "Ombra", "Gengar", "Infrange la notte per nascondersi nelle ombre delle persone e derubarle del loro calore corporeo.", 1.5, 40.5, "Umanoide", "094.png", "Viola", 15, 7, 16, "Corpochiaro");
+insert into POKEMON values (116, "Drago", "Horsea", "Se avverte un pericolo, sputa un inchiostro nero denso dalla bocca per poi darsi alla fuga.", 0.4, 8.0, "Mollusco", "116.png", "Blu", 4, null, 17, "Nuotoveloce");
+insert into POKEMON values (117, "Dragone", "Seadra", "Il suo corpo è ricoperto di aculei velenosi. Un contatto disattento provoca svenimenti immediati.", 1.2, 25.0, "Mollusco", "117.png", "Blu", 4, null, 18, "Cecchino");
+insert into POKEMON values (123, "Mantide", "Scyther", "Con le sue falci affilate taglia e sminuzza le sue prede. Si muove così velocemente da creare illusioni.", 1.5, 56.0, "Insetto", "123.png", "Verde", 13, 5, 19, "Svegliatesta");
+insert into POKEMON values (129, "Pesce", "Magikarp", "È famoso per essere pateticamente debole. Può solo saltellare inutilmente sulla terraferma.", 0.9, 10.0, "Pesce", "129.png", "Rosso", 4, null, 20, "Nuotoveloce");
+insert into POKEMON values (130, "Atroce", "Gyarados", "È estremamente aggressivo. Quando si adira, distrugge tutto quello che trova sul suo cammino.", 6.5, 235.0, "Dragone", "130.png", "Blu", 4, 5, 21, "Sgomento");
+insert into POKEMON values (131, "Trasporto", "Lapras", "Dall'indole docile, ama trasportare le persone sul suo dorso solcando le acque oceaniche.", 2.5, 220.0, "Mostro Marino", "131.png", "Blu", 4, 12, 22, "Assorbacqua");
+insert into POKEMON values (133, "Evoluzione", "Eevee", "Ha una struttura genetica instabile che gli permette di evolversi in molteplici forme per adattarsi all'ambiente.", 0.3, 6.5, "Volpe", "133.png", "Marrone", 1, null, 23, "Fuga");
+insert into POKEMON values (134, "Bolla", "Vaporeon", "La sua struttura cellulare è simile a quella delle molecole d'acqua, permettendogli di mimetizzarsi perfettamente.", 1.0, 29.0, "Quadrupede", "134.png", "Blu", 4, null, 24, "Assorbacqua");
+insert into POKEMON values (135, "Saetta", "Jolteon", "Punta i suoi peli aghiformi e li scaglia come dardi affilati impregnati di elettricità.", 0.8, 24.5, "Quadrupede", "135.png", "Giallo", 8, null, 25, "Assorbelettro");
+insert into POKEMON values (136, "Fiamma", "Flareon", "Accumula calore nel suo corpo soffice e la sua temperatura corporea può salire fino a 900 °C.", 0.9, 25.0, "Quadrupede", "136.png", "Rosso", 2, null, 26, "Immondezza");
+insert into POKEMON values (143, "Pigiama", "Snorlax", "Il suo stomaco può digerire qualsiasi cosa. Mangia centinaia di chili di cibo al giorno e poi dorme.", 2.1, 460.0, "Orso", "143.png", "Nero", 1, null, 27, "Grassochecola");
+insert into POKEMON values (147, "Drago", "Dratini", "Cresce continuamente facendo la muta della pelle. Considerato a lungo un Pokémon leggendario.", 1.8, 3.3, "Serpente", "147.png", "Blu", 14, null, 28, "Corpochiaro");
+insert into POKEMON values (148, "Drago", "Dragonair", "Aura mistica lo avvolge. Si dice che sia in grado di modificare le condizioni atmosferiche a suo piacimento.", 4.0, 16.5, "Serpente", "148.png", "Blu", 14, null, 29, "Corpochiaro");
+insert into POKEMON values (149, "Drago", "Dragonite", "Può fare il giro del mondo in sole 16 ore. Ha un grande cuore e salva i marinai alla deriva.", 2.2, 210.0, "Drago", "149.png", "Marrone", 14, 5, 30, "Corpochiaro");
+-- fine andre
 
 insert into MOSSA values ("Azione", "Infligge danno e non ha nessun effetto aggiuntivo.", 100, 40, 1);
 insert into MOSSA values ("Graffio", "Infligge danno e non ha nessun effetto aggiuntivo.", 100, 40, 1);
@@ -103,6 +153,34 @@ insert into MOSSA values ("Cannonflash", "Infligge danno e ha il 10% di probabil
 insert into MOSSA values ("Rapigiro", "Infligge danno e aumenta la Velocità dell'utilizzatore di un livello.", 100, 50, 1);
 insert into MOSSA values ("Rotolamento", "Infligge danno nel corso di 5 turni, in ognuno dei quali viene effettuato un controllo della precisione.", 90, 30, 11);
 insert into MOSSA values ("Terremoto", "Infligge danno e non ha nessun effetto aggiuntivo.", 100, 100, 9);
+
+-- andre
+insert into MOSSA values ("Palla Ombra", "Infligge danno e ha il 20% di probabilità di ridurre la Difesa Speciale del bersaglio di un livello.", 100, 80, 15);
+insert into MOSSA values ("Ipnosi", "Fa addormentare il bersaglio.", 60, null, 10);
+insert into MOSSA values ("Mangiasogni", "Ripristina una quantità di PS pari alla metà del danno inflitto. Funziona solo su bersagli addormentati.", 100, 100, 10);
+insert into MOSSA values ("Mulinello", "Trappola d'acqua che infligge danno per 4-5 turni.", 85, 35, 4);
+insert into MOSSA values ("Muro di Fumo", "Riduce la precisione del bersaglio di un livello.", 100, null, 1);
+insert into MOSSA values ("Idropompa", "Infligge ingenti danni di tipo Acqua.", 80, 110, 4);
+insert into MOSSA values ("Adescamento", "Aumenta la Velocità dell'utilizzatore.", 101, null, 1);
+insert into MOSSA values ("Attacco d'Ala", "Colpisce il bersaglio con le ali aperte.", 100, 60, 5);
+insert into MOSSA values ("Falsallungo", "Un attacco che lascia sempre l'avversario con almeno 1 PS.", 100, 40, 1);
+insert into MOSSA values ("Scontro", "Un attacco disperato che infligge danni lievi.", 100, 50, 1);
+insert into MOSSA values ("Iper Raggio", "Infligge ingenti danni, ma costringe l'utilizzatore a riposare il turno successivo.", 90, 150, 1);
+insert into MOSSA values ("Baraonda", "Infligge danno per 3 turni e impedisce a tutti i Pokémon di addormentarsi.", 100, 90, 1);
+insert into MOSSA values ("Gelosguardo", "Riduce la Difesa di tutti gli avversari adiacenti di un livello.", 100, null, 1);
+insert into MOSSA values ("Bozzolo", "Aumenta la Difesa dell'utilizzatore.", 101, null, 13);
+insert into MOSSA values ("Bioluce", "Riduce la precisione del bersaglio.", 100, null, 1);
+insert into MOSSA values ("Morsicatura", "Infligge danno e ha il 30% di probabilità di far tentennare il bersaglio.", 100, 60, 16);
+insert into MOSSA values ("Pistolacqua", "Infligge danno di tipo Acqua.", 100, 40, 4);
+insert into MOSSA values ("Pistolassorbimento", "Assorbe metà del danno inflitto.", 100, 20, 6);
+insert into MOSSA values ("Pugno di Fuoco", "Può scottare il bersaglio.", 100, 75, 2);
+insert into MOSSA values ("Pugno di Ghiaccio", "Può congelare il bersaglio.", 100, 75, 12);
+insert into MOSSA values ("Pugno di Tuono", "Può paralizzare il bersaglio.", 100, 75, 8);
+insert into MOSSA values ("Iperzanna", "Attacco con incisivi affilati che può far tentennare.", 90, 80, 1);
+insert into MOSSA values ("Dragodanza", "Aumenta l'Attacco e la Velocità dell'utilizzatore di un livello.", 101, null, 14);
+insert into MOSSA values ("Oltraggio", "Attacca furiosamente per 2-3 turni, poi confonde l'utilizzatore.", 100, 120, 14);
+insert into MOSSA values ("Iperforazione", "Attacca il bersaglio trafiggendolo con un corno.", 100, 80, 1);
+-- fine andre
 
 # Bulbasaur
 insert into ACQUISIZIONE values ("Azione", 1);
@@ -229,6 +307,92 @@ insert into ACQUISIZIONE values ("Terremoto", 27);
 #insert into ACQUISIZIONE values ("Agilità", 28);
 #insert into ACQUISIZIONE values ("Terremoto", 28);
 
+-- andre
+-- Gengar
+insert into ACQUISIZIONE values ("Palla Ombra", 94);
+insert into ACQUISIZIONE values ("Ipnosi", 94);
+insert into ACQUISIZIONE values ("Mangiasogni", 94);
+insert into ACQUISIZIONE values ("Velenpolvere", 94);
+
+-- Horsea
+insert into ACQUISIZIONE values ("Pistolacqua", 116);
+insert into ACQUISIZIONE values ("Mulinello", 116);
+insert into ACQUISIZIONE values ("Muro di Fumo", 116);
+
+-- Seadra
+insert into ACQUISIZIONE values ("Pistolacqua", 117);
+insert into ACQUISIZIONE values ("Mulinello", 117);
+insert into ACQUISIZIONE values ("Idropompa", 117);
+insert into ACQUISIZIONE values ("Dragospiro", 117);
+
+-- Scyther
+insert into ACQUISIZIONE values ("Attacco Rapido", 123);
+insert into ACQUISIZIONE values ("Attacco d'Ala", 123);
+insert into ACQUISIZIONE values ("Agilità", 123);
+insert into ACQUISIZIONE values ("Falsallungo", 123);
+
+-- Magikarp
+insert into ACQUISIZIONE values ("Scontro", 129);
+
+-- Gyarados
+insert into ACQUISIZIONE values ("Morsicatura", 130);
+insert into ACQUISIZIONE values ("Dragospiro", 130);
+insert into ACQUISIZIONE values ("Idropompa", 130);
+insert into ACQUISIZIONE values ("Iper Raggio", 130);
+
+-- Lapras
+insert into ACQUISIZIONE values ("Pistolacqua", 131);
+insert into ACQUISIZIONE values ("Baraonda", 131);
+insert into ACQUISIZIONE values ("Gelosguardo", 131);
+insert into ACQUISIZIONE values ("Idropompa", 131);
+
+-- Eevee
+insert into ACQUISIZIONE values ("Azione", 133);
+insert into ACQUISIZIONE values ("Attacco Rapido", 133);
+insert into ACQUISIZIONE values ("Ruggito", 133);
+
+-- Vaporeon
+insert into ACQUISIZIONE values ("Azione", 134);
+insert into ACQUISIZIONE values ("Pistolacqua", 134);
+insert into ACQUISIZIONE values ("Ritirata", 134);
+insert into ACQUISIZIONE values ("Idropompa", 134);
+
+-- Jolteon
+insert into ACQUISIZIONE values ("Azione", 135);
+insert into ACQUISIZIONE values ("Tuonoshock", 135);
+insert into ACQUISIZIONE values ("Tuononda", 135);
+insert into ACQUISIZIONE values ("Fulmine", 135);
+
+-- Flareon
+insert into ACQUISIZIONE values ("Azione", 136);
+insert into ACQUISIZIONE values ("Braciere", 136);
+insert into ACQUISIZIONE values ("Ruggito", 136);
+insert into ACQUISIZIONE values ("Pugno di Fuoco", 136);
+
+-- Snorlax
+insert into ACQUISIZIONE values ("Azione", 143);
+insert into ACQUISIZIONE values ("Rotolamento", 143);
+insert into ACQUISIZIONE values ("Pugno di Ghiaccio", 143);
+insert into ACQUISIZIONE values ("Terremoto", 143);
+
+-- Dratini
+insert into ACQUISIZIONE values ("Azione", 147);
+insert into ACQUISIZIONE values ("Dragospiro", 147);
+insert into ACQUISIZIONE values ("Agilità", 147);
+
+-- Dragonair 
+insert into ACQUISIZIONE values ("Azione", 148);
+insert into ACQUISIZIONE values ("Dragospiro", 148);
+insert into ACQUISIZIONE values ("Dragodanza", 148);
+
+-- Dragonite
+insert into ACQUISIZIONE values ("Azione", 149);
+insert into ACQUISIZIONE values ("Dragospiro", 149);
+insert into ACQUISIZIONE values ("Oltraggio", 149);
+insert into ACQUISIZIONE values ("Iper Raggio", 149);
+-- fine andre
+
+
 insert into PERMANENZA values (1, 1);
 insert into PERMANENZA values (1, 2);
 insert into PERMANENZA values (1, 3);
@@ -244,6 +408,24 @@ insert into PERMANENZA values (2, 18);
 insert into PERMANENZA values (2, 25);
 insert into PERMANENZA values (2, 26);
 insert into PERMANENZA values (8, 27);
+
+-- andre
+insert into PERMANENZA values (5, 94);
+insert into PERMANENZA values (4, 116);
+insert into PERMANENZA values (4, 117);
+insert into PERMANENZA values (2, 123);
+insert into PERMANENZA values (4, 129);
+insert into PERMANENZA values (4, 130);
+insert into PERMANENZA values (4, 131);
+insert into PERMANENZA values (1, 133);
+insert into PERMANENZA values (3, 134);
+insert into PERMANENZA values (10, 135);
+insert into PERMANENZA values (9, 136);
+insert into PERMANENZA values (1, 143);
+insert into PERMANENZA values (4, 147);
+insert into PERMANENZA values (4, 148);
+insert into PERMANENZA values (6, 149);
+-- fine andre
 
 # Bulbasaur, Ivysaur, Venusaur
 insert into EVOLUZIONE values (1, 2, 1);
@@ -263,6 +445,23 @@ insert into EVOLUZIONE values (17, 18, 1);
 
 # Pikachu, Raichu
 insert into EVOLUZIONE values (25, 26, 2);
+
+-- andre
+-- Horsea -> Seadra
+insert into EVOLUZIONE values (116, 117, 1);
+
+-- Magikarp -> Gyarados
+insert into EVOLUZIONE values (129, 130, 1);
+
+-- Eevee -> Vaporeon / Jolteon / Flareon 
+insert into EVOLUZIONE values (133, 134, 2);
+insert into EVOLUZIONE values (133, 135, 2);
+insert into EVOLUZIONE values (133, 136, 2);
+
+-- Dratini -> Dragonair -> Dragonite 
+insert into EVOLUZIONE values (147, 148, 1);
+insert into EVOLUZIONE values (148, 149, 1);
+-- fine andre 
 
 -- TEST
 
