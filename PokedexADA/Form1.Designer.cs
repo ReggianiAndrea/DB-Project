@@ -53,6 +53,7 @@
             cercaGiocatoreFallitaLabel = new Label();
             cercaGiocatoreButton = new Button();
             cercaGiocatoreGroupBox = new GroupBox();
+            cercaGiocatoreRimuoviButton = new Button();
             cercaGiocatoreSbloccaButton = new Button();
             cercaGiocatoreBloccaButton = new Button();
             cercaGiocatoreAggiungiButton = new Button();
@@ -65,7 +66,6 @@
             amiciList = new ListView();
             amico = new ColumnHeader();
             bloccato = new ColumnHeader();
-            cercaGiocatoreRimuoviButton = new Button();
             tabControl1.SuspendLayout();
             cercaECattura.SuspendLayout();
             visualizzaPokedex.SuspendLayout();
@@ -199,7 +199,7 @@
             // improntaPokemonLabel
             // 
             improntaPokemonLabel.AutoSize = true;
-            improntaPokemonLabel.Location = new Point(707, 110);
+            improntaPokemonLabel.Location = new Point(703, 110);
             improntaPokemonLabel.Margin = new Padding(4, 0, 4, 0);
             improntaPokemonLabel.Name = "improntaPokemonLabel";
             improntaPokemonLabel.Size = new Size(90, 25);
@@ -219,7 +219,7 @@
             // pesoPokemonLabel
             // 
             pesoPokemonLabel.AutoSize = true;
-            pesoPokemonLabel.Location = new Point(707, 85);
+            pesoPokemonLabel.Location = new Point(703, 85);
             pesoPokemonLabel.Margin = new Padding(4, 0, 4, 0);
             pesoPokemonLabel.Name = "pesoPokemonLabel";
             pesoPokemonLabel.Size = new Size(53, 25);
@@ -229,7 +229,7 @@
             // altezzaPokemonLabel
             // 
             altezzaPokemonLabel.AutoSize = true;
-            altezzaPokemonLabel.Location = new Point(707, 60);
+            altezzaPokemonLabel.Location = new Point(703, 60);
             altezzaPokemonLabel.Margin = new Padding(4, 0, 4, 0);
             altezzaPokemonLabel.Name = "altezzaPokemonLabel";
             altezzaPokemonLabel.Size = new Size(72, 25);
@@ -239,7 +239,7 @@
             // speciePokemonLabel
             // 
             speciePokemonLabel.AutoSize = true;
-            speciePokemonLabel.Location = new Point(707, 35);
+            speciePokemonLabel.Location = new Point(703, 35);
             speciePokemonLabel.Margin = new Padding(4, 0, 4, 0);
             speciePokemonLabel.Name = "speciePokemonLabel";
             speciePokemonLabel.Size = new Size(91, 25);
@@ -249,7 +249,7 @@
             // pokemonLabel
             // 
             pokemonLabel.AutoSize = true;
-            pokemonLabel.Location = new Point(707, 10);
+            pokemonLabel.Location = new Point(703, 10);
             pokemonLabel.Margin = new Padding(4, 0, 4, 0);
             pokemonLabel.Name = "pokemonLabel";
             pokemonLabel.Size = new Size(81, 25);
@@ -261,7 +261,7 @@
             pokedexPicture.Location = new Point(470, 10);
             pokedexPicture.Margin = new Padding(4, 5, 4, 5);
             pokedexPicture.Name = "pokedexPicture";
-            pokedexPicture.Size = new Size(200, 200);
+            pokedexPicture.Size = new Size(225, 225);
             pokedexPicture.SizeMode = PictureBoxSizeMode.CenterImage;
             pokedexPicture.TabIndex = 1;
             pokedexPicture.TabStop = false;
@@ -346,6 +346,17 @@
             cercaGiocatoreGroupBox.TabStop = false;
             cercaGiocatoreGroupBox.Text = "Giocatore";
             cercaGiocatoreGroupBox.Visible = false;
+            // 
+            // cercaGiocatoreRimuoviButton
+            // 
+            cercaGiocatoreRimuoviButton.Location = new Point(23, 258);
+            cercaGiocatoreRimuoviButton.Name = "cercaGiocatoreRimuoviButton";
+            cercaGiocatoreRimuoviButton.Size = new Size(136, 67);
+            cercaGiocatoreRimuoviButton.TabIndex = 7;
+            cercaGiocatoreRimuoviButton.Text = "Rimuovi amico";
+            cercaGiocatoreRimuoviButton.UseVisualStyleBackColor = true;
+            cercaGiocatoreRimuoviButton.Visible = false;
+            cercaGiocatoreRimuoviButton.Click += cercaGiocatoreRimuoviButton_Click;
             // 
             // cercaGiocatoreSbloccaButton
             // 
@@ -453,17 +464,6 @@
             // 
             bloccato.Text = "";
             bloccato.Width = 100;
-            // 
-            // cercaGiocatoreRimuoviButton
-            // 
-            cercaGiocatoreRimuoviButton.Location = new Point(23, 258);
-            cercaGiocatoreRimuoviButton.Name = "cercaGiocatoreRimuoviButton";
-            cercaGiocatoreRimuoviButton.Size = new Size(136, 67);
-            cercaGiocatoreRimuoviButton.TabIndex = 7;
-            cercaGiocatoreRimuoviButton.Text = "Rimuovi amico";
-            cercaGiocatoreRimuoviButton.UseVisualStyleBackColor = true;
-            cercaGiocatoreRimuoviButton.Visible = false;
-            cercaGiocatoreRimuoviButton.Click += cercaGiocatoreRimuoviButton_Click;
             // 
             // Form1
             // 
