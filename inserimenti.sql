@@ -159,7 +159,6 @@ insert into MOSSA values ("Palla Ombra", "Infligge danno e ha il 20% di probabil
 insert into MOSSA values ("Ipnosi", "Fa addormentare il bersaglio.", 60, null, 10);
 insert into MOSSA values ("Mangiasogni", "Ripristina una quantità di PS pari alla metà del danno inflitto. Funziona solo su bersagli addormentati.", 100, 100, 10);
 insert into MOSSA values ("Mulinello", "Trappola d'acqua che infligge danno per 4-5 turni.", 85, 35, 4);
-insert into MOSSA values ("Muro di Fumo", "Riduce la precisione del bersaglio di un livello.", 100, null, 1);
 insert into MOSSA values ("Idropompa", "Infligge ingenti danni di tipo Acqua.", 80, 110, 4);
 insert into MOSSA values ("Adescamento", "Aumenta la Velocità dell'utilizzatore.", 101, null, 1);
 insert into MOSSA values ("Attacco d'Ala", "Colpisce il bersaglio con le ali aperte.", 100, 60, 5);
@@ -171,7 +170,6 @@ insert into MOSSA values ("Gelosguardo", "Riduce la Difesa di tutti gli avversar
 insert into MOSSA values ("Bozzolo", "Aumenta la Difesa dell'utilizzatore.", 101, null, 13);
 insert into MOSSA values ("Bioluce", "Riduce la precisione del bersaglio.", 100, null, 1);
 insert into MOSSA values ("Morsicatura", "Infligge danno e ha il 30% di probabilità di far tentennare il bersaglio.", 100, 60, 16);
-insert into MOSSA values ("Pistolacqua", "Infligge danno di tipo Acqua.", 100, 40, 4);
 insert into MOSSA values ("Pistolassorbimento", "Assorbe metà del danno inflitto.", 100, 20, 6);
 insert into MOSSA values ("Pugno di Fuoco", "Può scottare il bersaglio.", 100, 75, 2);
 insert into MOSSA values ("Pugno di Ghiaccio", "Può congelare il bersaglio.", 100, 75, 12);
