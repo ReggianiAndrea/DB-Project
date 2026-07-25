@@ -72,12 +72,30 @@ insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, Attacc
 insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 91, 134, 95, 100, 100, 80);
 -- fine andre
 
+--Ale
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 100, 110, 75, , , 65);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 47, 52, 55, , , 41);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 62, 67, 70, , , 56); 
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 82, 87, 90, , , 76); 
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 57, 40, 46, , , 50); 
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 72, 57, 61, , , 65); 
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 92, 77, 81, , , 85);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 41, 40, 38, , , 65);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 76, 75, 73, , , 100);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 70, 45, 55, , , 60);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 110, 80, 90, , , 95);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 85, 55, 50, , , 90);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 100, 70, 65, , , 105);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 35, 30, 30, , , 80);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 50, 45, 45, , , 90);
+
+
 insert into ABILITA values ("Erbaiuto", "Quando al Pokémon rimangono pochi PS, la potenza delle sue mosse di tipo Erba aumenta.");
 insert into ABILITA values ("Aiutofuoco", "Quando al Pokémon rimangono pochi PS, la potenza delle sue mosse di tipo Fuoco aumenta.");
 insert into ABILITA values ("Acquaiuto", "Quando al Pokémon rimangono pochi PS, la potenza delle sue mosse di tipo Acqua aumenta.");
 insert into ABILITA values ("Sguardofermo", "La vista acuta del Pokémon impedisce che la sua precisione diminuisca.");
 insert into ABILITA values ("Statico", "Il Pokémon si ricopre di elettricità statica e può causare paralisi a chi è entrato in contatto con lui.");
-insert into ABILITA values ("Sabbiavelo", "L'elusione aumenta durante le tempeste di sabbia.");
+insert into ABILITA values ("Sabbiavelo", "L'elusione aumenta durante le tempeste di sabbia e lo rende immune ai danni causati da essa.");
 
 -- andre
 insert into ABILITA values ("Corpochiaro", "Impedisce alle mosse degli avversari di diminuire le statistiche del Pokémon.");
@@ -91,6 +109,13 @@ insert into ABILITA values ("Assorbelettro", "Se il Pokémon viene colpito da un
 insert into ABILITA values ("Immondezza", "Aumenta le difese del Pokémon se viene colpito da una mossa di tipo Veleno.");
 insert into ABILITA values ("Grassochecola", "Dimezza i danni subiti dalle mosse di tipo Fuoco e Ghiaccio.");
 -- fine andre
+
+-- Ale
+insert into ABILITA values ("Velenopunto", "Se un avversario colpisce il Pokémon con una mossa da contatto, ha una probabilità del 30% di rimanere avvelenato.");
+insert into ABILITA values ("Rivalità", "Aumenta la potenza delle mosse contro Pokémon dello stesso sesso, ma la riduce contro quelli di sesso opposto.");
+insert into ABILITA values ("Fuocardore", "Rende il Pokémon immune alle mosse di tipo Fuoco. Dopo averne assorbita una, le sue mosse Fuoco diventano più potenti.");
+insert into ABILITA values ("Prepotenza", "Quando il Pokémon entra in campo, diminuisce di un livello l'Attacco di tutti gli avversari.");
+insert into ABILITA values ("Levitazione", "Il Pokémon è immune a tutte le mosse di tipo Terra e agli effetti collegati a quel tipo.");
 
 
 insert into POKEMON values (1, "Seme", "Bulbasaur", "Ha uno strano bulbo piantato sul dorso fin dalla nascita che cresce e si sviluppa assieme a lui.", 0.7, 6.9, "Bestia", "001.png", "Verde", 6, 7, 1, "Erbaiuto");
@@ -126,6 +151,23 @@ insert into POKEMON values (147, "Drago", "Dratini", "Cresce continuamente facen
 insert into POKEMON values (148, "Drago", "Dragonair", "Aura mistica lo avvolge. Si dice che sia in grado di modificare le condizioni atmosferiche a suo piacimento.", 4.0, 16.5, "Serpente", "148.png", "Blu", 14, null, 29, "Corpochiaro");
 insert into POKEMON values (149, "Drago", "Dragonite", "Può fare il giro del mondo in sole 16 ore. Ha un grande cuore e salva i marinai alla deriva.", 2.2, 210.0, "Drago", "149.png", "Marrone", 14, 5, 30, "Corpochiaro");
 -- fine andre
+
+-- Ale
+insert into POKEMON values (28, "Topo", "Sandslash", "Pokémon terrestre che scava tunnel e si difende con le spine.", 1, 29.5, "", "", "Giallo", 9, null, 31, "Sabbiavelo");
+insert into POKEMON values (29, "Aculeo", "Nidoranf", "Pokémon velenoso prudente dotato di un piccolo corno tossico.", 0.4, 7, "", "", "Blu", 7, null, 32, "Velenopunto"); 
+insert into POKEMON values (30, "Aculeo", "Nidorina", "Pokémon velenoso tranquillo che protegge con cura i suoi piccoli.", 0.8, 20, "", "", "Blu", 7, null, 33, "Velenopunto");
+insert into POKEMON values (31, "Trapano", "Nidoqueen", "Pokémon corazzato molto potente e protettivo verso il suo territorio.", 1.3, 60, "", "", "Blu", 7, 9, 34, "Velenopunto");
+insert into POKEMON values (32, "Aculeo", "Nidoranm", "Pokémon velenoso vivace che combatte usando il corno velenoso.", 0.5, 9, "", "", "Viola", 7, null, 35, "Velenopunto");
+insert into POKEMON values (33, "Aculeo", "Nidorino", "Pokémon aggressivo che attacca caricando con il corno appuntito.", 0.9, 19.5, "", "", "Viola", 7, null, 36, "Velenopunto");
+insert into POKEMON values (34, "Trapano", "Nidoking", "Pokémon estremamente potente dal lungo corno velenoso.", 1.4, 62, "", "", "Viola", 7, 9, 37, "Velenopunto");
+insert into POKEMON values (37, "Volpe", "Vulpix", "Elegante Pokémon volpe dalle sei code morbide e splendenti.", 0.6, 9.9, "", "", "Marrone", 2, null, 38, "Fuocardore");
+insert into POKEMON values (38, "Volpe", "Ninetales", "Pokémon volpe leggendario noto per la sua grande longevità.", 1.1, 19.9, "", "", "Giallo", 2, null, 39, "Fuocardore");
+insert into POKEMON values (58, "Cucciolo", "Growlithe", "Pokémon fedele e coraggioso che difende il proprio allenatore.", 0.7, 19, "", "", "Marrone" 2, null, 40, "Prepotenza");
+insert into POKEMON values (59, "Leggenda", "Arcanine", "Maestoso Pokémon famoso per velocità, coraggio ed eleganza.", 1.9, 155, "", "", "Marrone", 2, null, 41, "Prepotenza"); 
+insert into POKEMON values (77, "Cavalfuoco", "Ponyta", "Giovane cavallo di fuoco dalla corsa estremamente rapida.", 1, 30, "", "", "Giallo", 2, null, 42, "Fuga");
+insert into POKEMON values (78, "Cavalfuoco", "Rapidash", "Pokémon velocissimo dalle criniere infuocate che galoppa rapidamente.", 1.7, 95, "", "", "Giallo", 2, null, 43, "Fuga");
+insert into POKEMON values (92, "Gas", "Gastly", "Pokémon gassoso che ama spaventare nell’oscurità.", 1.3, 0.1, "", "", "Viola", 15, 7, 44, "Levitazione");
+insert into POKEMON values (93, "Gas", "Haunter", "Pokémon spettro che terrorizza le vittime con artigli e lingua.", 1.6, 0.1, "", "", "Viola", 15, 7, 45, "Levitazione");
 
 insert into MOSSA values ("Azione", "Infligge danno e non ha nessun effetto aggiuntivo.", 100, 40, 1);
 insert into MOSSA values ("Graffio", "Infligge danno e non ha nessun effetto aggiuntivo.", 100, 40, 1);
@@ -299,14 +341,6 @@ insert into ACQUISIZIONE values ("Rapigiro", 27);
 insert into ACQUISIZIONE values ("Agilità", 27);
 insert into ACQUISIZIONE values ("Terremoto", 27);
 
-# Sandslash
-#insert into ACQUISIZIONE values ("Graffio", 28);
-#insert into ACQUISIZIONE values ("Turbosabbia", 28);
-#insert into ACQUISIZIONE values ("Rotolamento", 28);
-#insert into ACQUISIZIONE values ("Rapigiro", 28);
-#insert into ACQUISIZIONE values ("Agilità", 28);
-#insert into ACQUISIZIONE values ("Terremoto", 28);
-
 -- andre
 -- Gengar
 insert into ACQUISIZIONE values ("Palla Ombra", 94);
@@ -392,6 +426,18 @@ insert into ACQUISIZIONE values ("Oltraggio", 149);
 insert into ACQUISIZIONE values ("Iper Raggio", 149);
 -- fine andre
 
+--Ale
+# Sandslash
+insert into ACQUISIZIONE values ("Graffio", 28);
+insert into ACQUISIZIONE values ("Turbosabbia", 28);
+insert into ACQUISIZIONE values ("Rotolamento", 28);
+insert into ACQUISIZIONE values ("Rapigiro", 28);
+insert into ACQUISIZIONE values ("Agilità", 28);
+insert into ACQUISIZIONE values ("Terremoto", 28);
+
+
+
+
 
 insert into PERMANENZA values (1, 1);
 insert into PERMANENZA values (1, 2);
@@ -463,10 +509,36 @@ insert into EVOLUZIONE values (147, 148, 1);
 insert into EVOLUZIONE values (148, 149, 1);
 -- fine andre 
 
+--Ale
+# Sandshrew -> Sandslash
+insert into EVOLUZIONE values (27, 28, );
+
+# Nidoranf -> Nidorina -> Nidoqueen
+insert into EVOLUZIONE values (29, 30, );
+insert into EVOLUZIONE values (30, 31, );
+
+# Nidoranm -> Nidorino -> Nidoking
+insert into EVOLUZIONE values (32, 33, );
+insert into EVOLUZIONE values (33, 34, );
+
+# Vulpix -> Ninetales
+insert into EVOLUZIONE values (37, 38, );
+
+# Growlithe -> Arcanine
+insert into EVOLUZIONE values (58, 59, );
+
+#Ponyta -> Rapidash	
+insert into EVOLUZIONE values (77, 78, );
+
+# Gastly -> Haunter 
+insert into EVOLUZIONE values (92, 93, );
+
+
 -- TEST
 
 insert into GIOCATORE values (1, "Ash", "Ketchup", "ash", "", null);
 insert into GIOCATORE values (2, "Ash2", "Ketchup2", "ash2", "", null);
+insert into GIOCATORE values (3, "Ash3", "Maionese", "ash3", "", null);
 
 insert into AVVISTAMENTO values (1, 1);
 insert into AVVISTAMENTO values (1, 4);
