@@ -468,7 +468,7 @@ insert into ACQUISIZIONE values ("Graffio", 29);
 insert into ACQUISIZIONE values ("Ruggito", 29);
 insert into ACQUISIZIONE values ("Velenpolvere", 29);
 insert into ACQUISIZIONE values ("Velenospina", 29);
--- insert into ACQUISIZIONE values ("Doppiocalcio", 29);
+insert into ACQUISIZIONE values ("Ipnosi", 29);
 
 # Nidorina 
 insert into ACQUISIZIONE values ("Graffio", 30);
@@ -500,7 +500,7 @@ insert into ACQUISIZIONE values ("Corposcontro", 33);
 # Nidoking 
 insert into ACQUISIZIONE values ("Azione", 34);
 insert into ACQUISIZIONE values ("Terremoto", 34);
--- insert into ACQUISIZIONE values ("Megapugno", 34);
+insert into ACQUISIZIONE values ("Ipnosi", 34);
 insert into ACQUISIZIONE values ("Lacerazione", 34);
 insert into ACQUISIZIONE values ("Iper Raggio", 34);
 
