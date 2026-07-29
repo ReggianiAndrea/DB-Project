@@ -162,7 +162,7 @@ insert into POKEMON values (33, "Aculeo", "Nidorino", "Pokémon aggressivo che a
 insert into POKEMON values (34, "Trapano", "Nidoking", "Pokémon estremamente potente dal lungo corno velenoso.", 1.4, 62, "Mostro", "034.png", "Viola", 7, 9, 37, "Velenopunto");
 insert into POKEMON values (37, "Volpe", "Vulpix", "Elegante Pokémon volpe dalle sei code morbide e splendenti.", 0.6, 9.9, "Bestia", "037.png", "Marrone", 2, null, 38, "Fuocardore");
 insert into POKEMON values (38, "Volpe", "Ninetales", "Pokémon volpe leggendario noto per la sua grande longevità.", 1.1, 19.9, "Bestia", "038.png", "Giallo", 2, null, 39, "Fuocardore");
-insert into POKEMON values (58, "Cucciolo", "Growlithe", "Pokémon fedele e coraggioso che difende il proprio allenatore.", 0.7, 19, "Bestia", "058.png", "Marrone" 2, null, 40, "Prepotenza");
+insert into POKEMON values (58, "Cucciolo", "Growlithe", "Pokémon fedele e coraggioso che difende il proprio allenatore.", 0.7, 19, "Bestia", "058.png", "Marrone", 2, null, 40, "Prepotenza");
 insert into POKEMON values (59, "Leggenda", "Arcanine", "Maestoso Pokémon famoso per velocità, coraggio ed eleganza.", 1.9, 155, "Bestia", "059.png", "Marrone", 2, null, 41, "Prepotenza"); 
 insert into POKEMON values (77, "Cavalfuoco", "Ponyta", "Giovane cavallo di fuoco dalla corsa estremamente rapida.", 1, 30, "Bestia", "077.png", "Giallo", 2, null, 42, "Fuga");
 insert into POKEMON values (78, "Cavalfuoco", "Rapidash", "Pokémon velocissimo dalle criniere infuocate che galoppa rapidamente.", 1.7, 95, "Bestia", "078.png", "Giallo", 2, null, 43, "Fuga");
@@ -226,9 +226,8 @@ insert into MOSSA values ("Iperforazione", "Attacca il bersaglio trafiggendolo c
 --Ale
 insert into MOSSA values ("Morso", "Morde il nemico e può farlo tentennare.", 100, 60, 1);
 insert into MOSSA values ("Fulmisguardo", "Riduce la Difesa del nemico.", 100, null, 1);
-insert into MOSSA values ("Ricciolscudo", "Aumenta la Difesa.", null, null, 1);
+insert into MOSSA values ("Ricciolscudo", "Aumenta la Difesa.", 101, null, 1);
 insert into MOSSA values ("Velenospina", "Attacco che può avvelenare.", 100, 15, 7);
-insert into MOSSA values ("Attacco Rapido", "Colpisci sempre per primo.", 100, 40, 1);
 insert into MOSSA values ("Corposcontro", "Può paralizzare il nemico.", 100, 85, 1);
 insert into MOSSA values ("Colpocoda", "Riduce la Difesa del nemico.", 100, null, 1);
 insert into MOSSA values ("Fossa", "Scava e colpisce nel turno successivo.", 100, 100, 9);
@@ -239,7 +238,7 @@ insert into MOSSA values ("Schianto", "Colpisce con forza usando il corpo.", 75,
 insert into MOSSA values ("Botta", "Colpisce con un attacco fisico", 100, 50, 1);
 insert into MOSSA values ("Acido", "Spruzza acido che può ridurre la Difesa", 100, 40, 7);
 insert into MOSSA values ("Morso Velenoso", "Attacco velenoso (effetto simile ad Acido)", 100, null, 7);
-insert into MOSSA values ("Nebbia", "Impedisce modifiche alle statistiche", null, null, 12);
+insert into MOSSA values ("Nebbia", "Impedisce modifiche alle statistiche", 101, null, 12);
 insert into MOSSA values ("Lanciafiamme", "Getto di fuoco che può scottare", 95, 95, 2);
 insert into MOSSA values ("Fuocobomba", "Potente esplosione di fuoco che può scottare", 85, 120, 2);
 insert into MOSSA values ("Turbofuoco", "Intrappola il nemico nelle fiamme", 85, 15, 2);
@@ -247,10 +246,10 @@ insert into MOSSA values ("Leccata", "Può paralizzare il nemico", 100, 20, 15);
 insert into MOSSA values ("Confusione", "Attacco psichico che può confondere", 100, 50, 10);
 insert into MOSSA values ("Psichico", "Potente attacco mentale", 100, 90, 10);
 insert into MOSSA values ("Mimica", "Copia una mossa del nemico", 100, null, 1);
-insert into MOSSA values ("Sostituto", "Crea un clone sacrificando PS", null, null, 1);
-insert into MOSSA values ("Riposo", "Recupera tutti i PS e dorme", null, null, 10);
-insert into MOSSA values ("Amnesia", "Aumenta la statistica Speciale", null, null, 10);
-insert into MOSSA values ("Danzaspada", "Aumenta molto l'Attacco", null, null, 1);
+insert into MOSSA values ("Sostituto", "Crea un clone sacrificando PS", 101, null, 1);
+insert into MOSSA values ("Riposo", "Recupera tutti i PS e dorme", 101, null, 10);
+insert into MOSSA values ("Amnesia", "Aumenta la statistica Speciale", 101, null, 10);
+insert into MOSSA values ("Danzaspada", "Aumenta molto l'Attacco", 101, null, 1);
 
 
 # Bulbasaur
@@ -469,7 +468,7 @@ insert into ACQUISIZIONE values ("Graffio", 29);
 insert into ACQUISIZIONE values ("Ruggito", 29);
 insert into ACQUISIZIONE values ("Velenpolvere", 29);
 insert into ACQUISIZIONE values ("Velenospina", 29);
-insert into ACQUISIZIONE values ("Doppio KICK", 29);
+-- insert into ACQUISIZIONE values ("Doppiocalcio", 29);
 
 # Nidorina 
 insert into ACQUISIZIONE values ("Graffio", 30);
@@ -501,7 +500,7 @@ insert into ACQUISIZIONE values ("Corposcontro", 33);
 # Nidoking 
 insert into ACQUISIZIONE values ("Azione", 34);
 insert into ACQUISIZIONE values ("Terremoto", 34);
-insert into ACQUISIZIONE values ("Megapugno", 34);
+-- insert into ACQUISIZIONE values ("Megapugno", 34);
 insert into ACQUISIZIONE values ("Lacerazione", 34);
 insert into ACQUISIZIONE values ("Iper Raggio", 34);
 
@@ -549,7 +548,7 @@ insert into ACQUISIZIONE values ("Iper Raggio", 78);
 
 # Gastly 
 insert into ACQUISIZIONE values ("Leccata", 92);
-insert into ACQUISIZIONE values ("Ipnotizzante", 92);
+insert into ACQUISIZIONE values ("Ipnosi", 92);
 insert into ACQUISIZIONE values ("Palla Ombra", 92);
 insert into ACQUISIZIONE values ("Nebbia", 92);
 insert into ACQUISIZIONE values ("Confusione", 92);

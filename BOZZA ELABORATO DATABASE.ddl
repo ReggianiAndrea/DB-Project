@@ -75,7 +75,7 @@ create table ELEMENTO (
      constraint ID_ELEMENTO_ID primary key (IdElemento));
 
 create table ESEMPLARE_POKEMON (
-     IdEsemplare int not null,
+     IdEsemplare int not null auto_increment,
      NomeAllenatore varchar(30) not null,
      NomePrimoAllenatore varchar(30) not null,
      Livello int not null,
