@@ -98,33 +98,60 @@ namespace PokedexADA
 
         private void pokedexList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (pokedexList.SelectedItems.Count == 0)
+            pokedexPicture.Image = null;
+            mossePokemonListView.Items.Clear();
+            lineaEvolutivaPokemonLayout.Visible = false;
+            if (pokedexList.SelectedItems.Count != 1) {
+                pokemonLabel.Text = "Numero:";
+                speciePokemonLabel.Text = "Pokemon:";
+                biomaPokemonLabel.Text = "Bioma:";
+                abilitaPokemonLabel.Text = "Abilità:";
+                elementiPokemonLabel.Text = "Elementi:";
+                altezzaPokemonLabel.Text = "Altezza:";
+                pesoPokemonLabel.Text = "Peso:";
+                improntaPokemonLabel.Text = "Impronta:";
+                descrizionePokemonTextBox.Text = "";
+                statistichePokemonPuntiSaluteLabel.Text = "Punti salute:";
+                statistichePokemonAttaccoLabel.Text = "Attacco:";
+                statistichePokemonDifesaLabel.Text = "Difesa:";
+                statistichePokemonAttaccoSpecialeLabel.Text = "Attacco speciale:";
+                statistichePokemonDifesaSpecialeLabel.Text = "Difesa speciale:";
+                statistichePokemonVelocitaLabel.Text = "Velocità:";
+                statistichePokemonTotaleLabel.Text = "Totale:";
                 return;
-
+            }
             using var db = new PokedexAdaContext();
             int id = pokedexList.SelectedItems[0].Index;
             Pokemon pokemon = db.Pokemons.ElementAt(id);
             Bitmap picture = (Bitmap)Image.FromFile(@"..\..\..\res\" + pokemon.Immagine);
-            string nome, specie, altezza, peso, impronta, descrizione;
-            nome = "???";
-            specie = "???";
-            altezza = "???";
-            peso = "???";
-            impronta = "???";
-            descrizione = "";
-            pokedexPicture.Image = null;
-            bool visto = (
+            string nome = "???";
+            string abilita = "???";
+            string bioma = "???";
+            string specie = "???";
+            string altezza = "???";
+            string peso = "???";
+            string impronta = "???";
+            string elementi = "???";
+            string puntiSalute = "???";
+            string attacco = "???";
+            string difesa = "???";
+            string attaccoSpeciale = "???";
+            string difesaSpeciale = "???";
+            string velocita = "???";
+            string totale = "???";
+            string descrizione = "";
+            List<Pokemon> pokemonVisti = (
                 from g in db.Giocatores
                 from p in g.NumeroPokemonAvvistati
-                where p.NumeroPokemon == pokemon.NumeroPokemon
                 select p)
-                .Any();
-            bool catturato = (
+                .ToList();
+            List<Pokemon> pokemonCatturati = (
                 from g in db.Giocatores
                 from p in g.NumeroPokemonCatturati
-                where p.NumeroPokemon == pokemon.NumeroPokemon
                 select p)
-                .Any();
+                .ToList();
+            bool visto = pokemonVisti.Where(p => p.NumeroPokemon == pokemon.NumeroPokemon).Any();
+            bool catturato = pokemonCatturati.Where(p => p.NumeroPokemon == pokemon.NumeroPokemon).Any();
             if (visto && !catturato)
             {
                 pokedexPicture.Image = filterPicture(picture);
@@ -133,6 +160,68 @@ namespace PokedexADA
             {
                 nome = pokemon.Nome;
                 specie = pokemon.Specie;
+                bioma = (
+                    from p in db.Pokemons
+                    from b in p.IdBiomas
+                    where p.NumeroPokemon == pokemon.NumeroPokemon
+                    select b.Habitat)
+                    .First();
+                string elementoPrimarioPokemon = (
+                    from el in db.Elementos
+                    where pokemon.IdElementoPrimario == el.IdElemento
+                    select el.Tipologia)
+                    .First();
+                string? elementoSecondarioPokemon = (
+                    from el in db.Elementos
+                    where pokemon.IdElementoSecondario == el.IdElemento
+                    select el.Tipologia)
+                    .FirstOrDefault();
+                elementi = elementoPrimarioPokemon + (elementoSecondarioPokemon != null ? " / " + elementoSecondarioPokemon : "");
+                SetStatistiche statistiche = (
+                    from s in db.SetStatistiches
+                    where pokemon.IdStatistiche == s.IdStatistiche
+                    select s)
+                    .First();
+                int ps = statistiche.PuntiSalute;
+                int att = statistiche.Attacco;
+                int def = statistiche.Difesa;
+                int attsp = statistiche.AttaccoSpeciale;
+                int defsp = statistiche.DifesaSpeciale;
+                int spd = statistiche.Velocita;
+                totale = (ps + att + def + attsp + defsp + spd).ToString();
+                puntiSalute = ps.ToString();
+                attacco = att.ToString();
+                difesa = def.ToString();
+                attaccoSpeciale = attsp.ToString();
+                difesaSpeciale = defsp.ToString();
+                velocita = spd.ToString();
+                lineaEvolutivaPokemonLayout.Controls.Clear();
+                foreach (Pokemon evo in pokemon.GetLineaEvolutiva())
+                {
+                    bool evoVisto = pokemonVisti.Where(p => p.NumeroPokemon == evo.NumeroPokemon).Any();
+                    bool evoCatturato = pokemonCatturati.Where(p => p.NumeroPokemon == evo.NumeroPokemon).Any();
+                    PictureBox box = new PictureBox();
+                    Bitmap image = new Bitmap(Image.FromFile(@"..\..\..\res\" + evo.Immagine), new Size(120, 120));
+                    if (!evoVisto)
+                    {
+                        image = new Bitmap(120, 120);
+                    }
+                    if (evoVisto && !evoCatturato)
+                    {
+                        image = filterPicture(image);
+                    }
+                    box.Size = image.Size;
+                    box.Image = image;
+                    lineaEvolutivaPokemonLayout.Controls.Add(box);
+                }
+                if (pokemon.GetLineaEvolutiva().Count == 0)
+                {
+                    Label label = new Label();
+                    label.Width = 500;
+                    label.Text = "Questo pokemon non ha nessuna linea evolutiva";
+                    lineaEvolutivaPokemonLayout.Controls.Add(label);
+                }
+                lineaEvolutivaPokemonLayout.Visible = true;
             }
             if (catturato)
             {
@@ -140,14 +229,37 @@ namespace PokedexADA
                 peso = "" + pokemon.Peso;
                 impronta = pokemon.Impronta;
                 descrizione = pokemon.DescrizionePokemon;
+                abilita = pokemon.NomeAbilita;
+                foreach (Mossa m in pokemon.GetMosseApprendibili())
+                {
+                    string nomeElemento = (
+                        from el in db.Elementos
+                        where el.IdElemento == m.IdElemento
+                        select el.Tipologia)
+                        .First();
+                    string danno = m.Danno != null ? m.Danno.GetValueOrDefault().ToString() : "-";
+                    string precisione = m.Precisione <= 100 ? m.Precisione.ToString() : "-";
+                    var item = new ListViewItem(new[] { m.NomeMossa, nomeElemento, danno, precisione, m.DescrizioneMossa });
+                    mossePokemonListView.Items.Add(item);
+                }
                 pokedexPicture.Image = picture;
             }
             pokemonLabel.Text = $"{pokemon.NumeroPokemon}: {nome}";
             speciePokemonLabel.Text = $"Pokemon: {specie}";
+            abilitaPokemonLabel.Text = $"Abilità: {abilita}";
+            biomaPokemonLabel.Text = $"Bioma: {bioma}";
             altezzaPokemonLabel.Text = $"Altezza: {altezza} m";
             pesoPokemonLabel.Text = $"Peso: {peso} kg";
             improntaPokemonLabel.Text = $"Impronta: {impronta}";
+            elementiPokemonLabel.Text = $"Elementi: {elementi}";
             descrizionePokemonTextBox.Text = descrizione;
+            statistichePokemonPuntiSaluteLabel.Text = $"Punti salute: {puntiSalute}";
+            statistichePokemonAttaccoLabel.Text = $"Attacco: {attacco}";
+            statistichePokemonDifesaLabel.Text = $"Difesa: {difesa}";
+            statistichePokemonAttaccoSpecialeLabel.Text = $"Attacco speciale: {attaccoSpeciale}";
+            statistichePokemonDifesaSpecialeLabel.Text = $"Difesa speciale: {difesaSpeciale}";
+            statistichePokemonVelocitaLabel.Text = $"Velocità: {velocita}";
+            statistichePokemonTotaleLabel.Text = $"Totale: {totale}";
         }
 
         private Bitmap filterPicture(Bitmap picture)
@@ -213,11 +325,11 @@ namespace PokedexADA
                 string status;
                 if (catturati.Any(pok => pok.NumeroPokemon == p.NumeroPokemon))
                 {
-                    status = "x";
+                    status = "\u00A9";
                 }
                 else if (visti.Any(pok => pok.NumeroPokemon == p.NumeroPokemon))
                 {
-                    status = "o";
+                    status = "\u25CB";
                 }
                 else
                 {
