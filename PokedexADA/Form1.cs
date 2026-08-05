@@ -338,7 +338,7 @@ namespace PokedexADA
 
         private void amiciList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (giocatoreSelezionato != null && giocatoreSelezionato.Nickname != amiciList.SelectedItems[0].SubItems[0].Text)
+            if (giocatoreSelezionato != null && amiciList.SelectedItems.Count > 0 && giocatoreSelezionato.Nickname != amiciList.SelectedItems[0].SubItems[0].Text)
             {
                 using var db = new PokedexAdaContext();
                 giocatoreSelezionato = db.Giocatores.Where(p => p.Nickname == amiciList.SelectedItems[0].SubItems[0].Text).FirstOrDefault();

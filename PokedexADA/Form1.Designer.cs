@@ -66,6 +66,8 @@
             amiciList = new ListView();
             amico = new ColumnHeader();
             bloccato = new ColumnHeader();
+            cercaGiocatorePokemonPreferitoPictureBox = new PictureBox();
+            pokemonPreferitoCercaGiocatoreLabel = new Label();
             tabControl1.SuspendLayout();
             cercaECattura.SuspendLayout();
             visualizzaPokedex.SuspendLayout();
@@ -73,6 +75,7 @@
             visualizzaAmici.SuspendLayout();
             cercaGiocatoreGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cercaGiocatorePictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cercaGiocatorePokemonPreferitoPictureBox).BeginInit();
             SuspendLayout();
             // 
             // outputBox
@@ -331,6 +334,8 @@
             // 
             // cercaGiocatoreGroupBox
             // 
+            cercaGiocatoreGroupBox.Controls.Add(pokemonPreferitoCercaGiocatoreLabel);
+            cercaGiocatoreGroupBox.Controls.Add(cercaGiocatorePokemonPreferitoPictureBox);
             cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreRimuoviButton);
             cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreSbloccaButton);
             cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreBloccaButton);
@@ -360,7 +365,7 @@
             // 
             // cercaGiocatoreSbloccaButton
             // 
-            cercaGiocatoreSbloccaButton.Location = new Point(165, 258);
+            cercaGiocatoreSbloccaButton.Location = new Point(167, 258);
             cercaGiocatoreSbloccaButton.Name = "cercaGiocatoreSbloccaButton";
             cercaGiocatoreSbloccaButton.Size = new Size(136, 67);
             cercaGiocatoreSbloccaButton.TabIndex = 6;
@@ -465,6 +470,23 @@
             bloccato.Text = "";
             bloccato.Width = 100;
             // 
+            // cercaGiocatorePokemonPreferitoPictureBox
+            // 
+            cercaGiocatorePokemonPreferitoPictureBox.Location = new Point(209, 145);
+            cercaGiocatorePokemonPreferitoPictureBox.Name = "cercaGiocatorePokemonPreferitoPictureBox";
+            cercaGiocatorePokemonPreferitoPictureBox.Size = new Size(76, 76);
+            cercaGiocatorePokemonPreferitoPictureBox.TabIndex = 8;
+            cercaGiocatorePokemonPreferitoPictureBox.TabStop = false;
+            // 
+            // pokemonPreferitoCercaGiocatoreLabel
+            // 
+            pokemonPreferitoCercaGiocatoreLabel.AutoSize = true;
+            pokemonPreferitoCercaGiocatoreLabel.Location = new Point(209, 115);
+            pokemonPreferitoCercaGiocatoreLabel.Name = "pokemonPreferitoCercaGiocatoreLabel";
+            pokemonPreferitoCercaGiocatoreLabel.Size = new Size(164, 25);
+            pokemonPreferitoCercaGiocatoreLabel.TabIndex = 9;
+            pokemonPreferitoCercaGiocatoreLabel.Text = "Pokemon preferito:";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -485,6 +507,7 @@
             cercaGiocatoreGroupBox.ResumeLayout(false);
             cercaGiocatoreGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)cercaGiocatorePictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cercaGiocatorePokemonPreferitoPictureBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -528,5 +551,7 @@
         private Label cercaGiocatoreFallitaLabel;
         private Button cercaGiocatoreSbloccaButton;
         private Button cercaGiocatoreRimuoviButton;
+        private Label pokemonPreferitoCercaGiocatoreLabel;
+        private PictureBox cercaGiocatorePokemonPreferitoPictureBox;
     }
 }
