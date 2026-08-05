@@ -24,20 +24,20 @@ and a.bloccato = false;
 -- Ottenere linea evolutiva di un pokemon
 
 with recursive base as (
-	select e.nome, p.nome evo, p.numeropokemon nevo, m.nome metodo
+	select e.numeropokemon, p.numeropokemon numeropokemonevo, m.nome metodo
 	from pokemon p
     join evoluzione ev on ev.numeropokemonstadiosuccessivo = p.numeropokemon
     join metodo_evolutivo m on m.idmetodo = ev.idmetodo
     join pokemon e on ev.numeropokemonstadiocorrente = e.numeropokemon
 	where e.numeropokemon = (
 		with recursive base as (
-			select p.numeropokemon, p.nome, e.nome evo
+			select p.numeropokemon, e.numeropokemon numeropokemonevo
 			from pokemon p
 			left join evoluzione ev on ev.numeropokemonstadiocorrente = p.numeropokemon
 			left join pokemon e on ev.numeropokemonstadiosuccessivo = e.numeropokemon
-			where p.numeropokemon = 4
+			where p.numeropokemon = 143
 			union all
-			select p.numeropokemon, p.nome, e.nome
+			select p.numeropokemon, e.numeropokemon numeropokemonevo
 			from pokemon p
 			left join evoluzione ev on ev.numeropokemonstadiocorrente = p.numeropokemon
 			inner join base e on ev.numeropokemonstadiosuccessivo = e.numeropokemon
@@ -45,13 +45,13 @@ with recursive base as (
 		select numeropokemon from base order by numeropokemon limit 1
     )
 	union all
-	select e.evo, p.nome, p.numeropokemon, m.nome
+	select e.numeropokemonevo, p.numeropokemon, m.nome
 	from pokemon p
     join evoluzione ev on ev.numeropokemonstadiosuccessivo = p.numeropokemon
     join metodo_evolutivo m on m.idmetodo = ev.idmetodo
-    inner join base e on ev.numeropokemonstadiocorrente = e.nevo
+    inner join base e on ev.numeropokemonstadiocorrente = e.numeropokemonevo
 )
-select nome, evo, metodo from base;
+select * from base;
 
 -- Lista di pokemon di un certo bioma
 
