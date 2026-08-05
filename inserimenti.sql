@@ -72,7 +72,7 @@ insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, Attacc
 insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 91, 134, 95, 100, 100, 80);
 -- fine andre
 
---Ale
+-- Ale
 insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 100, 110, 75, 45, 55, 65);
 insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 47, 52, 55, 40, 40, 41);
 insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 62, 67, 70, 55, 55, 56); 
@@ -223,7 +223,7 @@ insert into MOSSA values ("Oltraggio", "Attacca furiosamente per 2-3 turni, poi 
 insert into MOSSA values ("Iperforazione", "Attacca il bersaglio trafiggendolo con un corno.", 100, 80, 1);
 -- fine andre
 
---Ale
+-- Ale
 insert into MOSSA values ("Morso", "Morde il nemico e può farlo tentennare.", 100, 60, 1);
 insert into MOSSA values ("Fulmisguardo", "Riduce la Difesa del nemico.", 100, null, 1);
 insert into MOSSA values ("Ricciolscudo", "Aumenta la Difesa.", 101, null, 1);
@@ -454,7 +454,7 @@ insert into ACQUISIZIONE values ("Oltraggio", 149);
 insert into ACQUISIZIONE values ("Iper Raggio", 149);
 -- fine andre
 
---Ale
+-- Ale
 # Sandslash
 insert into ACQUISIZIONE values ("Graffio", 28);
 insert into ACQUISIZIONE values ("Turbosabbia", 28);
@@ -648,7 +648,7 @@ insert into EVOLUZIONE values (147, 148, 1);
 insert into EVOLUZIONE values (148, 149, 1);
 -- fine andre 
 
---Ale
+-- Ale
 # Sandshrew -> Sandslash
 insert into EVOLUZIONE values (27, 28, 1);
 
