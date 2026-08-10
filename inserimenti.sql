@@ -682,6 +682,10 @@ insert into GIOCATORE values (1, "Ash", "Ketchup", "ash", "", null);
 insert into GIOCATORE values (2, "Ash2", "Ketchup2", "ash2", "", null);
 insert into GIOCATORE values (3, "Ash3", "Maionese", "ash3", "", null);
 
+insert into SQUADRA values (1);
+insert into SQUADRA values (2);
+insert into SQUADRA values (3);
+
 insert into AVVISTAMENTO values (1, 1);
 insert into AVVISTAMENTO values (1, 4);
 insert into AVVISTAMENTO values (1, 25);

@@ -145,6 +145,31 @@ public partial class Giocatore
             where pok.NumeroPokemon == numeroPokemon
             select pok.NumeroPokemon)
             .Any();
+        EsemplarePokemon pokemon = new EsemplarePokemon();
+        Random rand = new Random(DateTime.Now.Second);
+        pokemon.Cromatico = rand.Next(4096) == 0;
+        pokemon.DataCattura = DateTime.Now;
+        pokemon.NumeroPokemon = numeroPokemon;
+        pokemon.IdGiocatoreProprietario = IdGiocatore;
+        pokemon.NomePrimoAllenatore = Nome;
+        pokemon.NomeAllenatore = Nome;
+        pokemon.IdEsemplare = db.EsemplarePokemons.Count() + 1;
+        pokemon.Sesso = rand.Next(2) == 0 ? "M" : "F";
+        pokemon.Livello = rand.Next(10, 35);
+        if (db.Squadras.Where(s => s.IdGiocatore == IdGiocatore).Count() < 6)
+        {
+            pokemon.IdSquadra = IdGiocatore;
+            pokemon.IdBox = null;
+            pokemon.InBox = false;
+        }
+        else
+        {
+            pokemon.IdSquadra = null;
+            pokemon.IdBox = db.BoxPokemons.Where(b => b.IdGiocatore == IdGiocatore).Select(b => b.IdBox).First();
+            pokemon.InBox = true;
+        }
+        db.EsemplarePokemons.Add(pokemon);
+        db.SaveChanges();
         if (!catturato)
         {
             db.Database.ExecuteSql($"INSERT INTO CATTURA VALUES ({IdGiocatore}, {numeroPokemon})");

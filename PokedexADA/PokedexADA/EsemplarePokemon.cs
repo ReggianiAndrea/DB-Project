@@ -15,11 +15,11 @@ public partial class EsemplarePokemon
 
     public DateTime DataCattura { get; set; }
 
-    public string InBox { get; set; } = null!;
+    public bool InBox { get; set; } = false;
 
     public string Sesso { get; set; } = null!;
 
-    public string Cromatico { get; set; } = null!;
+    public bool Cromatico { get; set; } = false;
 
     public int NumeroPokemon { get; set; }
 
