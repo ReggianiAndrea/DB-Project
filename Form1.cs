@@ -1,10 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using PokedexADA.PokedexADA;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace PokedexADA
 {
@@ -119,7 +114,6 @@ namespace PokedexADA
             // GESTIONE SQUADRA
             gestisciSquadraTab = new TabPage("Gestisci Squadra");
 
-            // Etichette descrittive per Box e Squadra Attiva
             Label labelBox = new Label { Text = "Box Pokémon", Location = new Point(20, 0), AutoSize = true, Font = new Font(Font, FontStyle.Bold) };
             Label labelSquadra = new Label { Text = "Squadra Attiva", Location = new Point(500, 0), AutoSize = true, Font = new Font(Font, FontStyle.Bold) };
 
@@ -394,26 +388,53 @@ namespace PokedexADA
                 attaccoSpeciale = attsp.ToString();
                 difesaSpeciale = defsp.ToString();
                 velocita = spd.ToString();
+
                 lineaEvolutivaPokemonLayout.Controls.Clear();
-                foreach (Pokemon evo in pokemon.GetLineaEvolutiva())
+                List<int> numeriEvoluzioni = new List<int>();
+                using (var cmdEvo = db.Database.GetDbConnection().CreateCommand())
                 {
-                    bool evoVisto = pokemonVisti.Where(p => p.NumeroPokemon == evo.NumeroPokemon).Any();
-                    bool evoCatturato = pokemonCatturati.Where(p => p.NumeroPokemon == evo.NumeroPokemon).Any();
-                    PictureBox box = new PictureBox();
-                    Bitmap image = new Bitmap(Image.FromFile(@"..\..\..\res\" + evo.Immagine), new Size(120, 120));
-                    if (!evoVisto)
+                    cmdEvo.CommandText = "SELECT NumeroPokemonArrivo FROM evoluzione WHERE NumeroPokemonPartenza = @numPoke";
+                    var pNum = cmdEvo.CreateParameter();
+                    pNum.ParameterName = "@numPoke";
+                    pNum.Value = pokemon.NumeroPokemon;
+                    cmdEvo.Parameters.Add(pNum);
+
+                    if (cmdEvo.Connection.State != System.Data.ConnectionState.Open)
+                        cmdEvo.Connection.Open();
+
+                    using var readerEvo = cmdEvo.ExecuteReader();
+                    while (readerEvo.Read())
                     {
-                        image = new Bitmap(120, 120);
+                        numeriEvoluzioni.Add(readerEvo.GetInt32(0));
                     }
-                    if (evoVisto && !evoCatturato)
-                    {
-                        image = filterPicture(image);
-                    }
-                    box.Size = image.Size;
-                    box.Image = image;
-                    lineaEvolutivaPokemonLayout.Controls.Add(box);
                 }
-                if (pokemon.GetLineaEvolutiva().Count == 0)
+
+                foreach (int numEvo in numeriEvoluzioni)
+                {
+                    using var dbEvo = new PokedexAdaContext();
+                    Pokemon? pokeEvo = dbEvo.Pokemons.FirstOrDefault(p => p.NumeroPokemon == numEvo);
+
+                    if (pokeEvo != null)
+                    {
+                        bool evoVisto = pokemonVisti.Where(p => p.NumeroPokemon == pokeEvo.NumeroPokemon).Any();
+                        bool evoCatturato = pokemonCatturati.Where(p => p.NumeroPokemon == pokeEvo.NumeroPokemon).Any();
+                        PictureBox box = new PictureBox();
+                        Bitmap image = new Bitmap(Image.FromFile(@"..\..\..\res\" + pokeEvo.Immagine), new Size(120, 120));
+                        if (!evoVisto)
+                        {
+                            image = new Bitmap(120, 120);
+                        }
+                        if (evoVisto && !evoCatturato)
+                        {
+                            image = filterPicture(image);
+                        }
+                        box.Size = image.Size;
+                        box.Image = image;
+                        lineaEvolutivaPokemonLayout.Controls.Add(box);
+                    }
+                }
+
+                if (numeriEvoluzioni.Count == 0)
                 {
                     Label label = new Label();
                     label.Width = 500;
@@ -567,12 +588,11 @@ namespace PokedexADA
             cognomeCercaGiocatoreLabel.Text = $"Cognome: {amico.Cognome}";
             nicknameCercaGiocatoreLabel.Text = $"Nickname: {amico.Nickname}";
 
-            // 1. Leggiamo i dati grezzi con ADO.NET e li salviamo in una lista locale
             var datiEsemplari = new List<(int IdEsemplare, int Livello, int NumeroPokemon)>();
 
             using (var command = db.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "SELECT IdEsemplare, Livello, NumeroPokemon FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idAmico";
+                command.CommandText = "SELECT IdEsemplare, Livello, NumeroPokemon FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idAmico AND IdSquadra IS NOT NULL";
 
                 var parameter = command.CreateParameter();
                 parameter.ParameterName = "@idAmico";
@@ -587,9 +607,8 @@ namespace PokedexADA
                 {
                     datiEsemplari.Add((reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
                 }
-            } // Il reader si chiude qui, liberando completamente la connessione
+            }
 
-            // 2. Ora possiamo usare EF Core in sicurezza per recuperare i nomi e popolare la ListView
             foreach (var p in datiEsemplari)
             {
                 string nomePokemon = db.Pokemons
@@ -688,7 +707,6 @@ namespace PokedexADA
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e) { }
 
-        // LOGICA FILTRI POKEDEX
         private void CaricaPokedexFiltrato(string nome, string elemento)
         {
             pokedexList.Items.Clear();
@@ -731,7 +749,6 @@ namespace PokedexADA
             CaricaPokedexFiltrato("", "Tutti");
         }
 
-        // LOGICA GESTIONE SQUADRA E BOX
         private void AggiornaVisteSquadraEBox()
         {
             boxListView.Items.Clear();
@@ -739,7 +756,6 @@ namespace PokedexADA
 
             using var db = new PokedexAdaContext();
 
-            // 1. Leggiamo i dati grezzi con ADO.NET per evitare l'eccezione sulle date di Entity Framework
             var esemplariGrezzi = new List<(int IdEsemplare, int Livello, int NumeroPokemon, int? IdSquadra)>();
 
             using (var command = db.Database.GetDbConnection().CreateCommand())
@@ -764,9 +780,8 @@ namespace PokedexADA
 
                     esemplariGrezzi.Add((idEs, livello, numeroPoke, idSquadra));
                 }
-            } // Il reader si chiude qui, liberando la connessione
+            }
 
-            // 2. Ora usiamo EF Core in sicurezza solo per recuperare i nomi dei Pokémon e popolare le liste
             foreach (var e in esemplariGrezzi)
             {
                 string nomePokemon = db.Pokemons
@@ -790,48 +805,14 @@ namespace PokedexADA
             {
                 int idEs = (int)boxListView.SelectedItems[0].Tag;
 
-                using var db = new PokedexAdaContext();
-
-                // 1. Verifichiamo quanti Pokémon sono già nella squadra attiva del giocatore
-                int quantitaInSquadra = 0;
-                using (var cmdCount = db.Database.GetDbConnection().CreateCommand())
+                if (giocatore.AggiungiASquadra(idEs))
                 {
-                    cmdCount.CommandText = "SELECT COUNT(*) FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idG AND IdSquadra IS NOT NULL";
-                    var paramG = cmdCount.CreateParameter();
-                    paramG.ParameterName = "@idG";
-                    paramG.Value = idGiocatore;
-                    cmdCount.Parameters.Add(paramG);
-
-                    if (cmdCount.Connection.State != System.Data.ConnectionState.Open)
-                        cmdCount.Connection.Open();
-
-                    quantitaInSquadra = Convert.ToInt32(cmdCount.ExecuteScalar());
+                    AggiornaVisteSquadraEBox();
                 }
-
-                // 2. Se la squadra è già a 6, blocchiamo e mostriamo l'errore
-                if (quantitaInSquadra >= 6)
+                else
                 {
                     MessageBox.Show("Squadra piena (max 6) o errore!", "Impossibile spostare", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
                 }
-
-                // 3. Altrimenti, spostiamo il Pokémon nel box assegnandogli un IdSquadra fittizio (es. 1)
-                using (var cmdUpdate = db.Database.GetDbConnection().CreateCommand())
-                {
-                    cmdUpdate.CommandText = "UPDATE esemplare_pokemon SET IdSquadra = 1 WHERE IdEsemplare = @idEs";
-                    var paramEs = cmdUpdate.CreateParameter();
-                    paramEs.ParameterName = "@idEs";
-                    paramEs.Value = idEs;
-                    cmdUpdate.Parameters.Add(paramEs);
-
-                    if (cmdUpdate.Connection.State != System.Data.ConnectionState.Open)
-                        cmdUpdate.Connection.Open();
-
-                    cmdUpdate.ExecuteNonQuery();
-                }
-
-                // Aggiorniamo le viste
-                AggiornaVisteSquadraEBox();
             }
         }
 
@@ -840,14 +821,13 @@ namespace PokedexADA
             if (squadraListView.SelectedItems.Count > 0)
             {
                 int idEs = (int)squadraListView.SelectedItems[0].Tag;
-                if (giocatore.RimuoviDaSquadra(idEs, 1))
+                if (giocatore.RimuoviDaSquadra(idEs, null))
                     AggiornaVisteSquadraEBox();
                 else
                     MessageBox.Show("Errore durante lo spostamento nel box.", "Impossibile spostare", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        // LOGICA BATTAGLIA
         private void CercaGiocatoreSfidaButton_Click(object? sender, EventArgs e)
         {
             string? nicknameAvversario = avversarioComboBox.SelectedItem?.ToString();
