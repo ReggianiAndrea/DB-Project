@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using MySql.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PokedexADA.PokedexADA;
 
@@ -68,16 +69,15 @@ public partial class Pokemon
         return mosseApprendibili;
     }
 
-    public List<Pokemon> GetLineaEvolutiva()
+    public List<Evoluzione> GetLineaEvolutiva()
     {
         using var db = new PokedexAdaContext();
         using var conn = new MySqlConnection("Server=localhost;Port=3306;Database=pokedexada;User=root;Password=;");
         conn.Open();
         string sql = $@"with recursive base as (
-	            select e.numeropokemon, p.numeropokemon numeropokemonevo, m.nome metodo
+	            select e.numeropokemon, p.numeropokemon numeropokemonevo, ev.idmetodo
 	            from pokemon p
                 join evoluzione ev on ev.numeropokemonstadiosuccessivo = p.numeropokemon
-                join metodo_evolutivo m on m.idmetodo = ev.idmetodo
                 join pokemon e on ev.numeropokemonstadiocorrente = e.numeropokemon
 	            where e.numeropokemon = (
 		            with recursive base as (
@@ -95,19 +95,24 @@ public partial class Pokemon
 		            select numeropokemon from base order by numeropokemon limit 1
                 )
 	            union all
-	            select e.numeropokemonevo, p.numeropokemon, m.nome
+	            select e.numeropokemonevo, p.numeropokemon, ev.idmetodo
 	            from pokemon p
                 join evoluzione ev on ev.numeropokemonstadiosuccessivo = p.numeropokemon
-                join metodo_evolutivo m on m.idmetodo = ev.idmetodo
                 inner join base e on ev.numeropokemonstadiocorrente = e.numeropokemonevo
             )
             select * from base;";
         var reader = new MySqlCommand(sql, conn).ExecuteReader();
-        HashSet<Pokemon> lineaEvolutiva = new HashSet<Pokemon>();
+        List<Evoluzione> lineaEvolutiva = new List<Evoluzione>();
         while (reader.Read()) {
-            lineaEvolutiva.Add(db.Pokemons.Where(pok => pok.NumeroPokemon == reader.GetInt32("numeropokemon")).First());
-            lineaEvolutiva.Add(db.Pokemons.Where(pok => pok.NumeroPokemon == reader.GetInt32("numeropokemonevo")).First());
+            Evoluzione e = (
+                from evo in db.Evoluziones
+                where evo.NumeroPokemonStadioCorrente == reader.GetInt32("numeropokemon")
+                && evo.NumeroPokemonStadioSuccessivo == reader.GetInt32("numeropokemonevo")
+                && evo.IdMetodo == reader.GetInt32("idmetodo")
+                select evo
+            ).First();
+            lineaEvolutiva.Add(e);
         }
-        return lineaEvolutiva.ToList();
+        return lineaEvolutiva;
     }
 }

@@ -16,14 +16,22 @@ namespace PokedexADA
         {
             InitializeComponent();
 
-            tabControl1.Selecting += new TabControlCancelEventHandler(tabControl1_Selecting);
+            esemplariCatturati.Selecting += new TabControlCancelEventHandler(tabControl1_Selecting);
 
             using var db = new PokedexAdaContext();
             pokemonDisponibiliBox.Items.AddRange(db.Pokemons.Select(p => p.Nome).ToArray());
             giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
+
+            List<Pokemon> pokemonVisti = (
+                from g in db.Giocatores
+                from p in g.NumeroPokemonAvvistati
+                select p)
+                .ToList();
             foreach (Pokemon p in db.Pokemons)
             {
-                var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), p.Nome, "" });
+                bool visto = pokemonVisti.Where(pok => pok.NumeroPokemon == p.NumeroPokemon).Any();
+                string nome = visto ? p.Nome : "???";
+                var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), nome, "" });
                 pokedexList.Items.Add(item);
                 mapPokedexToGUIList.Add(p.NumeroPokemon, pokedexList.Items.Count - 1);
             }
@@ -33,21 +41,6 @@ namespace PokedexADA
                 Giocatore g = context.Giocatores.Where(g => g.IdGiocatore == a.IdGiocatoreAmico).First();
                 var item = new ListViewItem(new[] { g.Nickname, a.Bloccato ? "bloccato" : "" });
                 amiciList.Items.Add(item);
-            }
-            tentaCatturaButton.Enabled = false;
-        }
-
-        private void MostraStatoButtonOnClick(object sender, EventArgs e)
-        {
-            outputBox.Text = $"Status giocatore {giocatore.Nickname}\nPokemon incontrati:\n";
-            foreach (Pokemon p in giocatore.GetPokemonIncontrati())
-            {
-                outputBox.Text += $"- {p.Nome}\n";
-            }
-            outputBox.Text += $"Pokemon catturati:\n";
-            foreach (Pokemon p in giocatore.GetPokemonCatturati())
-            {
-                outputBox.Text += $"- {p.Nome}\n";
             }
             tentaCatturaButton.Enabled = false;
         }
@@ -152,6 +145,10 @@ namespace PokedexADA
                 .ToList();
             bool visto = pokemonVisti.Where(p => p.NumeroPokemon == pokemon.NumeroPokemon).Any();
             bool catturato = pokemonCatturati.Where(p => p.NumeroPokemon == pokemon.NumeroPokemon).Any();
+            if (!visto)
+            {
+                pokedexPicture.Image = new Bitmap(Image.FromFile(@"..\..\..\res\questionmark.png"));
+            }
             if (visto && !catturato)
             {
                 pokedexPicture.Image = filterPicture(picture);
@@ -196,28 +193,45 @@ namespace PokedexADA
                 difesaSpeciale = defsp.ToString();
                 velocita = spd.ToString();
                 lineaEvolutivaPokemonLayout.Controls.Clear();
-                foreach (Pokemon evo in pokemon.GetLineaEvolutiva())
+                lineaEvolutivaPokemonLayout.RowCount = 0;
+                foreach (Evoluzione evo in pokemon.GetLineaEvolutiva())
                 {
-                    bool evoVisto = pokemonVisti.Where(p => p.NumeroPokemon == evo.NumeroPokemon).Any();
-                    bool evoCatturato = pokemonCatturati.Where(p => p.NumeroPokemon == evo.NumeroPokemon).Any();
+                    Pokemon corrente = db.Pokemons.Where(p => p.NumeroPokemon == evo.NumeroPokemonStadioCorrente).First();
+                    Pokemon successivo = db.Pokemons.Where(p => p.NumeroPokemon == evo.NumeroPokemonStadioSuccessivo).First();
+                    bool corrVisto = pokemonVisti.Where(p => p.NumeroPokemon == corrente.NumeroPokemon).Any();
+                    bool corrCatturato = pokemonCatturati.Where(p => p.NumeroPokemon == corrente.NumeroPokemon).Any();
+                    bool evoVisto = pokemonVisti.Where(p => p.NumeroPokemon == successivo.NumeroPokemon).Any();
+                    bool evoCatturato = pokemonCatturati.Where(p => p.NumeroPokemon == successivo.NumeroPokemon).Any();
+                    Label label = new Label();
+                    label.AutoSize = true;
+                    label.Text = "Metodo: ???";
                     PictureBox box = new PictureBox();
-                    Bitmap image = new Bitmap(Image.FromFile(@"..\..\..\res\" + evo.Immagine), new Size(120, 120));
-                    if (!evoVisto)
+                    PictureBox boxEvo = new PictureBox();
+                    Bitmap image = new Bitmap(Image.FromFile(@"..\..\..\res\" + corrente.Immagine), 120, 120);
+                    Bitmap imageEvo = new Bitmap(Image.FromFile(@"..\..\..\res\" + successivo.Immagine), 120, 120);
+                    if (!corrVisto) image = new Bitmap(Image.FromFile(@"..\..\..\res\questionmark.png"), 120, 120);
+                    if (corrVisto && !corrCatturato) image = filterPicture(image);
+                    if (!evoVisto) imageEvo = new Bitmap(Image.FromFile(@"..\..\..\res\questionmark.png"), 120, 120);
+                    if (evoVisto && !evoCatturato) imageEvo = filterPicture(imageEvo);
+                    if (corrCatturato && evoCatturato)
                     {
-                        image = new Bitmap(120, 120);
-                    }
-                    if (evoVisto && !evoCatturato)
-                    {
-                        image = filterPicture(image);
+                        string nomeMetodo = db.MetodoEvolutivos.Where(m => m.IdMetodo == evo.IdMetodo).Select(m => m.Nome).First();
+                        label.Text = $"Metodo: {nomeMetodo}";
                     }
                     box.Size = image.Size;
                     box.Image = image;
-                    lineaEvolutivaPokemonLayout.Controls.Add(box);
+                    boxEvo.Size = imageEvo.Size;
+                    boxEvo.Image = imageEvo;
+                    lineaEvolutivaPokemonLayout.RowCount += 1;
+                    lineaEvolutivaPokemonLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    lineaEvolutivaPokemonLayout.Controls.Add(box, 0, lineaEvolutivaPokemonLayout.RowCount - 1);
+                    lineaEvolutivaPokemonLayout.Controls.Add(label, 1, lineaEvolutivaPokemonLayout.RowCount - 1);
+                    lineaEvolutivaPokemonLayout.Controls.Add(boxEvo, 2, lineaEvolutivaPokemonLayout.RowCount - 1);
                 }
                 if (pokemon.GetLineaEvolutiva().Count == 0)
                 {
                     Label label = new Label();
-                    label.Width = 500;
+                    label.AutoSize = true;
                     label.Text = "Questo pokemon non ha nessuna linea evolutiva";
                     lineaEvolutivaPokemonLayout.Controls.Add(label);
                 }
@@ -282,11 +296,11 @@ namespace PokedexADA
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (tabControl1.SelectedIndex == 1)
+            if (esemplariCatturati.SelectedIndex == 1)
             {
                 SelezionaPokedex();
             }
-            else if (tabControl1.SelectedIndex == 2)
+            else if (esemplariCatturati.SelectedIndex == 2)
             {
                 SelezionaListaAmici();
             }
@@ -322,12 +336,15 @@ namespace PokedexADA
                 .ToList();
             foreach (Pokemon p in db.Pokemons)
             {
+                bool visto = visti.Any(pok => pok.NumeroPokemon == p.NumeroPokemon);
+                bool catturato = catturati.Any(pok => pok.NumeroPokemon == p.NumeroPokemon);
+                string nome = visto ? p.Nome : "???";
                 string status;
-                if (catturati.Any(pok => pok.NumeroPokemon == p.NumeroPokemon))
+                if (catturato)
                 {
                     status = "\u00A9";
                 }
-                else if (visti.Any(pok => pok.NumeroPokemon == p.NumeroPokemon))
+                else if (visto)
                 {
                     status = "\u25CB";
                 }
@@ -336,6 +353,7 @@ namespace PokedexADA
                     status = "";
                 }
                 int index = mapPokedexToGUIList[p.NumeroPokemon];
+                pokedexList.Items[index].SubItems[1].Text = nome;
                 pokedexList.Items[index].SubItems[2].Text = status;
             }
         }
