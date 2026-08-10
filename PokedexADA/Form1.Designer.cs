@@ -33,12 +33,13 @@
             panel2 = new Panel();
             outputBox = new RichTextBox();
             panel1 = new Panel();
-            mostraStato = new Button();
             tentaCatturaButton = new Button();
             pokemonDisponibiliBox = new ComboBox();
             cercaPokemonButton = new Button();
             cercaPokemonSelezionatoButton = new Button();
             visualizzaPokedex = new TabPage();
+            label1 = new Label();
+            lineaEvolutivaPokemonLayout = new FlowLayoutPanel();
             abilitaPokemonLabel = new Label();
             biomaPokemonLabel = new Label();
             mossePokemonLabel = new Label();
@@ -88,8 +89,7 @@
             amiciList = new ListView();
             amico = new ColumnHeader();
             bloccato = new ColumnHeader();
-            lineaEvolutivaPokemonLayout = new FlowLayoutPanel();
-            label1 = new Label();
+            selezionaPokemonLabel = new Label();
             tabControl1.SuspendLayout();
             cercaECattura.SuspendLayout();
             panel2.SuspendLayout();
@@ -151,7 +151,7 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(mostraStato);
+            panel1.Controls.Add(selezionaPokemonLabel);
             panel1.Controls.Add(tentaCatturaButton);
             panel1.Controls.Add(pokemonDisponibiliBox);
             panel1.Controls.Add(cercaPokemonButton);
@@ -161,20 +161,9 @@
             panel1.Size = new Size(181, 903);
             panel1.TabIndex = 2;
             // 
-            // mostraStato
-            // 
-            mostraStato.Location = new Point(5, 15);
-            mostraStato.Margin = new Padding(4, 5, 4, 5);
-            mostraStato.Name = "mostraStato";
-            mostraStato.Size = new Size(171, 55);
-            mostraStato.TabIndex = 1;
-            mostraStato.Text = "Mostra stato";
-            mostraStato.UseVisualStyleBackColor = true;
-            mostraStato.Click += MostraStatoButtonOnClick;
-            // 
             // tentaCatturaButton
             // 
-            tentaCatturaButton.Location = new Point(5, 246);
+            tentaCatturaButton.Location = new Point(5, 199);
             tentaCatturaButton.Margin = new Padding(4, 5, 4, 5);
             tentaCatturaButton.Name = "tentaCatturaButton";
             tentaCatturaButton.Size = new Size(171, 38);
@@ -186,7 +175,7 @@
             // pokemonDisponibiliBox
             // 
             pokemonDisponibiliBox.FormattingEnabled = true;
-            pokemonDisponibiliBox.Location = new Point(5, 80);
+            pokemonDisponibiliBox.Location = new Point(5, 33);
             pokemonDisponibiliBox.Margin = new Padding(4, 5, 4, 5);
             pokemonDisponibiliBox.Name = "pokemonDisponibiliBox";
             pokemonDisponibiliBox.Size = new Size(170, 33);
@@ -194,7 +183,7 @@
             // 
             // cercaPokemonButton
             // 
-            cercaPokemonButton.Location = new Point(5, 198);
+            cercaPokemonButton.Location = new Point(4, 151);
             cercaPokemonButton.Margin = new Padding(4, 5, 4, 5);
             cercaPokemonButton.Name = "cercaPokemonButton";
             cercaPokemonButton.Size = new Size(171, 38);
@@ -205,7 +194,7 @@
             // 
             // cercaPokemonSelezionatoButton
             // 
-            cercaPokemonSelezionatoButton.Location = new Point(5, 123);
+            cercaPokemonSelezionatoButton.Location = new Point(5, 76);
             cercaPokemonSelezionatoButton.Margin = new Padding(4, 5, 4, 5);
             cercaPokemonSelezionatoButton.Name = "cercaPokemonSelezionatoButton";
             cercaPokemonSelezionatoButton.Size = new Size(171, 65);
@@ -248,6 +237,23 @@
             visualizzaPokedex.TabIndex = 1;
             visualizzaPokedex.Text = "Visualizza Pokedex";
             visualizzaPokedex.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(470, 396);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(128, 25);
+            label1.TabIndex = 23;
+            label1.Text = "Linea evolutiva";
+            // 
+            // lineaEvolutivaPokemonLayout
+            // 
+            lineaEvolutivaPokemonLayout.Location = new Point(470, 424);
+            lineaEvolutivaPokemonLayout.Name = "lineaEvolutivaPokemonLayout";
+            lineaEvolutivaPokemonLayout.Size = new Size(753, 178);
+            lineaEvolutivaPokemonLayout.TabIndex = 22;
             // 
             // abilitaPokemonLabel
             // 
@@ -705,22 +711,14 @@
             bloccato.Text = "";
             bloccato.Width = 100;
             // 
-            // lineaEvolutivaPokemonLayout
+            // selezionaPokemonLabel
             // 
-            lineaEvolutivaPokemonLayout.Location = new Point(470, 424);
-            lineaEvolutivaPokemonLayout.Name = "lineaEvolutivaPokemonLayout";
-            lineaEvolutivaPokemonLayout.Size = new Size(753, 178);
-            lineaEvolutivaPokemonLayout.TabIndex = 22;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(470, 396);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(128, 25);
-            label1.TabIndex = 23;
-            label1.Text = "Linea evolutiva";
+            selezionaPokemonLabel.AutoSize = true;
+            selezionaPokemonLabel.Location = new Point(5, 3);
+            selezionaPokemonLabel.Name = "selezionaPokemonLabel";
+            selezionaPokemonLabel.Size = new Size(168, 25);
+            selezionaPokemonLabel.TabIndex = 7;
+            selezionaPokemonLabel.Text = "Seleziona pokemon";
             // 
             // Form1
             // 
@@ -737,6 +735,7 @@
             cercaECattura.PerformLayout();
             panel2.ResumeLayout(false);
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             visualizzaPokedex.ResumeLayout(false);
             visualizzaPokedex.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pokedexPicture).EndInit();
@@ -803,7 +802,6 @@
         private Panel panel2;
         private RichTextBox outputBox;
         private Panel panel1;
-        private Button mostraStato;
         private Button tentaCatturaButton;
         private ComboBox pokemonDisponibiliBox;
         private Button cercaPokemonButton;
@@ -812,5 +810,6 @@
         private Label biomaPokemonLabel;
         private Label label1;
         private FlowLayoutPanel lineaEvolutivaPokemonLayout;
+        private Label selezionaPokemonLabel;
     }
 }
