@@ -1,0 +1,501 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{longtable}
+\geometry{margin=2.5cm}
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\hfill}
+\renewcommand{\cftsubsecleader}{\hfill}
+\renewcommand{\cftsubsubsecleader}{\hfill}
+\renewcommand{\cftsecindent}{0em}
+\renewcommand{\cftsubsecindent}{2em}
+\renewcommand{\cftsubsubsecindent}{4em}
+\cftsetpnumwidth{2.5em}
+\cftsetrmarg{3em}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+
+    \vspace*{2cm}
+
+    {\Large Università degli Studi di Bologna\par}
+
+    \vspace{1cm}
+
+    {\large Dipartimento di Ingegneria e Scienze Informatiche\par}
+
+    \vfill
+
+    {\fontsize{50pt}{50pt}\selectfont\bfseries Pokédex\par}
+
+    \vspace{1cm}
+
+    {\Large Relazione del progetto per Basi di Dati\par}
+
+    \vfill
+
+    \begin{flushleft}
+        \textbf{Studente:} Mancini Davide\\
+        \hspace*{2em}\textbf{Matricola:} DA MODIFICARE\\[0.5cm]
+        \textbf{Studente:} Marzano Alessia\\
+        \hspace*{2em}\textbf{Matricola:} DA MODIFICARE\\[0.5cm]
+        \textbf{Studente:} Reggiani Andrea\\
+        \hspace*{2em}\textbf{Matricola:} DA MODIFICARE
+    \end{flushleft}
+
+    \vspace{1cm}
+
+    \begin{flushright}
+        \textbf{Docente:} Prof. Annalisa Franco
+    \end{flushright}
+
+    \vfill
+
+    {\large Anno Accademico 2025--2026\par}
+
+\end{titlepage}
+
+
+\newpage
+\begin{center}
+    {\LARGE\bfseries Struttura della relazione}
+\end{center}
+
+\vspace{1cm}
+
+\noindent
+L'obiettivo è presentare in modo chiaro le scelte progettuali adottate,
+motivandole attraverso modelli concettuali, specifiche funzionali e soluzioni
+implementative, nel rispetto delle metodologie di progettazione delle basi di
+dati.
+
+\vspace{1.5cm}
+
+\begin{center}
+    {\LARGE\bfseries Indice}
+\end{center}
+
+\vspace{0.5cm}
+
+\tableofcontents
+
+
+\newpage
+\begin{center}
+	\section{Introduzione}
+\end{center}
+
+
+\newpage
+\begin{center}
+	\section{Analisi dei requisiti}
+\end{center}
+
+
+\newpage
+\subsection{Estrazione dei concetti fondamentali}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\begin{center}
+	\section{Progetto dello schema concettuale}
+\end{center}
+
+\renewcommand{\arraystretch}{1.5}
+\normalsize
+
+\noindent
+Lo schema concettuale nella sua versione finale si avvarrà delle seguenti entità e associazioni (per ciascuna delle quali è fornita una breve descrizione):
+
+\begin{longtable}{|
+>{\raggedright\arraybackslash}m{5cm}|
+>{\centering\arraybackslash}m{2cm}|
+>{\raggedright\arraybackslash}m{8cm}|}
+
+\hline
+
+\multicolumn{1}{|c|}{\textbf{\Large NOME}} &
+\multicolumn{1}{c|}{\textbf{\Large TIPO}} &
+\multicolumn{1}{c|}{\textbf{\Large DESCRIZIONE}} \\
+
+\hline
+\endfirsthead
+
+\hline
+
+\multicolumn{1}{|c|}{\textbf{\Large NOME}} &
+\multicolumn{1}{c|}{\textbf{\Large TIPO}} &
+\multicolumn{1}{c|}{\textbf{\Large DESCRIZIONE}} \\
+
+\hline
+\endhead
+
+
+ABILITÀ & E &  \\
+\hline
+ACQUISIZIONE & R &  \\
+\hline
+AMICIZIA & R &  \\
+\hline
+ASSOCIAZIONE & R & \\
+\hline
+AVVISTAMENTO & R &  \\
+\hline
+BATTAGLIA & E &  \\
+\hline
+BIOMA & E & \\
+\hline
+BOX POKÉMON & E &  \\
+\hline
+CATTURA & R &  \\
+\hline
+COMPETENZA & R &  \\
+\hline
+COMPOSIZIONE & R &  \\
+\hline
+CUSTODIA & R &  \\
+\hline
+DOTAZIONE & R & \\
+\hline
+ELEMENTO & E & \\
+\hline
+ESEMPLARE POKÉMON & E & \\
+\hline
+EVOLUZIONE & E & \\
+\hline
+FISICO & E &  \\
+\hline
+GIOCATORE & E & \\
+\hline
+LOCAZIONE & R & \\
+\hline
+METODO EVOLUTIVO & E &  \\
+\hline
+MOSSA & E & \\
+\hline
+PARAMETRI & R &  \\
+\hline
+PERMANENZA & R &  \\
+\hline
+POKÉMON & E & \\
+\hline
+POSSESSO & R &  \\
+\hline
+PREFERENZA & R &  \\
+\hline
+PRIMARIO & R &  \\
+\hline
+SECONDARIO & R &  \\
+\hline
+SET\_STATISTICHE & E &  \\
+\hline
+SFIDANTE & R &  \\
+\hline
+SFIDATO & R &  \\
+\hline
+SPECIALE & E &  \\
+\hline
+SPECIALIZZAZIONE & R &  \\
+\hline
+SQUADRA & E & \\
+\hline
+STADIO\_CORRENTE & R &  \\
+\hline
+STADIO\_SUCCESSIVO & R & \\
+\hline
+STATO & E &  \\
+\hline
+TRAMITE & R &  \\
+\hline
+\end{longtable}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\subsection{Sviluppo dell'ambito ...}
+\subsection{Sviluppo dell'ambito ...}
+\subsection{Sviluppo dell'ambito ...}
+\subsection{Sviluppo dell'ambito ...}
+\subsection{Sviluppo dell'ambito ...}
+\section{Specifiche funzionali}
+\subsection{Analisi delle funzionalità richieste}
+\subsection{DA GUARDARE BENE CON I BOYS}
+
+
+\newpage
+\subsection{Carichi di lavoro}
+\noindent
+La tabella riportata di seguito presenta una stima del volume di dati associato alle diverse istanze delle entità e delle associazioni individuate all’interno dello schema concettuale progettato. Tali valori rappresentano un elemento fondamentale nella fase di analisi delle prestazioni del sistema, in quanto consentono di valutare preventivamente la quantità di informazioni che dovranno essere gestite e le relative implicazioni in termini di efficienza e scalabilità.\\\\
+\noindent
+Sulla base delle dimensioni previste per ciascun elemento dello schema, come già anticipato nelle sezioni precedenti, verranno effettuate una serie di modifiche e ottimizzazioni allo schema stesso, con l’obiettivo di ottenere una struttura maggiormente adeguata alle principali funzionalità richieste dal sistema e alle modalità di accesso ai dati previste. Successivamente, lo schema sarà ulteriormente raffinato attraverso una fase di trasformazione e adattamento al modello logico scelto per la rappresentazione dei dati, introducendo gli opportuni accorgimenti necessari a garantire coerenza, efficienza delle operazioni e un corretto utilizzo delle caratteristiche offerte dal particolare modello implementativo adottato.
+
+\renewcommand{\arraystretch}{1.5}
+\normalsize
+
+\begin{longtable}{|
+>{\raggedright\arraybackslash}m{5cm}|
+>{\centering\arraybackslash}m{2cm}|
+>{\raggedright\arraybackslash}m{3cm}|}
+
+\hline
+
+\multicolumn{1}{|c|}{\textbf{\Large NOME}} &
+\multicolumn{1}{c|}{\textbf{\Large TIPO}} &
+\multicolumn{1}{c|}{\textbf{\Large DESCRIZIONE}} \\
+
+\hline
+\endfirsthead
+
+\hline
+
+\multicolumn{1}{|c|}{\textbf{\Large NOME}} &
+\multicolumn{1}{c|}{\textbf{\Large TIPO}} &
+\multicolumn{1}{c|}{\textbf{\Large DESCRIZIONE}} \\
+
+\hline
+\endhead
+
+ABILITÀ & E & 150 \\
+\hline
+ACQUISIZIONE & R & 2.500 \\
+\hline
+AMICIZIA & R & 4.000 \\
+\hline
+ASSOCIAZIONE & R & 500 \\
+\hline
+AVVISTAMENTO & R & 50.000 \\
+\hline
+BATTAGLIA & E & 20.000 \\
+\hline
+BIOMA & E & 15 \\
+\hline
+BOX POKÉMON & E & 300 \\
+\hline
+CATTURA & R & 25.000 \\
+\hline
+COMPETENZA & R & 300 \\
+\hline
+COMPOSIZIONE & R & 500 \\
+\hline
+CUSTODIA & R & 2.500.000 \\
+\hline
+DOTAZIONE & R & 150.000 \\
+\hline
+ELEMENTO & E & 18 \\
+\hline
+ESEMPLARE POKÉMON & E & 75.000\\
+\hline
+EVOLUZIONE & E & 150 \\
+\hline
+FISICO & E & 150 \\
+\hline
+GIOCATORE & E & 100 \\
+\hline
+LOCAZIONE & R & 100.000 \\
+\hline
+METODO EVOLUTIVO & E & 10 \\
+\hline
+MOSSA & E & 300 \\
+\hline
+PARAMETRI & R & 250 \\
+\hline
+PERMANENZA & R & 500 \\
+\hline
+POKÉMON & E & 250 \\
+\hline
+POSSESSO & R & 100 \\
+\hline
+PREFERENZA & R & 100 \\
+\hline
+PRIMARIO & R & 250 \\
+\hline
+SECONDARIO & R & 180 \\
+\hline
+SET\_STATISTICHE & E & 225 \\
+\hline
+SFIDANTE & R & 20.000 \\
+\hline
+SFIDATO & R & 20.000 \\
+\hline
+SPECIALE & E & 150 \\
+\hline
+SPECIALIZZAZIONE & R & 300 \\
+\hline
+SQUADRA & E & 100 \\
+\hline
+STADIO\_CORRENTE & R & 150 \\
+\hline
+STADIO\_SUCCESSIVO & R & 150 \\
+\hline
+STATO & E & 200 \\
+\hline
+TRAMITE & R & 150 \\
+\hline
+\end{longtable}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Progetto logico}
+\subsection{Schemi di navigazione}
+
+\newpage
+\subsection{Frequenza e costo degli accessi}
+
+La tabella seguente riporta le principali funzionalità previste dal sistema, distinguendo le operazioni
+disponibili agli utenti da quelle riservate all'amministratore. Per ciascuna funzionalità viene indicata
+la frequenza media di utilizzo, al fine di fornire una stima dei carichi operativi associati alle diverse
+operazioni del sistema.
+
+\renewcommand{\arraystretch}{1.5}
+
+\begin{longtable}{|
+>{\centering\arraybackslash}m{3cm}|
+>{\raggedright\arraybackslash}m{10cm}|
+>{\centering\arraybackslash}m{4cm}|
+}
+
+\hline
+
+\multicolumn{3}{|c|}{\textbf{\large OPERAZIONI UTENTE}} \\
+
+\hline
+
+\textbf{\large NUMERO} &
+\textbf{\large DESCRIZIONE} &
+\textbf{\large FREQUENZA} \\
+
+\hline
+\endfirsthead
+
+\hline
+
+\multicolumn{3}{|c|}{\textbf{\large OPERAZIONI UTENTE}} \\
+
+\hline
+
+\textbf{\large NUMERO} &
+\textbf{\large DESCRIZIONE} &
+\textbf{\large FREQUENZA} \\
+
+\hline
+\endhead
+
+1 & Aggiungere un amico & 3/Settimana \\
+\hline
+2 & Rimozione amico & 2/Anno \\
+\hline
+3 & Possibilità di modificare il proprio Pokémon preferito & 2/Anno \\
+\hline
+4 & Possibilità di bloccare gli utenti & 3/Mese \\
+\hline
+5 & Possibilità di sbloccare gli utenti & 2/Mese \\
+\hline
+6 & Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati & 1/Mese \\
+\hline
+7 & Mostrare gli amici con un certo Pokémon preferito & 1/Mese \\
+\hline
+8 & Possibilità di aggiungere un Pokémon visto & 5/Giorno \\
+\hline
+9 & Possibilità di aggiungere un Pokémon catturato & 1/Giorno \\
+\hline
+10 & Scoprire la linea evolutiva di un Pokémon & 1/Giorno \\
+\hline
+11 & Listing di Pokémon che si evolvono tramite il metodo evolutivo specificato & 2/Giorno \\
+\hline
+12 & Listing di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
+\hline
+13 & Listing di Pokémon che appartengono al bioma specificato & 1/Settimana \\
+\hline
+14 & Listing di Pokémon che possono possedere l'abilità specificata & 1/Settimana \\
+\hline
+15 & Listing di Pokémon che hanno l'elemento specificato & 1/Settimana \\
+\hline
+16 & Listing di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
+\hline
+17 & Colori dominanti più comuni tra i Pokémon & 1/Settimana \\
+\hline
+18 & Lista dei Pokémon preferiti scelti più comunemente & 1/Mese \\
+\hline
+19 & Elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
+\hline
+20 & Possibilità di visualizzare quali Pokémon shiny possiede un allenatore & 2/Settimana \\
+\hline
+21 & Visualizzazione del numero di utenti che hanno almeno un Pokémon shiny & 2/Settimana \\
+\hline
+22 & Lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
+\hline
+
+\multicolumn{3}{|c|}{\textbf{\large OPERAZIONI ADMIN}} \\
+
+\hline
+
+\textbf{\large NUMERO} &
+\textbf{\large DESCRIZIONE} &
+\textbf{\large FREQUENZA} \\
+
+\hline
+
+1.b & Aggiungere un Pokémon nel database & 1/Anno \\
+\hline
+2.b & Aggiungere evoluzioni e tipologie di evoluzioni & 1/Anno \\
+\hline
+\end{longtable}
+
+
+\newpage
+\subsection{Trasformazioni dello schema concettuale}
+\subsection{Progetto logico per il modello relazionale}
+\subsubsection{Traduzione delle entità}
+\subsubsection{Traduzione delle associazioni}
+\subsection{Traduzione delle Query SQL}
+\section{Progetto fisico}
+\subsection{Indicizzazione di attributi}
+\subsection{Ordinamento su attributi}
+\section{Interfaccia utente}
+\subsection{L'amministratore}
+\subsection{Il giocatore}
+
+\end{document}

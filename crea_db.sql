@@ -1,0 +1,413 @@
+-- *********************************************
+-- * Standard SQL generation                   
+-- *--------------------------------------------
+-- * DB-MAIN version: 11.0.2              
+-- * Generator date: Sep 20 2021              
+-- * Generation date: Wed Jul  1 21:04:38 2026 
+-- * LUN file: /home/davide/Progetti/DB-Project/SCHEMA ER FINALE.lun 
+-- * Schema: PokedexLogico/SQL 
+-- ********************************************* 
+
+
+-- Database Section
+-- ________________ 
+
+create database PokedexADA;
+use PokedexADA;
+
+-- DBSpace Section
+-- _______________
+
+
+-- Tables Section
+-- _____________ 
+
+create table ABILITA (
+     NomeAbilita varchar(30) not null,
+     DescrizioneAbilita varchar(200) not null,
+     constraint ID_ABILITA_ID primary key (NomeAbilita));
+
+create table ACQUISIZIONE (
+     NomeMossa varchar(30) not null,
+     NumeroPokemon int not null,
+     constraint ID_ACQUISIZIONE_ID primary key (NomeMossa, NumeroPokemon));
+
+create table AMICIZIA (
+     IdGiocatore int not null,
+     IdGiocatoreAmico int not null,
+     Bloccato char not null,
+     constraint ID_AMICIZIA_ID primary key (IdGiocatoreAmico, IdGiocatore));
+
+create table AVVISTAMENTO (
+     IdGiocatore int not null,
+     NumeroPokemon int not null,
+     constraint ID_AVVISTAMENTO_ID primary key (IdGiocatore, NumeroPokemon));
+
+create table BATTAGLIA (
+     IdBattaglia int not null,
+     SfidanteVincitore char not null,
+     Data date not null,
+     IdGiocatoreSfidante int not null,
+     IdGiocatoreSfidato int not null,
+     Luogo varchar(30) not null,
+     constraint SID_BATTAGLIA_ID unique (IdGiocatoreSfidante, IdGiocatoreSfidato, Data),
+     constraint ID_BATTAGLIA_ID primary key (IdBattaglia));
+
+create table BIOMA (
+     IdBioma int not null,
+     Habitat varchar(30) not null,
+     DescrizioneHabitat varchar(200) not null,
+     constraint ID_BIOMA_ID primary key (IdBioma));
+
+create table BOX_POKEMON (
+     IdBox int not null,
+     IdGiocatore int not null,
+     constraint ID_BOX_POKEMON_ID primary key (IdBox));
+
+create table CATTURA (
+     IdGiocatore int not null,
+     NumeroPokemon int not null,
+     constraint ID_CATTURA_ID primary key (IdGiocatore, NumeroPokemon));
+
+create table ELEMENTO (
+     IdElemento int not null,
+     Tipologia varchar(10) not null,
+     constraint ID_ELEMENTO_ID primary key (IdElemento));
+
+create table ESEMPLARE_POKEMON (
+     IdEsemplare int not null auto_increment,
+     NomeAllenatore varchar(30) not null,
+     NomePrimoAllenatore varchar(30) not null,
+     Livello int not null,
+     DataCattura date not null,
+     InBox char not null,
+     Sesso char not null,
+     Cromatico char not null,
+     NumeroPokemon int not null,
+     IdGiocatoreProprietario int not null,
+     IdSquadra int,
+     IdBox int,
+     constraint ID_ESEMPLARE_POKEMON_ID primary key (IdEsemplare));
+
+create table EVOLUZIONE (
+     NumeroPokemonStadioCorrente int not null,
+     NumeroPokemonStadioSuccessivo int not null,
+     IdMetodo int not null,
+     constraint ID_EVOLUZIONE_ID primary key (IdMetodo, NumeroPokemonStadioCorrente, NumeroPokemonStadioSuccessivo),
+     constraint SID_EVOLU_POKEM_ID unique (NumeroPokemonStadioSuccessivo));
+
+create table GIOCATORE (
+     IdGiocatore int not null,
+     Nome varchar(30) not null,
+     Cognome varchar(30) not null,
+     Nickname varchar(30) not null,
+     Immagine varchar(100) not null,
+     IdEsemplarePreferito int,
+     constraint ID_GIOCATORE_ID primary key (IdGiocatore));
+
+create table METODO_EVOLUTIVO (
+     IdMetodo int not null,
+     Nome varchar(30) not null,
+     Descrizione varchar(100) not null,
+     constraint ID_METODO_EVOLUTIVO_ID primary key (IdMetodo));
+
+create table MOSSA (
+     NomeMossa varchar(30) not null,
+     DescrizioneMossa varchar(200) not null,
+     Precisione int not null,
+     Danno int,
+     IdElemento int not null,
+     constraint ID_MOSSA_ID primary key (NomeMossa));
+
+create table PERMANENZA (
+     IdBioma int not null,
+     NumeroPokemon int not null,
+     constraint ID_PERMANENZA_ID primary key (NumeroPokemon, IdBioma));
+
+create table POKEMON (
+     NumeroPokemon int not null,
+     Specie varchar(30) not null,
+     Nome varchar(30) not null,
+     DescrizionePokemon varchar(200) not null,
+     Altezza float not null,
+     Peso float not null,
+     Impronta varchar(30) not null,
+     Immagine varchar(100) not null,
+     ColoreDominante varchar(20) not null,
+     IdElementoPrimario int not null,
+     IdElementoSecondario int,
+     IdStatistiche int not null,
+     NomeAbilita varchar(30) not null,
+     constraint ID_POKEMON_ID primary key (NumeroPokemon));
+
+create table SET_STATISTICHE (
+     IdStatistiche int not null auto_increment,
+     Attacco int not null,
+     Difesa int not null,
+     PuntiSalute int not null,
+     AttaccoSpeciale int not null,
+     DifesaSpeciale int not null,
+     Velocita int not null,
+     constraint ID_SET_STATISTICHE_ID primary key (IdStatistiche));
+
+create table SQUADRA (
+     IdGiocatore int not null,
+     constraint ID_SQUAD_GIOCA_ID primary key (IdGiocatore));
+
+-- Constraints Section
+-- ___________________ 
+
+alter table ACQUISIZIONE add constraint REF_ACQUI_POKEM_FK
+     foreign key (NumeroPokemon)
+     references POKEMON(NumeroPokemon);
+
+alter table ACQUISIZIONE add constraint REF_ACQUI_MOSSA
+     foreign key (NomeMossa)
+     references MOSSA(NomeMossa);
+
+alter table AMICIZIA add constraint REF_AMICI_GIOCA_1_FK
+     foreign key (IdGiocatore)
+     references GIOCATORE(IdGiocatore);
+
+alter table AMICIZIA add constraint REF_AMICI_GIOCA
+     foreign key (IdGiocatoreAmico)
+     references GIOCATORE(IdGiocatore);
+
+alter table AVVISTAMENTO add constraint REF_AVVIS_POKEM_FK
+     foreign key (NumeroPokemon)
+     references POKEMON(NumeroPokemon);
+
+alter table AVVISTAMENTO add constraint REF_AVVIS_GIOCA
+     foreign key (IdGiocatore)
+     references GIOCATORE(IdGiocatore);
+
+alter table BATTAGLIA add constraint REF_BATTA_SQUAD_1
+     foreign key (IdGiocatoreSfidante)
+     references SQUADRA(IdGiocatore);
+
+alter table BATTAGLIA add constraint REF_BATTA_SQUAD_FK
+     foreign key (IdGiocatoreSfidato)
+     references SQUADRA(IdGiocatore);
+
+-- alter table BIOMA add constraint ID_BIOMA_CHK
+--      check(exists(select * from PERMANENZA
+--                   where PERMANENZA.IdBioma = IdBioma)); 
+
+alter table BOX_POKEMON add constraint REF_BOX_P_GIOCA_FK
+     foreign key (IdGiocatore)
+     references GIOCATORE(IdGiocatore);
+
+alter table CATTURA add constraint REF_CATTU_POKEM_FK
+     foreign key (NumeroPokemon)
+     references POKEMON(NumeroPokemon);
+
+alter table CATTURA add constraint REF_CATTU_GIOCA
+     foreign key (IdGiocatore)
+     references GIOCATORE(IdGiocatore);
+
+alter table ESEMPLARE_POKEMON add constraint REF_ESEMP_BOX_P_FK
+     foreign key (IdBox)
+     references BOX_POKEMON(IdBox);
+
+alter table ESEMPLARE_POKEMON add constraint REF_ESEMP_GIOCA_FK
+     foreign key (IdGiocatoreProprietario)
+     references GIOCATORE(IdGiocatore);
+
+alter table ESEMPLARE_POKEMON add constraint EQU_ESEMP_SQUAD_FK
+     foreign key (IdSquadra)
+     references SQUADRA(IdGiocatore);
+
+alter table ESEMPLARE_POKEMON add constraint REF_ESEMP_POKEM_FK
+     foreign key (NumeroPokemon)
+     references POKEMON(NumeroPokemon);
+
+-- alter table EVOLUZIONE add constraint EQU_EVOLU_METOD
+     -- foreign key (IdMetodo)
+     -- references METODO_EVOLUTIVO;
+
+alter table EVOLUZIONE add constraint REF_EVOLU_POKEM_FK
+     foreign key (NumeroPokemonStadioCorrente)
+     references POKEMON(NumeroPokemon);
+
+alter table EVOLUZIONE add constraint SID_EVOLU_POKEM_FK
+     foreign key (NumeroPokemonStadioSuccessivo)
+     references POKEMON(NumeroPokemon);
+
+-- alter table GIOCATORE add constraint ID_GIOCATORE_CHK
+--      check(exists(select * from SQUADRA
+--                   where SQUADRA.IdGiocatore = IdGiocatore)); 
+
+alter table GIOCATORE add constraint REF_GIOCA_ESEMP_FK
+     foreign key (IdEsemplarePreferito)
+     references ESEMPLARE_POKEMON(IdEsemplare);
+
+-- alter table METODO_EVOLUTIVO add constraint ID_METODO_EVOLUTIVO_CHK
+--      check(exists(select * from EVOLUZIONE
+--                   where EVOLUZIONE.IdMetodo = IdMetodo)); 
+
+alter table MOSSA add constraint REF_MOSSA_ELEME_FK
+     foreign key (IdElemento)
+     references ELEMENTO(IdElemento);
+
+alter table PERMANENZA add constraint EQU_PERMA_POKEM
+     foreign key (NumeroPokemon)
+     references POKEMON(NumeroPokemon);
+
+alter table PERMANENZA add constraint EQU_PERMA_BIOMA_FK
+     foreign key (IdBioma)
+     references BIOMA(IdBioma);
+
+-- alter table POKEMON add constraint ID_POKEMON_CHK
+--      check(exists(select * from PERMANENZA
+--                   where PERMANENZA.NumeroPokemon = NumeroPokemon)); 
+
+-- alter table POKEMON add constraint ID_POKEMON_CHK
+--      check(exists(select * from EVOLUZIONE
+--                   where EVOLUZIONE.NumeroPokemonStadioCorrente = NumeroPokemon)); 
+
+alter table POKEMON add constraint REF_POKEM_ELEME_1_FK
+     foreign key (IdElementoSecondario)
+     references ELEMENTO(IdElemento);
+
+alter table POKEMON add constraint REF_POKEM_ELEME_FK
+     foreign key (IdElementoPrimario)
+     references ELEMENTO(IdElemento);
+
+alter table POKEMON add constraint EQU_POKEM_SET_S_FK
+     foreign key (IdStatistiche)
+     references SET_STATISTICHE(IdStatistiche);
+
+alter table POKEMON add constraint REF_POKEM_ABILI_FK
+     foreign key (NomeAbilita)
+     references ABILITA(NomeAbilita);
+
+-- alter table SET_STATISTICHE add constraint ID_SET_STATISTICHE_CHK
+--      check(exists(select * from POKEMON
+--                   where POKEMON.IdStatistiche = IdStatistiche)); 
+
+-- alter table SQUADRA add constraint ID_SQUAD_GIOCA_CHK
+--      check(exists(select * from ESEMPLARE_POKEMON
+--                   where ESEMPLARE_POKEMON.IdSquadra = IdGiocatore)); 
+
+alter table SQUADRA add constraint ID_SQUAD_GIOCA_FK
+     foreign key (IdGiocatore)
+     references GIOCATORE(IdGiocatore);
+
+
+-- Index Section
+-- _____________ 
+
+create unique index ID_ABILITA_IND
+     on ABILITA (NomeAbilita);
+
+create unique index ID_ACQUISIZIONE_IND
+     on ACQUISIZIONE (NomeMossa, NumeroPokemon);
+
+create index REF_ACQUI_POKEM_IND
+     on ACQUISIZIONE (NumeroPokemon);
+
+create unique index ID_AMICIZIA_IND
+     on AMICIZIA (IdGiocatoreAmico, IdGiocatore);
+
+create index REF_AMICI_GIOCA_1_IND
+     on AMICIZIA (IdGiocatore);
+
+create unique index ID_AVVISTAMENTO_IND
+     on AVVISTAMENTO (IdGiocatore, NumeroPokemon);
+
+create index REF_AVVIS_POKEM_IND
+     on AVVISTAMENTO (NumeroPokemon);
+
+create unique index SID_BATTAGLIA_IND
+     on BATTAGLIA (IdGiocatoreSfidante, IdGiocatoreSfidato, Data);
+
+create unique index ID_BATTAGLIA_IND
+     on BATTAGLIA (IdBattaglia);
+
+create index REF_BATTA_SQUAD_IND
+     on BATTAGLIA (IdGiocatoreSfidato);
+
+create unique index ID_BIOMA_IND
+     on BIOMA (IdBioma);
+
+create unique index ID_BOX_POKEMON_IND
+     on BOX_POKEMON (IdBox);
+
+create index REF_BOX_P_GIOCA_IND
+     on BOX_POKEMON (IdGiocatore);
+
+create unique index ID_CATTURA_IND
+     on CATTURA (IdGiocatore, NumeroPokemon);
+
+create index REF_CATTU_POKEM_IND
+     on CATTURA (NumeroPokemon);
+
+create unique index ID_ELEMENTO_IND
+     on ELEMENTO (IdElemento);
+
+create unique index ID_ESEMPLARE_POKEMON_IND
+     on ESEMPLARE_POKEMON (IdEsemplare);
+
+create index REF_ESEMP_BOX_P_IND
+     on ESEMPLARE_POKEMON (IdBox);
+
+create index REF_ESEMP_GIOCA_IND
+     on ESEMPLARE_POKEMON (IdGiocatoreProprietario);
+
+create index EQU_ESEMP_SQUAD_IND
+     on ESEMPLARE_POKEMON (IdSquadra);
+
+create index REF_ESEMP_POKEM_IND
+     on ESEMPLARE_POKEMON (NumeroPokemon);
+
+create unique index ID_EVOLUZIONE_IND
+     on EVOLUZIONE (IdMetodo, NumeroPokemonStadioCorrente, NumeroPokemonStadioSuccessivo);
+
+create index REF_EVOLU_POKEM_IND
+     on EVOLUZIONE (NumeroPokemonStadioCorrente);
+
+create unique index SID_EVOLU_POKEM_IND
+     on EVOLUZIONE (NumeroPokemonStadioSuccessivo);
+
+create unique index ID_GIOCATORE_IND
+     on GIOCATORE (IdGiocatore);
+
+create index REF_GIOCA_ESEMP_IND
+     on GIOCATORE (IdEsemplarePreferito);
+
+create unique index ID_METODO_EVOLUTIVO_IND
+     on METODO_EVOLUTIVO (IdMetodo);
+
+create unique index ID_MOSSA_IND
+     on MOSSA (NomeMossa);
+
+create index REF_MOSSA_ELEME_IND
+     on MOSSA (IdElemento);
+
+create unique index ID_PERMANENZA_IND
+     on PERMANENZA (NumeroPokemon, IdBioma);
+
+create index EQU_PERMA_BIOMA_IND
+     on PERMANENZA (IdBioma);
+
+create unique index ID_POKEMON_IND
+     on POKEMON (NumeroPokemon);
+
+create index REF_POKEM_ELEME_1_IND
+     on POKEMON (IdElementoSecondario);
+
+create index REF_POKEM_ELEME_IND
+     on POKEMON (IdElementoPrimario);
+
+create index EQU_POKEM_SET_S_IND
+     on POKEMON (IdStatistiche);
+
+create index REF_POKEM_ABILI_IND
+     on POKEMON (NomeAbilita);
+
+create unique index ID_SET_STATISTICHE_IND
+     on SET_STATISTICHE (IdStatistiche);
+
+create unique index ID_SQUAD_GIOCA_IND
+     on SQUADRA (IdGiocatore);
+
