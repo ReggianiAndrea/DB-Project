@@ -686,10 +686,14 @@ insert into SQUADRA values (1);
 insert into SQUADRA values (2);
 insert into SQUADRA values (3);
 
+insert into BOX_POKEMON values (1, 1);
+insert into BOX_POKEMON values (2, 2);
+insert into BOX_POKEMON values (3, 3);
+
 insert into AVVISTAMENTO values (1, 1);
 insert into AVVISTAMENTO values (1, 4);
 insert into AVVISTAMENTO values (1, 25);
 
 insert into CATTURA values (1, 25);
 
-insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 10, "2026-01-01", false, 'M', false, 25, 1, null, null);
+insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 10, "2026-01-01", false, 'M', false, 25, 1, 1, null);

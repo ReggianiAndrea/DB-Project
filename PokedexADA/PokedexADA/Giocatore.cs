@@ -156,7 +156,14 @@ public partial class Giocatore
         pokemon.IdEsemplare = db.EsemplarePokemons.Count() + 1;
         pokemon.Sesso = rand.Next(2) == 0 ? "M" : "F";
         pokemon.Livello = rand.Next(10, 35);
-        if (db.Squadras.Where(s => s.IdGiocatore == IdGiocatore).Count() < 6)
+        int numeroPokemonInSquadra = (
+            from s in db.Squadras
+            from p in s.EsemplarePokemons
+            where s.IdGiocatore == IdGiocatore
+            && p.IdSquadra == s.IdGiocatore
+            select p
+            ).Count();
+        if (numeroPokemonInSquadra < 6)
         {
             pokemon.IdSquadra = IdGiocatore;
             pokemon.IdBox = null;
