@@ -114,8 +114,8 @@ namespace PokedexADA
                 return;
             }
             using var db = new PokedexAdaContext();
-            int id = pokedexList.SelectedItems[0].Index;
-            Pokemon pokemon = db.Pokemons.ElementAt(id);
+            int id = Int32.Parse(pokedexList.SelectedItems[0].SubItems[0].Text);
+            Pokemon pokemon = db.Pokemons.Where(p => p.NumeroPokemon == id).First();
             Bitmap picture = (Bitmap)Image.FromFile(@"..\..\..\res\" + pokemon.Immagine);
             string nome = "???";
             string abilita = "???";
