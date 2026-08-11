@@ -140,7 +140,7 @@ public partial class Giocatore
         using var db = new PokedexAdaContext();
         db.Database.EnsureCreated();
         bool catturato = (
-            from g in  db.Giocatores
+            from g in db.Giocatores
             from pok in g.NumeroPokemonCatturati
             where pok.NumeroPokemon == numeroPokemon
             select pok.NumeroPokemon)
@@ -221,5 +221,103 @@ public partial class Giocatore
             select p)
             .ToList();
         return pokemonCatturati;
+    }
+
+    public bool AggiungiASquadra(int idEsemplare)
+    {
+        using var db = new PokedexAdaContext();
+        db.Database.EnsureCreated();
+
+        int quantitaInSquadra = 0;
+        using (var cmdCount = db.Database.GetDbConnection().CreateCommand())
+        {
+            cmdCount.CommandText = "SELECT COUNT(*) FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idG AND IdSquadra IS NOT NULL";
+            var paramG = cmdCount.CreateParameter();
+            paramG.ParameterName = "@idG";
+            paramG.Value = IdGiocatore;
+            cmdCount.Parameters.Add(paramG);
+
+            if (cmdCount.Connection.State != System.Data.ConnectionState.Open)
+                cmdCount.Connection.Open();
+
+            quantitaInSquadra = Convert.ToInt32(cmdCount.ExecuteScalar());
+        }
+
+        if (quantitaInSquadra >= 6) return false;
+
+        using (var cmdUpdate = db.Database.GetDbConnection().CreateCommand())
+        {
+            cmdUpdate.CommandText = "UPDATE esemplare_pokemon SET IdSquadra = @idSq, InBox = '0', IdBox = NULL WHERE IdEsemplare = @idEs AND IdGiocatoreProprietario = @idG";
+
+            var pSq = cmdUpdate.CreateParameter(); pSq.ParameterName = "@idSq"; pSq.Value = IdGiocatore; cmdUpdate.Parameters.Add(pSq);
+            var pEs = cmdUpdate.CreateParameter(); pEs.ParameterName = "@idEs"; pEs.Value = idEsemplare; cmdUpdate.Parameters.Add(pEs);
+            var pG = cmdUpdate.CreateParameter(); pG.ParameterName = "@idG"; pG.Value = IdGiocatore; cmdUpdate.Parameters.Add(pG);
+
+            if (cmdUpdate.Connection.State != System.Data.ConnectionState.Open)
+                cmdUpdate.Connection.Open();
+
+            int righeAggiornate = cmdUpdate.ExecuteNonQuery();
+            if (righeAggiornate == 0) return false;
+        }
+
+        return true;
+    }
+
+    public bool RimuoviDaSquadra(int idEsemplare, int? idBoxDestinazione = null)
+    {
+        using var db = new PokedexAdaContext();
+
+        using var cmdUpdate = db.Database.GetDbConnection().CreateCommand();
+        cmdUpdate.CommandText = "UPDATE esemplare_pokemon SET IdSquadra = NULL, InBox = '1', IdBox = @idBox WHERE IdEsemplare = @idEs AND IdGiocatoreProprietario = @idG";
+
+        var pBox = cmdUpdate.CreateParameter();
+        pBox.ParameterName = "@idBox";
+        pBox.Value = (object?)idBoxDestinazione ?? DBNull.Value;
+        cmdUpdate.Parameters.Add(pBox);
+
+        var pEs = cmdUpdate.CreateParameter();
+        pEs.ParameterName = "@idEs";
+        pEs.Value = idEsemplare;
+        cmdUpdate.Parameters.Add(pEs);
+
+        var pG = cmdUpdate.CreateParameter();
+        pG.ParameterName = "@idG";
+        pG.Value = IdGiocatore;
+        cmdUpdate.Parameters.Add(pG);
+
+        if (cmdUpdate.Connection.State != System.Data.ConnectionState.Open)
+            cmdUpdate.Connection.Open();
+
+        int righeAggiornate = cmdUpdate.ExecuteNonQuery();
+        if (righeAggiornate == 0) return false;
+
+        return true;
+    }
+
+    public bool SfidaGiocatore(int idGiocatoreSfidato, string luogo, bool hoVinto)
+    {
+        using var db = new PokedexAdaContext();
+
+        bool suaSquadraPronta = db.EsemplarePokemons.Any(e => e.IdGiocatoreProprietario == idGiocatoreSfidato && e.IdSquadra != null)
+                                || db.Squadras.Any(s => s.IdGiocatore == idGiocatoreSfidato);
+
+        if (!suaSquadraPronta)
+        {
+            return false;
+        }
+
+        Battaglia nuovaBattaglia = new Battaglia
+        {
+            IdGiocatoreSfidante = IdGiocatore,
+            IdGiocatoreSfidato = idGiocatoreSfidato,
+            Data = DateTime.Now,
+            Luogo = luogo,
+            SfidanteVincitore = hoVinto ? "1" : "0"
+        };
+
+        db.Battaglia.Add(nuovaBattaglia);
+        db.SaveChanges();
+
+        return true;
     }
 }

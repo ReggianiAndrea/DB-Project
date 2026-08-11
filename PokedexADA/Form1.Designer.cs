@@ -89,7 +89,7 @@
             pokemonDisponibiliBox = new ComboBox();
             cercaPokemonButton = new Button();
             cercaPokemonSelezionatoButton = new Button();
-            esemplariCatturati = new TabControl();
+            battagliaTab = new TabControl();
             visualizzaAmici.SuspendLayout();
             cercaGiocatoreGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cercaGiocatorePokemonPreferitoPictureBox).BeginInit();
@@ -99,7 +99,7 @@
             cercaECattura.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
-            esemplariCatturati.SuspendLayout();
+            battagliaTab.SuspendLayout();
             SuspendLayout();
             // 
             // visualizzaAmici
@@ -112,7 +112,7 @@
             visualizzaAmici.Controls.Add(amiciList);
             visualizzaAmici.Location = new Point(4, 24);
             visualizzaAmici.Name = "visualizzaAmici";
-            visualizzaAmici.Size = new Size(1121, 625);
+            visualizzaAmici.Size = new Size(880, 549);
             visualizzaAmici.TabIndex = 2;
             visualizzaAmici.Text = "Visualizza Amici";
             visualizzaAmici.UseVisualStyleBackColor = true;
@@ -348,18 +348,18 @@
             lineaEvolutivaPokemonLayout.ColumnStyles.Add(new ColumnStyle());
             lineaEvolutivaPokemonLayout.ColumnStyles.Add(new ColumnStyle());
             lineaEvolutivaPokemonLayout.ColumnStyles.Add(new ColumnStyle());
-            lineaEvolutivaPokemonLayout.Location = new Point(680, 154);
+            lineaEvolutivaPokemonLayout.Location = new Point(710, 23);
             lineaEvolutivaPokemonLayout.Margin = new Padding(2);
             lineaEvolutivaPokemonLayout.Name = "lineaEvolutivaPokemonLayout";
             lineaEvolutivaPokemonLayout.RowCount = 1;
             lineaEvolutivaPokemonLayout.RowStyles.Add(new RowStyle());
-            lineaEvolutivaPokemonLayout.Size = new Size(434, 264);
-            lineaEvolutivaPokemonLayout.TabIndex = 24;
+            lineaEvolutivaPokemonLayout.Size = new Size(403, 379);
+            lineaEvolutivaPokemonLayout.TabIndex = 22;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(680, 137);
+            label1.Location = new Point(710, 6);
             label1.Name = "label1";
             label1.Size = new Size(86, 15);
             label1.TabIndex = 23;
@@ -434,14 +434,14 @@
             descrizionePokemonTextBox.Location = new Point(329, 263);
             descrizionePokemonTextBox.Name = "descrizionePokemonTextBox";
             descrizionePokemonTextBox.ReadOnly = true;
-            descrizionePokemonTextBox.Size = new Size(346, 139);
+            descrizionePokemonTextBox.Size = new Size(376, 139);
             descrizionePokemonTextBox.TabIndex = 6;
             descrizionePokemonTextBox.Text = "";
             // 
             // statistichePokemonTotaleLabel
             // 
             statistichePokemonTotaleLabel.AutoSize = true;
-            statistichePokemonTotaleLabel.Location = new Point(808, 111);
+            statistichePokemonTotaleLabel.Location = new Point(562, 242);
             statistichePokemonTotaleLabel.Name = "statistichePokemonTotaleLabel";
             statistichePokemonTotaleLabel.Size = new Size(41, 15);
             statistichePokemonTotaleLabel.TabIndex = 17;
@@ -450,7 +450,7 @@
             // statistichePokemonVelocitaLabel
             // 
             statistichePokemonVelocitaLabel.AutoSize = true;
-            statistichePokemonVelocitaLabel.Location = new Point(806, 96);
+            statistichePokemonVelocitaLabel.Location = new Point(560, 227);
             statistichePokemonVelocitaLabel.Name = "statistichePokemonVelocitaLabel";
             statistichePokemonVelocitaLabel.Size = new Size(51, 15);
             statistichePokemonVelocitaLabel.TabIndex = 16;
@@ -459,7 +459,7 @@
             // statistichePokemonDifesaSpecialeLabel
             // 
             statistichePokemonDifesaSpecialeLabel.AutoSize = true;
-            statistichePokemonDifesaSpecialeLabel.Location = new Point(806, 81);
+            statistichePokemonDifesaSpecialeLabel.Location = new Point(560, 212);
             statistichePokemonDifesaSpecialeLabel.Name = "statistichePokemonDifesaSpecialeLabel";
             statistichePokemonDifesaSpecialeLabel.Size = new Size(87, 15);
             statistichePokemonDifesaSpecialeLabel.TabIndex = 15;
@@ -468,7 +468,7 @@
             // statistichePokemonAttaccoSpecialeLabel
             // 
             statistichePokemonAttaccoSpecialeLabel.AutoSize = true;
-            statistichePokemonAttaccoSpecialeLabel.Location = new Point(806, 66);
+            statistichePokemonAttaccoSpecialeLabel.Location = new Point(560, 197);
             statistichePokemonAttaccoSpecialeLabel.Name = "statistichePokemonAttaccoSpecialeLabel";
             statistichePokemonAttaccoSpecialeLabel.Size = new Size(96, 15);
             statistichePokemonAttaccoSpecialeLabel.TabIndex = 14;
@@ -477,7 +477,7 @@
             // statistichePokemonDifesaLabel
             // 
             statistichePokemonDifesaLabel.AutoSize = true;
-            statistichePokemonDifesaLabel.Location = new Point(806, 51);
+            statistichePokemonDifesaLabel.Location = new Point(560, 182);
             statistichePokemonDifesaLabel.Name = "statistichePokemonDifesaLabel";
             statistichePokemonDifesaLabel.Size = new Size(42, 15);
             statistichePokemonDifesaLabel.TabIndex = 13;
@@ -486,7 +486,7 @@
             // statistichePokemonAttaccoLabel
             // 
             statistichePokemonAttaccoLabel.AutoSize = true;
-            statistichePokemonAttaccoLabel.Location = new Point(806, 36);
+            statistichePokemonAttaccoLabel.Location = new Point(560, 167);
             statistichePokemonAttaccoLabel.Name = "statistichePokemonAttaccoLabel";
             statistichePokemonAttaccoLabel.Size = new Size(51, 15);
             statistichePokemonAttaccoLabel.TabIndex = 12;
@@ -495,7 +495,7 @@
             // statistichePokemonPuntiSaluteLabel
             // 
             statistichePokemonPuntiSaluteLabel.AutoSize = true;
-            statistichePokemonPuntiSaluteLabel.Location = new Point(806, 21);
+            statistichePokemonPuntiSaluteLabel.Location = new Point(560, 152);
             statistichePokemonPuntiSaluteLabel.Name = "statistichePokemonPuntiSaluteLabel";
             statistichePokemonPuntiSaluteLabel.Size = new Size(72, 15);
             statistichePokemonPuntiSaluteLabel.TabIndex = 11;
@@ -504,7 +504,7 @@
             // statistichePokemonLabel
             // 
             statistichePokemonLabel.AutoSize = true;
-            statistichePokemonLabel.Location = new Point(806, 6);
+            statistichePokemonLabel.Location = new Point(560, 137);
             statistichePokemonLabel.Name = "statistichePokemonLabel";
             statistichePokemonLabel.Size = new Size(61, 15);
             statistichePokemonLabel.TabIndex = 10;
@@ -704,24 +704,24 @@
             cercaPokemonSelezionatoButton.UseVisualStyleBackColor = true;
             cercaPokemonSelezionatoButton.Click += CercaPokemonSelezionatoButtonOnClick;
             // 
-            // esemplariCatturati
+            // battagliaTab
             // 
-            esemplariCatturati.Controls.Add(cercaECattura);
-            esemplariCatturati.Controls.Add(visualizzaPokedex);
-            esemplariCatturati.Controls.Add(visualizzaAmici);
-            esemplariCatturati.Dock = DockStyle.Fill;
-            esemplariCatturati.Location = new Point(0, 0);
-            esemplariCatturati.Name = "esemplariCatturati";
-            esemplariCatturati.SelectedIndex = 0;
-            esemplariCatturati.Size = new Size(1129, 653);
-            esemplariCatturati.TabIndex = 7;
+            battagliaTab.Controls.Add(cercaECattura);
+            battagliaTab.Controls.Add(visualizzaPokedex);
+            battagliaTab.Controls.Add(visualizzaAmici);
+            battagliaTab.Dock = DockStyle.Fill;
+            battagliaTab.Location = new Point(0, 0);
+            battagliaTab.Name = "battagliaTab";
+            battagliaTab.SelectedIndex = 0;
+            battagliaTab.Size = new Size(1129, 653);
+            battagliaTab.TabIndex = 7;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1129, 653);
-            Controls.Add(esemplariCatturati);
+            Controls.Add(battagliaTab);
             Cursor = Cursors.IBeam;
             Name = "Form1";
             Text = "Form1";
@@ -739,12 +739,11 @@
             panel2.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            esemplariCatturati.ResumeLayout(false);
+            battagliaTab.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
         private TabPage visualizzaAmici;
         private Label cercaGiocatoreFallitaLabel;
         private Button cercaGiocatoreButton;
@@ -805,7 +804,7 @@
         private ComboBox pokemonDisponibiliBox;
         private Button cercaPokemonButton;
         private Button cercaPokemonSelezionatoButton;
-        private TabControl esemplariCatturati;
+        private TabControl battagliaTab;
         private TableLayoutPanel lineaEvolutivaPokemonLayout;
     }
 }

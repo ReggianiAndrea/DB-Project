@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PokedexADA.PokedexADA;
 using System.Linq;
 
@@ -7,34 +8,51 @@ namespace PokedexADA
     {
         Dictionary<int, int> mapPokedexToGUIList = new Dictionary<int, int>();
 
-        // esempio di test
         int idGiocatore = 1;
         Giocatore giocatore;
         Giocatore? giocatoreSelezionato;
 
+        // Controlli dinamici Pokedex
+        TextBox filtroNomeTextBox;
+        ComboBox filtroElementoComboBox;
+        Button applicaFiltroButton;
+        Button resetFiltroButton;
+
+        TabPage gestisciSquadraTab;
+        TabPage battagliaTabPage;
+        ListView boxListView;
+        ListView squadraListView;
+        Button spostaInSquadraButton;
+        Button spostaInBoxButton;
+
+        // Controlli dinamici Battaglia
+        Button cercaGiocatoreSfidaButton;
+        ComboBox luogoBattagliaComboBox;
+        ComboBox avversarioComboBox;
+
+        // ListView per la squadra dell'amico in Visualizza Amici
+        ListView squadraAmicoListView;
+
         public Form1()
         {
             InitializeComponent();
+            amiciList.SelectedIndexChanged += amiciList_SelectedIndexChanged;
 
-            esemplariCatturati.Selecting += new TabControlCancelEventHandler(tabControl1_Selecting);
+            InizializzaControlliDinamici();
+
+            battagliaTab.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
 
             using var db = new PokedexAdaContext();
             pokemonDisponibiliBox.Items.AddRange(db.Pokemons.Select(p => p.Nome).ToArray());
             giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
 
-            List<Pokemon> pokemonVisti = (
-                from g in db.Giocatores
-                from p in g.NumeroPokemonAvvistati
-                select p)
-                .ToList();
             foreach (Pokemon p in db.Pokemons)
             {
-                bool visto = pokemonVisti.Where(pok => pok.NumeroPokemon == p.NumeroPokemon).Any();
-                string nome = visto ? p.Nome : "???";
-                var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), nome, "" });
+                var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), p.Nome, "" });
                 pokedexList.Items.Add(item);
                 mapPokedexToGUIList.Add(p.NumeroPokemon, pokedexList.Items.Count - 1);
             }
+
             foreach (Amicizia a in db.Amicizia)
             {
                 using var context = new PokedexAdaContext();
@@ -42,7 +60,174 @@ namespace PokedexADA
                 var item = new ListViewItem(new[] { g.Nickname, a.Bloccato ? "bloccato" : "" });
                 amiciList.Items.Add(item);
             }
+
             tentaCatturaButton.Enabled = false;
+
+            // Inizializzazione della lista squadra amico con anche il nome del Pokémon
+            squadraAmicoListView = new ListView
+            {
+                Location = new Point(20, 220),
+                Size = new Size(280, 150),
+                View = View.Details,
+                FullRowSelect = true
+            };
+            squadraAmicoListView.Columns.Add("ID", 40);
+            squadraAmicoListView.Columns.Add("Nome", 130);
+            squadraAmicoListView.Columns.Add("Livello", 60);
+
+            // Aggiungiamo un'etichetta descrittiva sopra la lista dell'amico
+            Label labelSquadraAmico = new Label
+            {
+                Text = "Squadra Attiva dell'Amico:",
+                Location = new Point(20, 195),
+                AutoSize = true,
+                Font = new Font(Font, FontStyle.Bold)
+            };
+
+            cercaGiocatoreGroupBox.Controls.Add(labelSquadraAmico);
+            cercaGiocatoreGroupBox.Controls.Add(squadraAmicoListView);
+        }
+
+        private void InizializzaControlliDinamici()
+        {
+            // FILTRI POKEDEX
+            filtroNomeTextBox = new TextBox { Location = new Point(9, 830), Width = 120, PlaceholderText = "Cerca nome..." };
+            filtroElementoComboBox = new ComboBox { Location = new Point(135, 830), Width = 100, DropDownStyle = ComboBoxStyle.DropDownList };
+            applicaFiltroButton = new Button { Location = new Point(240, 828), Width = 70, Text = "Filtra" };
+            resetFiltroButton = new Button { Location = new Point(315, 828), Width = 70, Text = "Reset" };
+
+            using (var db = new PokedexAdaContext())
+            {
+                filtroElementoComboBox.Items.Add("Tutti");
+                filtroElementoComboBox.Items.AddRange(db.Elementos.Select(e => e.Tipologia).ToArray());
+                filtroElementoComboBox.SelectedIndex = 0;
+            }
+
+            applicaFiltroButton.Click += ApplicaFiltroButton_Click;
+            resetFiltroButton.Click += ResetFiltroButton_Click;
+
+            pokedexList.Height = 810;
+            visualizzaPokedex.Controls.Add(filtroNomeTextBox);
+            visualizzaPokedex.Controls.Add(filtroElementoComboBox);
+            visualizzaPokedex.Controls.Add(applicaFiltroButton);
+            visualizzaPokedex.Controls.Add(resetFiltroButton);
+
+            // GESTIONE SQUADRA
+            gestisciSquadraTab = new TabPage("Gestisci Squadra");
+
+            Label labelBox = new Label { Text = "Box Pokémon", Location = new Point(20, 0), AutoSize = true, Font = new Font(Font, FontStyle.Bold) };
+            Label labelSquadra = new Label { Text = "Squadra Attiva", Location = new Point(500, 0), AutoSize = true, Font = new Font(Font, FontStyle.Bold) };
+
+            boxListView = new ListView { Location = new Point(20, 25), Size = new Size(300, 780), View = View.Details, FullRowSelect = true };
+            boxListView.Columns.Add("ID", 40);
+            boxListView.Columns.Add("Nome", 150);
+            boxListView.Columns.Add("Livello", 80);
+
+            squadraListView = new ListView { Location = new Point(500, 25), Size = new Size(300, 780), View = View.Details, FullRowSelect = true };
+            squadraListView.Columns.Add("ID", 40);
+            squadraListView.Columns.Add("Nome", 150);
+            squadraListView.Columns.Add("Livello", 80);
+
+            spostaInSquadraButton = new Button { Location = new Point(340, 350), Size = new Size(140, 50), Text = "Aggiungi a Squadra ->" };
+            spostaInBoxButton = new Button { Location = new Point(340, 420), Size = new Size(140, 50), Text = "<- Sposta nel Box" };
+
+            spostaInSquadraButton.Click += SpostaInSquadraButton_Click;
+            spostaInBoxButton.Click += SpostaInBoxButton_Click;
+
+            gestisciSquadraTab.Controls.Add(labelBox);
+            gestisciSquadraTab.Controls.Add(labelSquadra);
+            gestisciSquadraTab.Controls.Add(boxListView);
+            gestisciSquadraTab.Controls.Add(squadraListView);
+            gestisciSquadraTab.Controls.Add(spostaInSquadraButton);
+            gestisciSquadraTab.Controls.Add(spostaInBoxButton);
+
+            battagliaTab.TabPages.Add(gestisciSquadraTab);
+
+            // CONTROLLI BATTAGLIA 
+            Label avversarioLabel = new Label { Text = "Scegli Avversario:", Location = new Point(30, 20), AutoSize = true };
+            avversarioComboBox = new ComboBox { Location = new Point(30, 45), Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
+
+            using (var db = new PokedexAdaContext())
+            {
+                var amiciLista = (from a in db.Amicizia
+                                  join g in db.Giocatores on a.IdGiocatoreAmico equals g.IdGiocatore
+                                  where a.IdGiocatore == idGiocatore && !a.Bloccato
+                                  select g.Nickname).ToList();
+
+                if (amiciLista.Count > 0)
+                {
+                    avversarioComboBox.Items.AddRange(amiciLista.ToArray());
+                    avversarioComboBox.SelectedIndex = 0;
+                }
+            }
+            battagliaTabPage = new TabPage("Battaglia");
+
+            luogoBattagliaComboBox = new ComboBox
+            {
+                Location = new Point(30, 30),
+                Width = 200,
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+
+            using (var db = new PokedexAdaContext())
+            {
+                var amiciLista = (from a in db.Amicizia
+                                  join g in db.Giocatores on a.IdGiocatoreAmico equals g.IdGiocatore
+                                  where a.IdGiocatore == idGiocatore && !a.Bloccato
+                                  select g.Nickname)
+                                 .Distinct()
+                                 .ToList();
+
+                avversarioComboBox.Items.Clear();
+                if (amiciLista.Count > 0)
+                {
+                    avversarioComboBox.Items.AddRange(amiciLista.ToArray());
+                    avversarioComboBox.SelectedIndex = 0;
+                }
+            }
+            Label luogoLabel = new Label { Text = "Scegli Luogo:", Location = new Point(30, 85), AutoSize = true };
+            luogoBattagliaComboBox = new ComboBox { Location = new Point(30, 110), Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
+
+            using (var db = new PokedexAdaContext())
+            {
+                var luoghi = db.Biomas.Select(b => b.Habitat).Distinct().ToArray();
+                if (luoghi.Length > 0)
+                {
+                    luogoBattagliaComboBox.Items.AddRange(luoghi);
+                }
+                else
+                {
+                    luogoBattagliaComboBox.Items.AddRange(new string[] { "Arena Neutrale", "Stadio Pokémon", "Grotta Oscura", "Bosco Smeraldo" });
+                }
+                luogoBattagliaComboBox.SelectedIndex = 0;
+            }
+
+            cercaGiocatoreSfidaButton = new Button { Location = new Point(30, 155), Size = new Size(150, 37), Text = "Sfida Giocatore!", Visible = true };
+            cercaGiocatoreSfidaButton.Click += CercaGiocatoreSfidaButton_Click;
+
+            battagliaTabPage.Controls.Add(avversarioLabel);
+            battagliaTabPage.Controls.Add(avversarioComboBox);
+            battagliaTabPage.Controls.Add(luogoLabel);
+            battagliaTabPage.Controls.Add(luogoBattagliaComboBox);
+            battagliaTabPage.Controls.Add(cercaGiocatoreSfidaButton);
+
+            battagliaTab.TabPages.Add(battagliaTabPage);
+        }
+
+        private void tabControl1_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (battagliaTab.SelectedTab == visualizzaPokedex)
+            {
+                SelezionaPokedex();
+            }
+            else if (battagliaTab.SelectedTab == visualizzaAmici)
+            {
+                SelezionaListaAmici();
+            }
+            else if (battagliaTab.SelectedTab == gestisciSquadraTab)
+            {
+                AggiornaVisteSquadraEBox();
+            }
         }
 
         private void CercaPokemonSelezionatoButtonOnClick(object sender, EventArgs e)
@@ -94,7 +279,8 @@ namespace PokedexADA
             pokedexPicture.Image = null;
             mossePokemonListView.Items.Clear();
             lineaEvolutivaPokemonLayout.Visible = false;
-            if (pokedexList.SelectedItems.Count != 1) {
+            if (pokedexList.SelectedItems.Count != 1)
+            {
                 pokemonLabel.Text = "Numero:";
                 speciePokemonLabel.Text = "Pokemon:";
                 biomaPokemonLabel.Text = "Bioma:";
@@ -192,6 +378,7 @@ namespace PokedexADA
                 attaccoSpeciale = attsp.ToString();
                 difesaSpeciale = defsp.ToString();
                 velocita = spd.ToString();
+
                 lineaEvolutivaPokemonLayout.Controls.Clear();
                 lineaEvolutivaPokemonLayout.RowCount = 0;
                 foreach (Evoluzione evo in pokemon.GetLineaEvolutiva())
@@ -294,18 +481,6 @@ namespace PokedexADA
             return filteredPicture;
         }
 
-        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
-        {
-            if (esemplariCatturati.SelectedIndex == 1)
-            {
-                SelezionaPokedex();
-            }
-            else if (esemplariCatturati.SelectedIndex == 2)
-            {
-                SelezionaListaAmici();
-            }
-        }
-
         private void SelezionaListaAmici()
         {
             using var db = new PokedexAdaContext();
@@ -313,8 +488,11 @@ namespace PokedexADA
             {
                 Amicizia a = db.Amicizia.ElementAt(i);
                 Giocatore g = db.Giocatores.Where(g => g.IdGiocatore == a.IdGiocatoreAmico).First();
-                amiciList.Items[i].SubItems[0].Text = g.Nickname;
-                amiciList.Items[i].SubItems[1].Text = a.Bloccato ? "bloccato" : "";
+                if (i < amiciList.Items.Count)
+                {
+                    amiciList.Items[i].SubItems[0].Text = g.Nickname;
+                    amiciList.Items[i].SubItems[1].Text = a.Bloccato ? "bloccato" : "";
+                }
             }
         }
 
@@ -376,35 +554,64 @@ namespace PokedexADA
             nomeCercaGiocatoreLabel.Hide();
             cognomeCercaGiocatoreLabel.Hide();
             cercaGiocatoreFallitaLabel.Text = "";
+
+            squadraAmicoListView.Items.Clear();
+
             using var db = new PokedexAdaContext();
             if (amico == null)
             {
                 cercaGiocatoreFallitaLabel.Text = "Giocatore non trovato";
                 return;
             }
+
             cercaGiocatoreGroupBox.Show();
             cercaGiocatorePictureBox.ImageLocation = amico.Immagine;
             nomeCercaGiocatoreLabel.Text = $"Nome: {amico.Nome}";
             cognomeCercaGiocatoreLabel.Text = $"Cognome: {amico.Cognome}";
             nicknameCercaGiocatoreLabel.Text = $"Nickname: {amico.Nickname}";
-            var query2 =
-                from a in db.Amicizia
-                where a.IdGiocatore == giocatore.IdGiocatore && a.IdGiocatoreAmico == amico.IdGiocatore
-                select a;
-            Amicizia? amicizia = query2.FirstOrDefault();
+
+            var datiEsemplari = new List<(int IdEsemplare, int Livello, int NumeroPokemon)>();
+
+            using (var command = db.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "SELECT IdEsemplare, Livello, NumeroPokemon FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idAmico AND IdSquadra IS NOT NULL";
+
+                var parameter = command.CreateParameter();
+                parameter.ParameterName = "@idAmico";
+                parameter.Value = amico.IdGiocatore;
+                command.Parameters.Add(parameter);
+
+                if (command.Connection.State != System.Data.ConnectionState.Open)
+                    command.Connection.Open();
+
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    datiEsemplari.Add((reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
+                }
+            }
+
+            foreach (var p in datiEsemplari)
+            {
+                string nomePokemon = db.Pokemons
+                    .Where(pk => pk.NumeroPokemon == p.NumeroPokemon)
+                    .Select(pk => pk.Nome)
+                    .FirstOrDefault() ?? "Sconosciuto";
+
+                var item = new ListViewItem(new[] { p.IdEsemplare.ToString(), nomePokemon, p.Livello.ToString() });
+                squadraAmicoListView.Items.Add(item);
+            }
+
+            var amicizia = db.Amicizia.FirstOrDefault(a => a.IdGiocatore == idGiocatore && a.IdGiocatoreAmico == amico.IdGiocatore);
             if (amicizia != null)
             {
                 cercaGiocatoreRimuoviButton.Show();
                 nomeCercaGiocatoreLabel.Show();
                 cognomeCercaGiocatoreLabel.Show();
                 if (amicizia.Bloccato)
-                {
                     cercaGiocatoreSbloccaButton.Show();
-                }
                 else
-                {
                     cercaGiocatoreBloccaButton.Show();
-                }
             }
             else if (giocatore.IdGiocatore != amico.IdGiocatore)
             {
@@ -452,7 +659,6 @@ namespace PokedexADA
             if (giocatoreSelezionato != null)
             {
                 using var db = new PokedexAdaContext();
-                amiciList.Items.Clear();
                 for (int i = 0; i < amiciList.Items.Count; i++)
                 {
                     if (amiciList.Items[i].SubItems[0].Text == giocatoreSelezionato.Nickname)
@@ -466,15 +672,175 @@ namespace PokedexADA
             }
         }
 
-        private void amiciList_SelectedIndexChanged(object sender, EventArgs e)
+        private void amiciList_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (giocatoreSelezionato != null && amiciList.SelectedItems.Count > 0 && giocatoreSelezionato.Nickname != amiciList.SelectedItems[0].SubItems[0].Text)
+            if (amiciList.SelectedItems.Count > 0)
             {
+                string nicknameSelezionato = amiciList.SelectedItems[0].SubItems[0].Text;
                 using var db = new PokedexAdaContext();
-                giocatoreSelezionato = db.Giocatores.Where(p => p.Nickname == amiciList.SelectedItems[0].SubItems[0].Text).FirstOrDefault();
-                MostraGiocatore(giocatoreSelezionato);
+                giocatoreSelezionato = db.Giocatores.FirstOrDefault(p => p.Nickname == nicknameSelezionato);
+
+                if (giocatoreSelezionato != null)
+                {
+                    MostraGiocatore(giocatoreSelezionato);
+                }
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e) { }
+
+        private void CaricaPokedexFiltrato(string nome, string elemento)
+        {
+            pokedexList.Items.Clear();
+            using var db = new PokedexAdaContext();
+
+            var query = db.Pokemons.Include(p => p.IdElementoPrimarioNavigation).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(nome))
+                query = query.Where(p => p.Nome.Contains(nome) || p.Specie.Contains(nome));
+
+            if (elemento != "Tutti" && !string.IsNullOrWhiteSpace(elemento))
+                query = query.Where(p => p.IdElementoPrimarioNavigation.Tipologia == elemento);
+
+            var filtrati = query.ToList();
+            var visti = db.Giocatores.Where(g => g.IdGiocatore == idGiocatore).SelectMany(g => g.NumeroPokemonAvvistati).Select(p => p.NumeroPokemon).ToList();
+            var catturati = db.Giocatores.Where(g => g.IdGiocatore == idGiocatore).SelectMany(g => g.NumeroPokemonCatturati).Select(p => p.NumeroPokemon).ToList();
+
+            foreach (var p in filtrati)
+            {
+                string status = catturati.Contains(p.NumeroPokemon) ? "\u00A9" : (visti.Contains(p.NumeroPokemon) ? "\u25CB" : "");
+                var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), p.Nome, status });
+                pokedexList.Items.Add(item);
+
+                if (!mapPokedexToGUIList.ContainsKey(p.NumeroPokemon))
+                {
+                    mapPokedexToGUIList[p.NumeroPokemon] = pokedexList.Items.Count - 1;
+                }
+            }
+        }
+
+        private void ApplicaFiltroButton_Click(object? sender, EventArgs e)
+        {
+            CaricaPokedexFiltrato(filtroNomeTextBox.Text, filtroElementoComboBox.SelectedItem?.ToString() ?? "Tutti");
+        }
+
+        private void ResetFiltroButton_Click(object? sender, EventArgs e)
+        {
+            filtroNomeTextBox.Text = "";
+            filtroElementoComboBox.SelectedIndex = 0;
+            CaricaPokedexFiltrato("", "Tutti");
+        }
+
+        private void AggiornaVisteSquadraEBox()
+        {
+            boxListView.Items.Clear();
+            squadraListView.Items.Clear();
+
+            using var db = new PokedexAdaContext();
+
+            var esemplariGrezzi = new List<(int IdEsemplare, int Livello, int NumeroPokemon, int? IdSquadra)>();
+
+            using (var command = db.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "SELECT IdEsemplare, Livello, NumeroPokemon, IdSquadra FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idGiocatore";
+
+                var parameter = command.CreateParameter();
+                parameter.ParameterName = "@idGiocatore";
+                parameter.Value = idGiocatore;
+                command.Parameters.Add(parameter);
+
+                if (command.Connection.State != System.Data.ConnectionState.Open)
+                    command.Connection.Open();
+
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int idEs = reader.GetInt32(0);
+                    int livello = reader.GetInt32(1);
+                    int numeroPoke = reader.GetInt32(2);
+                    int? idSquadra = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3);
+
+                    esemplariGrezzi.Add((idEs, livello, numeroPoke, idSquadra));
+                }
+            }
+
+            foreach (var e in esemplariGrezzi)
+            {
+                string nomePokemon = db.Pokemons
+                    .Where(pk => pk.NumeroPokemon == e.NumeroPokemon)
+                    .Select(pk => pk.Nome)
+                    .FirstOrDefault() ?? "Sconosciuto";
+
+                var item = new ListViewItem(new[] { e.IdEsemplare.ToString(), nomePokemon, e.Livello.ToString() });
+                item.Tag = e.IdEsemplare;
+
+                if (e.IdSquadra != null)
+                    squadraListView.Items.Add(item);
+                else
+                    boxListView.Items.Add(item);
+            }
+        }
+
+        private void SpostaInSquadraButton_Click(object? sender, EventArgs e)
+        {
+            if (boxListView.SelectedItems.Count > 0)
+            {
+                int idEs = (int)boxListView.SelectedItems[0].Tag;
+
+                if (giocatore.AggiungiASquadra(idEs))
+                {
+                    AggiornaVisteSquadraEBox();
+                }
+                else
+                {
+                    MessageBox.Show("Squadra piena (max 6) o errore!", "Impossibile spostare", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void SpostaInBoxButton_Click(object? sender, EventArgs e)
+        {
+            if (squadraListView.SelectedItems.Count > 0)
+            {
+                int idEs = (int)squadraListView.SelectedItems[0].Tag;
+                if (giocatore.RimuoviDaSquadra(idEs, null))
+                    AggiornaVisteSquadraEBox();
+                else
+                    MessageBox.Show("Errore durante lo spostamento nel box.", "Impossibile spostare", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void CercaGiocatoreSfidaButton_Click(object? sender, EventArgs e)
+        {
+            string? nicknameAvversario = avversarioComboBox.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(nicknameAvversario))
+            {
+                MessageBox.Show("Seleziona un avversario valido dalla tendina!", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using var db = new PokedexAdaContext();
+            var avversario = db.Giocatores.FirstOrDefault(g => g.Nickname == nicknameAvversario);
+
+            if (avversario != null)
+            {
+                string luogo = luogoBattagliaComboBox.SelectedItem?.ToString() ?? "Arena Neutrale";
+                bool hoVinto = new Random().Next(0, 2) == 1;
+
+                bool successo = giocatore.SfidaGiocatore(avversario.IdGiocatore, luogo, hoVinto);
+
+                if (successo)
+                {
+                    if (hoVinto)
+                        MessageBox.Show($"Hai sfidato {avversario.Nickname} a {luogo} e hai VINTO!", "Vittoria!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show($"Hai sfidato {avversario.Nickname} a {luogo} ma sei stato SCONFITTO.", "Sconfitta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show($"L'allenatore {avversario.Nickname} non ha una squadra attiva, forse è ancora un principiante e non può lottare!", "Impossibile sfidare", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
     }
-
 }
