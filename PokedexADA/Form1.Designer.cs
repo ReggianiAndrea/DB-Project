@@ -200,9 +200,6 @@
             squadraAmicoListView.TabIndex = 1;
             squadraAmicoListView.UseCompatibleStateImageBehavior = false;
             squadraAmicoListView.View = View.Details;
-            squadraAmicoListView.Columns.Add("ID", 40);
-            squadraAmicoListView.Columns.Add("Nome", 130);
-            squadraAmicoListView.Columns.Add("Livello", 60);
             // 
             // pokemonPreferitoCercaGiocatoreLabel
             // 
@@ -790,11 +787,11 @@
             // 
             // battagliaTab
             // 
-            battagliaTab.Controls.Add(battagliaTabPage);
-            battagliaTab.Controls.Add(gestisciSquadraTab);
             battagliaTab.Controls.Add(cercaECattura);
             battagliaTab.Controls.Add(visualizzaPokedex);
             battagliaTab.Controls.Add(visualizzaAmici);
+            battagliaTab.Controls.Add(gestisciSquadraTab);
+            battagliaTab.Controls.Add(battagliaTabPage);
             battagliaTab.Dock = DockStyle.Fill;
             battagliaTab.Location = new Point(0, 0);
             battagliaTab.Name = "battagliaTab";
@@ -895,9 +892,6 @@
             boxListView.TabIndex = 2;
             boxListView.UseCompatibleStateImageBehavior = false;
             boxListView.View = View.Details;
-            boxListView.Columns.Add("ID", 40);
-            boxListView.Columns.Add("Nome", 150);
-            boxListView.Columns.Add("Livello", 80);
             // 
             // squadraListView
             // 
@@ -908,9 +902,6 @@
             squadraListView.TabIndex = 3;
             squadraListView.UseCompatibleStateImageBehavior = false;
             squadraListView.View = View.Details;
-            squadraListView.Columns.Add("ID", 40);
-            squadraListView.Columns.Add("Nome", 150);
-            squadraListView.Columns.Add("Livello", 80);
             // 
             // spostaInSquadraButton
             // 
