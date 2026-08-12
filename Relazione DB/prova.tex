@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -44,7 +44,7 @@
 
     \begin{flushleft}
         \textbf{Studente:} Mancini Davide\\
-        \hspace*{2em}\textbf{Matricola:} DA MODIFICARE\\[0.5cm]
+        \hspace*{2em}\textbf{Matricola:} 0001114441\\[0.5cm]
         \textbf{Studente:} Marzano Alessia\\
         \hspace*{2em}\textbf{Matricola:} DA MODIFICARE\\[0.5cm]
         \textbf{Studente:} Reggiani Andrea\\
@@ -63,64 +63,22 @@
 
 \end{titlepage}
 
+\tableofcontents
 
-\newpage
-\begin{center}
-    {\LARGE\bfseries Struttura della relazione}
-\end{center}
+\chapter{Introduzione}
 
-\vspace{1cm}
-
-\noindent
 L'obiettivo è presentare in modo chiaro le scelte progettuali adottate,
 motivandole attraverso modelli concettuali, specifiche funzionali e soluzioni
 implementative, nel rispetto delle metodologie di progettazione delle basi di
 dati.
 
-\vspace{1.5cm}
+\section{Analisi dei requisiti}
 
-\begin{center}
-    {\LARGE\bfseries Indice}
-\end{center}
-
-\vspace{0.5cm}
-
-\tableofcontents
-
+\section{Estrazione dei concetti fondamentali}
 
 \newpage
-\begin{center}
-	\section{Introduzione}
-\end{center}
 
-
-\newpage
-\begin{center}
-	\section{Analisi dei requisiti}
-\end{center}
-
-
-\newpage
-\subsection{Estrazione dei concetti fondamentali}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\begin{center}
-	\section{Progetto dello schema concettuale}
-\end{center}
+\chapter{Progetto dello schema concettuale}
 
 \renewcommand{\arraystretch}{1.5}
 \normalsize
@@ -151,110 +109,133 @@ Lo schema concettuale nella sua versione finale si avvarrà delle seguenti entit
 \hline
 \endhead
 
-
-ABILITÀ & E &  \\
+ABILITÀ & E & Rappresenta una capacità in battaglia di un Pokémon  \\
 \hline
-ACQUISIZIONE & R &  \\
+ACQUISIZIONE & R & Lega un Pokémon ad una mossa che può apprendere  \\
 \hline
-AMICIZIA & R &  \\
+AMICIZIA & R & Lega due giocatori quando hanno accettato la loro amicizia reciproca nell'applicazione \\
 \hline
-ASSOCIAZIONE & R & \\
+ASSOCIAZIONE & R & Lega un esemplare Pokémon alla sua voce nel Pokédex \\
 \hline
-AVVISTAMENTO & R &  \\
+AVVISTAMENTO & R & Lega un giocatore ad un Pokémon avvistato per la prima volta \\
 \hline
-BATTAGLIA & E &  \\
+BATTAGLIA & E & Rappresenta una battaglia tra due giocatori con le loro rispettive squadre \\
 \hline
-BIOMA & E & \\
+BIOMA & E & Rappresenta una locazione in cui i Pokémon tendono a risiedere \\
 \hline
-BOX POKÉMON & E &  \\
+BOX POKÉMON & E & Rappresenta un luogo in cui i Pokémon che non sono nella squadra di un giocatore si trovano \\
 \hline
-CATTURA & R &  \\
+CATTURA & R & Lega un giocatore ad un Pokémon catturato per la prima volta \\
 \hline
-COMPETENZA & R &  \\
+COMPETENZA & R & Lega un Pokémon ad una sua abilità \\
 \hline
-COMPOSIZIONE & R &  \\
+COMPOSIZIONE & R & Lega una squadra agli esemplari Pokémon di cui è composta \\
 \hline
-CUSTODIA & R &  \\
+CUSTODIA & R & Lega un giocatore ai suoi esemplari catturati \\
 \hline
-DOTAZIONE & R & \\
+DOTAZIONE & R & Lega un giocatore ad un suo box Pokémon \\
 \hline
-ELEMENTO & E & \\
+ELEMENTO & E & Rappresenta un elemento che rappresenta una caratteristica di un Pokémon \\
 \hline
-ESEMPLARE POKÉMON & E & \\
+ESEMPLARE POKÉMON & E & Rappresenta l'istanza di un Pokémon di un dato allenatore \\
 \hline
-EVOLUZIONE & E & \\
+EVOLUZIONE & E & Rappresenta un'evoluzione di un Pokémon tra lo stadio corrente ed il suo stadio successivo \\
 \hline
-FISICO & E &  \\
+FISICO & E & Rappresenta una classe di mosse che richiedono l'utilizzo di forza fisica di un Pokémon \\
 \hline
-GIOCATORE & E & \\
+GIOCATORE & E & Rappresenta un allenatore e utente dell'applicazione \\
 \hline
-LOCAZIONE & R & \\
+LOCAZIONE & R & Lega un esemplare Pokémon al box in cui risiede \\
 \hline
-METODO EVOLUTIVO & E &  \\
+METODO EVOLUTIVO & E & Rappresenta il mezzo con cui un Pokémon è in grado di evolversi allo stadio successivo \\
 \hline
-MOSSA & E & \\
+MOSSA & E & Rappresenta un'azione che un Pokémon può imparare ed eseguire in battaglia \\
 \hline
-PARAMETRI & R &  \\
+PARAMETRI & R & Lega un Pokémon alle sue statistiche \\
 \hline
-PERMANENZA & R &  \\
+PERMANENZA & R & Lega un Pokémon al bioma tipico in cui è possibile trovarlo \\
 \hline
-POKÉMON & E & \\
+POKÉMON & E & Rappresenta una voce del Pokédex di un Pokémon \\
 \hline
-POSSESSO & R &  \\
+POSSESSO & R & Lega un giocatore alla sua squadra di Pokémon \\
 \hline
-PREFERENZA & R &  \\
+PREFERENZA & R & Lega un giocatore al suo Pokémon preferito \\
 \hline
-PRIMARIO & R &  \\
+PRIMARIO & R & Lega il Pokémon al suo elemento primario \\
 \hline
-SECONDARIO & R &  \\
+SECONDARIO & R & Lega il Pokémon al suo eventuale elemento secondario \\
 \hline
-SET\_STATISTICHE & E &  \\
+SET\_STATISTICHE & E & Rappresenta l'insieme di statistiche che identifica i punti forza e i punti deboli di un Pokémon \\
 \hline
-SFIDANTE & R &  \\
+SFIDANTE & R & Lega la squadra di un giocatore che sfida un altro giocatore \\
 \hline
-SFIDATO & R &  \\
+SFIDATO & R & Lega la squadra di un giocatore che viene sfidato da un altro giocatore \\
 \hline
-SPECIALE & E &  \\
+SPECIALE & E & Rappresenta una classe di mosse che richiedono l'utilizzo elementale di un Pokémon \\
 \hline
-SPECIALIZZAZIONE & R &  \\
+SPECIALIZZAZIONE & R & Lega una mossa al suo elemento \\
 \hline
-SQUADRA & E & \\
+SQUADRA & E & Rappresenta l'insieme di Pokémon che un allenatore porta con sé \\
 \hline
-STADIO\_CORRENTE & R &  \\
+STADIO\_CORRENTE & R & Lega il Pokémon corrente con la sua evoluzione \\
 \hline
-STADIO\_SUCCESSIVO & R & \\
+STADIO\_SUCCESSIVO & R & Lega il Pokémon dello stadio successivo al suo predecessore \\
 \hline
-STATO & E &  \\
+STATO & E & Rappresenta una classe di mosse che non danneggiano il bersaglio \\
 \hline
-TRAMITE & R &  \\
+TRAMITE & R & Lega l'evoluzione di un Pokémon al suo metodo evolutivo \\
 \hline
 \end{longtable}
 
-
-
-
-
-
-
-
-
-
-
-
-
 \newpage
-\subsection{Sviluppo dell'ambito ...}
-\subsection{Sviluppo dell'ambito ...}
-\subsection{Sviluppo dell'ambito ...}
-\subsection{Sviluppo dell'ambito ...}
-\subsection{Sviluppo dell'ambito ...}
-\section{Specifiche funzionali}
-\subsection{Analisi delle funzionalità richieste}
-\subsection{DA GUARDARE BENE CON I BOYS}
+\section{Sviluppo dell'ambito evoluzione}
 
+Poiché i Pokémon possono evolversi, è stato necessario rappresentare una relazione tra due Pokémon e il metodo evolutivo richiesto. Un Pokémon può avere più stadi successivi di evoluzione legati da uno specifico metodo evolutivo, ma uno stadio evoluto può avere un solo stadio precedente. Un Pokémon non può avere stadi successivi ottenuti dallo stesso metodo evolutivo. Si è scelto di rappresentare la relazione come un'entità Evoluzione, la quale contiene le chiavi dei Pokémon legati dall'evoluzione e dal metodo richiesto per l'evoluzione. I metodi evolutivi utilizzano una gerarchia ereditaria totale ed esclusiva e possono essere di tre tipi:
+\begin{itemize}
+	\item Scambio
+	\item Livello
+	\item Oggetto
+\end{itemize}
+Le evoluzioni per scambio sono particolari poiché richiedono la presenza di un altro giocatore per avvenire. Una volta eseguito uno scambio tra il Pokémon che si deve evolvere ed un Pokémon di un altro giocatore si otterrà lo stadio successivo richiesto. Il metodo più comune, invece, è per livello, ossia il Pokémon accumula esperienza in battaglia e guadagna livelli, e, al raggiungimento di una certa soglia, si evolve nel suo stadio successivo. L'ultimo è il metodo più semplice poiché richiede che l'allenatore dia al Pokémon un oggetto specifico e si può successivamente evolvere nel suo stadio successivo.
 
-\newpage
-\subsection{Carichi di lavoro}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/evoluzione_er.png}
+    \caption{Schema ER contenente le entità e relazioni per rappresentare la linea evolutiva di un Pokémon}
+\end{figure}
+
+\section{Sviluppo dell'ambito Giocatore - Esemplare Pokémon}
+
+Ogni giocatore ha la possibilità di scegliere un esemplare catturato come suo preferito in modo da mostrarlo agli altri giocatori.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/esemplare_preferito_er.png}
+    \caption{Schema ER rappresentante la relazione tra un giocatore e il suo esemplare preferito}
+\end{figure}
+
+\section{Sviluppo dell'ambito Pokémon}
+
+Il Pokédex di ogni giocatore registra i Pokémon quando avvistati o catturati per la prima volta. Non è richiesto uno storico per mantenere le catture o gli avvistamenti poiché è sufficiente la sola presenza per potere mostrare certi (o tutti) i dati della pagina del Pokédex di una certa specie al giocatore in base al suo progresso.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/esemplare_preferito_er.png}
+    \caption{Schema ER rappresentante il completamento del Pokédex di un giocatore quando trova e cattura Pokémon per la prima volta}
+\end{figure}
+
+\section{Sviluppo dell'ambito ...}
+
+\section{Sviluppo dell'ambito ...}
+
+\chapter{Specifiche funzionali}
+
+\section{Analisi delle funzionalità richieste}
+
+\section{DA GUARDARE BENE CON I BOYS}
+
+\section{Carichi di lavoro}
+
 \noindent
 La tabella riportata di seguito presenta una stima del volume di dati associato alle diverse istanze delle entità e delle associazioni individuate all’interno dello schema concettuale progettato. Tali valori rappresentano un elemento fondamentale nella fase di analisi delle prestazioni del sistema, in quanto consentono di valutare preventivamente la quantità di informazioni che dovranno essere gestite e le relative implicazioni in termini di efficienza e scalabilità.\\\\
 \noindent
@@ -364,25 +345,11 @@ TRAMITE & R & 150 \\
 \hline
 \end{longtable}
 
+\chapter{Progetto logico}
 
+\section{Schemi di navigazione}
 
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\section{Progetto logico}
-\subsection{Schemi di navigazione}
-
-\newpage
-\subsection{Frequenza e costo degli accessi}
+\section{Frequenza e costo degli accessi}
 
 La tabella seguente riporta le principali funzionalità previste dal sistema, distinguendo le operazioni
 disponibili agli utenti da quelle riservate all'amministratore. Per ciascuna funzionalità viene indicata
@@ -484,18 +451,26 @@ operazioni del sistema.
 \hline
 \end{longtable}
 
+\section{Trasformazioni dello schema concettuale}
 
-\newpage
-\subsection{Trasformazioni dello schema concettuale}
-\subsection{Progetto logico per il modello relazionale}
-\subsubsection{Traduzione delle entità}
-\subsubsection{Traduzione delle associazioni}
-\subsection{Traduzione delle Query SQL}
-\section{Progetto fisico}
-\subsection{Indicizzazione di attributi}
-\subsection{Ordinamento su attributi}
-\section{Interfaccia utente}
-\subsection{L'amministratore}
-\subsection{Il giocatore}
+\section{Progetto logico per il modello relazionale}
+
+\section{Traduzione delle entità}
+
+\section{Traduzione delle associazioni}
+
+\section{Traduzione delle Query SQL}
+
+\chapter{Progetto fisico}
+
+\section{Indicizzazione di attributi}
+
+\section{Ordinamento su attributi}
+
+\chapter{Interfaccia utente}
+
+\section{L'amministratore}
+
+\section{Il giocatore}
 
 \end{document}
