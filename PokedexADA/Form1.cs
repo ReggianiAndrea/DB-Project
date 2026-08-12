@@ -48,6 +48,25 @@ namespace PokedexADA
                 filtroElementoComboBox.Items.Add("Tutti");
                 filtroElementoComboBox.Items.AddRange(db.Elementos.Select(e => e.Tipologia).ToArray());
                 filtroElementoComboBox.SelectedIndex = 0;
+
+                pokedexFiltraPerColoreComboBox.Items.AddRange(new[] { "Tutti", "Rosso", "Blu", "Verde", "Giallo", "Marrone", "Viola", "Nero", "Bianco" });
+                pokedexFiltraPerColoreComboBox.SelectedIndex = 0;
+
+                pokedexFiltraPerAbilitaComboBox.Items.Add("Tutti");
+                pokedexFiltraPerAbilitaComboBox.Items.AddRange(db.Abilita.Select(a => a.NomeAbilita).ToArray());
+                pokedexFiltraPerAbilitaComboBox.SelectedIndex = 0;
+
+                pokedexFiltraPerBiomaComboBox.Items.Add("Tutti");
+                pokedexFiltraPerBiomaComboBox.Items.AddRange(db.Biomas.Select(b => b.Habitat).ToArray());
+                pokedexFiltraPerBiomaComboBox.SelectedIndex = 0;
+
+                pokedexFiltraPerMossaComboBox.Items.Add("Tutti");
+                pokedexFiltraPerMossaComboBox.Items.AddRange(db.Mossas.Select(m => m.NomeMossa).ToArray());
+                pokedexFiltraPerMossaComboBox.SelectedIndex = 0;
+
+                pokedexFiltraPerMetodoEvolutivoComboBox.Items.Add("Tutti");
+                pokedexFiltraPerMetodoEvolutivoComboBox.Items.AddRange(db.MetodoEvolutivos.Select(m => m.Nome).ToArray());
+                pokedexFiltraPerMetodoEvolutivoComboBox.SelectedIndex = 0;
             }
 
             using (var db = new PokedexAdaContext())
@@ -397,42 +416,13 @@ namespace PokedexADA
 
         private void SelezionaPokedex()
         {
+            using var db = new PokedexAdaContext();
+
             pokedexPicture.Image = new Bitmap(pokedexPicture.Width, pokedexPicture.Height);
             pokedexList.SelectedItems.Clear();
-
-            using var db = new PokedexAdaContext();
-            List<Pokemon> visti = (
-                from g in db.Giocatores
-                from p in g.NumeroPokemonAvvistati
-                select p)
-                .ToList();
-            List<Pokemon> catturati = (
-                from g in db.Giocatores
-                from p in g.NumeroPokemonCatturati
-                select p)
-                .ToList();
-            foreach (Pokemon p in db.Pokemons)
-            {
-                bool visto = visti.Any(pok => pok.NumeroPokemon == p.NumeroPokemon);
-                bool catturato = catturati.Any(pok => pok.NumeroPokemon == p.NumeroPokemon);
-                string nome = visto ? p.Nome : "???";
-                string status;
-                if (catturato)
-                {
-                    status = "\u00A9";
-                }
-                else if (visto)
-                {
-                    status = "\u25CB";
-                }
-                else
-                {
-                    status = "";
-                }
-                int index = mapPokedexToGUIList[p.NumeroPokemon];
-                pokedexList.Items[index].SubItems[1].Text = nome;
-                pokedexList.Items[index].SubItems[2].Text = status;
-            }
+            pokedexList.Items.Clear();
+            mapPokedexToGUIList.Clear();
+            CaricaPokedexFiltrato(filtroNomeTextBox.Text, filtroElementoComboBox.SelectedItem?.ToString() ?? "Tutti");
         }
 
         private void cercaGiocatoreButton_Click(object sender, EventArgs e)
@@ -593,22 +583,50 @@ namespace PokedexADA
             pokedexList.Items.Clear();
             using var db = new PokedexAdaContext();
 
-            var query = db.Pokemons.Include(p => p.IdElementoPrimarioNavigation).AsQueryable();
+            var query = db.Pokemons.Include(p => p.IdElementoPrimarioNavigation).Include(p => p.IdElementoSecondarioNavigation).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(nome))
                 query = query.Where(p => p.Nome.Contains(nome) || p.Specie.Contains(nome));
 
             if (elemento != "Tutti" && !string.IsNullOrWhiteSpace(elemento))
-                query = query.Where(p => p.IdElementoPrimarioNavigation.Tipologia == elemento);
+                query = query.Where(p => p.IdElementoPrimarioNavigation.Tipologia == elemento || (p.IdElementoSecondarioNavigation != null && p.IdElementoSecondarioNavigation.Tipologia == elemento));
+
+            string abilita = pokedexFiltraPerAbilitaComboBox.SelectedItem?.ToString() ?? "Tutti";
+            if (abilita != "Tutti" && !string.IsNullOrWhiteSpace(abilita))
+                query = query.Where(p => p.NomeAbilita == abilita);
+
+            string mossa = pokedexFiltraPerMossaComboBox.SelectedItem?.ToString() ?? "Tutti";
+            if (mossa != "Tutti" && !string.IsNullOrWhiteSpace(mossa))
+                query = query.Where(p => p.NomeMossas.Select(m => m.NomeMossa).Contains(mossa));
+
+            string colore = pokedexFiltraPerColoreComboBox.SelectedItem?.ToString() ?? "Tutti";
+            if (colore != "Tutti" && !string.IsNullOrWhiteSpace(colore))
+                query = query.Where(p => p.ColoreDominante == colore);
+
+            string bioma = pokedexFiltraPerBiomaComboBox.SelectedItem?.ToString() ?? "Tutti";
+            if (bioma != "Tutti" && !string.IsNullOrWhiteSpace(bioma))
+                query = query.Where(p => p.IdBiomas.Select(b => b.Habitat).Contains(bioma));
+
+            string metodo = pokedexFiltraPerMetodoEvolutivoComboBox.SelectedItem?.ToString() ?? "Tutti";
+            if (metodo != "Tutti" && !string.IsNullOrWhiteSpace(metodo))
+                query = query.Where(p => db.MetodoEvolutivos
+                    .Where(m => p.EvoluzioneNumeroPokemonStadioSuccessivoNavigation != null && m.IdMetodo == p.EvoluzioneNumeroPokemonStadioSuccessivoNavigation.IdMetodo)
+                    .Select(m => m.Nome)
+                    .Contains(metodo)
+                );
+
 
             var filtrati = query.ToList();
-            var visti = db.Giocatores.Where(g => g.IdGiocatore == idGiocatore).SelectMany(g => g.NumeroPokemonAvvistati).Select(p => p.NumeroPokemon).ToList();
-            var catturati = db.Giocatores.Where(g => g.IdGiocatore == idGiocatore).SelectMany(g => g.NumeroPokemonCatturati).Select(p => p.NumeroPokemon).ToList();
+            var visti = giocatore.GetPokemonIncontrati();
+            var catturati = giocatore.GetPokemonCatturati();
 
             foreach (var p in filtrati)
             {
-                string status = catturati.Contains(p.NumeroPokemon) ? "\u00A9" : (visti.Contains(p.NumeroPokemon) ? "\u25CB" : "");
-                var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), p.Nome, status });
+                bool visto = visti.Select(p => p.NumeroPokemon).Contains(p.NumeroPokemon);
+                bool catturato = catturati.Select(p => p.NumeroPokemon).Contains(p.NumeroPokemon);
+                string nomePokemon = visto ? p.Nome : "???";
+                string status = catturato ? "\u00A9" : (visto ? "\u25CB" : "");
+                var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), nomePokemon, status });
                 pokedexList.Items.Add(item);
 
                 if (!mapPokedexToGUIList.ContainsKey(p.NumeroPokemon))
@@ -627,6 +645,11 @@ namespace PokedexADA
         {
             filtroNomeTextBox.Text = "";
             filtroElementoComboBox.SelectedIndex = 0;
+            pokedexFiltraPerAbilitaComboBox.SelectedIndex = 0;
+            pokedexFiltraPerMossaComboBox.SelectedIndex = 0;
+            pokedexFiltraPerColoreComboBox.SelectedIndex = 0;
+            pokedexFiltraPerBiomaComboBox.SelectedIndex = 0;
+            pokedexFiltraPerMetodoEvolutivoComboBox.SelectedIndex = 0;
             CaricaPokedexFiltrato("", "Tutti");
         }
 
