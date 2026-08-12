@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace PokedexADA.PokedexADA;
+namespace PokedexADA.Models;
 
 public partial class PokedexAdaContext : DbContext
 {
@@ -15,11 +15,11 @@ public partial class PokedexAdaContext : DbContext
     {
     }
 
-    public virtual DbSet<Abilita> Abilita { get; set; }
+    public virtual DbSet<Abilitum> Abilita { get; set; }
 
-    public virtual DbSet<Amicizia> Amicizia { get; set; }
+    public virtual DbSet<Amicizium> Amicizia { get; set; }
 
-    public virtual DbSet<Battaglia> Battaglia { get; set; }
+    public virtual DbSet<Battaglium> Battaglia { get; set; }
 
     public virtual DbSet<Bioma> Biomas { get; set; }
 
@@ -45,11 +45,11 @@ public partial class PokedexAdaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySQL("server=localhost;uid=root;password=;database=pokedexada");
+        => optionsBuilder.UseMySQL("Server=127.0.0.1;Database=PokedexADA;Password=;Username=root");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Abilita>(entity =>
+        modelBuilder.Entity<Abilitum>(entity =>
         {
             entity.HasKey(e => e.NomeAbilita).HasName("PRIMARY");
 
@@ -61,7 +61,7 @@ public partial class PokedexAdaContext : DbContext
             entity.Property(e => e.DescrizioneAbilita).HasMaxLength(200);
         });
 
-        modelBuilder.Entity<Amicizia>(entity =>
+        modelBuilder.Entity<Amicizium>(entity =>
         {
             entity.HasKey(e => new { e.IdGiocatoreAmico, e.IdGiocatore }).HasName("PRIMARY");
 
@@ -72,20 +72,21 @@ public partial class PokedexAdaContext : DbContext
             entity.HasIndex(e => e.IdGiocatore, "REF_AMICI_GIOCA_1_IND");
 
             entity.Property(e => e.Bloccato)
+                .HasMaxLength(1)
                 .IsFixedLength();
 
-            entity.HasOne(d => d.IdGiocatoreNavigation).WithMany(p => p.AmiciziaIdGiocatoreNavigations)
+            entity.HasOne(d => d.IdGiocatoreNavigation).WithMany(p => p.AmiciziumIdGiocatoreNavigations)
                 .HasForeignKey(d => d.IdGiocatore)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_AMICI_GIOCA_1_FK");
 
-            entity.HasOne(d => d.IdGiocatoreAmicoNavigation).WithMany(p => p.AmiciziaIdGiocatoreAmicoNavigations)
+            entity.HasOne(d => d.IdGiocatoreAmicoNavigation).WithMany(p => p.AmiciziumIdGiocatoreAmicoNavigations)
                 .HasForeignKey(d => d.IdGiocatoreAmico)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_AMICI_GIOCA");
         });
 
-        modelBuilder.Entity<Battaglia>(entity =>
+        modelBuilder.Entity<Battaglium>(entity =>
         {
             entity.HasKey(e => e.IdBattaglia).HasName("PRIMARY");
 
@@ -99,18 +100,18 @@ public partial class PokedexAdaContext : DbContext
 
             entity.HasIndex(e => new { e.IdGiocatoreSfidante, e.IdGiocatoreSfidato, e.Data }, "SID_BATTAGLIA_IND").IsUnique();
 
-            entity.Property(e => e.Data).HasColumnType("datetime");
+            entity.Property(e => e.Data).HasColumnType("timestamp");
             entity.Property(e => e.Luogo).HasMaxLength(30);
             entity.Property(e => e.SfidanteVincitore)
                 .HasMaxLength(1)
                 .IsFixedLength();
 
-            entity.HasOne(d => d.IdGiocatoreSfidanteNavigation).WithMany(p => p.BattagliaIdGiocatoreSfidanteNavigations)
+            entity.HasOne(d => d.IdGiocatoreSfidanteNavigation).WithMany(p => p.BattagliumIdGiocatoreSfidanteNavigations)
                 .HasForeignKey(d => d.IdGiocatoreSfidante)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_BATTA_SQUAD_1");
 
-            entity.HasOne(d => d.IdGiocatoreSfidatoNavigation).WithMany(p => p.BattagliaIdGiocatoreSfidatoNavigations)
+            entity.HasOne(d => d.IdGiocatoreSfidatoNavigation).WithMany(p => p.BattagliumIdGiocatoreSfidatoNavigations)
                 .HasForeignKey(d => d.IdGiocatoreSfidato)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("REF_BATTA_SQUAD_FK");
@@ -247,7 +248,7 @@ public partial class PokedexAdaContext : DbContext
                 .HasForeignKey(d => d.IdEsemplarePreferito)
                 .HasConstraintName("REF_GIOCA_ESEMP_FK");
 
-            entity.HasMany(d => d.NumeroPokemonAvvistati).WithMany(p => p.IdGiocatores)
+            entity.HasMany(d => d.NumeroPokemons).WithMany(p => p.IdGiocatores)
                 .UsingEntity<Dictionary<string, object>>(
                     "Avvistamento",
                     r => r.HasOne<Pokemon>().WithMany()
@@ -266,7 +267,7 @@ public partial class PokedexAdaContext : DbContext
                         j.HasIndex(new[] { "NumeroPokemon" }, "REF_AVVIS_POKEM_IND");
                     });
 
-            entity.HasMany(d => d.NumeroPokemonCatturati).WithMany(p => p.IdGiocatoresNavigation)
+            entity.HasMany(d => d.NumeroPokemonsNavigation).WithMany(p => p.IdGiocatoresNavigation)
                 .UsingEntity<Dictionary<string, object>>(
                     "Cattura",
                     r => r.HasOne<Pokemon>().WithMany()

@@ -46,7 +46,7 @@ create table AVVISTAMENTO (
 create table BATTAGLIA (
      IdBattaglia int not null,
      SfidanteVincitore char not null,
-     Data date not null,
+     Data datetime not null,
      IdGiocatoreSfidante int not null,
      IdGiocatoreSfidato int not null,
      Luogo varchar(30) not null,
