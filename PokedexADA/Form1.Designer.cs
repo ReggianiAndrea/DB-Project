@@ -32,6 +32,8 @@
             cercaGiocatoreFallitaLabel = new Label();
             cercaGiocatoreButton = new Button();
             cercaGiocatoreGroupBox = new GroupBox();
+            labelSquadraAmico = new Label();
+            squadraAmicoListView = new ListView();
             pokemonPreferitoCercaGiocatoreLabel = new Label();
             cercaGiocatorePokemonPreferitoPictureBox = new PictureBox();
             cercaGiocatoreRimuoviButton = new Button();
@@ -48,6 +50,10 @@
             amico = new ColumnHeader();
             bloccato = new ColumnHeader();
             visualizzaPokedex = new TabPage();
+            filtroNomeTextBox = new TextBox();
+            filtroElementoComboBox = new ComboBox();
+            applicaFiltroButton = new Button();
+            resetFiltroButton = new Button();
             lineaEvolutivaPokemonLayout = new TableLayoutPanel();
             label1 = new Label();
             abilitaPokemonLabel = new Label();
@@ -90,6 +96,19 @@
             cercaPokemonButton = new Button();
             cercaPokemonSelezionatoButton = new Button();
             battagliaTab = new TabControl();
+            battagliaTabPage = new TabPage();
+            avversarioLabel = new Label();
+            avversarioComboBox = new ComboBox();
+            luogoLabel = new Label();
+            luogoBattagliaComboBox = new ComboBox();
+            cercaGiocatoreSfidaButton = new Button();
+            gestisciSquadraTab = new TabPage();
+            labelBox = new Label();
+            labelSquadra = new Label();
+            boxListView = new ListView();
+            squadraListView = new ListView();
+            spostaInSquadraButton = new Button();
+            spostaInBoxButton = new Button();
             visualizzaAmici.SuspendLayout();
             cercaGiocatoreGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cercaGiocatorePokemonPreferitoPictureBox).BeginInit();
@@ -100,6 +119,8 @@
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             battagliaTab.SuspendLayout();
+            battagliaTabPage.SuspendLayout();
+            gestisciSquadraTab.SuspendLayout();
             SuspendLayout();
             // 
             // visualizzaAmici
@@ -112,7 +133,7 @@
             visualizzaAmici.Controls.Add(amiciList);
             visualizzaAmici.Location = new Point(4, 24);
             visualizzaAmici.Name = "visualizzaAmici";
-            visualizzaAmici.Size = new Size(880, 549);
+            visualizzaAmici.Size = new Size(1121, 625);
             visualizzaAmici.TabIndex = 2;
             visualizzaAmici.Text = "Visualizza Amici";
             visualizzaAmici.UseVisualStyleBackColor = true;
@@ -139,6 +160,8 @@
             // 
             // cercaGiocatoreGroupBox
             // 
+            cercaGiocatoreGroupBox.Controls.Add(labelSquadraAmico);
+            cercaGiocatoreGroupBox.Controls.Add(squadraAmicoListView);
             cercaGiocatoreGroupBox.Controls.Add(pokemonPreferitoCercaGiocatoreLabel);
             cercaGiocatoreGroupBox.Controls.Add(cercaGiocatorePokemonPreferitoPictureBox);
             cercaGiocatoreGroupBox.Controls.Add(cercaGiocatoreRimuoviButton);
@@ -158,6 +181,28 @@
             cercaGiocatoreGroupBox.TabStop = false;
             cercaGiocatoreGroupBox.Text = "Giocatore";
             cercaGiocatoreGroupBox.Visible = false;
+            // 
+            // labelSquadraAmico
+            // 
+            labelSquadraAmico.AutoSize = true;
+            labelSquadraAmico.Location = new Point(16, 233);
+            labelSquadraAmico.Name = "labelSquadraAmico";
+            labelSquadraAmico.Size = new Size(147, 15);
+            labelSquadraAmico.TabIndex = 0;
+            labelSquadraAmico.Text = "Squadra Attiva dell'Amico:";
+            // 
+            // squadraAmicoListView
+            // 
+            squadraAmicoListView.FullRowSelect = true;
+            squadraAmicoListView.Location = new Point(16, 251);
+            squadraAmicoListView.Name = "squadraAmicoListView";
+            squadraAmicoListView.Size = new Size(360, 222);
+            squadraAmicoListView.TabIndex = 1;
+            squadraAmicoListView.UseCompatibleStateImageBehavior = false;
+            squadraAmicoListView.View = View.Details;
+            squadraAmicoListView.Columns.Add("ID", 40);
+            squadraAmicoListView.Columns.Add("Nome", 130);
+            squadraAmicoListView.Columns.Add("Livello", 60);
             // 
             // pokemonPreferitoCercaGiocatoreLabel
             // 
@@ -309,6 +354,10 @@
             // 
             // visualizzaPokedex
             // 
+            visualizzaPokedex.Controls.Add(filtroNomeTextBox);
+            visualizzaPokedex.Controls.Add(filtroElementoComboBox);
+            visualizzaPokedex.Controls.Add(applicaFiltroButton);
+            visualizzaPokedex.Controls.Add(resetFiltroButton);
             visualizzaPokedex.Controls.Add(lineaEvolutivaPokemonLayout);
             visualizzaPokedex.Controls.Add(label1);
             visualizzaPokedex.Controls.Add(abilitaPokemonLabel);
@@ -340,6 +389,40 @@
             visualizzaPokedex.TabIndex = 1;
             visualizzaPokedex.Text = "Visualizza Pokedex";
             visualizzaPokedex.UseVisualStyleBackColor = true;
+            // 
+            // filtroNomeTextBox
+            // 
+            filtroNomeTextBox.Location = new Point(8, 569);
+            filtroNomeTextBox.Name = "filtroNomeTextBox";
+            filtroNomeTextBox.PlaceholderText = "Cerca nome...";
+            filtroNomeTextBox.Size = new Size(100, 23);
+            filtroNomeTextBox.TabIndex = 0;
+            // 
+            // filtroElementoComboBox
+            // 
+            filtroElementoComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            filtroElementoComboBox.Location = new Point(114, 569);
+            filtroElementoComboBox.Name = "filtroElementoComboBox";
+            filtroElementoComboBox.Size = new Size(121, 23);
+            filtroElementoComboBox.TabIndex = 1;
+            // 
+            // applicaFiltroButton
+            // 
+            applicaFiltroButton.Location = new Point(241, 569);
+            applicaFiltroButton.Name = "applicaFiltroButton";
+            applicaFiltroButton.Size = new Size(75, 23);
+            applicaFiltroButton.TabIndex = 2;
+            applicaFiltroButton.Text = "Filtra";
+            applicaFiltroButton.Click += ApplicaFiltroButton_Click;
+            // 
+            // resetFiltroButton
+            // 
+            resetFiltroButton.Location = new Point(241, 594);
+            resetFiltroButton.Name = "resetFiltroButton";
+            resetFiltroButton.Size = new Size(75, 23);
+            resetFiltroButton.TabIndex = 3;
+            resetFiltroButton.Text = "Reset";
+            resetFiltroButton.Click += ResetFiltroButton_Click;
             // 
             // lineaEvolutivaPokemonLayout
             // 
@@ -587,9 +670,9 @@
             pokedexList.Columns.AddRange(new ColumnHeader[] { ids, names, captured });
             pokedexList.FullRowSelect = true;
             pokedexList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            pokedexList.Location = new Point(6, 6);
+            pokedexList.Location = new Point(8, 6);
             pokedexList.Name = "pokedexList";
-            pokedexList.Size = new Size(274, 611);
+            pokedexList.Size = new Size(317, 557);
             pokedexList.TabIndex = 0;
             pokedexList.UseCompatibleStateImageBehavior = false;
             pokedexList.View = View.Details;
@@ -668,6 +751,7 @@
             // 
             // tentaCatturaButton
             // 
+            tentaCatturaButton.Enabled = false;
             tentaCatturaButton.Location = new Point(4, 119);
             tentaCatturaButton.Name = "tentaCatturaButton";
             tentaCatturaButton.Size = new Size(174, 23);
@@ -706,6 +790,8 @@
             // 
             // battagliaTab
             // 
+            battagliaTab.Controls.Add(battagliaTabPage);
+            battagliaTab.Controls.Add(gestisciSquadraTab);
             battagliaTab.Controls.Add(cercaECattura);
             battagliaTab.Controls.Add(visualizzaPokedex);
             battagliaTab.Controls.Add(visualizzaAmici);
@@ -715,6 +801,134 @@
             battagliaTab.SelectedIndex = 0;
             battagliaTab.Size = new Size(1129, 653);
             battagliaTab.TabIndex = 7;
+            // 
+            // battagliaTabPage
+            // 
+            battagliaTabPage.Controls.Add(avversarioLabel);
+            battagliaTabPage.Controls.Add(avversarioComboBox);
+            battagliaTabPage.Controls.Add(luogoLabel);
+            battagliaTabPage.Controls.Add(luogoBattagliaComboBox);
+            battagliaTabPage.Controls.Add(cercaGiocatoreSfidaButton);
+            battagliaTabPage.Location = new Point(4, 24);
+            battagliaTabPage.Name = "battagliaTabPage";
+            battagliaTabPage.Size = new Size(1121, 625);
+            battagliaTabPage.TabIndex = 0;
+            battagliaTabPage.Text = "Battaglia";
+            // 
+            // avversarioLabel
+            // 
+            avversarioLabel.Location = new Point(8, 14);
+            avversarioLabel.Name = "avversarioLabel";
+            avversarioLabel.Size = new Size(95, 18);
+            avversarioLabel.TabIndex = 0;
+            avversarioLabel.Text = "Scegli avversario";
+            // 
+            // avversarioComboBox
+            // 
+            avversarioComboBox.Location = new Point(8, 35);
+            avversarioComboBox.Name = "avversarioComboBox";
+            avversarioComboBox.Size = new Size(121, 23);
+            avversarioComboBox.TabIndex = 1;
+            // 
+            // luogoLabel
+            // 
+            luogoLabel.Location = new Point(8, 61);
+            luogoLabel.Name = "luogoLabel";
+            luogoLabel.Size = new Size(73, 15);
+            luogoLabel.TabIndex = 2;
+            luogoLabel.Text = "Scegli luogo";
+            // 
+            // luogoBattagliaComboBox
+            // 
+            luogoBattagliaComboBox.Location = new Point(8, 79);
+            luogoBattagliaComboBox.Name = "luogoBattagliaComboBox";
+            luogoBattagliaComboBox.Size = new Size(121, 23);
+            luogoBattagliaComboBox.TabIndex = 3;
+            // 
+            // cercaGiocatoreSfidaButton
+            // 
+            cercaGiocatoreSfidaButton.Location = new Point(8, 108);
+            cercaGiocatoreSfidaButton.Name = "cercaGiocatoreSfidaButton";
+            cercaGiocatoreSfidaButton.Size = new Size(121, 36);
+            cercaGiocatoreSfidaButton.TabIndex = 4;
+            cercaGiocatoreSfidaButton.Text = "Sfida giocatore!";
+            cercaGiocatoreSfidaButton.Click += CercaGiocatoreSfidaButton_Click;
+            // 
+            // gestisciSquadraTab
+            // 
+            gestisciSquadraTab.Controls.Add(labelBox);
+            gestisciSquadraTab.Controls.Add(labelSquadra);
+            gestisciSquadraTab.Controls.Add(boxListView);
+            gestisciSquadraTab.Controls.Add(squadraListView);
+            gestisciSquadraTab.Controls.Add(spostaInSquadraButton);
+            gestisciSquadraTab.Controls.Add(spostaInBoxButton);
+            gestisciSquadraTab.Location = new Point(4, 24);
+            gestisciSquadraTab.Name = "gestisciSquadraTab";
+            gestisciSquadraTab.Size = new Size(1121, 625);
+            gestisciSquadraTab.TabIndex = 1;
+            gestisciSquadraTab.Text = "Gestisci Squadra";
+            // 
+            // labelBox
+            // 
+            labelBox.AutoSize = true;
+            labelBox.Location = new Point(3, 8);
+            labelBox.Name = "labelBox";
+            labelBox.Size = new Size(81, 15);
+            labelBox.TabIndex = 0;
+            labelBox.Text = "Box Pokemon";
+            // 
+            // labelSquadra
+            // 
+            labelSquadra.AutoSize = true;
+            labelSquadra.Location = new Point(527, 11);
+            labelSquadra.Name = "labelSquadra";
+            labelSquadra.Size = new Size(84, 15);
+            labelSquadra.TabIndex = 1;
+            labelSquadra.Text = "Squadra Attiva";
+            // 
+            // boxListView
+            // 
+            boxListView.FullRowSelect = true;
+            boxListView.Location = new Point(3, 26);
+            boxListView.Name = "boxListView";
+            boxListView.Size = new Size(284, 596);
+            boxListView.TabIndex = 2;
+            boxListView.UseCompatibleStateImageBehavior = false;
+            boxListView.View = View.Details;
+            boxListView.Columns.Add("ID", 40);
+            boxListView.Columns.Add("Nome", 150);
+            boxListView.Columns.Add("Livello", 80);
+            // 
+            // squadraListView
+            // 
+            squadraListView.FullRowSelect = true;
+            squadraListView.Location = new Point(527, 29);
+            squadraListView.Name = "squadraListView";
+            squadraListView.Size = new Size(290, 596);
+            squadraListView.TabIndex = 3;
+            squadraListView.UseCompatibleStateImageBehavior = false;
+            squadraListView.View = View.Details;
+            squadraListView.Columns.Add("ID", 40);
+            squadraListView.Columns.Add("Nome", 150);
+            squadraListView.Columns.Add("Livello", 80);
+            // 
+            // spostaInSquadraButton
+            // 
+            spostaInSquadraButton.Location = new Point(409, 365);
+            spostaInSquadraButton.Name = "spostaInSquadraButton";
+            spostaInSquadraButton.Size = new Size(99, 49);
+            spostaInSquadraButton.TabIndex = 4;
+            spostaInSquadraButton.Text = "Aggiungi a Squadra ->";
+            spostaInSquadraButton.Click += SpostaInSquadraButton_Click;
+            // 
+            // spostaInBoxButton
+            // 
+            spostaInBoxButton.Location = new Point(303, 365);
+            spostaInBoxButton.Name = "spostaInBoxButton";
+            spostaInBoxButton.Size = new Size(100, 49);
+            spostaInBoxButton.TabIndex = 5;
+            spostaInBoxButton.Text = "<- Sposta nel Box";
+            spostaInBoxButton.Click += SpostaInBoxButton_Click;
             // 
             // Form1
             // 
@@ -740,6 +954,9 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             battagliaTab.ResumeLayout(false);
+            battagliaTabPage.ResumeLayout(false);
+            gestisciSquadraTab.ResumeLayout(false);
+            gestisciSquadraTab.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -806,5 +1023,24 @@
         private Button cercaPokemonSelezionatoButton;
         private TabControl battagliaTab;
         private TableLayoutPanel lineaEvolutivaPokemonLayout;
+        private TextBox filtroNomeTextBox;
+        private ComboBox filtroElementoComboBox;
+        private Button applicaFiltroButton;
+        private Button resetFiltroButton;
+        private TabPage gestisciSquadraTab;
+        private TabPage battagliaTabPage;
+        private ListView boxListView;
+        private ListView squadraListView;
+        private Button spostaInSquadraButton;
+        private Button spostaInBoxButton;
+        private Button cercaGiocatoreSfidaButton;
+        private ComboBox luogoBattagliaComboBox;
+        private ComboBox avversarioComboBox;
+        private ListView squadraAmicoListView;
+        private Label labelBox;
+        private Label labelSquadra;
+        private Label avversarioLabel;
+        private Label luogoLabel;
+        private Label labelSquadraAmico;
     }
 }

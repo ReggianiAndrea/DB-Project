@@ -12,34 +12,12 @@ namespace PokedexADA
         Giocatore giocatore;
         Giocatore? giocatoreSelezionato;
 
-        // Controlli dinamici Pokedex
-        TextBox filtroNomeTextBox;
-        ComboBox filtroElementoComboBox;
-        Button applicaFiltroButton;
-        Button resetFiltroButton;
-
-        TabPage gestisciSquadraTab;
-        TabPage battagliaTabPage;
-        ListView boxListView;
-        ListView squadraListView;
-        Button spostaInSquadraButton;
-        Button spostaInBoxButton;
-
-        // Controlli dinamici Battaglia
-        Button cercaGiocatoreSfidaButton;
-        ComboBox luogoBattagliaComboBox;
-        ComboBox avversarioComboBox;
-
-        // ListView per la squadra dell'amico in Visualizza Amici
-        ListView squadraAmicoListView;
-
         public Form1()
         {
             InitializeComponent();
             amiciList.SelectedIndexChanged += amiciList_SelectedIndexChanged;
 
             InizializzaControlliDinamici();
-
             battagliaTab.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
 
             using var db = new PokedexAdaContext();
@@ -60,92 +38,17 @@ namespace PokedexADA
                 var item = new ListViewItem(new[] { g.Nickname, a.Bloccato ? "bloccato" : "" });
                 amiciList.Items.Add(item);
             }
-
-            tentaCatturaButton.Enabled = false;
-
-            // Inizializzazione della lista squadra amico con anche il nome del Pokémon
-            squadraAmicoListView = new ListView
-            {
-                Location = new Point(20, 220),
-                Size = new Size(280, 150),
-                View = View.Details,
-                FullRowSelect = true
-            };
-            squadraAmicoListView.Columns.Add("ID", 40);
-            squadraAmicoListView.Columns.Add("Nome", 130);
-            squadraAmicoListView.Columns.Add("Livello", 60);
-
-            // Aggiungiamo un'etichetta descrittiva sopra la lista dell'amico
-            Label labelSquadraAmico = new Label
-            {
-                Text = "Squadra Attiva dell'Amico:",
-                Location = new Point(20, 195),
-                AutoSize = true,
-                Font = new Font(Font, FontStyle.Bold)
-            };
-
-            cercaGiocatoreGroupBox.Controls.Add(labelSquadraAmico);
-            cercaGiocatoreGroupBox.Controls.Add(squadraAmicoListView);
         }
 
         private void InizializzaControlliDinamici()
         {
             // FILTRI POKEDEX
-            filtroNomeTextBox = new TextBox { Location = new Point(9, 830), Width = 120, PlaceholderText = "Cerca nome..." };
-            filtroElementoComboBox = new ComboBox { Location = new Point(135, 830), Width = 100, DropDownStyle = ComboBoxStyle.DropDownList };
-            applicaFiltroButton = new Button { Location = new Point(240, 828), Width = 70, Text = "Filtra" };
-            resetFiltroButton = new Button { Location = new Point(315, 828), Width = 70, Text = "Reset" };
-
             using (var db = new PokedexAdaContext())
             {
                 filtroElementoComboBox.Items.Add("Tutti");
                 filtroElementoComboBox.Items.AddRange(db.Elementos.Select(e => e.Tipologia).ToArray());
                 filtroElementoComboBox.SelectedIndex = 0;
             }
-
-            applicaFiltroButton.Click += ApplicaFiltroButton_Click;
-            resetFiltroButton.Click += ResetFiltroButton_Click;
-
-            pokedexList.Height = 810;
-            visualizzaPokedex.Controls.Add(filtroNomeTextBox);
-            visualizzaPokedex.Controls.Add(filtroElementoComboBox);
-            visualizzaPokedex.Controls.Add(applicaFiltroButton);
-            visualizzaPokedex.Controls.Add(resetFiltroButton);
-
-            // GESTIONE SQUADRA
-            gestisciSquadraTab = new TabPage("Gestisci Squadra");
-
-            Label labelBox = new Label { Text = "Box Pokémon", Location = new Point(20, 0), AutoSize = true, Font = new Font(Font, FontStyle.Bold) };
-            Label labelSquadra = new Label { Text = "Squadra Attiva", Location = new Point(500, 0), AutoSize = true, Font = new Font(Font, FontStyle.Bold) };
-
-            boxListView = new ListView { Location = new Point(20, 25), Size = new Size(300, 780), View = View.Details, FullRowSelect = true };
-            boxListView.Columns.Add("ID", 40);
-            boxListView.Columns.Add("Nome", 150);
-            boxListView.Columns.Add("Livello", 80);
-
-            squadraListView = new ListView { Location = new Point(500, 25), Size = new Size(300, 780), View = View.Details, FullRowSelect = true };
-            squadraListView.Columns.Add("ID", 40);
-            squadraListView.Columns.Add("Nome", 150);
-            squadraListView.Columns.Add("Livello", 80);
-
-            spostaInSquadraButton = new Button { Location = new Point(340, 350), Size = new Size(140, 50), Text = "Aggiungi a Squadra ->" };
-            spostaInBoxButton = new Button { Location = new Point(340, 420), Size = new Size(140, 50), Text = "<- Sposta nel Box" };
-
-            spostaInSquadraButton.Click += SpostaInSquadraButton_Click;
-            spostaInBoxButton.Click += SpostaInBoxButton_Click;
-
-            gestisciSquadraTab.Controls.Add(labelBox);
-            gestisciSquadraTab.Controls.Add(labelSquadra);
-            gestisciSquadraTab.Controls.Add(boxListView);
-            gestisciSquadraTab.Controls.Add(squadraListView);
-            gestisciSquadraTab.Controls.Add(spostaInSquadraButton);
-            gestisciSquadraTab.Controls.Add(spostaInBoxButton);
-
-            battagliaTab.TabPages.Add(gestisciSquadraTab);
-
-            // CONTROLLI BATTAGLIA 
-            Label avversarioLabel = new Label { Text = "Scegli Avversario:", Location = new Point(30, 20), AutoSize = true };
-            avversarioComboBox = new ComboBox { Location = new Point(30, 45), Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
 
             using (var db = new PokedexAdaContext())
             {
@@ -160,14 +63,6 @@ namespace PokedexADA
                     avversarioComboBox.SelectedIndex = 0;
                 }
             }
-            battagliaTabPage = new TabPage("Battaglia");
-
-            luogoBattagliaComboBox = new ComboBox
-            {
-                Location = new Point(30, 30),
-                Width = 200,
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
 
             using (var db = new PokedexAdaContext())
             {
@@ -185,8 +80,6 @@ namespace PokedexADA
                     avversarioComboBox.SelectedIndex = 0;
                 }
             }
-            Label luogoLabel = new Label { Text = "Scegli Luogo:", Location = new Point(30, 85), AutoSize = true };
-            luogoBattagliaComboBox = new ComboBox { Location = new Point(30, 110), Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
 
             using (var db = new PokedexAdaContext())
             {
@@ -201,17 +94,6 @@ namespace PokedexADA
                 }
                 luogoBattagliaComboBox.SelectedIndex = 0;
             }
-
-            cercaGiocatoreSfidaButton = new Button { Location = new Point(30, 155), Size = new Size(150, 37), Text = "Sfida Giocatore!", Visible = true };
-            cercaGiocatoreSfidaButton.Click += CercaGiocatoreSfidaButton_Click;
-
-            battagliaTabPage.Controls.Add(avversarioLabel);
-            battagliaTabPage.Controls.Add(avversarioComboBox);
-            battagliaTabPage.Controls.Add(luogoLabel);
-            battagliaTabPage.Controls.Add(luogoBattagliaComboBox);
-            battagliaTabPage.Controls.Add(cercaGiocatoreSfidaButton);
-
-            battagliaTab.TabPages.Add(battagliaTabPage);
         }
 
         private void tabControl1_SelectedIndexChanged(object? sender, EventArgs e)
@@ -227,6 +109,23 @@ namespace PokedexADA
             else if (battagliaTab.SelectedTab == gestisciSquadraTab)
             {
                 AggiornaVisteSquadraEBox();
+            }
+            else if (battagliaTab.SelectedTab == battagliaTabPage)
+            {
+                using var db = new PokedexAdaContext();
+                var amiciLista = (
+                    from g in db.Giocatores
+                    from a in g.AmiciziaIdGiocatoreNavigations
+                    from g2 in db.Giocatores
+                    where g.IdGiocatore == idGiocatore && !a.Bloccato && g2.IdGiocatore == a.IdGiocatoreAmico
+                    select g2.Nickname);
+
+                avversarioComboBox.Items.Clear();
+                avversarioComboBox.Items.AddRange(amiciLista.ToArray());
+                if (avversarioComboBox.Items.Count > 0)
+                {
+                    avversarioComboBox.SelectedIndex = 0;
+                }
             }
         }
 
@@ -826,19 +725,24 @@ namespace PokedexADA
             {
                 string luogo = luogoBattagliaComboBox.SelectedItem?.ToString() ?? "Arena Neutrale";
                 bool hoVinto = new Random().Next(0, 2) == 1;
-
-                bool successo = giocatore.SfidaGiocatore(avversario.IdGiocatore, luogo, hoVinto);
-
-                if (successo)
+                try
                 {
-                    if (hoVinto)
-                        MessageBox.Show($"Hai sfidato {avversario.Nickname} a {luogo} e hai VINTO!", "Vittoria!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bool successo = giocatore.SfidaGiocatore(avversario.IdGiocatore, luogo, hoVinto);
+                    if (successo)
+                    {
+                        if (hoVinto)
+                            MessageBox.Show($"Hai sfidato {avversario.Nickname} a {luogo} e hai VINTO!", "Vittoria!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show($"Hai sfidato {avversario.Nickname} a {luogo} ma sei stato SCONFITTO.", "Sconfitta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                     else
-                        MessageBox.Show($"Hai sfidato {avversario.Nickname} a {luogo} ma sei stato SCONFITTO.", "Sconfitta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    {
+                        MessageBox.Show($"L'allenatore {avversario.Nickname} non ha una squadra attiva, forse è ancora un principiante e non può lottare!", "Impossibile sfidare", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"L'allenatore {avversario.Nickname} non ha una squadra attiva, forse è ancora un principiante e non può lottare!", "Impossibile sfidare", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Qualcosa è andato storto", "Sfida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
