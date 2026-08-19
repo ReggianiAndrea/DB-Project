@@ -224,6 +224,67 @@ Il Pokédex di ogni giocatore registra i Pokémon quando avvistati o catturati p
     \caption{Schema ER rappresentante il completamento del Pokédex di un giocatore quando trova e cattura Pokémon per la prima volta}
 \end{figure}
 
+\section{Sviluppo dell'ambito Specie ed Esemplare}
+
+Per gestire correttamente la differenza tra una specie generale e la singola creatura catturata da un allenatore, lo schema separa l'entità POKÉMON (che rappresenta la creatura all'interno del Pokédex) dall'entità ESEMPLARE\_POKÉMON. 
+
+Le due entità sono legate dall'associazione \textit{associazione} (1 a N): una voce del Pokédex può corrispondere a molteplici esemplari fisici presenti nel database, ma ogni esemplare fisico deve necessariamente appartenere a una sola e specifica specie.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/EsemplarePokemon.png}
+    \caption{Schema ER contenente le entità e relazioni per rappresentare la distinzione di un esemplare Pokémon da unaspecie Pokémon}
+\end{figure}
+
+\section{Sviluppo dell'ambito Tipologia Elementale}
+
+Ogni Pokémon è caratterizzato da un tipo, modellato tramite l'entità ELEMENTO. 
+Poiché un Pokémon può possedere fino a due tipi distinti, sono state modellate due associazioni separate tra le entità POKÉMON ed ELEMENTO:
+l'associazione \textit{primario} e l'associazione \textit{secondario}. 
+
+L'associazione \textit{primario} ha cardinalità 1, indicando che ogni Pokémon possiede obbligatoriamente un elemento principale; 
+L'associazione \textit{secondario}, invece, ha cardinalità 0, permettendo così la corretta rappresentazione sia di Pokémon con un unico tipo, sia di quelli con un doppio tipo.
+
+Questa tipologia influenza direttamente l'ecosistema in cui la specie si stabilisce: l'entità BIOMA è legata al Pokémon tramite l'entità associativa PERMANENZA.
+Le mosse tecniche di combattimento, modellate dall'entità MOSSA possiedono a un legame con l'entità ELEMENTO (tramite l'associazione specializzazione), garantendo coerenza  tra il tipo del Pokémon e gli attacchi a sua disposizione.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/TipoElementoPokemon.png}
+    \caption{Schema ER contenente le entità e relazioni per rappresentare gli ELEMENTI che influiscono su abitat e natura dei Pokémon}
+\end{figure}
+
+\section{Sviluppo dell'ambito Giocatore e Archiviazione}
+
+Gli esemplari catturati da un allenatore che non trovano spazio nella squadra attiva vengono depositati nel sistema di archiviazione PC. 
+
+Questo meccanismo è stato modellato attraverso l'entità BOX\_POKÉMON, legata all'entità GIOCATORE tramite l'associazione \textit{dotazione}. 
+
+Ogni ESEMPLARE\_POKÉMON è strettamente legato al giocatore proprietario tramite l'associazione \textit{custodia} ed è eventualmente collocato in un box specifico tramite l'associazione \textit{locazione}. 
+
+La cardinalità di quest'ultima è 0..1 dal lato dell'esemplare, in quanto un Pokémon posseduto potrebbe trovarsi in squadra e non essere fisicamente riposto nel box.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/BoxGiocatore.png}
+    \caption{Schema ER contenente le entità e relazioni per rappresentare il sistema di BOX disponibile per i Giocatori}
+\end{figure}
+
+\section{Sviluppo dell'ambito Battaglia e Squadra}
+
+Le sfide tra allenatori vengono registrate tramite l'entità BATTAGLIA.
+
+Una battaglia coinvolge due squadre di 2 allenatori distinti, identificate tramite le associazioni \textit{sfidante} e \textit{sfidato}, che la collegano all'entità SQUADRA. 
+
+A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attualmente schierati da un giocatore ed è formata da 1 a 6 ESEMPLARE\_POKÉMON, uniti ad essa tramite l'associazione \textit{composizione}. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/BattagliaAllenatori.png}
+    \caption{Schema ER contenente le entità e relazioni per rappresentare il sistema di Sfida tra 2 Allenatori}
+\end{figure}
+
+
 \section{Sviluppo dell'ambito ...}
 
 \section{Sviluppo dell'ambito ...}
