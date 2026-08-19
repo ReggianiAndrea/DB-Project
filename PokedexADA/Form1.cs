@@ -283,19 +283,13 @@ namespace PokedexADA
                     where pokemon.IdStatistiche == s.IdStatistiche
                     select s)
                     .First();
-                int ps = statistiche.PuntiSalute;
-                int att = statistiche.Attacco;
-                int def = statistiche.Difesa;
-                int attsp = statistiche.AttaccoSpeciale;
-                int defsp = statistiche.DifesaSpeciale;
-                int spd = statistiche.Velocita;
-                totale = (ps + att + def + attsp + defsp + spd).ToString();
-                puntiSalute = ps.ToString();
-                attacco = att.ToString();
-                difesa = def.ToString();
-                attaccoSpeciale = attsp.ToString();
-                difesaSpeciale = defsp.ToString();
-                velocita = spd.ToString();
+                totale = statistiche.Totale.ToString();
+                puntiSalute = statistiche.PuntiSalute.ToString();
+                attacco = statistiche.Attacco.ToString();
+                difesa = statistiche.Difesa.ToString();
+                attaccoSpeciale = statistiche.AttaccoSpeciale.ToString();
+                difesaSpeciale = statistiche.DifesaSpeciale.ToString();
+                velocita = statistiche.Velocita.ToString();
 
                 lineaEvolutivaPokemonLayout.Controls.Clear();
                 lineaEvolutivaPokemonLayout.RowCount = 0;

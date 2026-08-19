@@ -19,5 +19,7 @@ public partial class SetStatistiche
 
     public int Velocita { get; set; }
 
+    public int Totale { get; set; }
+
     public virtual ICollection<Pokemon> Pokemons { get; set; } = new List<Pokemon>();
 }
