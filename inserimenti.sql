@@ -38,56 +38,56 @@ insert into BIOMA values (10, "Città", "");
 
 -- Dede
 
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 45, 49, 49, 65, 65, 45);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 60, 62, 63, 80, 80, 60);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 80, 82, 83, 100, 100, 80);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 39, 52, 43, 60, 50, 65);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 58, 64, 58, 80, 65, 80);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 78, 84, 78, 109, 85, 100);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 44, 48, 65, 50, 64, 43);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 59, 63, 80, 65, 80, 58);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 79, 83, 100, 85, 105, 78);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 40, 45, 40, 35, 35, 56);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 63, 60, 55, 50, 50, 71);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 83, 80, 75, 70, 70, 101);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 35, 55, 40, 50, 50, 90);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 60, 90, 55, 90, 80, 110);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 50, 75, 85, 20, 30, 40);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (1, 45, 49, 49, 65, 65, 45, 318);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (2, 60, 62, 63, 80, 80, 60, 405);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (3, 80, 82, 83, 100, 100, 80, 525);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (4, 39, 52, 43, 60, 50, 65, 309);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (5, 58, 64, 58, 80, 65, 80, 405);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (6, 78, 84, 78, 109, 85, 100, 534);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (7, 44, 48, 65, 50, 64, 43, 314);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (8, 59, 63, 80, 65, 80, 58, 405);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (9, 79, 83, 100, 85, 105, 78, 530);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (10, 40, 45, 40, 35, 35, 56, 251);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (11, 63, 60, 55, 50, 50, 71, 349);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (12, 83, 80, 75, 70, 70, 101, 479);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (13, 35, 55, 40, 50, 50, 90, 320);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (14, 60, 90, 55, 90, 80, 110, 485);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (15, 50, 75, 85, 20, 30, 40, 300);
 
 -- andre
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 60, 65, 60, 130, 75, 110);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 30, 40, 70, 70, 25, 60);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 55, 65, 95, 95, 45, 85);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 70, 110, 80, 55, 80, 105);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 20, 10, 55, 15, 20, 80);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 95, 125, 79, 60, 100, 81);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 130, 85, 80, 85, 95, 60);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 55, 55, 50, 45, 65, 55);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 130, 65, 60, 110, 95, 65);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 65, 65, 60, 110, 95, 130);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 65, 130, 60, 95, 110, 65);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 160, 110, 65, 65, 110, 30);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 41, 64, 45, 50, 50, 50);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 61, 84, 65, 70, 70, 70);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 91, 134, 95, 100, 100, 80);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (16, 60, 65, 60, 130, 75, 110, 500);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (17, 30, 40, 70, 70, 25, 60, 295);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (18, 55, 65, 95, 95, 45, 85, 440);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (19, 70, 110, 80, 55, 80, 105, 500);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (20, 20, 10, 55, 15, 20, 80, 200);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (21, 95, 125, 79, 60, 100, 81, 540);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (22, 130, 85, 80, 85, 95, 60, 535);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (23, 55, 55, 50, 45, 65, 55, 325);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (24, 130, 65, 60, 110, 95, 65, 525);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (25, 65, 65, 60, 110, 95, 130, 525);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (26, 65, 130, 60, 95, 110, 65, 525);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (27, 160, 110, 65, 65, 110, 30, 540);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (28, 41, 64, 45, 50, 50, 50, 300);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (29, 61, 84, 65, 70, 70, 70, 420);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (30, 91, 134, 95, 100, 100, 80, 600);
 -- fine andre
 
 -- Ale
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 100, 110, 75, 45, 55, 65);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 47, 52, 55, 40, 40, 41);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 62, 67, 70, 55, 55, 56); 
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 82, 87, 90, 75, 85, 76); 
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 57, 40, 46, 40, 40, 50); 
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 72, 57, 61, 55, 55, 65); 
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 92, 77, 81, 85, 75, 85);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 41, 40, 38, 50, 65, 65);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 76, 75, 73, 81, 100, 100);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 70, 45, 55, 70, 50, 60);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 110, 80, 90, 100, 80, 95);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 85, 55, 50, 65, 65, 90);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 100, 70, 65, 80, 80, 105);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 35, 30, 30, 100, 35, 80);
-insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita) values (null, 50, 45, 45, 115, 55, 90);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (31, 100, 110, 75, 45, 55, 65, 450);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (32, 47, 52, 55, 40, 40, 41, 275);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (33, 62, 67, 70, 55, 55, 56, 365); 
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (34, 82, 87, 90, 75, 85, 76, 495); 
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (35, 57, 40, 46, 40, 40, 50, 273); 
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (36, 72, 57, 61, 55, 55, 65, 365); 
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (37, 92, 77, 81, 85, 75, 85, 495);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (38, 41, 40, 38, 50, 65, 65, 299);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (39, 76, 75, 73, 81, 100, 100, 505);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (40, 70, 45, 55, 70, 50, 60, 350);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (41, 110, 80, 90, 100, 80, 95, 555);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (42, 85, 55, 50, 65, 65, 90, 410);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (43, 100, 70, 65, 80, 80, 105, 500);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (44, 35, 30, 30, 100, 35, 80, 310);
+insert into SET_STATISTICHE (IdStatistiche, PuntiSalute, Attacco, Difesa, AttaccoSpeciale, DifesaSpeciale, Velocita, Totale) values (45, 50, 45, 45, 115, 55, 90, 400);
 
 
 insert into ABILITA values ("Erbaiuto", "Quando al Pokémon rimangono pochi PS, la potenza delle sue mosse di tipo Erba aumenta.");
@@ -697,3 +697,5 @@ insert into AVVISTAMENTO values (1, 25);
 insert into CATTURA values (1, 25);
 
 insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 10, "2026-01-01", false, 'M', false, 25, 1, 1, null);
+insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 12, "2026-01-01", false, 'M', false, 3, 2, 1, null);
+insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 14, "2026-01-01", true, 'M', false, 8, 3, 1, null);

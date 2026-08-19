@@ -141,13 +141,14 @@ create table POKEMON (
      constraint ID_POKEMON_ID primary key (NumeroPokemon));
 
 create table SET_STATISTICHE (
-     IdStatistiche int not null auto_increment,
+     IdStatistiche int not null,
      Attacco int not null,
      Difesa int not null,
      PuntiSalute int not null,
      AttaccoSpeciale int not null,
      DifesaSpeciale int not null,
      Velocita int not null,
+     Totale int not null,
      constraint ID_SET_STATISTICHE_ID primary key (IdStatistiche));
 
 create table SQUADRA (
