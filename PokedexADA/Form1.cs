@@ -20,6 +20,8 @@ namespace PokedexADA
             InizializzaControlliDinamici();
             battagliaTab.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
 
+            GeneraPannelloStatistiche();
+
             using var db = new PokedexAdaContext();
             pokemonDisponibiliBox.Items.AddRange(db.Pokemons.Select(p => p.Nome).ToArray());
             giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
@@ -762,6 +764,110 @@ namespace PokedexADA
                     MessageBox.Show("Qualcosa è andato storto", "Sfida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void GeneraPannelloStatistiche()
+        {
+            // contenitore principale
+            GroupBox pannelloStat = new GroupBox();
+            pannelloStat.Text = "Curiosità Pokedex";
+            // pannello a destra della descrizione
+            pannelloStat.Location = new Point(descrizionePokemonTextBox.Right + 20, descrizionePokemonTextBox.Top);
+            pannelloStat.Size = new Size(440, descrizionePokemonTextBox.Height);
+            pannelloStat.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+
+  
+            Label lblColori = new Label()
+            {
+                Text = "Colori più comuni:",
+                Location = new Point(10, 25),
+                AutoSize = true
+            };
+
+            Label lblMetodi = new Label()
+            {
+                Text = "Metodi evolutivi più comuni:",
+                Location = new Point(210, 25),
+                AutoSize = true
+            };
+
+            //liste da inserire in tabella
+            ListView listColori = new ListView()
+            {
+                View = View.Details,
+                Location = new Point(10, 45),
+                Size = new Size(185, pannelloStat.Height - 55),
+                FullRowSelect = true
+            };
+            listColori.Columns.Add("Colore", 115);
+            listColori.Columns.Add("Qt", 45);
+
+            ListView listMetodi = new ListView()
+            {
+                View = View.Details,
+                Location = new Point(210, 45),
+                Size = new Size(215, pannelloStat.Height - 55),
+                FullRowSelect = true
+            };
+            listMetodi.Columns.Add("Metodo", 145);
+            listMetodi.Columns.Add("Qt", 45);
+
+            // richiesta al DB
+            using (var db = new PokedexAdaContext())
+            {
+                // Classifica Colori 
+                var coloriComuni = db.Pokemons
+                    .Select(p => p.ColoreDominante)
+                    .AsEnumerable()
+                    .Where(c => !string.IsNullOrWhiteSpace(c))
+                    .GroupBy(c => c)
+                    .Select(g => new { Colore = g.Key, Conteggio = g.Count() })
+                    .OrderByDescending(x => x.Conteggio)
+                    .Take(5)
+                    .ToList();
+
+                foreach (var c in coloriComuni)
+                {
+                    listColori.Items.Add(new ListViewItem(new[] { c.Colore, c.Conteggio.ToString() }));
+                }
+
+                // Classifica Metodi Evolutivi
+                var tuttiMetodi = db.MetodoEvolutivos.ToList();
+                var idMetodiUtilizzati = db.Pokemons
+                    .Where(p => p.EvoluzioneNumeroPokemonStadioSuccessivoNavigation != null)
+                    .Select(p => p.EvoluzioneNumeroPokemonStadioSuccessivoNavigation.IdMetodo)
+                    .ToList();
+
+                var metodiComuni = idMetodiUtilizzati
+                    .GroupBy(id => id)
+                    .Select(g => new {
+                        Metodo = tuttiMetodi.FirstOrDefault(m => m.IdMetodo == g.Key)?.Nome ?? "Ignoto",
+                        Conteggio = g.Count()
+                    })
+                    .OrderByDescending(x => x.Conteggio)
+                    .Take(5)
+                    .ToList();
+
+                foreach (var m in metodiComuni)
+                {
+                    listMetodi.Items.Add(new ListViewItem(new[] { m.Metodo, m.Conteggio.ToString() }));
+                }
+            }
+
+            //componenti nel layout
+            pannelloStat.Controls.Add(lblColori);
+            pannelloStat.Controls.Add(lblMetodi);
+            pannelloStat.Controls.Add(listColori);
+            pannelloStat.Controls.Add(listMetodi);
+
+
+            pannelloStat.Location = new Point(lineaEvolutivaPokemonLayout.Left, descrizionePokemonTextBox.Top);
+
+            // Inseriamo il pannello 
+            visualizzaPokedex.Controls.Add(pannelloStat);
+
+            // Forziamo il pannello in primo piano 
+            pannelloStat.BringToFront();
         }
     }
 }
