@@ -742,6 +742,21 @@ namespace PokedexADA
 
             if (avversario != null)
             {
+                // Il giocatore attuale ha almeno un Pokémon in squadra?
+                if (!HaPokemonInSquadra(idGiocatore))
+                {
+                    MessageBox.Show("Non puoi lottare! Devi avere almeno un Pokémon nella tua squadra attiva.", "La tua Squadra è vuota", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // L'avversario ha almeno un Pokémon in squadra?
+                if (!HaPokemonInSquadra(avversario.IdGiocatore))
+                {
+                    MessageBox.Show($"L'allenatore {avversario.Nickname} non ha una squadra attiva (0 Pokémon pronti) e non può lottare!", "Avversario non pronto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+
                 string luogo = luogoBattagliaComboBox.SelectedItem?.ToString() ?? "Arena Neutrale";
                 bool hoVinto = new Random().Next(0, 2) == 1;
                 try
@@ -868,6 +883,28 @@ namespace PokedexADA
 
             // Forziamo il pannello in primo piano 
             pannelloStat.BringToFront();
+        }
+
+        private bool HaPokemonInSquadra(int idAllenatore)
+        {
+            using var db = new PokedexAdaContext();
+            using var command = db.Database.GetDbConnection().CreateCommand();
+
+            // Conta quanti esemplari possiede il giocatore
+            command.CommandText = "SELECT COUNT(*) FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @id AND IdSquadra IS NOT NULL";
+
+            var parameter = command.CreateParameter();
+            parameter.ParameterName = "@id";
+            parameter.Value = idAllenatore;
+            command.Parameters.Add(parameter);
+
+            if (command.Connection.State != System.Data.ConnectionState.Open)
+                command.Connection.Open();
+
+            var result = command.ExecuteScalar();
+            int conteggio = Convert.ToInt32(result);
+
+            return conteggio > 0;
         }
     }
 }
