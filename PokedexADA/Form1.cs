@@ -565,7 +565,8 @@ namespace PokedexADA
             }
 
             cercaGiocatoreGroupBox.Show();
-            cercaGiocatorePictureBox.ImageLocation = amico.Immagine;
+            cercaGiocatorePictureBox.ImageLocation = amico.Immagine; //box immagine profilo
+            cercaGiocatorePokemonPreferitoPictureBox.ImageLocation = amico.IdEsemplarePreferito; //box immagine pokemon
             nomeCercaGiocatoreLabel.Text = $"Nome: {amico.Nome}";
             cognomeCercaGiocatoreLabel.Text = $"Cognome: {amico.Cognome}";
             nicknameCercaGiocatoreLabel.Text = $"Nickname: {amico.Nickname}";
