@@ -42,7 +42,7 @@ namespace PokedexADA
 
         private void BtnAllenatore_Click(object? sender, EventArgs e)
         {
-            Form1 formAllenatore = new Form1();
+            FormUtente formAllenatore = new FormUtente();
             this.Hide();
             formAllenatore.FormClosed += (s, args) => this.Close();
             formAllenatore.Show();

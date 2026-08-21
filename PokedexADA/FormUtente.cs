@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PokedexADA
 {
-    public partial class Form1 : Form
+    public partial class FormUtente : Form
     {
         Dictionary<int, int> mapPokedexToGUIList = new Dictionary<int, int>();
 
@@ -12,7 +12,7 @@ namespace PokedexADA
         Giocatore giocatore;
         Giocatore? giocatoreSelezionato;
 
-        public Form1()
+        public FormUtente()
         {
             InitializeComponent();
             amiciList.SelectedIndexChanged += amiciList_SelectedIndexChanged;
@@ -148,6 +148,19 @@ namespace PokedexADA
                     avversarioComboBox.SelectedIndex = 0;
                 }
             }
+            else if (battagliaTab.SelectedTab == personalizzaUtenteTabPage)
+            {
+                using var db = new PokedexAdaContext();
+                string image = db.Giocatores.Where(g => g.IdGiocatore == giocatore.IdGiocatore).Select(g => g.Immagine).First();
+                if (File.Exists(@"..\..\..\res\" + image))
+                {
+                    cambiaImmagineProfiloPictureBox.Image = new Bitmap(@"..\..\..\res\" + image);
+                }
+                else
+                {
+                    cambiaImmagineProfiloPictureBox.Image = new Bitmap(@"..\..\..\res\questionmark.png");
+                }
+            }
         }
 
         private void CercaPokemonSelezionatoButtonOnClick(object sender, EventArgs e)
@@ -222,7 +235,7 @@ namespace PokedexADA
             using var db = new PokedexAdaContext();
             int id = Int32.Parse(pokedexList.SelectedItems[0].SubItems[0].Text);
             Pokemon pokemon = db.Pokemons.Where(p => p.NumeroPokemon == id).First();
-            Bitmap picture = (Bitmap)Image.FromFile(@"..\..\..\res\" + pokemon.Immagine);
+            Bitmap picture = new Bitmap(@"..\..\..\res\" + pokemon.Immagine);
             string nome = "???";
             string abilita = "???";
             string bioma = "???";
@@ -253,7 +266,7 @@ namespace PokedexADA
             bool catturato = pokemonCatturati.Where(p => p.NumeroPokemon == pokemon.NumeroPokemon).Any();
             if (!visto)
             {
-                pokedexPicture.Image = new Bitmap(Image.FromFile(@"..\..\..\res\questionmark.png"));
+                pokedexPicture.Image = new Bitmap(@"..\..\..\res\questionmark.png");
             }
             if (visto && !catturato)
             {
@@ -449,8 +462,16 @@ namespace PokedexADA
                 return;
             }
 
+            if (File.Exists(@"..\..\..\res\" + amico.Immagine))
+            {
+                cercaGiocatorePictureBox.Image = new Bitmap(@"..\..\..\res\" + amico.Immagine);
+            }
+            else
+            {
+                cercaGiocatorePictureBox.Image = new Bitmap(@"..\..\..\res\questionmark.png");
+            }
+
             cercaGiocatoreGroupBox.Show();
-            cercaGiocatorePictureBox.ImageLocation = amico.Immagine;
             nomeCercaGiocatoreLabel.Text = $"Nome: {amico.Nome}";
             cognomeCercaGiocatoreLabel.Text = $"Cognome: {amico.Cognome}";
             nicknameCercaGiocatoreLabel.Text = $"Nickname: {amico.Nickname}";
@@ -776,7 +797,6 @@ namespace PokedexADA
                 }
                 catch (Exception ex)
                 {
-                   
                     // Estraiamo errore generato dal db
                     string erroreReale = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                     MessageBox.Show($"L'inserimento della battaglia è fallito.\nErrore tecnico: {erroreReale}", "Dettaglio Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -794,7 +814,6 @@ namespace PokedexADA
             pannelloStat.Size = new Size(440, descrizionePokemonTextBox.Height);
             pannelloStat.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
-  
             Label lblColori = new Label()
             {
                 Text = "Colori più comuni:",
@@ -858,7 +877,8 @@ namespace PokedexADA
 
                 var metodiComuni = idMetodiUtilizzati
                     .GroupBy(id => id)
-                    .Select(g => new {
+                    .Select(g => new
+                    {
                         Metodo = tuttiMetodi.FirstOrDefault(m => m.IdMetodo == g.Key)?.Nome ?? "Ignoto",
                         Conteggio = g.Count()
                     })
@@ -877,7 +897,6 @@ namespace PokedexADA
             pannelloStat.Controls.Add(lblMetodi);
             pannelloStat.Controls.Add(listColori);
             pannelloStat.Controls.Add(listMetodi);
-
 
             pannelloStat.Location = new Point(lineaEvolutivaPokemonLayout.Left, descrizionePokemonTextBox.Top);
 
@@ -908,6 +927,26 @@ namespace PokedexADA
             int conteggio = Convert.ToInt32(result);
 
             return conteggio > 0;
+        }
+
+        private void scegliImmagineProfiloComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (scegliImmagineProfiloComboBox.SelectedIndex == -1)
+            {
+                scegliImmagineProfiloComboBox.SelectedIndex = 0;
+            }
+            anteprimaImmagineProfiloPictureBox.Image = new Bitmap(@"..\..\..\res\trainer" + (scegliImmagineProfiloComboBox.SelectedIndex + 1) + ".png");
+        }
+
+        private void cambiaImmagineProfiloButton_Click(object sender, EventArgs e)
+        {
+            if (anteprimaImmagineProfiloPictureBox.Image == null)
+            {
+                MessageBox.Show("Seleziona un immagine", "Attenzione", MessageBoxButtons.OK);
+                return;
+            }
+            cambiaImmagineProfiloPictureBox.Image = anteprimaImmagineProfiloPictureBox.Image;
+            giocatore.CambiaImmagineProfilo("trainer" + (scegliImmagineProfiloComboBox.SelectedIndex + 1) + ".png");
         }
     }
 }
