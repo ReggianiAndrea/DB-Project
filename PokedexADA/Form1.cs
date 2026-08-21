@@ -749,16 +749,16 @@ namespace PokedexADA
                     return;
                 }
 
-                // L'avversario ha almeno un Pokémon in squadra?
+
                 if (!HaPokemonInSquadra(avversario.IdGiocatore))
                 {
                     MessageBox.Show($"L'allenatore {avversario.Nickname} non ha una squadra attiva (0 Pokémon pronti) e non può lottare!", "Avversario non pronto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-
                 string luogo = luogoBattagliaComboBox.SelectedItem?.ToString() ?? "Arena Neutrale";
                 bool hoVinto = new Random().Next(0, 2) == 1;
+
                 try
                 {
                     bool successo = giocatore.SfidaGiocatore(avversario.IdGiocatore, luogo, hoVinto);
@@ -776,7 +776,10 @@ namespace PokedexADA
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Qualcosa è andato storto", "Sfida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   
+                    // Estraiamo errore generato dal db
+                    string erroreReale = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                    MessageBox.Show($"L'inserimento della battaglia è fallito.\nErrore tecnico: {erroreReale}", "Dettaglio Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
