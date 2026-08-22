@@ -202,60 +202,80 @@ namespace PokedexADA
         }
     }
 
+
     public class FormInserimentoPokemon : Form
     {
-        private NumericUpDown numPokedex, numPS, numAtk, numDif, numVel;
-        private TextBox txtNome, txtSpecie, txtDescrizione;
-        private ComboBox cmbElemento, cmbAbilita;
+        private NumericUpDown numPokedex, numPS, numAtk, numDif, numAtkSp, numDifSp, numVel, numAltezza, numPeso;
+        private TextBox txtNome, txtSpecie, txtDescrizione, txtImpronta, txtImmagine, txtColore;
+        private ComboBox cmbElemento, cmbElementoSecondario, cmbAbilita, cmbBioma;
         private Button btnSalva, btnAnnulla;
 
         public FormInserimentoPokemon()
         {
-            this.Text = "Inserisci un nuovo Pokémon";
-            this.Size = new Size(400, 550);
+            this.Text = "Inserisci un nuovo Pokémon (Completo)";
+            this.Size = new Size(520, 860); // Aumentata l'altezza per far spazio alle nuove statistiche
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.AutoScroll = true;
 
-            TableLayoutPanel pannello = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 10, Padding = new Padding(10) };
-            pannello.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            pannello.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            TableLayoutPanel pannello = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 24, Padding = new Padding(15) };
+            pannello.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            pannello.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
 
-            numPokedex = new NumericUpDown { Maximum = 9999, Minimum = 1, Width = 200 };
-            txtNome = new TextBox { Width = 200 };
-            txtSpecie = new TextBox { Width = 200 };
-            txtDescrizione = new TextBox { Width = 200 };
-            cmbElemento = new ComboBox { Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
-            cmbAbilita = new ComboBox { Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
+            numPokedex = new NumericUpDown { Maximum = 9999, Minimum = 1, Width = 250 };
+            txtNome = new TextBox { Width = 250 };
+            txtSpecie = new TextBox { Width = 250 };
+            txtDescrizione = new TextBox { Width = 250 };
 
-            numPS = new NumericUpDown { Maximum = 300, Width = 80 };
-            numAtk = new NumericUpDown { Maximum = 300, Width = 80 };
-            numDif = new NumericUpDown { Maximum = 300, Width = 80 };
-            numVel = new NumericUpDown { Maximum = 300, Width = 80 };
+            numAltezza = new NumericUpDown { Maximum = 999, DecimalPlaces = 2, Increment = 0.1M, Width = 120 };
+            numPeso = new NumericUpDown { Maximum = 9999, DecimalPlaces = 2, Increment = 0.5M, Width = 120 };
+            txtImpronta = new TextBox { Width = 250 };
+            txtImmagine = new TextBox { Width = 250 };
+            txtColore = new TextBox { Width = 250 };
+
+            cmbElemento = new ComboBox { Width = 250, DropDownStyle = ComboBoxStyle.DropDownList };
+            cmbElementoSecondario = new ComboBox { Width = 250, DropDownStyle = ComboBoxStyle.DropDownList };
+            cmbAbilita = new ComboBox { Width = 250, DropDownStyle = ComboBoxStyle.DropDownList };
+            cmbBioma = new ComboBox { Width = 250, DropDownStyle = ComboBoxStyle.DropDownList };
+
+            numPS = new NumericUpDown { Maximum = 300, Width = 100 };
+            numAtk = new NumericUpDown { Maximum = 300, Width = 100 };
+            numDif = new NumericUpDown { Maximum = 300, Width = 100 };
+            numAtkSp = new NumericUpDown { Maximum = 300, Width = 100 }; // Aggiunto
+            numDifSp = new NumericUpDown { Maximum = 300, Width = 100 }; // Aggiunto
+            numVel = new NumericUpDown { Maximum = 300, Width = 100 };
 
             CaricaDatiTendine();
 
-            pannello.Controls.Add(new Label { Text = "Numero Pokédex:", Anchor = AnchorStyles.Left }, 0, 0);
-            pannello.Controls.Add(numPokedex, 1, 0);
-            pannello.Controls.Add(new Label { Text = "Nome:", Anchor = AnchorStyles.Left }, 0, 1);
-            pannello.Controls.Add(txtNome, 1, 1);
-            pannello.Controls.Add(new Label { Text = "Specie:", Anchor = AnchorStyles.Left }, 0, 2);
-            pannello.Controls.Add(txtSpecie, 1, 2);
-            pannello.Controls.Add(new Label { Text = "Elemento Primario:", Anchor = AnchorStyles.Left }, 0, 3);
-            pannello.Controls.Add(cmbElemento, 1, 3);
-            pannello.Controls.Add(new Label { Text = "Abilità:", Anchor = AnchorStyles.Left }, 0, 4);
-            pannello.Controls.Add(cmbAbilita, 1, 4);
-            pannello.Controls.Add(new Label { Text = "Descrizione:", Anchor = AnchorStyles.Left }, 0, 5);
-            pannello.Controls.Add(txtDescrizione, 1, 5);
+            int riga = 0;
+            pannello.Controls.Add(new Label { Text = "Numero Pokédex:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numPokedex, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Nome:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(txtNome, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Specie:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(txtSpecie, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Descrizione:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(txtDescrizione, 1, riga++);
 
-            FlowLayoutPanel panelStats = new FlowLayoutPanel { Dock = DockStyle.Fill };
-            panelStats.Controls.Add(new Label { Text = "PS:" }); panelStats.Controls.Add(numPS);
-            panelStats.Controls.Add(new Label { Text = "ATK:" }); panelStats.Controls.Add(numAtk);
-            panelStats.Controls.Add(new Label { Text = "DIF:" }); panelStats.Controls.Add(numDif);
-            panelStats.Controls.Add(new Label { Text = "VEL:" }); panelStats.Controls.Add(numVel);
+            pannello.Controls.Add(new Label { Text = "TRATTI FISICI", Anchor = AnchorStyles.Left, Font = new Font(this.Font, FontStyle.Bold) }, 0, riga++);
+            pannello.Controls.Add(new Label { Text = "Altezza (m):", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numAltezza, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Peso (kg):", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numPeso, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Impronta/Forma:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(txtImpronta, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Colore Dominante:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(txtColore, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "File Immagine:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(txtImmagine, 1, riga++);
 
-            pannello.Controls.Add(new Label { Text = "Statistiche Base:", Anchor = AnchorStyles.Left }, 0, 6);
-            pannello.Controls.Add(panelStats, 1, 6);
+            pannello.Controls.Add(new Label { Text = "CLASSIFICAZIONE", Anchor = AnchorStyles.Left, Font = new Font(this.Font, FontStyle.Bold) }, 0, riga++);
+            pannello.Controls.Add(new Label { Text = "Elemento 1:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(cmbElemento, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Elemento 2:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(cmbElementoSecondario, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Abilità:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(cmbAbilita, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Bioma Base:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(cmbBioma, 1, riga++);
+
+            pannello.Controls.Add(new Label { Text = "STATISTICHE BASE", Anchor = AnchorStyles.Left, Font = new Font(this.Font, FontStyle.Bold) }, 0, riga++);
+            pannello.Controls.Add(new Label { Text = "PS (Salute):", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numPS, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Attacco:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numAtk, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Difesa:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numDif, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Attacco Speciale:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numAtkSp, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Difesa Speciale:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numDifSp, 1, riga++);
+            pannello.Controls.Add(new Label { Text = "Velocità:", Anchor = AnchorStyles.Left }, 0, riga); pannello.Controls.Add(numVel, 1, riga++);
+
+            pannello.Controls.Add(new Label { Text = "" }, 0, riga++);
 
             btnSalva = new Button { Text = "Salva", BackColor = Color.LightGreen, DialogResult = DialogResult.None };
             btnSalva.Click += BtnSalva_Click;
@@ -265,17 +285,29 @@ namespace PokedexADA
             panelBottoni.Controls.Add(btnAnnulla);
             panelBottoni.Controls.Add(btnSalva);
 
-            pannello.Controls.Add(panelBottoni, 1, 8);
+            pannello.Controls.Add(panelBottoni, 1, riga);
             this.Controls.Add(pannello);
         }
 
         private void CaricaDatiTendine()
         {
             using var db = new PokedexAdaContext();
-            var elementi = db.Elementos.ToList();
+
+            var elementi = db.Elementos.Select(e => new { e.IdElemento, e.Tipologia }).ToList();
             cmbElemento.DataSource = elementi;
             cmbElemento.DisplayMember = "Tipologia";
             cmbElemento.ValueMember = "IdElemento";
+
+            var elementiSecondari = db.Elementos.Select(e => new { e.IdElemento, e.Tipologia }).ToList();
+            elementiSecondari.Insert(0, new { IdElemento = -1, Tipologia = "Nessuno (Null)" });
+            cmbElementoSecondario.DataSource = elementiSecondari;
+            cmbElementoSecondario.DisplayMember = "Tipologia";
+            cmbElementoSecondario.ValueMember = "IdElemento";
+
+            var biomi = db.Biomas.Select(b => new { b.IdBioma, b.Habitat }).ToList();
+            cmbBioma.DataSource = biomi;
+            cmbBioma.DisplayMember = "Habitat";
+            cmbBioma.ValueMember = "IdBioma";
 
             var abilita = db.Abilita.Select(a => a.NomeAbilita).ToList();
             cmbAbilita.DataSource = abilita;
@@ -293,11 +325,19 @@ namespace PokedexADA
         {
             if (string.IsNullOrWhiteSpace(txtNome.Text) || string.IsNullOrWhiteSpace(txtSpecie.Text))
             {
-                MessageBox.Show("Nome e Specie sono obbligatori!", "Errore validazione");
+                MessageBox.Show("Nome e Specie sono campi obbligatori!", "Errore validazione");
                 return;
             }
 
-            int totaleStats = (int)(numPS.Value + numAtk.Value + numDif.Value + numVel.Value + 100);
+            // Calcolo totale sommando correttamente tutte le 6 statistiche
+            int totaleStats = (int)(numPS.Value + numAtk.Value + numDif.Value + numAtkSp.Value + numDifSp.Value + numVel.Value);
+
+            int idElemSecRaw = (int)cmbElementoSecondario.SelectedValue;
+            object idElemSecToInsert = idElemSecRaw == -1 ? DBNull.Value : idElemSecRaw;
+
+            string improntaFinale = string.IsNullOrWhiteSpace(txtImpronta.Text) ? "Ignota" : txtImpronta.Text;
+            string coloreFinale = string.IsNullOrWhiteSpace(txtColore.Text) ? "Ignoto" : txtColore.Text;
+            string immagineFinale = string.IsNullOrWhiteSpace(txtImmagine.Text) ? $"{numPokedex.Value}.png" : txtImmagine.Text;
 
             using var db = new PokedexAdaContext();
 
@@ -306,7 +346,6 @@ namespace PokedexADA
                 if (db.Database.GetDbConnection().State != ConnectionState.Open)
                     db.Database.GetDbConnection().Open();
 
-
                 using var cmdId = db.Database.GetDbConnection().CreateCommand();
                 cmdId.CommandText = "SELECT COALESCE(MAX(IdStatistiche), 0) + 1 FROM set_statistiche;";
                 int nextStatId = Convert.ToInt32(cmdId.ExecuteScalar());
@@ -314,37 +353,49 @@ namespace PokedexADA
                 using var cmdStats = db.Database.GetDbConnection().CreateCommand();
                 cmdStats.CommandText = @"
                     INSERT INTO set_statistiche (idstatistiche, puntisalute, attacco, difesa, attaccospeciale, difesaspeciale, velocita, totale) 
-                    VALUES (@nextId, @ps, @atk, @dif, 50, 50, @vel, @totale);";
+                    VALUES (@nextId, @ps, @atk, @dif, @atkSp, @difSp, @vel, @totale);";
 
                 AddParam(cmdStats, "@nextId", nextStatId);
                 AddParam(cmdStats, "@ps", (int)numPS.Value);
                 AddParam(cmdStats, "@atk", (int)numAtk.Value);
                 AddParam(cmdStats, "@dif", (int)numDif.Value);
+                AddParam(cmdStats, "@atkSp", (int)numAtkSp.Value); // Parametro per Attacco Speciale
+                AddParam(cmdStats, "@difSp", (int)numDifSp.Value); // Parametro per Difesa Speciale
                 AddParam(cmdStats, "@vel", (int)numVel.Value);
                 AddParam(cmdStats, "@totale", totaleStats);
+                cmdStats.ExecuteNonQuery();
 
-                cmdStats.ExecuteNonQuery(); 
                 using var cmdPkmn = db.Database.GetDbConnection().CreateCommand();
                 cmdPkmn.CommandText = @"
                     INSERT INTO pokemon (
                         numeropokemon, specie, nome, descrizionepokemon, altezza, peso, impronta, immagine, 
-                        coloredominante, idelementoprimario, idstatistiche, nomeabilita
+                        coloredominante, idelementoprimario, idelementosecondario, idstatistiche, nomeabilita
                     ) VALUES (
-                        @num, @specie, @nome, @desc, 1.0, 10.0, 'Bestia', 'questionmark.png', 
-                        'Ignoto', @idElemento, @nextId, @abilita
+                        @num, @specie, @nome, @desc, @altezza, @peso, @impronta, @immagine, 
+                        @colore, @idElemento1, @idElemento2, @nextId, @abilita
                     );";
 
                 AddParam(cmdPkmn, "@num", (int)numPokedex.Value);
                 AddParam(cmdPkmn, "@specie", txtSpecie.Text);
                 AddParam(cmdPkmn, "@nome", txtNome.Text);
                 AddParam(cmdPkmn, "@desc", txtDescrizione.Text);
-                AddParam(cmdPkmn, "@idElemento", cmbElemento.SelectedValue);
-                AddParam(cmdPkmn, "@nextId", nextStatId); // Colleghiamo lo stesso ID di prima
+                AddParam(cmdPkmn, "@altezza", numAltezza.Value);
+                AddParam(cmdPkmn, "@peso", numPeso.Value);
+                AddParam(cmdPkmn, "@impronta", improntaFinale);
+                AddParam(cmdPkmn, "@immagine", immagineFinale);
+                AddParam(cmdPkmn, "@colore", coloreFinale);
+                AddParam(cmdPkmn, "@idElemento1", cmbElemento.SelectedValue);
+                AddParam(cmdPkmn, "@idElemento2", idElemSecToInsert);
+                AddParam(cmdPkmn, "@nextId", nextStatId);
                 AddParam(cmdPkmn, "@abilita", cmbAbilita.SelectedItem?.ToString());
+                cmdPkmn.ExecuteNonQuery();
 
-                cmdPkmn.ExecuteNonQuery(); // Esegue il secondo inserimento
+                using var cmdBioma = db.Database.GetDbConnection().CreateCommand();
+                cmdBioma.CommandText = "INSERT INTO permanenza (numeropokemon, idbioma) VALUES (@num, @idBioma);";
+                AddParam(cmdBioma, "@num", (int)numPokedex.Value);
+                AddParam(cmdBioma, "@idBioma", cmbBioma.SelectedValue);
+                cmdBioma.ExecuteNonQuery();
 
-                // Se arriva fin qui senza errori, diamo l'ok per chiudere la finestra e aggiornare la griglia
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
