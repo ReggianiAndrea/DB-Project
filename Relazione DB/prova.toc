@@ -1,0 +1,33 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduzione}{2}{}%
+\contentsline {section}{\numberline {1.1}Analisi dei requisiti}{2}{}%
+\contentsline {section}{\numberline {1.2}Estrazione dei concetti fondamentali}{2}{}%
+\contentsline {chapter}{\numberline {2}Progetto dello schema concettuale}{3}{}%
+\contentsline {section}{\numberline {2.1}Sviluppo dell'ambito evoluzione}{6}{}%
+\contentsline {section}{\numberline {2.2}Sviluppo dell'ambito Giocatore - Esemplare Pokémon}{7}{}%
+\contentsline {section}{\numberline {2.3}Sviluppo dell'ambito Pokémon}{7}{}%
+\contentsline {section}{\numberline {2.4}Sviluppo dell'ambito Specie ed Esemplare}{8}{}%
+\contentsline {section}{\numberline {2.5}Sviluppo dell'ambito Tipologia Elementale}{9}{}%
+\contentsline {section}{\numberline {2.6}Sviluppo dell'ambito Giocatore e Archiviazione}{10}{}%
+\contentsline {section}{\numberline {2.7}Sviluppo dell'ambito Battaglia e Squadra}{11}{}%
+\contentsline {section}{\numberline {2.8}Sviluppo dell'ambito ...}{12}{}%
+\contentsline {section}{\numberline {2.9}Sviluppo dell'ambito ...}{12}{}%
+\contentsline {chapter}{\numberline {3}Specifiche funzionali}{13}{}%
+\contentsline {section}{\numberline {3.1}Analisi delle funzionalità richieste}{13}{}%
+\contentsline {section}{\numberline {3.2}DA GUARDARE BENE CON I BOYS}{13}{}%
+\contentsline {section}{\numberline {3.3}Carichi di lavoro}{13}{}%
+\contentsline {chapter}{\numberline {4}Progetto logico}{16}{}%
+\contentsline {section}{\numberline {4.1}Schemi di navigazione}{16}{}%
+\contentsline {section}{\numberline {4.2}Frequenza e costo degli accessi}{16}{}%
+\contentsline {section}{\numberline {4.3}Trasformazioni dello schema concettuale}{17}{}%
+\contentsline {section}{\numberline {4.4}Progetto logico per il modello relazionale}{17}{}%
+\contentsline {section}{\numberline {4.5}Traduzione delle entità}{17}{}%
+\contentsline {section}{\numberline {4.6}Traduzione delle associazioni}{17}{}%
+\contentsline {section}{\numberline {4.7}Traduzione delle Query SQL}{17}{}%
+\contentsline {chapter}{\numberline {5}Progetto fisico}{18}{}%
+\contentsline {section}{\numberline {5.1}Indicizzazione di attributi}{18}{}%
+\contentsline {section}{\numberline {5.2}Ordinamento su attributi}{18}{}%
+\contentsline {chapter}{\numberline {6}Interfaccia utente}{19}{}%
+\contentsline {section}{\numberline {6.1}L'amministratore}{19}{}%
+\contentsline {section}{\numberline {6.2}Il giocatore}{19}{}%

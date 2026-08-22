@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PokedexADA.PokedexADA;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace PokedexADA
 {
@@ -150,6 +151,7 @@ namespace PokedexADA
             }
             else if (battagliaTab.SelectedTab == personalizzaUtenteTabPage)
             {
+
                 using var db = new PokedexAdaContext();
                 string image = db.Giocatores.Where(g => g.IdGiocatore == giocatore.IdGiocatore).Select(g => g.Immagine).First();
                 if (File.Exists(@"..\..\..\res\" + image))
@@ -159,6 +161,12 @@ namespace PokedexADA
                 else
                 {
                     cambiaImmagineProfiloPictureBox.Image = new Bitmap(@"..\..\..\res\questionmark.png");
+                }
+                List<int> esemplari = (from ep in db.EsemplarePokemons
+                                       where idGiocatore == ep.IdGiocatoreProprietario
+                                       select ep.IdEsemplare).ToList();
+                foreach (int esemplare in esemplari){
+                    scegliPokemonPreferitoComboBox.Items.Add(esemplare.ToString());
                 }
             }
         }
@@ -470,7 +478,18 @@ namespace PokedexADA
             {
                 cercaGiocatorePictureBox.Image = new Bitmap(@"..\..\..\res\questionmark.png");
             }
-
+            if (amico.IdEsemplarePreferito != null)
+            {
+                Pokemon preferito = (from p in db.Pokemons
+                                     join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
+                                     where ep.IdEsemplare == amico.IdEsemplarePreferito
+                                     select p).First();
+                cercaGiocatorePokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\" + preferito.Immagine);
+            }
+            else
+            {
+                cercaGiocatorePokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\questionmark.png");
+            }
             cercaGiocatoreGroupBox.Show();
             nomeCercaGiocatoreLabel.Text = $"Nome: {amico.Nome}";
             cognomeCercaGiocatoreLabel.Text = $"Cognome: {amico.Cognome}";
@@ -947,6 +966,31 @@ namespace PokedexADA
             }
             cambiaImmagineProfiloPictureBox.Image = anteprimaImmagineProfiloPictureBox.Image;
             giocatore.CambiaImmagineProfilo("trainer" + (scegliImmagineProfiloComboBox.SelectedIndex + 1) + ".png");
+        }
+
+        private void scegliPokemonPreferitoComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using var db = new PokedexAdaContext();
+            if (scegliPokemonPreferitoComboBox.SelectedIndex == -1)
+            {
+                scegliPokemonPreferitoComboBox.SelectedIndex = 0;
+            }
+            Pokemon preferito = (from p in db.Pokemons
+                                 join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
+                                 where ep.IdEsemplare == scegliPokemonPreferitoComboBox.SelectedIndex
+                                 select p).First();
+            anteprimaPokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\" + preferito.Immagine);
+        }
+
+        private void cambiaPokemonPreferitoButton_Click(object sender, EventArgs e)
+        {
+            if (anteprimaPokemonPreferitoPictureBox.Image == null)
+            {
+                MessageBox.Show("Seleziona un immagine", "Attenzione", MessageBoxButtons.OK);
+                return;
+            }
+            cambiaPokemonPreferitoPictureBox.Image = anteprimaPokemonPreferitoPictureBox.Image;
+            giocatore.CambiaPokemonPreferito(scegliPokemonPreferitoComboBox.SelectedIndex);
         }
     }
 }

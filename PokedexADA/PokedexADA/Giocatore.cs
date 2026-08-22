@@ -338,4 +338,20 @@ public partial class Giocatore
 
         return true;
     }
+
+    public void CambiaPokemonPreferito (int id)
+    {
+        using var db = new PokedexAdaContext();
+        db.Database.EnsureCreated();
+        try
+        {
+            IdEsemplarePreferito = id;
+            db.Giocatores.Update(this);
+        }
+        finally
+        {
+            db.SaveChanges();
+        }
+
+    }
 }
