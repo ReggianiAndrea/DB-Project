@@ -7,7 +7,7 @@ public partial class Battaglia
 {
     public int IdBattaglia { get; set; }
 
-    public string SfidanteVincitore { get; set; } = null!;
+    public bool SfidanteVincitore { get; set; } = false;
 
     public DateTime Data { get; set; }
 

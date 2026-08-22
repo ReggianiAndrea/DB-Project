@@ -323,15 +323,23 @@ public partial class Giocatore
             return false;
         }
 
-        Battaglia nuovaBattaglia = new Battaglia
+        int idBattaglia;
+        try
         {
-            IdBattaglia = db.Battaglia.Max(b => b.IdBattaglia) + 1,
-            IdGiocatoreSfidante = IdGiocatore,
-            IdGiocatoreSfidato = idGiocatoreSfidato,
-            Data = DateTime.Now,
-            Luogo = luogo,
-            SfidanteVincitore = hoVinto ? "1" : "0"
-        };
+            idBattaglia = db.Battaglia.Max(b => b.IdBattaglia) + 1;
+        }
+        catch (Exception ex)
+        {
+            idBattaglia = 1;
+        }
+
+        Battaglia nuovaBattaglia = new Battaglia();
+        nuovaBattaglia.IdBattaglia = idBattaglia;
+        nuovaBattaglia.IdGiocatoreSfidante = IdGiocatore;
+        nuovaBattaglia.IdGiocatoreSfidato = idGiocatoreSfidato;
+        nuovaBattaglia.Data = DateTime.Now;
+        nuovaBattaglia.Luogo = luogo;
+        nuovaBattaglia.SfidanteVincitore = hoVinto;
 
         db.Battaglia.Add(nuovaBattaglia);
         db.SaveChanges();
