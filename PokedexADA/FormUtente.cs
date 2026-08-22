@@ -343,11 +343,11 @@ namespace PokedexADA
                     label.Text = "Metodo: ???";
                     PictureBox box = new PictureBox();
                     PictureBox boxEvo = new PictureBox();
-                    Bitmap image = new Bitmap(Image.FromFile(@"..\..\..\res\" + corrente.Immagine), 120, 120);
-                    Bitmap imageEvo = new Bitmap(Image.FromFile(@"..\..\..\res\" + successivo.Immagine), 120, 120);
-                    if (!corrVisto) image = new Bitmap(Image.FromFile(@"..\..\..\res\questionmark.png"), 120, 120);
+                    Bitmap image = new Bitmap(Image.FromFile(@"..\..\..\res\" + corrente.Immagine), 60, 60);
+                    Bitmap imageEvo = new Bitmap(Image.FromFile(@"..\..\..\res\" + successivo.Immagine), 60, 60);
+                    if (!corrVisto) image = new Bitmap(Image.FromFile(@"..\..\..\res\questionmark.png"), 60, 60);
                     if (corrVisto && !corrCatturato) image = filterPicture(image);
-                    if (!evoVisto) imageEvo = new Bitmap(Image.FromFile(@"..\..\..\res\questionmark.png"), 120, 120);
+                    if (!evoVisto) imageEvo = new Bitmap(Image.FromFile(@"..\..\..\res\questionmark.png"), 60, 60);
                     if (evoVisto && !evoCatturato) imageEvo = filterPicture(imageEvo);
                     if (corrCatturato && evoCatturato)
                     {
@@ -839,49 +839,6 @@ namespace PokedexADA
 
         private void GeneraPannelloStatistiche()
         {
-            // contenitore principale
-            GroupBox pannelloStat = new GroupBox();
-            pannelloStat.Text = "Curiosità Pokedex";
-            // pannello a destra della descrizione
-            pannelloStat.Location = new Point(descrizionePokemonTextBox.Right + 20, descrizionePokemonTextBox.Top);
-            pannelloStat.Size = new Size(440, descrizionePokemonTextBox.Height);
-            pannelloStat.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-
-            Label lblColori = new Label()
-            {
-                Text = "Colori più comuni:",
-                Location = new Point(10, 25),
-                AutoSize = true
-            };
-
-            Label lblMetodi = new Label()
-            {
-                Text = "Metodi evolutivi più comuni:",
-                Location = new Point(210, 25),
-                AutoSize = true
-            };
-
-            //liste da inserire in tabella
-            ListView listColori = new ListView()
-            {
-                View = View.Details,
-                Location = new Point(10, 45),
-                Size = new Size(185, pannelloStat.Height - 55),
-                FullRowSelect = true
-            };
-            listColori.Columns.Add("Colore", 115);
-            listColori.Columns.Add("Qt", 45);
-
-            ListView listMetodi = new ListView()
-            {
-                View = View.Details,
-                Location = new Point(210, 45),
-                Size = new Size(215, pannelloStat.Height - 55),
-                FullRowSelect = true
-            };
-            listMetodi.Columns.Add("Metodo", 145);
-            listMetodi.Columns.Add("Qt", 45);
-
             // richiesta al DB
             using (var db = new PokedexAdaContext())
             {
@@ -924,20 +881,6 @@ namespace PokedexADA
                     listMetodi.Items.Add(new ListViewItem(new[] { m.Metodo, m.Conteggio.ToString() }));
                 }
             }
-
-            //componenti nel layout
-            pannelloStat.Controls.Add(lblColori);
-            pannelloStat.Controls.Add(lblMetodi);
-            pannelloStat.Controls.Add(listColori);
-            pannelloStat.Controls.Add(listMetodi);
-
-            pannelloStat.Location = new Point(lineaEvolutivaPokemonLayout.Left, descrizionePokemonTextBox.Top);
-
-            // Inseriamo il pannello 
-            visualizzaPokedex.Controls.Add(pannelloStat);
-
-            // Forziamo il pannello in primo piano 
-            pannelloStat.BringToFront();
         }
 
         private bool HaPokemonInSquadra(int idAllenatore)
