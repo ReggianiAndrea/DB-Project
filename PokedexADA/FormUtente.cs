@@ -162,9 +162,23 @@ namespace PokedexADA
                 {
                     cambiaImmagineProfiloPictureBox.Image = new Bitmap(@"..\..\..\res\questionmark.png");
                 }
+                if (giocatore.IdEsemplarePreferito != null)
+                {
+                    string immaginePreferito = (from p in db.Pokemons
+                                                join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
+                                                where ep.IdEsemplare == giocatore.IdEsemplarePreferito
+                                                select p.Immagine).First();
+                    cambiaPokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\" + immaginePreferito);
+                }
+                else
+                {
+                    cambiaPokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\questionmark.png");
+                }
+
                 List<int> esemplari = (from ep in db.EsemplarePokemons
                                        where idGiocatore == ep.IdGiocatoreProprietario
                                        select ep.IdEsemplare).ToList();
+                scegliPokemonPreferitoComboBox.Items.Clear();
                 foreach (int esemplare in esemplari){
                     scegliPokemonPreferitoComboBox.Items.Add(esemplare.ToString());
                 }
@@ -970,27 +984,27 @@ namespace PokedexADA
 
         private void scegliPokemonPreferitoComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            using var db = new PokedexAdaContext();
-            if (scegliPokemonPreferitoComboBox.SelectedIndex == -1)
+            if (scegliPokemonPreferitoComboBox.SelectedItem == null)
             {
-                scegliPokemonPreferitoComboBox.SelectedIndex = 0;
+                return;
             }
+            using var db = new PokedexAdaContext();
             Pokemon preferito = (from p in db.Pokemons
                                  join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
-                                 where ep.IdEsemplare == scegliPokemonPreferitoComboBox.SelectedIndex
+                                 where ep.IdEsemplare == Int32.Parse(scegliPokemonPreferitoComboBox.SelectedItem.ToString())
                                  select p).First();
             anteprimaPokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\" + preferito.Immagine);
         }
 
         private void cambiaPokemonPreferitoButton_Click(object sender, EventArgs e)
         {
-            if (anteprimaPokemonPreferitoPictureBox.Image == null)
+            if (anteprimaPokemonPreferitoPictureBox.Image == null || scegliPokemonPreferitoComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Seleziona un immagine", "Attenzione", MessageBoxButtons.OK);
                 return;
             }
             cambiaPokemonPreferitoPictureBox.Image = anteprimaPokemonPreferitoPictureBox.Image;
-            giocatore.CambiaPokemonPreferito(scegliPokemonPreferitoComboBox.SelectedIndex);
+            giocatore.CambiaPokemonPreferito(Int32.Parse(scegliPokemonPreferitoComboBox.SelectedItem.ToString()));
         }
     }
 }

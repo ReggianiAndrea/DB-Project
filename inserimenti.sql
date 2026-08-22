@@ -696,6 +696,8 @@ insert into AVVISTAMENTO values (1, 25);
 
 insert into CATTURA values (1, 25);
 
-insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 10, "2026-01-01", false, 'M', false, 25, 1, 1, null);
-insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 12, "2026-01-01", false, 'M', false, 3, 2, 1, null);
-insert into ESEMPLARE_POKEMON values (null, "Ash", "Ash", 14, "2026-01-01", true, 'M', false, 8, 3, 1, null);
+insert into ESEMPLARE_POKEMON values (1, "Ash", "Ash", 10, "2026-01-01", false, 'M', false, 25, 1, 1, null);
+insert into ESEMPLARE_POKEMON values (2, "Ash", "Ash", 12, "2026-01-01", false, 'M', false, 3, 2, 2, null);
+insert into ESEMPLARE_POKEMON values (3, "Ash", "Ash", 14, "2026-01-01", true, 'M', false, 8, 3, 3, null);
+
+update GIOCATORE set IdEsemplarePreferito = 2 where IdGiocatore = 2;
