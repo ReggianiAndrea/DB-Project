@@ -153,7 +153,7 @@ public partial class Giocatore
         pokemon.IdGiocatoreProprietario = IdGiocatore;
         pokemon.NomePrimoAllenatore = Nome;
         pokemon.NomeAllenatore = Nome;
-        pokemon.IdEsemplare = db.EsemplarePokemons.Count() + 1;
+        pokemon.IdEsemplare = db.EsemplarePokemons.Max(p => p.IdEsemplare) + 1;
         pokemon.Sesso = rand.Next(2) == 0 ? "M" : "F";
         pokemon.Livello = rand.Next(10, 35);
         int numeroPokemonInSquadra = (
@@ -300,14 +300,17 @@ public partial class Giocatore
 
         bool suaSquadraPronta = db.EsemplarePokemons.Any(e => e.IdGiocatoreProprietario == idGiocatoreSfidato && e.IdSquadra != null)
                                 || db.Squadras.Any(s => s.IdGiocatore == idGiocatoreSfidato);
+        bool tuaSquadraPronta = db.EsemplarePokemons.Any(e => e.IdGiocatoreProprietario == IdGiocatore && e.IdSquadra != null)
+                                || db.Squadras.Any(s => s.IdGiocatore == IdGiocatore);
 
-        if (!suaSquadraPronta)
+        if (!suaSquadraPronta || !tuaSquadraPronta)
         {
             return false;
         }
 
         Battaglia nuovaBattaglia = new Battaglia
         {
+            IdBattaglia = db.Battaglia.Max(b => b.IdBattaglia) + 1,
             IdGiocatoreSfidante = IdGiocatore,
             IdGiocatoreSfidato = idGiocatoreSfidato,
             Data = DateTime.Now,

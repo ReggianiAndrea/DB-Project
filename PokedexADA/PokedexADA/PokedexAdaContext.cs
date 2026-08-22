@@ -99,7 +99,7 @@ public partial class PokedexAdaContext : DbContext
 
             entity.HasIndex(e => new { e.IdGiocatoreSfidante, e.IdGiocatoreSfidato, e.Data }, "SID_BATTAGLIA_IND").IsUnique();
 
-            entity.Property(e => e.Data).HasColumnType("date");
+            entity.Property(e => e.Data).HasColumnType("datetime");
             entity.Property(e => e.Luogo).HasMaxLength(30);
             entity.Property(e => e.SfidanteVincitore)
                 .HasMaxLength(1)
