@@ -1,6 +1,6 @@
 ﻿namespace PokedexADA
 {
-    partial class Form1
+    partial class FormUtente
     {
         /// <summary>
         ///  Required designer variable.
@@ -34,6 +34,9 @@
             cercaGiocatoreGroupBox = new GroupBox();
             labelSquadraAmico = new Label();
             squadraAmicoListView = new ListView();
+            id = new ColumnHeader();
+            name = new ColumnHeader();
+            level = new ColumnHeader();
             pokemonPreferitoCercaGiocatoreLabel = new Label();
             cercaGiocatorePokemonPreferitoPictureBox = new PictureBox();
             cercaGiocatoreRimuoviButton = new Button();
@@ -113,7 +116,13 @@
             labelBox = new Label();
             labelSquadra = new Label();
             boxListView = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
             squadraListView = new ListView();
+            columnHeader4 = new ColumnHeader();
+            columnHeader5 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
             spostaInSquadraButton = new Button();
             spostaInBoxButton = new Button();
             battagliaTabPage = new TabPage();
@@ -122,15 +131,18 @@
             luogoLabel = new Label();
             luogoBattagliaComboBox = new ComboBox();
             cercaGiocatoreSfidaButton = new Button();
-            id = new ColumnHeader();
-            name = new ColumnHeader();
-            level = new ColumnHeader();
-            columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
-            columnHeader4 = new ColumnHeader();
-            columnHeader5 = new ColumnHeader();
-            columnHeader6 = new ColumnHeader();
+            personalizzaUtenteTabPage = new TabPage();
+            anteprimaImmagineProfiloPictureBox = new PictureBox();
+            pokemonPreferitoLabel = new Label();
+            immagineProfiloLabel = new Label();
+            scegliPokemonPreferitoLabel = new Label();
+            scegliImmagineProfiloLabel = new Label();
+            scegliPokemonPreferitoComboBox = new ComboBox();
+            scegliImmagineProfiloComboBox = new ComboBox();
+            cambiaPokemonPreferitoButton = new Button();
+            cambiaImmagineProfiloButton = new Button();
+            cambiaPokemonPreferitoPictureBox = new PictureBox();
+            cambiaImmagineProfiloPictureBox = new PictureBox();
             visualizzaAmici.SuspendLayout();
             cercaGiocatoreGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cercaGiocatorePokemonPreferitoPictureBox).BeginInit();
@@ -143,6 +155,10 @@
             battagliaTab.SuspendLayout();
             gestisciSquadraTab.SuspendLayout();
             battagliaTabPage.SuspendLayout();
+            personalizzaUtenteTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)anteprimaImmagineProfiloPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cambiaPokemonPreferitoPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cambiaImmagineProfiloPictureBox).BeginInit();
             SuspendLayout();
             // 
             // visualizzaAmici
@@ -225,6 +241,20 @@
             squadraAmicoListView.UseCompatibleStateImageBehavior = false;
             squadraAmicoListView.View = View.Details;
             // 
+            // id
+            // 
+            id.Text = "ID";
+            id.Width = 40;
+            // 
+            // name
+            // 
+            name.Text = "Nome";
+            name.Width = 130;
+            // 
+            // level
+            // 
+            level.Text = "Livello";
+            // 
             // pokemonPreferitoCercaGiocatoreLabel
             // 
             pokemonPreferitoCercaGiocatoreLabel.AutoSize = true;
@@ -240,7 +270,8 @@
             cercaGiocatorePokemonPreferitoPictureBox.Location = new Point(194, 120);
             cercaGiocatorePokemonPreferitoPictureBox.Margin = new Padding(2, 3, 2, 3);
             cercaGiocatorePokemonPreferitoPictureBox.Name = "cercaGiocatorePokemonPreferitoPictureBox";
-            cercaGiocatorePokemonPreferitoPictureBox.Size = new Size(97, 113);
+            cercaGiocatorePokemonPreferitoPictureBox.Size = new Size(85, 85);
+            cercaGiocatorePokemonPreferitoPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             cercaGiocatorePokemonPreferitoPictureBox.TabIndex = 8;
             cercaGiocatorePokemonPreferitoPictureBox.TabStop = false;
             // 
@@ -297,7 +328,8 @@
             cercaGiocatorePictureBox.Location = new Point(18, 33);
             cercaGiocatorePictureBox.Margin = new Padding(2, 3, 2, 3);
             cercaGiocatorePictureBox.Name = "cercaGiocatorePictureBox";
-            cercaGiocatorePictureBox.Size = new Size(171, 200);
+            cercaGiocatorePictureBox.Size = new Size(150, 150);
+            cercaGiocatorePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             cercaGiocatorePictureBox.TabIndex = 3;
             cercaGiocatorePictureBox.TabStop = false;
             // 
@@ -816,8 +848,8 @@
             pokedexPicture.Location = new Point(376, 8);
             pokedexPicture.Margin = new Padding(3, 4, 3, 4);
             pokedexPicture.Name = "pokedexPicture";
-            pokedexPicture.Size = new Size(257, 300);
-            pokedexPicture.SizeMode = PictureBoxSizeMode.CenterImage;
+            pokedexPicture.Size = new Size(225, 225);
+            pokedexPicture.SizeMode = PictureBoxSizeMode.StretchImage;
             pokedexPicture.TabIndex = 1;
             pokedexPicture.TabStop = false;
             // 
@@ -958,6 +990,7 @@
             battagliaTab.Controls.Add(visualizzaAmici);
             battagliaTab.Controls.Add(gestisciSquadraTab);
             battagliaTab.Controls.Add(battagliaTabPage);
+            battagliaTab.Controls.Add(personalizzaUtenteTabPage);
             battagliaTab.Dock = DockStyle.Fill;
             battagliaTab.Location = new Point(0, 0);
             battagliaTab.Margin = new Padding(3, 4, 3, 4);
@@ -1009,6 +1042,21 @@
             boxListView.UseCompatibleStateImageBehavior = false;
             boxListView.View = View.Details;
             // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "ID";
+            columnHeader1.Width = 40;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Nome";
+            columnHeader2.Width = 150;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Livello";
+            columnHeader3.Width = 80;
+            // 
             // squadraListView
             // 
             squadraListView.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6 });
@@ -1019,6 +1067,21 @@
             squadraListView.TabIndex = 3;
             squadraListView.UseCompatibleStateImageBehavior = false;
             squadraListView.View = View.Details;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "ID";
+            columnHeader4.Width = 40;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Nome";
+            columnHeader5.Width = 150;
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "Livello";
+            columnHeader6.Width = 80;
             // 
             // spostaInSquadraButton
             // 
@@ -1090,60 +1153,136 @@
             cercaGiocatoreSfidaButton.Text = "Sfida giocatore!";
             cercaGiocatoreSfidaButton.Click += CercaGiocatoreSfidaButton_Click;
             // 
-            // id
+            // personalizzaUtenteTabPage
             // 
-            id.Text = "ID";
-            id.Width = 40;
+            personalizzaUtenteTabPage.Controls.Add(anteprimaImmagineProfiloPictureBox);
+            personalizzaUtenteTabPage.Controls.Add(pokemonPreferitoLabel);
+            personalizzaUtenteTabPage.Controls.Add(immagineProfiloLabel);
+            personalizzaUtenteTabPage.Controls.Add(scegliPokemonPreferitoLabel);
+            personalizzaUtenteTabPage.Controls.Add(scegliImmagineProfiloLabel);
+            personalizzaUtenteTabPage.Controls.Add(scegliPokemonPreferitoComboBox);
+            personalizzaUtenteTabPage.Controls.Add(scegliImmagineProfiloComboBox);
+            personalizzaUtenteTabPage.Controls.Add(cambiaPokemonPreferitoButton);
+            personalizzaUtenteTabPage.Controls.Add(cambiaImmagineProfiloButton);
+            personalizzaUtenteTabPage.Controls.Add(cambiaPokemonPreferitoPictureBox);
+            personalizzaUtenteTabPage.Controls.Add(cambiaImmagineProfiloPictureBox);
+            personalizzaUtenteTabPage.Location = new Point(4, 24);
+            personalizzaUtenteTabPage.Name = "personalizzaUtenteTabPage";
+            personalizzaUtenteTabPage.Padding = new Padding(3);
+            personalizzaUtenteTabPage.Size = new Size(1121, 625);
+            personalizzaUtenteTabPage.TabIndex = 3;
+            personalizzaUtenteTabPage.Text = "Personalizza profilo";
+            personalizzaUtenteTabPage.UseVisualStyleBackColor = true;
             // 
-            // name
+            // anteprimaImmagineProfiloPictureBox
             // 
-            name.Text = "Nome";
-            name.Width = 130;
+            anteprimaImmagineProfiloPictureBox.Location = new Point(426, 39);
+            anteprimaImmagineProfiloPictureBox.Name = "anteprimaImmagineProfiloPictureBox";
+            anteprimaImmagineProfiloPictureBox.Size = new Size(100, 100);
+            anteprimaImmagineProfiloPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            anteprimaImmagineProfiloPictureBox.TabIndex = 10;
+            anteprimaImmagineProfiloPictureBox.TabStop = false;
             // 
-            // level
+            // pokemonPreferitoLabel
             // 
-            level.Text = "Livello";
+            pokemonPreferitoLabel.AutoSize = true;
+            pokemonPreferitoLabel.Location = new Point(214, 106);
+            pokemonPreferitoLabel.Name = "pokemonPreferitoLabel";
+            pokemonPreferitoLabel.Size = new Size(106, 15);
+            pokemonPreferitoLabel.TabIndex = 9;
+            pokemonPreferitoLabel.Text = "Pokemon preferito";
             // 
-            // columnHeader1
+            // immagineProfiloLabel
             // 
-            columnHeader1.Text = "ID";
-            columnHeader1.Width = 40;
+            immagineProfiloLabel.AutoSize = true;
+            immagineProfiloLabel.Location = new Point(8, 6);
+            immagineProfiloLabel.Name = "immagineProfiloLabel";
+            immagineProfiloLabel.Size = new Size(99, 15);
+            immagineProfiloLabel.TabIndex = 8;
+            immagineProfiloLabel.Text = "Immagine profilo";
             // 
-            // columnHeader2
+            // scegliPokemonPreferitoLabel
             // 
-            columnHeader2.Text = "Nome";
-            columnHeader2.Width = 150;
+            scegliPokemonPreferitoLabel.AutoSize = true;
+            scegliPokemonPreferitoLabel.Location = new Point(8, 248);
+            scegliPokemonPreferitoLabel.Name = "scegliPokemonPreferitoLabel";
+            scegliPokemonPreferitoLabel.Size = new Size(92, 15);
+            scegliPokemonPreferitoLabel.TabIndex = 7;
+            scegliPokemonPreferitoLabel.Text = "Scegli Pokemon";
             // 
-            // columnHeader3
+            // scegliImmagineProfiloLabel
             // 
-            columnHeader3.Text = "Livello";
-            columnHeader3.Width = 80;
+            scegliImmagineProfiloLabel.AutoSize = true;
+            scegliImmagineProfiloLabel.Location = new Point(426, 21);
+            scegliImmagineProfiloLabel.Name = "scegliImmagineProfiloLabel";
+            scegliImmagineProfiloLabel.Size = new Size(120, 15);
+            scegliImmagineProfiloLabel.TabIndex = 6;
+            scegliImmagineProfiloLabel.Text = "Anteprima immagine";
             // 
-            // columnHeader4
+            // scegliPokemonPreferitoComboBox
             // 
-            columnHeader4.Text = "ID";
-            columnHeader4.Width = 40;
+            scegliPokemonPreferitoComboBox.FormattingEnabled = true;
+            scegliPokemonPreferitoComboBox.Location = new Point(8, 266);
+            scegliPokemonPreferitoComboBox.Name = "scegliPokemonPreferitoComboBox";
+            scegliPokemonPreferitoComboBox.Size = new Size(121, 23);
+            scegliPokemonPreferitoComboBox.TabIndex = 5;
             // 
-            // columnHeader5
+            // scegliImmagineProfiloComboBox
             // 
-            columnHeader5.Text = "Nome";
-            columnHeader5.Width = 150;
+            scegliImmagineProfiloComboBox.FormattingEnabled = true;
+            scegliImmagineProfiloComboBox.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6" });
+            scegliImmagineProfiloComboBox.Location = new Point(426, 145);
+            scegliImmagineProfiloComboBox.Name = "scegliImmagineProfiloComboBox";
+            scegliImmagineProfiloComboBox.Size = new Size(121, 23);
+            scegliImmagineProfiloComboBox.TabIndex = 4;
+            scegliImmagineProfiloComboBox.SelectedIndexChanged += scegliImmagineProfiloComboBox_SelectedIndexChanged;
             // 
-            // columnHeader6
+            // cambiaPokemonPreferitoButton
             // 
-            columnHeader6.Text = "Livello";
-            columnHeader6.Width = 80;
+            cambiaPokemonPreferitoButton.Location = new Point(8, 295);
+            cambiaPokemonPreferitoButton.Name = "cambiaPokemonPreferitoButton";
+            cambiaPokemonPreferitoButton.Size = new Size(121, 48);
+            cambiaPokemonPreferitoButton.TabIndex = 3;
+            cambiaPokemonPreferitoButton.Text = "Cambia Pokemon preferito";
+            cambiaPokemonPreferitoButton.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // cambiaImmagineProfiloButton
+            // 
+            cambiaImmagineProfiloButton.Location = new Point(426, 174);
+            cambiaImmagineProfiloButton.Name = "cambiaImmagineProfiloButton";
+            cambiaImmagineProfiloButton.Size = new Size(123, 50);
+            cambiaImmagineProfiloButton.TabIndex = 2;
+            cambiaImmagineProfiloButton.Text = "Cambia immagine profilo";
+            cambiaImmagineProfiloButton.UseVisualStyleBackColor = true;
+            cambiaImmagineProfiloButton.Click += cambiaImmagineProfiloButton_Click;
+            // 
+            // cambiaPokemonPreferitoPictureBox
+            // 
+            cambiaPokemonPreferitoPictureBox.Location = new Point(214, 124);
+            cambiaPokemonPreferitoPictureBox.Name = "cambiaPokemonPreferitoPictureBox";
+            cambiaPokemonPreferitoPictureBox.Size = new Size(100, 100);
+            cambiaPokemonPreferitoPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            cambiaPokemonPreferitoPictureBox.TabIndex = 1;
+            cambiaPokemonPreferitoPictureBox.TabStop = false;
+            // 
+            // cambiaImmagineProfiloPictureBox
+            // 
+            cambiaImmagineProfiloPictureBox.Location = new Point(8, 24);
+            cambiaImmagineProfiloPictureBox.Name = "cambiaImmagineProfiloPictureBox";
+            cambiaImmagineProfiloPictureBox.Size = new Size(200, 200);
+            cambiaImmagineProfiloPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            cambiaImmagineProfiloPictureBox.TabIndex = 0;
+            cambiaImmagineProfiloPictureBox.TabStop = false;
+            // 
+            // FormUtente
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1290, 871);
             Controls.Add(battagliaTab);
             Cursor = Cursors.IBeam;
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "FormUtente";
+            Text = "FormUtente";
             visualizzaAmici.ResumeLayout(false);
             visualizzaAmici.PerformLayout();
             cercaGiocatoreGroupBox.ResumeLayout(false);
@@ -1162,6 +1301,11 @@
             gestisciSquadraTab.ResumeLayout(false);
             gestisciSquadraTab.PerformLayout();
             battagliaTabPage.ResumeLayout(false);
+            personalizzaUtenteTabPage.ResumeLayout(false);
+            personalizzaUtenteTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)anteprimaImmagineProfiloPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cambiaPokemonPreferitoPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cambiaImmagineProfiloPictureBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -1259,7 +1403,7 @@
         private ComboBox comboBox5;
         private ComboBox pokedexFiltraPerColoreComboBox;
         private ComboBox pokedexFiltraPerMossaComboBox;
-        private ComboBox comboBox2;
+        private ComboBox scegliPokemonPreferitoComboBox;
         private ComboBox pokedexFiltraPerAbilitaComboBox;
         private Label pokedexFiltraPerAbilitaLabel;
         private ColumnHeader id;
@@ -1271,5 +1415,16 @@
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
+        private TabPage personalizzaUtenteTabPage;
+        private Button cambiaPokemonPreferitoButton;
+        private Button cambiaImmagineProfiloButton;
+        private PictureBox cambiaPokemonPreferitoPictureBox;
+        private PictureBox cambiaImmagineProfiloPictureBox;
+        private ComboBox scegliImmagineProfiloComboBox;
+        private Label scegliPokemonPreferitoLabel;
+        private Label scegliImmagineProfiloLabel;
+        private Label immagineProfiloLabel;
+        private PictureBox anteprimaImmagineProfiloPictureBox;
+        private Label pokemonPreferitoLabel;
     }
 }

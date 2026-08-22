@@ -76,6 +76,21 @@ public partial class Giocatore
         return true;
     }
 
+    public void CambiaImmagineProfilo(string path)
+    {
+        using var db = new PokedexAdaContext();
+        db.Database.EnsureCreated();
+        try
+        {
+            Immagine = path;
+            db.Giocatores.Update(this);
+        }
+        finally
+        {
+            db.SaveChanges();
+        }
+    }
+
     public bool BloccaAmico(int idAmico)
     {
         return GestioneBloccoAmico(idAmico, true);
