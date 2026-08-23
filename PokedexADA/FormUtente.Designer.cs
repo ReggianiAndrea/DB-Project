@@ -311,7 +311,7 @@ namespace PokedexADA
             squadraAmicoListView.GridLines = true;
             squadraAmicoListView.Location = new Point(16, 251);
             squadraAmicoListView.Name = "squadraAmicoListView";
-            squadraAmicoListView.Size = new Size(360, 222);
+            squadraAmicoListView.Size = new Size(360, 298);
             squadraAmicoListView.TabIndex = 1;
             squadraAmicoListView.UseCompatibleStateImageBehavior = false;
             squadraAmicoListView.View = View.Details;
