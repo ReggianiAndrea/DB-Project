@@ -160,6 +160,22 @@ namespace PokedexADA
                 {
                     avversarioComboBox.SelectedIndex = 0;
                 }
+                storicoBattaglieListView.Items.Clear();
+                foreach (Battaglia b in giocatore.GetStoricoBattaglie())
+                {
+                    int idAvversario = b.IdGiocatoreSfidante == giocatore.IdGiocatore ? b.IdGiocatoreSfidato : b.IdGiocatoreSfidante;
+                    string nicknameAvversario = db.Giocatores.Where(g => g.IdGiocatore == idAvversario).Select(g => g.Nickname).First();
+                    bool vittoria;
+                    if (b.IdGiocatoreSfidante == giocatore.IdGiocatore)
+                    {
+                        vittoria = b.SfidanteVincitore;
+                    }
+                    else
+                    {
+                        vittoria = !b.SfidanteVincitore;
+                    }
+                    storicoBattaglieListView.Items.Add(new ListViewItem(new[] { nicknameAvversario, vittoria ? "Vittoria" : "Sconfitta", b.Luogo, b.Data.ToString() }));
+                }
             }
             else if (battagliaTab.SelectedTab == personalizzaUtenteTabPage)
             {
@@ -915,6 +931,8 @@ namespace PokedexADA
                             MessageBox.Show($"Hai sfidato {avversario.Nickname} a {luogo} e hai VINTO!", "Vittoria!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                             MessageBox.Show($"Hai sfidato {avversario.Nickname} a {luogo} ma sei stato SCONFITTO.", "Sconfitta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        storicoBattaglieListView.Items.Add(new ListViewItem(new[] { nicknameAvversario, hoVinto ? "Vittoria" : "Sconfitta", luogo, DateTime.Now.ToString() }));
                     }
                     else
                     {

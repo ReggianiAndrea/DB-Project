@@ -349,4 +349,15 @@ public partial class Giocatore
         }
 
     }
+
+    public List<Battaglia> GetStoricoBattaglie()
+    {
+        using var db = new PokedexAdaContext();
+        List<Battaglia> storicoBattaglie = (from b in db.Battaglia
+                                            where b.IdGiocatoreSfidante == IdGiocatore
+                                            || b.IdGiocatoreSfidato == IdGiocatore
+                                            orderby b.Data descending
+                                            select b).ToList();
+        return storicoBattaglie;
+    }
 }

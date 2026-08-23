@@ -146,6 +146,12 @@ namespace PokedexADA
             spostaInSquadraButton = new Button();
             spostaInBoxButton = new Button();
             battagliaTabPage = new TabPage();
+            label3 = new Label();
+            storicoBattaglieListView = new ListView();
+            columnHeader16 = new ColumnHeader();
+            columnHeader17 = new ColumnHeader();
+            columnHeader18 = new ColumnHeader();
+            columnHeader19 = new ColumnHeader();
             avversarioLabel = new Label();
             avversarioComboBox = new ComboBox();
             luogoLabel = new Label();
@@ -1257,6 +1263,8 @@ namespace PokedexADA
             // 
             // battagliaTabPage
             // 
+            battagliaTabPage.Controls.Add(label3);
+            battagliaTabPage.Controls.Add(storicoBattaglieListView);
             battagliaTabPage.Controls.Add(avversarioLabel);
             battagliaTabPage.Controls.Add(avversarioComboBox);
             battagliaTabPage.Controls.Add(luogoLabel);
@@ -1267,6 +1275,45 @@ namespace PokedexADA
             battagliaTabPage.Size = new Size(1121, 625);
             battagliaTabPage.TabIndex = 0;
             battagliaTabPage.Text = "Battaglia";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(412, 17);
+            label3.Name = "label3";
+            label3.Size = new Size(93, 15);
+            label3.TabIndex = 6;
+            label3.Text = "Storico battaglie";
+            // 
+            // storicoBattaglieListView
+            // 
+            storicoBattaglieListView.Columns.AddRange(new ColumnHeader[] { columnHeader16, columnHeader17, columnHeader18, columnHeader19 });
+            storicoBattaglieListView.GridLines = true;
+            storicoBattaglieListView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            storicoBattaglieListView.Location = new Point(412, 35);
+            storicoBattaglieListView.Name = "storicoBattaglieListView";
+            storicoBattaglieListView.Size = new Size(405, 582);
+            storicoBattaglieListView.TabIndex = 5;
+            storicoBattaglieListView.UseCompatibleStateImageBehavior = false;
+            storicoBattaglieListView.View = View.Details;
+            // 
+            // columnHeader16
+            // 
+            columnHeader16.Text = "Avversario";
+            columnHeader16.Width = 120;
+            // 
+            // columnHeader17
+            // 
+            columnHeader17.Text = "Risultato";
+            // 
+            // columnHeader18
+            // 
+            columnHeader18.Text = "Luogo";
+            // 
+            // columnHeader19
+            // 
+            columnHeader19.Text = "Data";
+            columnHeader19.Width = 150;
             // 
             // avversarioLabel
             // 
@@ -1489,6 +1536,7 @@ namespace PokedexADA
             gestisciSquadraTab.ResumeLayout(false);
             gestisciSquadraTab.PerformLayout();
             battagliaTabPage.ResumeLayout(false);
+            battagliaTabPage.PerformLayout();
             personalizzaUtenteTabPage.ResumeLayout(false);
             personalizzaUtenteTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)anteprimaPokemonPreferitoPictureBox).EndInit();
@@ -1635,5 +1683,11 @@ namespace PokedexADA
         private ColumnHeader columnHeader15;
         private ColumnHeader columnHeader14;
         private Label profiloCromaticoLabel;
+        private Label label3;
+        private ListView storicoBattaglieListView;
+        private ColumnHeader columnHeader16;
+        private ColumnHeader columnHeader17;
+        private ColumnHeader columnHeader18;
+        private ColumnHeader columnHeader19;
     }
 }
