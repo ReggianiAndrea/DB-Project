@@ -136,41 +136,29 @@ public partial class Giocatore
         }
     }
 
-    public bool TentaCattura(int numeroPokemon, double catchRate)
+    public bool TentaCattura(EsemplarePokemon pokemon, double catchRate)
     {
         if (new Random().NextDouble() < catchRate)
         {
-            Cattura(numeroPokemon);
+            Cattura(pokemon);
             return true;
         }
         else
         {
-            CatturaFallita(numeroPokemon);
             return false;
         }
     }
 
-    private void Cattura(int numeroPokemon)
+    private void Cattura(EsemplarePokemon pokemon)
     {
         using var db = new PokedexAdaContext();
         db.Database.EnsureCreated();
         bool catturato = (
             from g in db.Giocatores
             from pok in g.NumeroPokemonCatturati
-            where pok.NumeroPokemon == numeroPokemon
+            where pok.NumeroPokemon == pokemon.NumeroPokemon
             select pok.NumeroPokemon)
             .Any();
-        EsemplarePokemon pokemon = new EsemplarePokemon();
-        Random rand = new Random(DateTime.Now.Second);
-        pokemon.Cromatico = rand.Next(4096) == 0;
-        pokemon.DataCattura = DateTime.Now;
-        pokemon.NumeroPokemon = numeroPokemon;
-        pokemon.IdGiocatoreProprietario = IdGiocatore;
-        pokemon.NomePrimoAllenatore = Nome;
-        pokemon.NomeAllenatore = Nome;
-        pokemon.IdEsemplare = db.EsemplarePokemons.Max(p => p.IdEsemplare) + 1;
-        pokemon.Sesso = rand.Next(2) == 0 ? "M" : "F";
-        pokemon.Livello = rand.Next(10, 35);
         int numeroPokemonInSquadra = (
             from s in db.Squadras
             from p in s.EsemplarePokemons
@@ -178,6 +166,11 @@ public partial class Giocatore
             && p.IdSquadra == s.IdGiocatore
             select p
             ).Count();
+        pokemon.IdEsemplare = db.EsemplarePokemons.Max(p => p.IdEsemplare) + 1;
+        pokemon.DataCattura = DateTime.Now;
+        pokemon.IdGiocatoreProprietario = IdGiocatore;
+        pokemon.NomePrimoAllenatore = Nome;
+        pokemon.NomeAllenatore = Nome;
         if (numeroPokemonInSquadra < 6)
         {
             pokemon.IdSquadra = IdGiocatore;
@@ -194,24 +187,7 @@ public partial class Giocatore
         db.SaveChanges();
         if (!catturato)
         {
-            db.Database.ExecuteSql($"INSERT INTO CATTURA VALUES ({IdGiocatore}, {numeroPokemon})");
-            db.SaveChanges();
-        }
-    }
-
-    private void CatturaFallita(int numeroPokemon)
-    {
-        using var db = new PokedexAdaContext();
-        db.Database.EnsureCreated();
-        bool visto = (
-            from g in db.Giocatores
-            from pok in g.NumeroPokemonAvvistati
-            where pok.NumeroPokemon == numeroPokemon
-            select pok.NumeroPokemon)
-            .Any();
-        if (!visto)
-        {
-            db.Database.ExecuteSql($"INSERT INTO AVVISTAMENTO VALUES ({IdGiocatore}, {numeroPokemon})");
+            db.Database.ExecuteSql($"INSERT INTO CATTURA VALUES ({IdGiocatore}, {pokemon.NumeroPokemon})");
             db.SaveChanges();
         }
     }

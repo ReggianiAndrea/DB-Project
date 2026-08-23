@@ -12,6 +12,7 @@ namespace PokedexADA
         int idGiocatore = 1;
         Giocatore giocatore;
         Giocatore? giocatoreSelezionato;
+        EsemplarePokemon? pokemonTrovato;
 
         private Button? btnMostraShinyGiocatore;
 
@@ -26,6 +27,7 @@ namespace PokedexADA
             GeneraPannelloStatistiche();
 
             using var db = new PokedexAdaContext();
+            pokemonDisponibiliBox.SelectedIndex = 0;
             pokemonDisponibiliBox.Items.AddRange(db.Pokemons.Select(p => p.Nome).ToArray());
             giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
 
@@ -153,7 +155,6 @@ namespace PokedexADA
             }
             else if (battagliaTab.SelectedTab == personalizzaUtenteTabPage)
             {
-
                 using var db = new PokedexAdaContext();
                 string image = db.Giocatores.Where(g => g.IdGiocatore == giocatore.IdGiocatore).Select(g => g.Immagine).First();
                 if (File.Exists(@"..\..\..\res\" + image))
@@ -187,47 +188,63 @@ namespace PokedexADA
             }
         }
 
-        private void CercaPokemonSelezionatoButtonOnClick(object sender, EventArgs e)
+        private void CercaPokemonButtonOnClick(object sender, EventArgs e)
         {
-            if (pokemonDisponibiliBox.SelectedIndex == -1)
+            if (pokemonDisponibiliBox.SelectedItem == null)
             {
-                outputBox.Text = "Prima seleziona un pokemon";
+                MessageBox.Show("Scelta invalida", "Attenzione", MessageBoxButtons.OK);
                 return;
             }
+            int id;
             using var db = new PokedexAdaContext();
-            Pokemon pokemon = db.Pokemons.ElementAt(pokemonDisponibiliBox.SelectedIndex);
+            if (pokemonDisponibiliBox.SelectedItem.ToString() == "Qualsiasi")
+            {
+                id = new Random().Next(db.Pokemons.Count());
+            }
+            else
+            {
+                id = pokemonDisponibiliBox.SelectedIndex;
+            }
+            Pokemon pokemon = db.Pokemons.ElementAt(id - 1);
+            pokemonDisponibiliBox.SelectedIndex = id;
             giocatore.Incontra(pokemon.NumeroPokemon);
-            outputBox.Text = $"{giocatore.Nickname} ha incontrato {pokemon.Nome}\n";
+            pokemonTrovato = TrovaPokemon(pokemon);
+            outputBox.Text = $"{giocatore.Nickname} ha incontrato {pokemon.Nome}" + (pokemonTrovato.Cromatico ? " shiny!" : "") + "\n";
+            outputBox.Text += $"Dettagli:\n - Livello: {pokemonTrovato.Livello}\n - Sesso: {pokemonTrovato.Sesso}\n";
             tentaCatturaButton.Enabled = true;
         }
 
-        private void CercaPokemonButtonOnClick(object sender, EventArgs e)
+        private EsemplarePokemon TrovaPokemon(Pokemon pokemon)
         {
             using var db = new PokedexAdaContext();
-            int id = new Random().Next(db.Pokemons.Count());
-            Pokemon pokemon = db.Pokemons.ElementAt(id);
-            pokemonDisponibiliBox.SelectedIndex = id;
-            giocatore.Incontra(pokemon.NumeroPokemon);
-            outputBox.Text = $"{giocatore.Nickname} ha incontrato {pokemon.Nome}\n";
-            tentaCatturaButton.Enabled = true;
+            EsemplarePokemon esemplareTrovato;
+            Random rand = new Random(DateTime.Now.Second);
+            esemplareTrovato = new EsemplarePokemon();
+            esemplareTrovato.Cromatico = shinyCheckBox.Checked;
+            esemplareTrovato.NumeroPokemon = pokemon.NumeroPokemon;
+            esemplareTrovato.Sesso = rand.Next(2) == 0 ? "M" : "F";
+            esemplareTrovato.Livello = rand.Next(10, 35);
+            return esemplareTrovato;
         }
 
         private void TentaCatturaButtonOnClick(object sender, EventArgs e)
         {
+            if (pokemonTrovato == null)
+                return;
             using var db = new PokedexAdaContext();
             double catchRate = 0.5;
             int id = pokemonDisponibiliBox.SelectedIndex;
-            Pokemon pokemon = db.Pokemons.ElementAt(id);
-            string nome = pokemon.Nome;
-            bool catturato = giocatore.TentaCattura(pokemon.NumeroPokemon, catchRate);
+            Pokemon pokemon = db.Pokemons.Where(p => p.NumeroPokemon == pokemonTrovato.NumeroPokemon).First();
+            bool catturato = giocatore.TentaCattura(pokemonTrovato, catchRate);
             if (catturato)
             {
-                outputBox.Text += $"{giocatore.Nickname} ha catturato {nome}\n";
+                outputBox.Text += $"{giocatore.Nickname} ha catturato {pokemon.Nome}\n";
                 tentaCatturaButton.Enabled = false;
+                pokemonTrovato = null;
             }
             else
             {
-                outputBox.Text += $"{giocatore.Nickname} ha fallito la cattura di {nome}\n";
+                outputBox.Text += $"{giocatore.Nickname} ha fallito la cattura di {pokemon.Nome}\n";
             }
         }
 
@@ -445,6 +462,22 @@ namespace PokedexADA
                     amiciList.Items[i].SubItems[1].Text = a.Bloccato ? "bloccato" : "";
                 }
             }
+            var classificaShiny = (from ep in db.EsemplarePokemons
+                                   join g in db.Giocatores on ep.IdGiocatoreProprietario equals g.IdGiocatore
+                                   where ep.Cromatico == true
+                                   group ep by g.Nickname into gShiny
+                                   orderby gShiny.Count() descending
+                                   select new { Nickname = gShiny.Key, Conteggio = gShiny.Count() }).ToList();
+
+            listShiny.Items.Clear();
+            foreach (var s in classificaShiny)
+            {
+                listShiny.Items.Add(new ListViewItem(new[] { s.Nickname, s.Conteggio.ToString() }));
+            }
+            if (classificaShiny.Count == 0)
+            {
+                listShiny.Items.Add(new ListViewItem(new[] { "Nessuno", "0" }));
+            }
         }
 
         private void SelezionaPokedex()
@@ -479,7 +512,6 @@ namespace PokedexADA
 
             squadraAmicoListView.Items.Clear();
 
-            using var db = new PokedexAdaContext();
             if (amico == null)
             {
                 cercaGiocatoreFallitaLabel.Text = "Giocatore non trovato";
@@ -494,6 +526,7 @@ namespace PokedexADA
             {
                 cercaGiocatorePictureBox.Image = new Bitmap(@"..\..\..\res\questionmark.png");
             }
+            using var db = new PokedexAdaContext();
             if (amico.IdEsemplarePreferito != null)
             {
                 Pokemon preferito = (from p in db.Pokemons
@@ -936,59 +969,6 @@ namespace PokedexADA
                 {
                     listMetodi.Items.Add(new ListViewItem(new[] { m.Metodo, m.Conteggio.ToString() }));
                 }
-
-                //Raggruppa per Allenatore e conta gli Shiny, in ordine decrescente
-                var classificaShiny = (from ep in db.EsemplarePokemons
-                                       join g in db.Giocatores on ep.IdGiocatoreProprietario equals g.IdGiocatore
-                                       where ep.Cromatico == true
-                                       group ep by g.Nickname into gShiny
-                                       orderby gShiny.Count() descending
-                                       select new { Nickname = gShiny.Key, Conteggio = gShiny.Count() }).ToList();
-
-                // Creazione dinamica del GroupBox
-                GroupBox boxShiny = new GroupBox
-                {
-                    Text = "Allenatori con Pokémon Shiny ",
-                    AutoSize = false,
-                    Width = 260,
-                    Height = 180
-                };
-
-                ListView listShiny = new ListView
-                {
-                    View = View.Details,
-                    FullRowSelect = true,
-                    GridLines = true,
-                    Dock = DockStyle.Fill,
-                    Location = new Point(15, 30),
-                    Size = new Size(230, Height - 45),
-                    HeaderStyle = ColumnHeaderStyle.Nonclickable
-                };
-                listShiny.Columns.Add("Allenatore", 130);
-                listShiny.Columns.Add("Qt.", 60);
-
-                // Popolamento della tabella
-                foreach (var s in classificaShiny)
-                {
-                    listShiny.Items.Add(new ListViewItem(new[] { s.Nickname, s.Conteggio.ToString() }));
-                }
-
-                // Se nessun giocatore ha uno shiny, inseriamo una riga vuota informativa
-                if (classificaShiny.Count == 0)
-                {
-                    listShiny.Items.Add(new ListViewItem(new[] { "Nessuno", "0" }));
-                }
-
-                // tabella dentro il GroupBox
-                boxShiny.Controls.Add(listShiny);
-
-                if (listMetodi.Parent != null)
-                {
-                    boxShiny.Location = new Point(listMetodi.Parent.Location.X + listMetodi.Parent.Width + 20, listMetodi.Parent.Location.Y);
-                }
-
-                visualizzaPokedex.Controls.Add(boxShiny);
-                boxShiny.BringToFront();
             }
         }
 
