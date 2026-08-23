@@ -127,6 +127,7 @@ public partial class Giocatore
             from g in db.Giocatores
             from pok in g.NumeroPokemonAvvistati
             where pok.NumeroPokemon == numeroPokemon
+            && g.IdGiocatore == IdGiocatore
             select pok.NumeroPokemon)
             .Any();
         if (!visto)
@@ -157,6 +158,7 @@ public partial class Giocatore
             from g in db.Giocatores
             from pok in g.NumeroPokemonCatturati
             where pok.NumeroPokemon == pokemon.NumeroPokemon
+            && g.IdGiocatore == IdGiocatore
             select pok.NumeroPokemon)
             .Any();
         int numeroPokemonInSquadra = (
@@ -205,6 +207,7 @@ public partial class Giocatore
         List<Pokemon> pokemonIncontrati = (
             from g in db.Giocatores
             from p in g.NumeroPokemonAvvistati
+            where g.IdGiocatore == IdGiocatore
             select p)
             .ToList();
         return pokemonIncontrati;
@@ -216,6 +219,7 @@ public partial class Giocatore
         List<Pokemon> pokemonCatturati = (
             from g in db.Giocatores
             from p in g.NumeroPokemonCatturati
+            where g.IdGiocatore == IdGiocatore
             select p)
             .ToList();
         return pokemonCatturati;

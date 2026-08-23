@@ -28,12 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FormSelezioneRuolo";
+            nomeUtenteTextBox = new TextBox();
+            label1 = new Label();
+            SuspendLayout();
+            // 
+            // nomeUtenteTextBox
+            // 
+            nomeUtenteTextBox.Location = new Point(220, 30);
+            nomeUtenteTextBox.Name = "nomeUtenteTextBox";
+            nomeUtenteTextBox.PlaceholderText = "Inserisci nome utente";
+            nomeUtenteTextBox.Size = new Size(280, 23);
+            nomeUtenteTextBox.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(220, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(77, 15);
+            label1.TabIndex = 1;
+            label1.Text = "Nome utente";
+            // 
+            // FormSelezioneRuolo
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(label1);
+            Controls.Add(nomeUtenteTextBox);
+            Name = "FormSelezioneRuolo";
+            Text = "FormSelezioneRuolo";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private TextBox nomeUtenteTextBox;
+        private Label label1;
     }
 }

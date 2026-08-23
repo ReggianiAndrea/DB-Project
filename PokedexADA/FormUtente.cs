@@ -9,15 +9,25 @@ namespace PokedexADA
     {
         Dictionary<int, int> mapPokedexToGUIList = new Dictionary<int, int>();
 
-        int idGiocatore = 1;
         Giocatore giocatore;
         Giocatore? giocatoreSelezionato;
         EsemplarePokemon? pokemonTrovato;
 
         private Button? btnMostraShinyGiocatore;
 
-        public FormUtente()
+        public FormUtente(int idGiocatore)
         {
+            using var db = new PokedexAdaContext();
+            try
+            {
+                giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Giocatore non valido... Chiusura applicazione");
+                Application.Exit();
+            }
+
             InitializeComponent();
             amiciList.SelectedIndexChanged += amiciList_SelectedIndexChanged;
 
@@ -26,10 +36,8 @@ namespace PokedexADA
 
             GeneraPannelloStatistiche();
 
-            using var db = new PokedexAdaContext();
             pokemonDisponibiliBox.SelectedIndex = 0;
             pokemonDisponibiliBox.Items.AddRange(db.Pokemons.Select(p => p.Nome).ToArray());
-            giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
 
             foreach (Pokemon p in db.Pokemons.OrderBy(pk => pk.NumeroPokemon))
             {
@@ -38,7 +46,7 @@ namespace PokedexADA
                 mapPokedexToGUIList.Add(p.NumeroPokemon, pokedexList.Items.Count - 1);
             }
 
-            foreach (Amicizia a in db.Amicizia)
+            foreach (Amicizia a in giocatore.AmiciziaIdGiocatoreAmicoNavigations)
             {
                 using var context = new PokedexAdaContext();
                 Giocatore g = context.Giocatores.Where(g => g.IdGiocatore == a.IdGiocatoreAmico).First();
@@ -80,7 +88,7 @@ namespace PokedexADA
             {
                 var amiciLista = (from a in db.Amicizia
                                   join g in db.Giocatores on a.IdGiocatoreAmico equals g.IdGiocatore
-                                  where a.IdGiocatore == idGiocatore && !a.Bloccato
+                                  where a.IdGiocatore == giocatore.IdGiocatore && !a.Bloccato
                                   select g.Nickname).ToList();
 
                 if (amiciLista.Count > 0)
@@ -94,7 +102,7 @@ namespace PokedexADA
             {
                 var amiciLista = (from a in db.Amicizia
                                   join g in db.Giocatores on a.IdGiocatoreAmico equals g.IdGiocatore
-                                  where a.IdGiocatore == idGiocatore && !a.Bloccato
+                                  where a.IdGiocatore == giocatore.IdGiocatore && !a.Bloccato
                                   select g.Nickname)
                                  .Distinct()
                                  .ToList();
@@ -143,7 +151,7 @@ namespace PokedexADA
                     from g in db.Giocatores
                     from a in g.AmiciziaIdGiocatoreNavigations
                     from g2 in db.Giocatores
-                    where g.IdGiocatore == idGiocatore && !a.Bloccato && g2.IdGiocatore == a.IdGiocatoreAmico
+                    where g.IdGiocatore == giocatore.IdGiocatore && !a.Bloccato && g2.IdGiocatore == a.IdGiocatoreAmico
                     select g2.Nickname);
 
                 avversarioComboBox.Items.Clear();
@@ -172,6 +180,8 @@ namespace PokedexADA
                                                 where ep.IdEsemplare == giocatore.IdEsemplarePreferito
                                                 select p.Immagine).First();
                     cambiaPokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\" + immaginePreferito);
+                    bool esemplareShiny = db.EsemplarePokemons.Where(ep => ep.IdEsemplare == giocatore.IdEsemplarePreferito).Select(ep => ep.Cromatico).First();
+                    profiloCromaticoLabel.Text = esemplareShiny ? "\u2728" : "";
                 }
                 else
                 {
@@ -179,7 +189,7 @@ namespace PokedexADA
                 }
 
                 List<int> esemplari = (from ep in db.EsemplarePokemons
-                                       where idGiocatore == ep.IdGiocatoreProprietario
+                                       where giocatore.IdGiocatore == ep.IdGiocatoreProprietario
                                        select ep.IdEsemplare).ToList();
                 scegliPokemonPreferitoComboBox.Items.Clear();
                 foreach (int esemplare in esemplari){
@@ -203,9 +213,9 @@ namespace PokedexADA
             }
             else
             {
-                id = pokemonDisponibiliBox.SelectedIndex;
+                id = pokemonDisponibiliBox.SelectedIndex - 1;
             }
-            Pokemon pokemon = db.Pokemons.ElementAt(id - 1);
+            Pokemon pokemon = db.Pokemons.ElementAt(id);
             giocatore.Incontra(pokemon.NumeroPokemon);
             pokemonTrovato = TrovaPokemon(pokemon);
             outputBox.Text = $"{giocatore.Nickname} ha incontrato {pokemon.Nome}" + (pokemonTrovato.Cromatico ? " shiny!" : "") + "\n";
@@ -292,16 +302,8 @@ namespace PokedexADA
             string velocita = "???";
             string totale = "???";
             string descrizione = "";
-            List<Pokemon> pokemonVisti = (
-                from g in db.Giocatores
-                from p in g.NumeroPokemonAvvistati
-                select p)
-                .ToList();
-            List<Pokemon> pokemonCatturati = (
-                from g in db.Giocatores
-                from p in g.NumeroPokemonCatturati
-                select p)
-                .ToList();
+            List<Pokemon> pokemonVisti = giocatore.GetPokemonIncontrati();
+            List<Pokemon> pokemonCatturati = giocatore.GetPokemonCatturati();
             bool visto = pokemonVisti.Where(p => p.NumeroPokemon == pokemon.NumeroPokemon).Any();
             bool catturato = pokemonCatturati.Where(p => p.NumeroPokemon == pokemon.NumeroPokemon).Any();
             if (!visto)
@@ -451,9 +453,9 @@ namespace PokedexADA
         private void SelezionaListaAmici()
         {
             using var db = new PokedexAdaContext();
-            for (int i = 0; i < db.Amicizia.Count(); i++)
+            for (int i = 0; i < giocatore.AmiciziaIdGiocatoreNavigations.Count(); i++)
             {
-                Amicizia a = db.Amicizia.ElementAt(i);
+                Amicizia a = giocatore.AmiciziaIdGiocatoreNavigations.ElementAt(i);
                 Giocatore g = db.Giocatores.Where(g => g.IdGiocatore == a.IdGiocatoreAmico).First();
                 if (i < amiciList.Items.Count)
                 {
@@ -532,7 +534,9 @@ namespace PokedexADA
                                      join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
                                      where ep.IdEsemplare == amico.IdEsemplarePreferito
                                      select p).First();
+                bool esemplareShiny = db.EsemplarePokemons.Where(ep => ep.IdEsemplare == amico.IdEsemplarePreferito).Select(ep => ep.Cromatico).First();
                 cercaGiocatorePokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\" + preferito.Immagine);
+                amicoCromaticoLabel.Text = esemplareShiny ? "\u2728" : "";
             }
             else
             {
@@ -543,11 +547,11 @@ namespace PokedexADA
             cognomeCercaGiocatoreLabel.Text = $"Cognome: {amico.Cognome}";
             nicknameCercaGiocatoreLabel.Text = $"Nickname: {amico.Nickname}";
 
-            var datiEsemplari = new List<(int IdEsemplare, int Livello, int NumeroPokemon)>();
+            var datiEsemplari = new List<(int IdEsemplare, int Livello, int NumeroPokemon, bool Cromatico)>();
 
             using (var command = db.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "SELECT IdEsemplare, Livello, NumeroPokemon FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idAmico AND IdSquadra IS NOT NULL";
+                command.CommandText = "SELECT IdEsemplare, Livello, NumeroPokemon, Cromatico FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idAmico AND IdSquadra IS NOT NULL";
 
                 var parameter = command.CreateParameter();
                 parameter.ParameterName = "@idAmico";
@@ -560,7 +564,7 @@ namespace PokedexADA
                 using var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    datiEsemplari.Add((reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
+                    datiEsemplari.Add((reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetBoolean(3)));
                 }
             }
 
@@ -571,7 +575,7 @@ namespace PokedexADA
                     .Select(pk => pk.Nome)
                     .FirstOrDefault() ?? "Sconosciuto";
 
-                var item = new ListViewItem(new[] { p.IdEsemplare.ToString(), nomePokemon, p.Livello.ToString() });
+                var item = new ListViewItem(new[] { p.IdEsemplare.ToString(), nomePokemon, p.Livello.ToString(), p.Cromatico ? "\u2728" : "" });
                 squadraAmicoListView.Items.Add(item);
             }
 
@@ -598,7 +602,7 @@ namespace PokedexADA
             btnMostraShinyGiocatore.Tag = amico.IdGiocatore; // Salviamo l'ID dell'amico nel bottone
             btnMostraShinyGiocatore.Show();
 
-            var amicizia = db.Amicizia.FirstOrDefault(a => a.IdGiocatore == idGiocatore && a.IdGiocatoreAmico == amico.IdGiocatore);
+            var amicizia = db.Amicizia.FirstOrDefault(a => a.IdGiocatore == giocatore.IdGiocatore && a.IdGiocatoreAmico == amico.IdGiocatore);
             if (amicizia != null)
             {
                 cercaGiocatoreRimuoviButton.Show();
@@ -798,15 +802,15 @@ namespace PokedexADA
 
             using var db = new PokedexAdaContext();
 
-            var esemplariGrezzi = new List<(int IdEsemplare, int Livello, int NumeroPokemon, int? IdSquadra)>();
+            var esemplariGrezzi = new List<(int IdEsemplare, int Livello, int NumeroPokemon, int? IdSquadra, bool Cromatico)>();
 
             using (var command = db.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "SELECT IdEsemplare, Livello, NumeroPokemon, IdSquadra FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idGiocatore";
+                command.CommandText = "SELECT IdEsemplare, Livello, NumeroPokemon, IdSquadra, Cromatico FROM esemplare_pokemon WHERE IdGiocatoreProprietario = @idGiocatore";
 
                 var parameter = command.CreateParameter();
                 parameter.ParameterName = "@idGiocatore";
-                parameter.Value = idGiocatore;
+                parameter.Value = giocatore.IdGiocatore;
                 command.Parameters.Add(parameter);
 
                 if (command.Connection.State != System.Data.ConnectionState.Open)
@@ -819,8 +823,9 @@ namespace PokedexADA
                     int livello = reader.GetInt32(1);
                     int numeroPoke = reader.GetInt32(2);
                     int? idSquadra = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3);
+                    bool cromatico = reader.GetBoolean(4);
 
-                    esemplariGrezzi.Add((idEs, livello, numeroPoke, idSquadra));
+                    esemplariGrezzi.Add((idEs, livello, numeroPoke, idSquadra, cromatico));
                 }
             }
 
@@ -831,7 +836,7 @@ namespace PokedexADA
                     .Select(pk => pk.Nome)
                     .FirstOrDefault() ?? "Sconosciuto";
 
-                var item = new ListViewItem(new[] { e.IdEsemplare.ToString(), nomePokemon, e.Livello.ToString() });
+                var item = new ListViewItem(new[] { e.IdEsemplare.ToString(), nomePokemon, e.Livello.ToString(), e.Cromatico ? "\u2728" : "" });
                 item.Tag = e.IdEsemplare;
 
                 if (e.IdSquadra != null)
@@ -885,7 +890,7 @@ namespace PokedexADA
             if (avversario != null)
             {
                 // Il giocatore attuale ha almeno un Pokémon in squadra?
-                if (!HaPokemonInSquadra(idGiocatore))
+                if (!HaPokemonInSquadra(giocatore.IdGiocatore))
                 {
                     MessageBox.Show("Non puoi lottare! Devi avere almeno un Pokémon nella tua squadra attiva.", "La tua Squadra è vuota", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -1036,6 +1041,9 @@ namespace PokedexADA
             }
             cambiaPokemonPreferitoPictureBox.Image = anteprimaPokemonPreferitoPictureBox.Image;
             giocatore.CambiaPokemonPreferito(Int32.Parse(scegliPokemonPreferitoComboBox.SelectedItem.ToString()));
+            using var db = new PokedexAdaContext();
+            bool esemplareShiny = db.EsemplarePokemons.Where(ep => ep.IdEsemplare == giocatore.IdEsemplarePreferito).Select(ep => ep.Cromatico).First();
+            profiloCromaticoLabel.Text = esemplareShiny ? "\u2728" : "";
         }
     }
 }

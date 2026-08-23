@@ -39,11 +39,13 @@ namespace PokedexADA
             cercaGiocatoreFallitaLabel = new Label();
             cercaGiocatoreButton = new Button();
             cercaGiocatoreGroupBox = new GroupBox();
+            amicoCromaticoLabel = new Label();
             labelSquadraAmico = new Label();
             squadraAmicoListView = new ListView();
             id = new ColumnHeader();
             name = new ColumnHeader();
             level = new ColumnHeader();
+            columnHeader13 = new ColumnHeader();
             pokemonPreferitoCercaGiocatoreLabel = new Label();
             cercaGiocatorePokemonPreferitoPictureBox = new PictureBox();
             cercaGiocatoreRimuoviButton = new Button();
@@ -135,10 +137,12 @@ namespace PokedexADA
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
+            columnHeader15 = new ColumnHeader();
             squadraListView = new ListView();
             columnHeader4 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
             columnHeader6 = new ColumnHeader();
+            columnHeader14 = new ColumnHeader();
             spostaInSquadraButton = new Button();
             spostaInBoxButton = new Button();
             battagliaTabPage = new TabPage();
@@ -148,6 +152,7 @@ namespace PokedexADA
             luogoBattagliaComboBox = new ComboBox();
             cercaGiocatoreSfidaButton = new Button();
             personalizzaUtenteTabPage = new TabPage();
+            profiloCromaticoLabel = new Label();
             label2 = new Label();
             anteprimaPokemonPreferitoPictureBox = new PictureBox();
             anteprimaImmagineProfiloPictureBox = new PictureBox();
@@ -253,6 +258,7 @@ namespace PokedexADA
             // 
             // cercaGiocatoreGroupBox
             // 
+            cercaGiocatoreGroupBox.Controls.Add(amicoCromaticoLabel);
             cercaGiocatoreGroupBox.Controls.Add(labelSquadraAmico);
             cercaGiocatoreGroupBox.Controls.Add(squadraAmicoListView);
             cercaGiocatoreGroupBox.Controls.Add(pokemonPreferitoCercaGiocatoreLabel);
@@ -275,6 +281,14 @@ namespace PokedexADA
             cercaGiocatoreGroupBox.Text = "Giocatore";
             cercaGiocatoreGroupBox.Visible = false;
             // 
+            // amicoCromaticoLabel
+            // 
+            amicoCromaticoLabel.AutoSize = true;
+            amicoCromaticoLabel.Location = new Point(260, 160);
+            amicoCromaticoLabel.Name = "amicoCromaticoLabel";
+            amicoCromaticoLabel.Size = new Size(0, 15);
+            amicoCromaticoLabel.TabIndex = 10;
+            // 
             // labelSquadraAmico
             // 
             labelSquadraAmico.AutoSize = true;
@@ -286,7 +300,7 @@ namespace PokedexADA
             // 
             // squadraAmicoListView
             // 
-            squadraAmicoListView.Columns.AddRange(new ColumnHeader[] { id, name, level });
+            squadraAmicoListView.Columns.AddRange(new ColumnHeader[] { id, name, level, columnHeader13 });
             squadraAmicoListView.FullRowSelect = true;
             squadraAmicoListView.GridLines = true;
             squadraAmicoListView.Location = new Point(16, 251);
@@ -309,6 +323,11 @@ namespace PokedexADA
             // level
             // 
             level.Text = "Livello";
+            // 
+            // columnHeader13
+            // 
+            columnHeader13.Text = "";
+            columnHeader13.Width = 30;
             // 
             // pokemonPreferitoCercaGiocatoreLabel
             // 
@@ -1148,7 +1167,7 @@ namespace PokedexADA
             // labelSquadra
             // 
             labelSquadra.AutoSize = true;
-            labelSquadra.Location = new Point(527, 11);
+            labelSquadra.Location = new Point(593, 11);
             labelSquadra.Name = "labelSquadra";
             labelSquadra.Size = new Size(84, 15);
             labelSquadra.TabIndex = 1;
@@ -1156,12 +1175,12 @@ namespace PokedexADA
             // 
             // boxListView
             // 
-            boxListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
+            boxListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader15 });
             boxListView.FullRowSelect = true;
             boxListView.GridLines = true;
             boxListView.Location = new Point(3, 26);
             boxListView.Name = "boxListView";
-            boxListView.Size = new Size(284, 596);
+            boxListView.Size = new Size(320, 596);
             boxListView.TabIndex = 2;
             boxListView.UseCompatibleStateImageBehavior = false;
             boxListView.View = View.Details;
@@ -1181,14 +1200,19 @@ namespace PokedexADA
             columnHeader3.Text = "Livello";
             columnHeader3.Width = 80;
             // 
+            // columnHeader15
+            // 
+            columnHeader15.Text = "";
+            columnHeader15.Width = 30;
+            // 
             // squadraListView
             // 
-            squadraListView.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6 });
+            squadraListView.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6, columnHeader14 });
             squadraListView.FullRowSelect = true;
             squadraListView.GridLines = true;
-            squadraListView.Location = new Point(527, 29);
+            squadraListView.Location = new Point(593, 29);
             squadraListView.Name = "squadraListView";
-            squadraListView.Size = new Size(290, 596);
+            squadraListView.Size = new Size(320, 596);
             squadraListView.TabIndex = 3;
             squadraListView.UseCompatibleStateImageBehavior = false;
             squadraListView.View = View.Details;
@@ -1208,9 +1232,14 @@ namespace PokedexADA
             columnHeader6.Text = "Livello";
             columnHeader6.Width = 80;
             // 
+            // columnHeader14
+            // 
+            columnHeader14.Text = "";
+            columnHeader14.Width = 30;
+            // 
             // spostaInSquadraButton
             // 
-            spostaInSquadraButton.Location = new Point(409, 365);
+            spostaInSquadraButton.Location = new Point(462, 365);
             spostaInSquadraButton.Name = "spostaInSquadraButton";
             spostaInSquadraButton.Size = new Size(99, 49);
             spostaInSquadraButton.TabIndex = 4;
@@ -1219,7 +1248,7 @@ namespace PokedexADA
             // 
             // spostaInBoxButton
             // 
-            spostaInBoxButton.Location = new Point(303, 365);
+            spostaInBoxButton.Location = new Point(356, 365);
             spostaInBoxButton.Name = "spostaInBoxButton";
             spostaInBoxButton.Size = new Size(100, 49);
             spostaInBoxButton.TabIndex = 5;
@@ -1280,6 +1309,7 @@ namespace PokedexADA
             // 
             // personalizzaUtenteTabPage
             // 
+            personalizzaUtenteTabPage.Controls.Add(profiloCromaticoLabel);
             personalizzaUtenteTabPage.Controls.Add(label2);
             personalizzaUtenteTabPage.Controls.Add(anteprimaPokemonPreferitoPictureBox);
             personalizzaUtenteTabPage.Controls.Add(anteprimaImmagineProfiloPictureBox);
@@ -1300,6 +1330,14 @@ namespace PokedexADA
             personalizzaUtenteTabPage.TabIndex = 3;
             personalizzaUtenteTabPage.Text = "Personalizza profilo";
             personalizzaUtenteTabPage.UseVisualStyleBackColor = true;
+            // 
+            // profiloCromaticoLabel
+            // 
+            profiloCromaticoLabel.AutoSize = true;
+            profiloCromaticoLabel.Location = new Point(320, 209);
+            profiloCromaticoLabel.Name = "profiloCromaticoLabel";
+            profiloCromaticoLabel.Size = new Size(0, 15);
+            profiloCromaticoLabel.TabIndex = 13;
             // 
             // label2
             // 
@@ -1592,5 +1630,10 @@ namespace PokedexADA
         private Label lblColori;
         private Label lblMetodi;
         private CheckBox shinyCheckBox;
+        private Label amicoCromaticoLabel;
+        private ColumnHeader columnHeader13;
+        private ColumnHeader columnHeader15;
+        private ColumnHeader columnHeader14;
+        private Label profiloCromaticoLabel;
     }
 }
