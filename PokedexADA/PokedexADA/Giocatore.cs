@@ -166,7 +166,14 @@ public partial class Giocatore
             && p.IdSquadra == s.IdGiocatore
             select p
             ).Count();
-        pokemon.IdEsemplare = db.EsemplarePokemons.Max(p => p.IdEsemplare) + 1;
+        if (db.EsemplarePokemons.Count() > 0)
+        {
+            pokemon.IdEsemplare = db.EsemplarePokemons.Max(p => p.IdEsemplare) + 1;
+        }
+        else
+        {
+            pokemon.IdEsemplare = 1;
+        }
         pokemon.DataCattura = DateTime.Now;
         pokemon.IdGiocatoreProprietario = IdGiocatore;
         pokemon.NomePrimoAllenatore = Nome;
@@ -300,11 +307,11 @@ public partial class Giocatore
         }
 
         int idBattaglia;
-        try
+        if (db.Battaglia.Count() > 0)
         {
             idBattaglia = db.Battaglia.Max(b => b.IdBattaglia) + 1;
         }
-        catch (Exception ex)
+        else
         {
             idBattaglia = 1;
         }

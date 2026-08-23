@@ -206,7 +206,6 @@ namespace PokedexADA
                 id = pokemonDisponibiliBox.SelectedIndex;
             }
             Pokemon pokemon = db.Pokemons.ElementAt(id - 1);
-            pokemonDisponibiliBox.SelectedIndex = id;
             giocatore.Incontra(pokemon.NumeroPokemon);
             pokemonTrovato = TrovaPokemon(pokemon);
             outputBox.Text = $"{giocatore.Nickname} ha incontrato {pokemon.Nome}" + (pokemonTrovato.Cromatico ? " shiny!" : "") + "\n";
