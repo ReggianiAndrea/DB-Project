@@ -46,10 +46,20 @@ namespace PokedexADA
                 mapPokedexToGUIList.Add(p.NumeroPokemon, pokedexList.Items.Count - 1);
             }
 
-            foreach (Amicizia a in giocatore.AmiciziaIdGiocatoreAmicoNavigations)
+            var amicizie = giocatore.GetListaAmici();
+            foreach (Amicizia a in amicizie)
             {
-                using var context = new PokedexAdaContext();
-                Giocatore g = context.Giocatores.Where(g => g.IdGiocatore == a.IdGiocatoreAmico).First();
+                int idAmico;
+                if (a.IdGiocatore == giocatore.IdGiocatore)
+                {
+                    idAmico = a.IdGiocatoreAmico;
+                }
+                else
+                {
+                    idAmico = a.IdGiocatore;
+                }
+                using var db2 = new PokedexAdaContext();
+                Giocatore g = db2.Giocatores.Where(g => g.IdGiocatore == idAmico).First();
                 var item = new ListViewItem(new[] { g.Nickname, a.Bloccato ? "bloccato" : "" });
                 amiciList.Items.Add(item);
             }
@@ -86,37 +96,6 @@ namespace PokedexADA
 
             using (var db = new PokedexAdaContext())
             {
-                var amiciLista = (from a in db.Amicizia
-                                  join g in db.Giocatores on a.IdGiocatoreAmico equals g.IdGiocatore
-                                  where a.IdGiocatore == giocatore.IdGiocatore && !a.Bloccato
-                                  select g.Nickname).ToList();
-
-                if (amiciLista.Count > 0)
-                {
-                    avversarioComboBox.Items.AddRange(amiciLista.ToArray());
-                    avversarioComboBox.SelectedIndex = 0;
-                }
-            }
-
-            using (var db = new PokedexAdaContext())
-            {
-                var amiciLista = (from a in db.Amicizia
-                                  join g in db.Giocatores on a.IdGiocatoreAmico equals g.IdGiocatore
-                                  where a.IdGiocatore == giocatore.IdGiocatore && !a.Bloccato
-                                  select g.Nickname)
-                                 .Distinct()
-                                 .ToList();
-
-                avversarioComboBox.Items.Clear();
-                if (amiciLista.Count > 0)
-                {
-                    avversarioComboBox.Items.AddRange(amiciLista.ToArray());
-                    avversarioComboBox.SelectedIndex = 0;
-                }
-            }
-
-            using (var db = new PokedexAdaContext())
-            {
                 var luoghi = db.Biomas.Select(b => b.Habitat).Distinct().ToArray();
                 if (luoghi.Length > 0)
                 {
@@ -147,12 +126,22 @@ namespace PokedexADA
             else if (battagliaTab.SelectedTab == battagliaTabPage)
             {
                 using var db = new PokedexAdaContext();
-                var amiciLista = (
-                    from g in db.Giocatores
-                    from a in g.AmiciziaIdGiocatoreNavigations
-                    from g2 in db.Giocatores
-                    where g.IdGiocatore == giocatore.IdGiocatore && !a.Bloccato && g2.IdGiocatore == a.IdGiocatoreAmico
-                    select g2.Nickname);
+                List<string> amiciLista = new List<string>();
+                foreach (Amicizia a in giocatore.GetListaAmici())
+                {
+                    int idAmico;
+                    if (a.IdGiocatore == giocatore.IdGiocatore)
+                    {
+                        idAmico = a.IdGiocatoreAmico;
+                    }
+                    else
+                    {
+                        idAmico = a.IdGiocatore;
+                    }
+                    using var db2 = new PokedexAdaContext();
+                    Giocatore g = db2.Giocatores.Where(g => g.IdGiocatore == idAmico).First();
+                    amiciLista.Add(g.Nickname);
+                }
 
                 avversarioComboBox.Items.Clear();
                 avversarioComboBox.Items.AddRange(amiciLista.ToArray());
@@ -469,10 +458,19 @@ namespace PokedexADA
         private void SelezionaListaAmici()
         {
             using var db = new PokedexAdaContext();
-            for (int i = 0; i < giocatore.AmiciziaIdGiocatoreNavigations.Count(); i++)
+            for (int i = 0; i < giocatore.GetListaAmici().Count(); i++)
             {
-                Amicizia a = giocatore.AmiciziaIdGiocatoreNavigations.ElementAt(i);
-                Giocatore g = db.Giocatores.Where(g => g.IdGiocatore == a.IdGiocatoreAmico).First();
+                Amicizia a = giocatore.GetListaAmici().ElementAt(i);
+                int idAmico;
+                if (a.IdGiocatore == giocatore.IdGiocatore)
+                {
+                    idAmico = a.IdGiocatoreAmico;
+                }
+                else
+                {
+                    idAmico = a.IdGiocatore;
+                }
+                Giocatore g = db.Giocatores.Where(g => g.IdGiocatore == idAmico).First();
                 if (i < amiciList.Items.Count)
                 {
                     amiciList.Items[i].SubItems[0].Text = g.Nickname;
@@ -618,7 +616,7 @@ namespace PokedexADA
             btnMostraShinyGiocatore.Tag = amico.IdGiocatore; // Salviamo l'ID dell'amico nel bottone
             btnMostraShinyGiocatore.Show();
 
-            var amicizia = db.Amicizia.FirstOrDefault(a => a.IdGiocatore == giocatore.IdGiocatore && a.IdGiocatoreAmico == amico.IdGiocatore);
+            var amicizia = giocatore.AmiciziaCon(amico);
             if (amicizia != null)
             {
                 cercaGiocatoreRimuoviButton.Show();

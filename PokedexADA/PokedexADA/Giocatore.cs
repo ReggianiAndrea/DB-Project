@@ -61,7 +61,8 @@ public partial class Giocatore
             }
             else
             {
-                Amicizia amicizia = db.Amicizia.Where(am => am.IdGiocatore == IdGiocatore && am.IdGiocatoreAmico == idAmico).First();
+                Amicizia amicizia = db.Amicizia.First(a => a.IdGiocatore == IdGiocatore && a.IdGiocatoreAmico == idAmico
+                                                || a.IdGiocatore == idAmico && a.IdGiocatoreAmico == IdGiocatore);
                 db.Amicizia.Remove(amicizia);
             }
         }
@@ -105,11 +106,11 @@ public partial class Giocatore
     {
         using var db = new PokedexAdaContext();
         db.Database.EnsureCreated();
-        Amicizia a = db.Amicizia.Where(am => am.IdGiocatore == IdGiocatore && am.IdGiocatoreAmico == idAmico).First();
+        Amicizia? a = db.Amicizia.FirstOrDefault(a => a.IdGiocatore == IdGiocatore && a.IdGiocatoreAmico == idAmico
+                                        || a.IdGiocatore == idAmico && a.IdGiocatoreAmico == IdGiocatore);
         if (a != null)
         {
             a.Bloccato = bloccato;
-            Giocatore amico = db.Giocatores.Where(g => g.IdGiocatore == idAmico).First();
             db.SaveChanges();
             return true;
         }
@@ -359,5 +360,18 @@ public partial class Giocatore
                                             orderby b.Data descending
                                             select b).ToList();
         return storicoBattaglie;
+    }
+
+    public List<Amicizia> GetListaAmici()
+    {
+        using var db = new PokedexAdaContext();
+        return db.Amicizia.Where(a => a.IdGiocatore == IdGiocatore || a.IdGiocatoreAmico == IdGiocatore).ToList();
+    }
+    
+    public Amicizia? AmiciziaCon(Giocatore amico)
+    {
+        using var db = new PokedexAdaContext();
+        return db.Amicizia.FirstOrDefault(a => a.IdGiocatore == IdGiocatore && a.IdGiocatoreAmico == amico.IdGiocatore
+                                        || a.IdGiocatore == amico.IdGiocatore && a.IdGiocatoreAmico == IdGiocatore);
     }
 }
