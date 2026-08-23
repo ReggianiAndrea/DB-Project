@@ -13,6 +13,8 @@ namespace PokedexADA
         Giocatore giocatore;
         Giocatore? giocatoreSelezionato;
 
+        private Button? btnMostraShinyGiocatore;
+
         public FormUtente()
         {
             InitializeComponent();
@@ -27,7 +29,7 @@ namespace PokedexADA
             pokemonDisponibiliBox.Items.AddRange(db.Pokemons.Select(p => p.Nome).ToArray());
             giocatore = db.Giocatores.Where(go => go.IdGiocatore == idGiocatore).First();
 
-            foreach (Pokemon p in db.Pokemons)
+            foreach (Pokemon p in db.Pokemons.OrderBy(pk => pk.NumeroPokemon))
             {
                 var item = new ListViewItem(new[] { p.NumeroPokemon.ToString(), p.Nome, "" });
                 pokedexList.Items.Add(item);
@@ -541,6 +543,29 @@ namespace PokedexADA
                 squadraAmicoListView.Items.Add(item);
             }
 
+            // BOTTONE BOX SHINY
+            if (btnMostraShinyGiocatore == null)
+            {
+                btnMostraShinyGiocatore = new Button
+                {
+                    Text = "Guarda Box Shiny \u2728", // Simbolo della scintilla
+                    AutoSize = true,
+                    BackColor = Color.Gold,
+                    Cursor = Cursors.Hand
+                };
+                btnMostraShinyGiocatore.Click += BtnMostraShinyGiocatore_Click;
+
+                // Lo agganciamo allo stesso pannello genitore della lista squadra
+                if (squadraAmicoListView.Parent != null)
+                {
+                    squadraAmicoListView.Parent.Controls.Add(btnMostraShinyGiocatore);
+                }
+            }
+
+            btnMostraShinyGiocatore.Location = new Point(squadraAmicoListView.Location.X + 250, squadraAmicoListView.Location.Y - 30);
+            btnMostraShinyGiocatore.Tag = amico.IdGiocatore; // Salviamo l'ID dell'amico nel bottone
+            btnMostraShinyGiocatore.Show();
+
             var amicizia = db.Amicizia.FirstOrDefault(a => a.IdGiocatore == idGiocatore && a.IdGiocatoreAmico == amico.IdGiocatore);
             if (amicizia != null)
             {
@@ -562,6 +587,37 @@ namespace PokedexADA
                 cognomeCercaGiocatoreLabel.Show();
             }
             SelezionaListaAmici();
+        }
+
+        // MOSTRA GLI SHINY DEL GIOCATORE
+        private void BtnMostraShinyGiocatore_Click(object? sender, EventArgs e)
+        {
+            if (sender is Button btn && btn.Tag is int idAmico)
+            {
+                using var db = new PokedexAdaContext();
+
+                
+                var shinyList = (from ep in db.EsemplarePokemons
+                                 join p in db.Pokemons on ep.NumeroPokemon equals p.NumeroPokemon
+                                 where ep.IdGiocatoreProprietario == idAmico && ep.Cromatico == true
+                                 select new { ep.IdEsemplare, SpeciePokemon = p.Nome, ep.NomeAllenatore, ep.Livello, ep.Sesso }).ToList();
+
+                string nomeAmico = db.Giocatores.Where(g => g.IdGiocatore == idAmico).Select(g => g.Nickname).FirstOrDefault() ?? "L'allenatore";
+
+                if (shinyList.Count == 0)
+                {
+                    MessageBox.Show($"{nomeAmico} non possiede nessun Pokémon Shiny.", "Box Shiny \u2728", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                string messaggio = $"I Pokémon Shiny posseduti da {nomeAmico} ({shinyList.Count} esemplari):\n\n";
+                foreach (var s in shinyList)
+                {
+                    messaggio += $"- {s.SpeciePokemon} (ID: {s.IdEsemplare}) | Lvl: {s.Livello} | Sesso: {s.Sesso} | AO: {s.NomeAllenatore}\n";
+                }
+
+                MessageBox.Show(messaggio, $"Shiny di {nomeAmico} \u2728", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void cercaGiocatoreBloccaButton_Click(object sender, EventArgs e)
@@ -666,7 +722,7 @@ namespace PokedexADA
                 );
 
 
-            var filtrati = query.ToList();
+            var filtrati = query.OrderBy(p => p.NumeroPokemon).ToList();
             var visti = giocatore.GetPokemonIncontrati();
             var catturati = giocatore.GetPokemonCatturati();
 
@@ -880,6 +936,59 @@ namespace PokedexADA
                 {
                     listMetodi.Items.Add(new ListViewItem(new[] { m.Metodo, m.Conteggio.ToString() }));
                 }
+
+                //Raggruppa per Allenatore e conta gli Shiny, in ordine decrescente
+                var classificaShiny = (from ep in db.EsemplarePokemons
+                                       join g in db.Giocatores on ep.IdGiocatoreProprietario equals g.IdGiocatore
+                                       where ep.Cromatico == true
+                                       group ep by g.Nickname into gShiny
+                                       orderby gShiny.Count() descending
+                                       select new { Nickname = gShiny.Key, Conteggio = gShiny.Count() }).ToList();
+
+                // Creazione dinamica del GroupBox
+                GroupBox boxShiny = new GroupBox
+                {
+                    Text = "Allenatori con Pokémon Shiny ",
+                    AutoSize = false,
+                    Width = 260,
+                    Height = 180
+                };
+
+                ListView listShiny = new ListView
+                {
+                    View = View.Details,
+                    FullRowSelect = true,
+                    GridLines = true,
+                    Dock = DockStyle.Fill,
+                    Location = new Point(15, 30),
+                    Size = new Size(230, Height - 45),
+                    HeaderStyle = ColumnHeaderStyle.Nonclickable
+                };
+                listShiny.Columns.Add("Allenatore", 130);
+                listShiny.Columns.Add("Qt.", 60);
+
+                // Popolamento della tabella
+                foreach (var s in classificaShiny)
+                {
+                    listShiny.Items.Add(new ListViewItem(new[] { s.Nickname, s.Conteggio.ToString() }));
+                }
+
+                // Se nessun giocatore ha uno shiny, inseriamo una riga vuota informativa
+                if (classificaShiny.Count == 0)
+                {
+                    listShiny.Items.Add(new ListViewItem(new[] { "Nessuno", "0" }));
+                }
+
+                // tabella dentro il GroupBox
+                boxShiny.Controls.Add(listShiny);
+
+                if (listMetodi.Parent != null)
+                {
+                    boxShiny.Location = new Point(listMetodi.Parent.Location.X + listMetodi.Parent.Width + 20, listMetodi.Parent.Location.Y);
+                }
+
+                visualizzaPokedex.Controls.Add(boxShiny);
+                boxShiny.BringToFront();
             }
         }
 
