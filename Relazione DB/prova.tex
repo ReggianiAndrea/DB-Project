@@ -450,50 +450,51 @@ operazioni del sistema.
 
 \hline
 \endhead
-
-1 & Aggiungere un amico & 3/Settimana \\
+1 & Aggiungere un giocatore tra gli amici & 3/Settimana \\
 \hline
-2 & Rimozione amico & 2/Anno \\
+2 & Rimozione di un amico & 2/Anno \\
 \hline
-3 & Possibilità di modificare il proprio Pokémon preferito & 2/Anno \\
+3 & Possibilità di cambiare il proprio Pokémon preferito & 2/Anno \\
 \hline
-4 & Possibilità di bloccare gli utenti & 3/Mese \\
+4 & Possibilità di bloccare un amico & 3/Mese \\
 \hline
-5 & Possibilità di sbloccare gli utenti & 2/Mese \\
+5 & Possibilità di sbloccare un amico bloccato & 2/Mese \\
 \hline
 6 & Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati & 1/Mese \\
 \hline
 7 & Mostrare gli amici con un certo Pokémon preferito & 1/Mese \\
 \hline
-8 & Possibilità di aggiungere un Pokémon visto & 5/Giorno \\
+8 & Aggiungere un Pokémon visto & 5/Giorno \\
 \hline
-9 & Possibilità di aggiungere un Pokémon catturato & 1/Giorno \\
+9 & Aggiungere un Pokémon catturato & 1/Giorno \\
 \hline
-10 & Scoprire la linea evolutiva di un Pokémon & 1/Giorno \\
+10 & Visualizzare l'intera linea evolutiva di un Pokémon & 1/Giorno \\
 \hline
-11 & Listing di Pokémon che si evolvono tramite il metodo evolutivo specificato & 2/Giorno \\
+11 & Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato & 2/Giorno \\
 \hline
-12 & Listing di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
+12 & Visualizzare la lista di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
 \hline
-13 & Listing di Pokémon che appartengono al bioma specificato & 1/Settimana \\
+13 & Visualizzare la lista di Pokémon che appartengono al bioma specificato & 1/Settimana \\
 \hline
-14 & Listing di Pokémon che possono possedere l'abilità specificata & 1/Settimana \\
+14 & Visualizzare la lista di Pokémon che hanno l'abilità specificata & 1/Settimana \\
 \hline
-15 & Listing di Pokémon che hanno l'elemento specificato & 1/Settimana \\
+15 & Visualizzare la lista di Pokémon che hanno l'elemento specificato & 1/Settimana \\
 \hline
-16 & Listing di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
+16 & Visualizzare la lista di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
 \hline
-17 & Colori dominanti più comuni tra i Pokémon & 1/Settimana \\
+17 & Mostrare i colori dominanti più comuni tra i Pokémon & 1/Settimana \\
 \hline
-18 & Lista dei Pokémon preferiti scelti più comunemente & 1/Mese \\
+18 & Mostrare la lista di Pokémon preferiti scelti più comunemente & 1/Mese \\
 \hline
-19 & Elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
+19 & Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
 \hline
-20 & Possibilità di visualizzare quali Pokémon shiny possiede un allenatore & 2/Settimana \\
+20 & Possibilità di visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
 \hline
-21 & Visualizzazione del numero di utenti che hanno almeno un Pokémon shiny & 2/Settimana \\
+21 & Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico & 2/Settimana \\
 \hline
-22 & Lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
+22 & Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
+\hline
+23 & Visualizzare lo storico delle battaglie di un utente & 3/Settimana \\
 \hline
 
 \multicolumn{3}{|c|}{\textbf{\large OPERAZIONI ADMIN}} \\
@@ -506,9 +507,11 @@ operazioni del sistema.
 
 \hline
 
-1.b & Aggiungere un Pokémon nel database & 1/Anno \\
+1.b & Aggiungere un Pokémon & 1/Anno \\
 \hline
 2.b & Aggiungere evoluzioni e tipologie di evoluzioni & 1/Anno \\
+\hline
+3.b & Rimozione di un Pokémon & 1/Anno \\
 \hline
 \end{longtable}
 
@@ -521,6 +524,263 @@ operazioni del sistema.
 \section{Traduzione delle associazioni}
 
 \section{Traduzione delle Query SQL}
+
+\subsection{Utente}
+
+\begin{enumerate}
+	\item \textit{Aggiungere un giocatore tra gli amici}
+	\begin{verbatim}
+		INSERT INTO AMICIZIA
+		VALUES (giocatore1, giocatore2, FALSE)
+	\end{verbatim}
+	
+	\item \textit{Rimozione di un amico}
+	\begin{verbatim}
+		DELETE FROM AMICIZIA
+		WHERE IdGiocatore = giocatore1 AND IdGiocatoreAmico = giocatore2
+	\end{verbatim}
+	
+	\item \textit{Possibilità di cambiare il proprio Pokémon preferito}
+	\begin{verbatim}
+		UPDATE GIOCATORE
+		SET IdEsemplarePreferito = esemplare
+		WHERE IdGiocatore = giocatore
+	\end{verbatim}
+	
+	\item \textit{Possibilità di bloccare un amico}
+	\begin{verbatim}
+		UPDATE AMICIZIA
+		SET BLOCCATO = TRUE
+		WHERE IdGiocatore = giocatore1
+		AND IdGiocatoreAmico = giocatore2
+	\end{verbatim}
+	
+	\item \textit{Possibilità di sbloccare un amico bloccato}
+	\begin{verbatim}
+		UPDATE AMICIZIA
+		SET BLOCCATO = FALSE
+		WHERE IdGiocatore = giocatore1
+		AND IdGiocatoreAmico = giocatore2
+	\end{verbatim}
+	
+	\item \textit{Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati}
+	\begin{verbatim}
+		SELECT G.Nickname, COUNT(*) NumeroPokemonCatturati
+		FROM GIOCATORE g
+		JOIN CATTURA c
+    		ON g.IdGiocatore = c.IdGiocatore
+		GROUP BY g.IdGiocatore, g.Nickname
+		ORDER BY NumeroPokemonCatturati DESC
+	\end{verbatim}
+	
+	\item \textit{Mostrare gli amici con un certo Pokémon preferito}
+	\begin{verbatim}
+		SELECT am.IdGiocatore, am.Nickname, am.Immagine
+		FROM AMICIZIA a
+		JOIN GIOCATORE am
+		JOIN ESEMPLARE_POKEMON e ON am.IdEsemplarePreferito = e.IdEsemplare
+		JOIN POKEMON p ON p.NumeroPokemon = e.NumeroPokemon
+		WHERE a.IdGiocatore = giocatore
+		AND e.NumeroPokemon = pokemon
+		AND a.Bloccato = FALSE
+	\end{verbatim}
+	
+	\item \textit{Aggiungere un Pokémon visto}
+	\begin{verbatim}
+		INSERT INTO AVVISTAMENTO (IdGiocatore, NumeroPokemon)
+		VALUES (giocatore, pokemon)
+	\end{verbatim}
+	
+	\item \textit{Aggiungere un Pokémon catturato}
+	\begin{verbatim}
+		INSERT INTO CATTURA (IdGiocatore, NumeroPokemon)
+		VALUES (giocatore, pokemon)
+	\end{verbatim}
+	
+	\item \textit{Visualizzare l'intera linea evolutiva di un Pokémon}
+	\begin{verbatim}
+	WITH RECURSIVE BASE AS (
+		SELECT e.NumeroPokemon, p.NumeroPokemon NumeroPokemonEvo, m.Nome Metodo
+		FROM POKEMON p
+		JOIN EVOLUZIONE ev ON ev.NumeroPokemonStadioSuccessivo = p.NumeroPokemon
+		JOIN METODO_EVOLUTIVO m ON m.IdMetodo = ev.IdMetodo
+		JOIN POKEMON e ON ev.NumeroPokemonStadioCorrente = e.NumeroPokemon
+		WHERE e.NumeroPokemon = (
+			WITH RECURSIVE BASE AS (
+				SELECT p.NumeroPokemon, e.NumeroPokemon NumeroPokemonEvo
+				FROM POKEMON p
+				LEFT JOIN EVOLUZIONE ev ON ev.NumeroPokemonStadioCorrente = p.NumeroPokemon
+				LEFT JOIN POKEMON e ON ev.NumeroPokemonStadioSuccessivo = e.NumeroPokemon
+				WHERE p.numeropokemon = pokemon
+				UNION ALL
+				SELECT p.NumeroPokemon, e.NumeroPokemon NumeroPokemonEvo
+				FROM POKEMON p
+				LEFT JOIN EVOLUZIONE ev ON ev.NumeroPokemonStadioCorrente = p.NumeroPokemon
+				INNER JOIN BASE e ON ev.NumeroPokemonStadioSuccessivo = e.NumeroPokemon
+			)
+			SELECT NumeroPokemon
+			FROM BASE
+			ORDER BY NumeroPokemon
+			LIMIT 1
+		)
+		UNION ALL
+		SELECT e.NumeroPokemonEvo, p.NumeroPokemon, m.Nome
+		FROM POKEMON p
+		JOIN EVOLUZIONE ev ON ev.NumeroPokemonStadioSuccessivo = p.NumeroPokemon
+		JOIN METODO_EVOLUTIVO m ON m.IdMetodo = ev.IdMetodo
+		INNER JOIN BASE e ON ev.NumeroPokemonStadioCorrente = e.NumeroPokemonEvo
+	)
+	SELECT * FROM BASE
+	\end{verbatim}
+	
+	\item \textit{Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato}
+	\begin{verbatim}
+		SELECT am.IdGiocatore, am.Nickname, am.Immagine
+		FROM AMICIZIA a
+		JOIN GIOCATORE am
+		JOIN ESEMPLARE_POKEMON e ON am.IdEsemplarePreferito = e.IdEsemplare
+		JOIN POKEMON p ON p.NumeroPokemon = e.NumeroPokemon
+		WHERE a.IdGiocatore = giocatore
+		AND e.NumeroPokemon = pokemon
+		AND a.Bloccato = FALSE
+	\end{verbatim}
+	
+	\item \textit{Visualizzare la lista di Pokémon che hanno il colore dominante specificato}
+	\begin{verbatim}
+		SELECT NumeroPokemon, Nome
+		FROM POKEMON
+		WHERE ColoreDominante = colore
+	\end{verbatim}
+	
+	\item \textit{Visualizzare la lista di Pokémon che appartengono al bioma specificato}
+	\begin{verbatim}
+		SELECT p.NumeroPokemon, p.Nome PokemonStadioCorrente,
+			evo.Nome PokemonEvoluto, m.Nome MetodoEvolutivo
+		FROM POKEMON p
+		JOIN EVOLUZIONE e ON p.NumeroPokemon = e.NumeroPokemonStadioCorrente
+		JOIN POKEMON evo ON e.NumeroPokemonStadioSuccessivo = evo.NumeroPokemon
+		JOIN METODO_EVOLUTIVO m ON e.IdMetodo = m.IdMetodo
+		WHERE m.Nome = metodo
+	\end{verbatim}
+	
+	\item \textit{Visualizzare la lista di Pokémon che hanno l'abilità specificata}
+	\begin{verbatim}
+		SELECT NumeroPokemon, Nome
+		FROM POKEMON
+		WHERE NomeAbilita = abilita
+	\end{verbatim}
+	
+	\item \textit{Visualizzare la lista di Pokémon che hanno l'elemento specificato}
+	\begin{verbatim}
+		SELECT p.NumeroPokemon, p.Nome NomePokemon,
+			e1.Tipologia ElementoPrimario, e2.Tipologia ElementoSecondario
+		FROM POKEMON p
+		JOIN ELEMENTO e1 ON p.IdElementoPrimario = e1.IdElemento
+		LEFT JOIN ELEMENTO e2 ON p.IdElementoSecondario = e2.IdElemento
+		WHERE e1.Tipologia = tipo
+   		OR e2.Tipologia = tipo
+	\end{verbatim}
+	
+	\item \textit{Visualizzare la lista di Pokémon che possono conoscere la mossa specificata}
+	\begin{verbatim}
+		SELECT p.NumeroPokemon, p.Nome
+		FROM POKEMON p
+		JOIN ACQUISIZIONE a ON a.NumeroPokemon = p.NumeroPokemon
+		JOIN MOSSA m ON a.NomeMossa = m.NomeMossa
+		WHERE m.NomeMossa = mossa
+	\end{verbatim}
+	
+	\item \textit{Mostrare i colori dominanti più comuni tra i Pokémon}
+	\begin{verbatim}
+		SELECT COUNT(ColoreDominante) NumeroPokemon, ColoreDominante
+		FROM POKEMON
+		GROUP BY ColoreDominante
+		ORDER BY NumeroPokemon DESC
+	\end{verbatim}	
+	
+	\item \textit{Mostrare la lista di Pokémon preferiti scelti più comunemente}
+	\begin{verbatim}
+		SELECT p.NumeroPokemon, p.Nome, COUNT(*) NumeroPreferenze
+		FROM GIOCATORE g
+		JOIN ESEMPLARE_POKEMON ep ON g.IdEsemplarePreferito = ep.IdEsemplare
+		JOIN POKEMON p ON ep.NumeroPokemon = p.NumeroPokemon
+		GROUP BY p.NumeroPokemon, p.Nome
+		ORDER BY NumeroPreferenze DESC
+	\end{verbatim}
+	
+	\item \textit{Mostrare la lista degli elementi più comuni tra i Pokémon di uno stesso bioma}
+	\begin{verbatim}
+		SELECT COUNT(e.IdElemento) NumeroPokemon, e.Tipologia, b.Habitat
+		FROM POKEMON p
+		JOIN PERMANENZA pr ON pr.NumeroPokemon = p.NumeroPokemon
+		JOIN BIOMA b ON pr.IdBioma = b.IdBioma
+		JOIN ELEMENTO e ON p.IdElementoPrimario = e.IdElemento
+			OR p.IdElementoSecondario = e.IdElemento
+		GROUP BY e.IdElemento, b.IdBioma
+		ORDER BY NumeroPokemon DESC
+	\end{verbatim}
+	
+	\item \textit{Possibilità di visualizzare quali Pokémon cromatici possiede un allenatore}
+	\begin{verbatim}
+		SELECT ep.IdEsemplare, p.Nome SpeciePokemon,
+			ep.NomeAllenatore, ep.Livello, ep.Sesso
+		FROM ESEMPLARE_POKEMON ep
+		JOIN POKEMON p ON ep.NumeroPokemon = p.NumeroPokemon
+		WHERE ep.IdGiocatoreProprietario = giocatore 
+		AND ep.Cromatico = TRUE
+	\end{verbatim}
+	
+	\item \textit{Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico}
+	\begin{verbatim}
+		SELECT COUNT(DISTINCT ep.IdGiocatoreProprietario) NumeroUtentiConShiny
+		FROM ESEMPLARE_POKEMON ep
+		WHERE ep.Cromatico = TRUE
+	\end{verbatim}
+	
+	\item \textit{Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon}
+	\begin{verbatim}
+		SELECT COUNT(m.IdMetodo) NumeroPokemon, m.Nome
+		FROM POKEMON p
+		JOIN EVOLUZIONE e ON e.NumeroPokemonStadioCorrente = p.NumeroPokemon
+		JOIN POKEMON evo ON e.NumeroPokemonStadioSuccessivo = evo.NumeroPokemon
+		JOIN METODO_EVOLUTIVO m ON e.IdMetodo = m.IdMetodo
+		GROUP BY m.IdMetodo
+		ORDER BY NumeroPokemon DESC
+	\end{verbatim}	
+		
+	\item \textit{Visualizzare lo storico delle battaglie di un utente}
+	\begin{verbatim}
+		SELECT COUNT(DISTINCT ep.IdGiocatoreProprietario) NumeroUtentiConShiny
+		FROM ESEMPLARE_POKEMON ep
+		WHERE ep.Cromatico = TRUE
+	\end{verbatim}
+\end{enumerate}
+
+\subsection{Admin}
+
+\begin{enumerate}
+	\item \textit{Aggiungere un Pokémon}
+	\begin{verbatim}
+	INSERT INTO POKEMON
+	VALUES (
+		numero, specie, nome, descrizione,
+		altezza, peso, impronta, immagine, colore, 
+		elemento1, elemento2, statistiche, abilità
+	);
+	\end{verbatim}
+	
+	\item \textit{Aggiungere evoluzioni e tipologie di evoluzioni}
+	\begin{verbatim}
+	INSERT INTO EVOLUZIONE
+	VALUES (pokemon_corrente, pokemon_successivo, metodo)
+	\end{verbatim}
+	
+	\item \textit{Rimozione di un Pokémon}
+	\begin{verbatim}
+		DELETE FROM POKEMON
+		WHERE NumeroPokemon = pokemon
+	\end{verbatim}
+\end{enumerate}
 
 \chapter{Progetto fisico}
 
