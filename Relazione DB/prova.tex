@@ -220,7 +220,7 @@ Il Pokédex di ogni giocatore registra i Pokémon quando avvistati o catturati p
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{immagini/esemplare_preferito_er.png}
+    \includegraphics[width=\linewidth]{immagini/giocatore_avvistamento_cattura_er.png}
     \caption{Schema ER rappresentante il completamento del Pokédex di un giocatore quando trova e cattura Pokémon per la prima volta}
 \end{figure}
 
@@ -288,6 +288,14 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
 \section{Sviluppo dell'ambito ...}
 
 \section{Sviluppo dell'ambito ...}
+
+\section{Schema completo}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/schema_er.png}
+    \caption{Schema ER completo}
+\end{figure}
 
 \chapter{Specifiche funzionali}
 
@@ -750,9 +758,12 @@ operazioni del sistema.
 		
 	\item \textit{Visualizzare lo storico delle battaglie di un utente}
 	\begin{verbatim}
-		SELECT COUNT(DISTINCT ep.IdGiocatoreProprietario) NumeroUtentiConShiny
-		FROM ESEMPLARE_POKEMON ep
-		WHERE ep.Cromatico = TRUE
+		SELECT g1.Nickname Sfidante, g2.Nickname Sfidato, b.Data, b.Luogo, b.SfidanteVincitore
+		FROM BATTAGLIA b, GIOCATORE g1, GIOCATORE g2
+		WHERE b.IdGiocatoreSfidante = g1.IdGiocatore
+		AND b.IdGiocatoreSfidato = g2.IdGiocatore
+		AND (b.IdGiocatoreSfidante = giocatore OR b.IdGiocatoreSfidato = giocatore)
+		ORDER BY b.Data DESC
 	\end{verbatim}
 \end{enumerate}
 

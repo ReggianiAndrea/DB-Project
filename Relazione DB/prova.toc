@@ -8,11 +8,12 @@
 \contentsline {section}{\numberline {2.2}Sviluppo dell'ambito Giocatore - Esemplare Pokémon}{7}{}%
 \contentsline {section}{\numberline {2.3}Sviluppo dell'ambito Pokémon}{7}{}%
 \contentsline {section}{\numberline {2.4}Sviluppo dell'ambito Specie ed Esemplare}{8}{}%
-\contentsline {section}{\numberline {2.5}Sviluppo dell'ambito Tipologia Elementale}{9}{}%
-\contentsline {section}{\numberline {2.6}Sviluppo dell'ambito Giocatore e Archiviazione}{10}{}%
-\contentsline {section}{\numberline {2.7}Sviluppo dell'ambito Battaglia e Squadra}{11}{}%
+\contentsline {section}{\numberline {2.5}Sviluppo dell'ambito Tipologia Elementale}{8}{}%
+\contentsline {section}{\numberline {2.6}Sviluppo dell'ambito Giocatore e Archiviazione}{9}{}%
+\contentsline {section}{\numberline {2.7}Sviluppo dell'ambito Battaglia e Squadra}{10}{}%
 \contentsline {section}{\numberline {2.8}Sviluppo dell'ambito ...}{12}{}%
 \contentsline {section}{\numberline {2.9}Sviluppo dell'ambito ...}{12}{}%
+\contentsline {section}{\numberline {2.10}Schema completo}{12}{}%
 \contentsline {chapter}{\numberline {3}Specifiche funzionali}{13}{}%
 \contentsline {section}{\numberline {3.1}Analisi delle funzionalità richieste}{13}{}%
 \contentsline {section}{\numberline {3.2}DA GUARDARE BENE CON I BOYS}{13}{}%
