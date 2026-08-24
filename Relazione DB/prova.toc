@@ -40,14 +40,14 @@
 \contentsline {section}{\numberline {4.3}Frequenza e costo degli accessi}{25}{}%
 \contentsline {section}{\numberline {4.4}Trasformazioni dello schema concettuale}{26}{}%
 \contentsline {subsection}{\numberline {4.4.1}Analisi delle ridondanze}{27}{}%
-\contentsline {subsection}{\numberline {4.4.2}Scelta delle chiavi primarie}{27}{}%
-\contentsline {subsection}{\numberline {4.4.3}Eliminazione delle gerarchie di generalizzazione}{27}{}%
-\contentsline {section}{\numberline {4.5}Progetto logico per il modello relazionale}{27}{}%
-\contentsline {section}{\numberline {4.6}Traduzione delle entità}{27}{}%
-\contentsline {section}{\numberline {4.7}Traduzione delle associazioni}{28}{}%
-\contentsline {section}{\numberline {4.8}Traduzione delle Query SQL}{30}{}%
-\contentsline {subsection}{\numberline {4.8.1}Utente}{30}{}%
-\contentsline {subsection}{\numberline {4.8.2}Admin}{35}{}%
-\contentsline {chapter}{\numberline {5}Interfaccia utente}{36}{}%
-\contentsline {section}{\numberline {5.1}L'amministratore}{36}{}%
-\contentsline {section}{\numberline {5.2}Il giocatore}{39}{}%
+\contentsline {subsection}{\numberline {4.4.2}Scelta delle chiavi primarie}{28}{}%
+\contentsline {subsection}{\numberline {4.4.3}Eliminazione delle gerarchie di generalizzazione}{28}{}%
+\contentsline {section}{\numberline {4.5}Progetto logico per il modello relazionale}{28}{}%
+\contentsline {section}{\numberline {4.6}Traduzione delle entità}{28}{}%
+\contentsline {section}{\numberline {4.7}Traduzione delle associazioni}{30}{}%
+\contentsline {section}{\numberline {4.8}Traduzione delle Query SQL}{31}{}%
+\contentsline {subsection}{\numberline {4.8.1}Utente}{31}{}%
+\contentsline {subsection}{\numberline {4.8.2}Admin}{36}{}%
+\contentsline {chapter}{\numberline {5}Interfaccia utente}{37}{}%
+\contentsline {section}{\numberline {5.1}L'amministratore}{37}{}%
+\contentsline {section}{\numberline {5.2}Il giocatore}{40}{}%

@@ -102,7 +102,7 @@ create table GIOCATORE (
      Cognome varchar(30) not null,
      Nickname varchar(30) not null,
      Immagine varchar(100) not null,
-     NumeroCromatici int not null,
+     NumeroCromatici int not null default 0,
      IdEsemplarePreferito int,
      constraint ID_GIOCATORE_ID primary key (IdGiocatore));
 
@@ -139,6 +139,7 @@ create table POKEMON (
      IdElementoSecondario int,
      IdStatistiche int not null,
      NomeAbilita varchar(30) not null,
+     NumeroSceltePreferito int not null default 0,
      constraint ID_POKEMON_ID primary key (NumeroPokemon));
 
 create table SET_STATISTICHE (

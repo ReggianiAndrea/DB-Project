@@ -565,18 +565,24 @@ Operazioni utente
   \item Cambiare Pokémon preferito
   
   \begin{tabular}{|c|c|c|c|}
-  	\hline
-  	Concetto & Costrutto & Tipo & Accessi \\
-  	\hline
+    \hline
+    Concetto & Costrutto & Tipo & Accessi \\
+    \hline
     Giocatore & E & S & 1 \\
     \hline
     Esemplare Pokémon & E & L & 1 \\
     \hline
+    Pokémon & E & L & 1 \\
+    \hline
+    Pokémon & E & S & 1 \\
+    \hline
     Preferenza & R & L & 1 \\
+    \hline
+    Associazione & R & L & 1 \\
     \hline
   \end{tabular} \\
   
-  2L + 1S = 4 accessi => 8 accessi/anno
+  4L + 2S = 8 accessi => 16 accessi/anno
   
   \item Bloccare un amico
   
@@ -675,8 +681,8 @@ Operazioni utente
   \item Visualizzare l'intera linea evolutiva di un Pokémon
   
   \begin{tabular}{|c|c|c|c|}
-  	\hline
-  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Concetto & Costrutto & Tipo & Accessi \\
     \hline
     Pokémon & E & L & 3 \\
     \hline
@@ -697,8 +703,8 @@ Operazioni utente
   \item Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato
   
   \begin{tabular}{|c|c|c|c|}
-  	\hline
-  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Concetto & Costrutto & Tipo & Accessi \\
     \hline
     Pokémon & E & L & 250 \\
     \hline
@@ -763,8 +769,8 @@ Operazioni utente
   \item Visualizzare la lista di Pokémon che hanno l'elemento specificato
   
   \begin{tabular}{|c|c|c|c|}
-  	\hline
-  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Concetto & Costrutto & Tipo & Accessi \\
     \hline
     Pokémon & E & L & 250 \\
   	\hline
@@ -807,24 +813,16 @@ Operazioni utente
   250L = 250 accessi => 13000 accessi/anno
   
   \item Mostrare la lista di Pokémon preferiti scelti più comunemente
-  
+
   \begin{tabular}{|c|c|c|c|}
-  	\hline
-  	Concetto & Costrutto & Tipo & Accessi \\
     \hline
-    Giocatore & E & L & 100 \\
+    Concetto & Costrutto & Tipo & Accessi \\
     \hline
     Pokémon & E & L & 250 \\
-  	\hline
-    Esemplare Pokémon & E & L & 500 \\
-    \hline
-    Associazione & R & L & 500 \\
-    \hline
-    Preferenza & R & L & 25000 \\
     \hline
   \end{tabular} \\
   
-  26350L = 26350 accessi => 316200 accessi/anno
+  250L = 250 accessi => 3000 accessi/anno
   
   \item Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma
   
@@ -866,7 +864,7 @@ Operazioni utente
   
   \item Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico
   
-  \begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|}
     \hline
     Concetto & Costrutto & Tipo & Accessi \\
     \hline
@@ -1078,15 +1076,87 @@ Si scrive nei seguenti capitoli le scelte progettuali durante il passaggio tra p
 
 \subsection{Analisi delle ridondanze}
 
-Un parametro ridondante utilizzato è il totale di Set Statistiche poiché derivabile dagli altri attributi dell'entità. Poiché le operazioni offerte dal Pokédex non sfruttano molto le ridondanze, si nota che solo un'operazione si può analizzare con un parametro ridondante.
+Un parametro ridondante utilizzato è il totale di Set Statistiche poiché derivabile dagli altri attributi dell'entità. Poiché le operazioni offerte dal Pokédex non sfruttano molto le ridondanze, si nota che solo due operazioni si possono analizzare con un parametro ridondante.
 
-Analizziamo quindi l'operazione \textit{21. Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico}
+\textit{18. Mostrare la lista di Pokémon preferiti scelti più comunemente}
 
-\textbf{21.}
+Si può aggiungere un valore numerico alla tabella Pokémon per indicare quanti Giocatori lo hanno scelto come Pokémon preferito. \\
 
-Si può aggiungere un valore booleano alla tabella Giocatore per indicare se possiede almeno un Pokémon Cromatico, in modo da evitare di cercare su tutti gli esemplari di ogni giocatore.
+Senza ridondanza: \\
 
-Senza ridondanza: 
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & L & 100 \\
+  \hline
+  Pokémon & E & L & 250 \\
+  \hline
+  Esemplare Pokémon & E & L & 500 \\
+  \hline
+  Associazione & R & L & 500 \\
+  \hline
+  Preferenza & R & L & 25000 \\
+  \hline
+\end{tabular} \\
+  
+26350L = 26350 accessi => 316200 accessi/anno \\
+  
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & S & 1 \\
+  \hline
+  Esemplare Pokémon & E & L & 1 \\
+  \hline
+  Preferenza & R & L & 1 \\
+  \hline
+\end{tabular} \\
+  
+2L + 1S = 4 accessi => 8 accessi/anno \\
+
+Tot: 316208 accessi/anno \\
+
+Con ridondanza: \\
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Pokémon & E & L & 250 \\
+  \hline
+\end{tabular} \\
+  
+250L = 250 accessi => 3000 accessi/anno \\
+  
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & S & 1 \\
+  \hline
+  Esemplare Pokémon & E & L & 1 \\
+  \hline
+  Pokémon & E & L & 1 \\
+  \hline
+  Pokémon & E & S & 1 \\
+  \hline
+  Preferenza & R & L & 1 \\
+  \hline
+  Associazione & R & L & 1 \\
+  \hline
+\end{tabular} \\
+  
+4L + 2S = 8 accessi => 16 accessi/anno \\
+
+Tot: 3016 accessi/anno \\
+
+\textit{21. Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico}
+
+Si può aggiungere un valore numerico alla tabella Giocatore per indicare quanti Pokémon Cromatici possiede.
+
+Senza ridondanza:  \\
 
 \begin{tabular}{|c|c|c|c|}
   \hline
@@ -1100,9 +1170,9 @@ Senza ridondanza:
   \hline
 \end{tabular} \\
   
-2575100L = 2575100 accessi => 267810400 accessi/anno
+2575100L = 2575100 accessi => 267810400 accessi/anno \\
 
-Con ridondanza: 
+Con ridondanza:  \\
 
 \begin{tabular}{|c|c|c|c|}
   \hline
@@ -1112,7 +1182,7 @@ Con ridondanza:
   \hline
 \end{tabular} \\
   
-100L = 100 accessi => 10400 accessi/anno
+100L = 100 accessi => 10400 accessi/anno \\
 
 Di conseguenza, si sceglie di implementare la soluzione con ridondanza.
 

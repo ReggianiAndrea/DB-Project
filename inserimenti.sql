@@ -118,56 +118,101 @@ insert into ABILITA values ("Prepotenza", "Quando il Pokémon entra in campo, di
 insert into ABILITA values ("Levitazione", "Il Pokémon è immune a tutte le mosse di tipo Terra e agli effetti collegati a quel tipo.");
 
 
-insert into POKEMON values (1, "Seme", "Bulbasaur", "Ha uno strano bulbo piantato sul dorso fin dalla nascita che cresce e si sviluppa assieme a lui.", 0.7, 6.9, "Bestia", "001.png", "Verde", 6, 7, 1, "Erbaiuto");
-insert into POKEMON values (2, "Seme", "Ivysaur", "Dicono che il bocciolo sul suo dorso si schiuda in un grande fiore dopo aver assorbito nutrimento.", 1.0, 13.0, "Bestia", "002.png", "Verde", 6, 7, 2, "Erbaiuto");
-insert into POKEMON values (3, "Seme", "Venusaur", "Il giorno dopo che è piovuto, il fiore sul suo dorso emana un profumo più intenso e attira gli altri Pokémon.", 2.0, 100.0, "Dinosauro", "003.png", "Verde", 6, 7, 3, "Erbaiuto");
-insert into POKEMON values (4, "Lucertola", "Charmander", "La fiamma che Charmander ha sulla coda indica la sua forza vitale. Se è in forma, la fiamma è vivace.", 0.6, 8.5, "Rettile", "004.png", "Rosso", 2, null, 4, "Aiutofuoco");
-insert into POKEMON values (5, "Fiamma", "Charmeleon", "Fa cadere a terra il nemico colpendolo con la coda, per poi finirlo con gli artigli affilati.", 1.1, 19.0, "Rettile", "005.png", "Rosso", 2, null, 5, "Aiutofuoco");
-insert into POKEMON values (6, "Fiamma", "Charizard", "Grazie alle sue ali può volare fino a 1.400 m d'altezza. Sputa fiamme incandescenti.", 1.7, 90.5, "Drago", "006.png", "Rosso", 2, 5, 6, "Aiutofuoco");
-insert into POKEMON values (7, "Tartaghina", "Squirtle", "Si ritira nel suo guscio per proteggersi e, alla prima occasione, contrattacca colpendo il nemico con spruzzi d'acqua.", 0.5, 9.0, "Bestia", "007.png", "Blu", 4, null, 7, "Acquaiuto");
-insert into POKEMON values (8, "Tartaruga", "Wartortle", "Quando sta per ricevere un colpo sulla testa si ritira nella corazza per evitarlo. La coda, però, resta sempre un po' fuori.", 1.0, 22.5, "Tartaruga", "008.png", "Blu", 4, null, 8, "Acquaiuto");
-insert into POKEMON values (9, "Carapace", "Blastoise", "Mette KO gli avversari schiacciandoli sotto il corpo possente. Se è in difficoltà, si ritrae nella corazza.", 1.6, 85.5, "Tartaruga", "009.png", "Blu", 4, null, 9, "Acquaiuto");
-insert into POKEMON values (16, "Uccellino", "Pidgey", "È docile e preferisce evitare conflitti, ma se viene disturbato contrattacca ferocemente.", 0.3, 1.8, "Uccello", "016.png", "Marrone", 1, 5, 10, "Sguardofermo");
-insert into POKEMON values (17, "Uccello", "Pidgeotto", "Controlla un vasto territorio e prende a beccate qualsiasi intruso.", 1.1, 30.0, "Uccello", "017.png", "Marrone", 1, 5, 11, "Sguardofermo");
-insert into POKEMON values (18, "Uccello", "Pidgeot", "Quando caccia, vola rasente alla superficie dell'acqua e cattura Magikarp e altre prede afferrandole con gli artigli.", 1.5, 39.5, "Uccello", "018.png", "Marrone", 1, 5, 12, "Sguardofermo");
-insert into POKEMON values (25, "Topo", "Pikachu", "Quando si sente minacciato emette scariche elettriche dalle due piccole sacche sulle guance.", 0.4, 6.0, "Topo", "025.png", "Giallo", 8, null, 13, "Statico");
-insert into POKEMON values (26, "Topo", "Raichu", "Quando l'elettricità al suo interno si accumula finisce per stimolarne i muscoli, rendendolo più aggressivo del solito.", 0.8, 30.0, "Topo", "026.png", "Giallo", 8, null, 14, "Statico");
-insert into POKEMON values (27, "Topo", "Sandshrew", "Se cade da una grande altezza, questo Pokémon può salvarsi appallottolandosi e rimbalzando.", 0.6, 12.0, "Bestia", "027.png", "Giallo", 9, null, 15, "Sabbiavelo");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (1, "Seme", "Bulbasaur", "Ha uno strano bulbo piantato sul dorso fin dalla nascita che cresce e si sviluppa assieme a lui.", 0.7, 6.9, "Bestia", "001.png", "Verde", 6, 7, 1, "Erbaiuto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (2, "Seme", "Ivysaur", "Dicono che il bocciolo sul suo dorso si schiuda in un grande fiore dopo aver assorbito nutrimento.", 1.0, 13.0, "Bestia", "002.png", "Verde", 6, 7, 2, "Erbaiuto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (3, "Seme", "Venusaur", "Il giorno dopo che è piovuto, il fiore sul suo dorso emana un profumo più intenso e attira gli altri Pokémon.", 2.0, 100.0, "Dinosauro", "003.png", "Verde", 6, 7, 3, "Erbaiuto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (4, "Lucertola", "Charmander", "La fiamma che Charmander ha sulla coda indica la sua forza vitale. Se è in forma, la fiamma è vivace.", 0.6, 8.5, "Rettile", "004.png", "Rosso", 2, null, 4, "Aiutofuoco");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (5, "Fiamma", "Charmeleon", "Fa cadere a terra il nemico colpendolo con la coda, per poi finirlo con gli artigli affilati.", 1.1, 19.0, "Rettile", "005.png", "Rosso", 2, null, 5, "Aiutofuoco");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (6, "Fiamma", "Charizard", "Grazie alle sue ali può volare fino a 1.400 m d'altezza. Sputa fiamme incandescenti.", 1.7, 90.5, "Drago", "006.png", "Rosso", 2, 5, 6, "Aiutofuoco");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (7, "Tartaghina", "Squirtle", "Si ritira nel suo guscio per proteggersi e, alla prima occasione, contrattacca colpendo il nemico con spruzzi d'acqua.", 0.5, 9.0, "Bestia", "007.png", "Blu", 4, null, 7, "Acquaiuto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (8, "Tartaruga", "Wartortle", "Quando sta per ricevere un colpo sulla testa si ritira nella corazza per evitarlo. La coda, però, resta sempre un po' fuori.", 1.0, 22.5, "Tartaruga", "008.png", "Blu", 4, null, 8, "Acquaiuto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (9, "Carapace", "Blastoise", "Mette KO gli avversari schiacciandoli sotto il corpo possente. Se è in difficoltà, si ritrae nella corazza.", 1.6, 85.5, "Tartaruga", "009.png", "Blu", 4, null, 9, "Acquaiuto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (16, "Uccellino", "Pidgey", "È docile e preferisce evitare conflitti, ma se viene disturbato contrattacca ferocemente.", 0.3, 1.8, "Uccello", "016.png", "Marrone", 1, 5, 10, "Sguardofermo");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (17, "Uccello", "Pidgeotto", "Controlla un vasto territorio e prende a beccate qualsiasi intruso.", 1.1, 30.0, "Uccello", "017.png", "Marrone", 1, 5, 11, "Sguardofermo");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (18, "Uccello", "Pidgeot", "Quando caccia, vola rasente alla superficie dell'acqua e cattura Magikarp e altre prede afferrandole con gli artigli.", 1.5, 39.5, "Uccello", "018.png", "Marrone", 1, 5, 12, "Sguardofermo");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (25, "Topo", "Pikachu", "Quando si sente minacciato emette scariche elettriche dalle due piccole sacche sulle guance.", 0.4, 6.0, "Topo", "025.png", "Giallo", 8, null, 13, "Statico");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (26, "Topo", "Raichu", "Quando l'elettricità al suo interno si accumula finisce per stimolarne i muscoli, rendendolo più aggressivo del solito.", 0.8, 30.0, "Topo", "026.png", "Giallo", 8, null, 14, "Statico");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (27, "Topo", "Sandshrew", "Se cade da una grande altezza, questo Pokémon può salvarsi appallottolandosi e rimbalzando.", 0.6, 12.0, "Bestia", "027.png", "Giallo", 9, null, 15, "Sabbiavelo");
 
 -- andre
-insert into POKEMON values (94, "Ombra", "Gengar", "Infrange la notte per nascondersi nelle ombre delle persone e derubarle del loro calore corporeo.", 1.5, 40.5, "Umanoide", "094.png", "Viola", 15, 7, 16, "Corpochiaro");
-insert into POKEMON values (116, "Drago", "Horsea", "Se avverte un pericolo, sputa un inchiostro nero denso dalla bocca per poi darsi alla fuga.", 0.4, 8.0, "Mollusco", "116.png", "Blu", 4, null, 17, "Nuotoveloce");
-insert into POKEMON values (117, "Dragone", "Seadra", "Il suo corpo è ricoperto di aculei velenosi. Un contatto disattento provoca svenimenti immediati.", 1.2, 25.0, "Mollusco", "117.png", "Blu", 4, null, 18, "Cecchino");
-insert into POKEMON values (123, "Mantide", "Scyther", "Con le sue falci affilate taglia e sminuzza le sue prede. Si muove così velocemente da creare illusioni.", 1.5, 56.0, "Insetto", "123.png", "Verde", 13, 5, 19, "Svegliatesta");
-insert into POKEMON values (129, "Pesce", "Magikarp", "È famoso per essere pateticamente debole. Può solo saltellare inutilmente sulla terraferma.", 0.9, 10.0, "Pesce", "129.png", "Rosso", 4, null, 20, "Nuotoveloce");
-insert into POKEMON values (130, "Atroce", "Gyarados", "È estremamente aggressivo. Quando si adira, distrugge tutto quello che trova sul suo cammino.", 6.5, 235.0, "Dragone", "130.png", "Blu", 4, 5, 21, "Sgomento");
-insert into POKEMON values (131, "Trasporto", "Lapras", "Dall'indole docile, ama trasportare le persone sul suo dorso solcando le acque oceaniche.", 2.5, 220.0, "Mostro Marino", "131.png", "Blu", 4, 12, 22, "Assorbacqua");
-insert into POKEMON values (133, "Evoluzione", "Eevee", "Ha una struttura genetica instabile che gli permette di evolversi in molteplici forme per adattarsi all'ambiente.", 0.3, 6.5, "Volpe", "133.png", "Marrone", 1, null, 23, "Fuga");
-insert into POKEMON values (134, "Bolla", "Vaporeon", "La sua struttura cellulare è simile a quella delle molecole d'acqua, permettendogli di mimetizzarsi perfettamente.", 1.0, 29.0, "Quadrupede", "134.png", "Blu", 4, null, 24, "Assorbacqua");
-insert into POKEMON values (135, "Saetta", "Jolteon", "Punta i suoi peli aghiformi e li scaglia come dardi affilati impregnati di elettricità.", 0.8, 24.5, "Quadrupede", "135.png", "Giallo", 8, null, 25, "Assorbelettro");
-insert into POKEMON values (136, "Fiamma", "Flareon", "Accumula calore nel suo corpo soffice e la sua temperatura corporea può salire fino a 900 °C.", 0.9, 25.0, "Quadrupede", "136.png", "Rosso", 2, null, 26, "Immondezza");
-insert into POKEMON values (143, "Pigiama", "Snorlax", "Il suo stomaco può digerire qualsiasi cosa. Mangia centinaia di chili di cibo al giorno e poi dorme.", 2.1, 460.0, "Orso", "143.png", "Nero", 1, null, 27, "Grassochecola");
-insert into POKEMON values (147, "Drago", "Dratini", "Cresce continuamente facendo la muta della pelle. Considerato a lungo un Pokémon leggendario.", 1.8, 3.3, "Serpente", "147.png", "Blu", 14, null, 28, "Corpochiaro");
-insert into POKEMON values (148, "Drago", "Dragonair", "Aura mistica lo avvolge. Si dice che sia in grado di modificare le condizioni atmosferiche a suo piacimento.", 4.0, 16.5, "Serpente", "148.png", "Blu", 14, null, 29, "Corpochiaro");
-insert into POKEMON values (149, "Drago", "Dragonite", "Può fare il giro del mondo in sole 16 ore. Ha un grande cuore e salva i marinai alla deriva.", 2.2, 210.0, "Drago", "149.png", "Marrone", 14, 5, 30, "Corpochiaro");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (94, "Ombra", "Gengar", "Infrange la notte per nascondersi nelle ombre delle persone e derubarle del loro calore corporeo.", 1.5, 40.5, "Umanoide", "094.png", "Viola", 15, 7, 16, "Corpochiaro");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (116, "Drago", "Horsea", "Se avverte un pericolo, sputa un inchiostro nero denso dalla bocca per poi darsi alla fuga.", 0.4, 8.0, "Mollusco", "116.png", "Blu", 4, null, 17, "Nuotoveloce");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (117, "Dragone", "Seadra", "Il suo corpo è ricoperto di aculei velenosi. Un contatto disattento provoca svenimenti immediati.", 1.2, 25.0, "Mollusco", "117.png", "Blu", 4, null, 18, "Cecchino");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (123, "Mantide", "Scyther", "Con le sue falci affilate taglia e sminuzza le sue prede. Si muove così velocemente da creare illusioni.", 1.5, 56.0, "Insetto", "123.png", "Verde", 13, 5, 19, "Svegliatesta");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (129, "Pesce", "Magikarp", "È famoso per essere pateticamente debole. Può solo saltellare inutilmente sulla terraferma.", 0.9, 10.0, "Pesce", "129.png", "Rosso", 4, null, 20, "Nuotoveloce");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (130, "Atroce", "Gyarados", "È estremamente aggressivo. Quando si adira, distrugge tutto quello che trova sul suo cammino.", 6.5, 235.0, "Dragone", "130.png", "Blu", 4, 5, 21, "Sgomento");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (131, "Trasporto", "Lapras", "Dall'indole docile, ama trasportare le persone sul suo dorso solcando le acque oceaniche.", 2.5, 220.0, "Mostro Marino", "131.png", "Blu", 4, 12, 22, "Assorbacqua");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (133, "Evoluzione", "Eevee", "Ha una struttura genetica instabile che gli permette di evolversi in molteplici forme per adattarsi all'ambiente.", 0.3, 6.5, "Volpe", "133.png", "Marrone", 1, null, 23, "Fuga");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (134, "Bolla", "Vaporeon", "La sua struttura cellulare è simile a quella delle molecole d'acqua, permettendogli di mimetizzarsi perfettamente.", 1.0, 29.0, "Quadrupede", "134.png", "Blu", 4, null, 24, "Assorbacqua");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (135, "Saetta", "Jolteon", "Punta i suoi peli aghiformi e li scaglia come dardi affilati impregnati di elettricità.", 0.8, 24.5, "Quadrupede", "135.png", "Giallo", 8, null, 25, "Assorbelettro");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (136, "Fiamma", "Flareon", "Accumula calore nel suo corpo soffice e la sua temperatura corporea può salire fino a 900 °C.", 0.9, 25.0, "Quadrupede", "136.png", "Rosso", 2, null, 26, "Immondezza");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (143, "Pigiama", "Snorlax", "Il suo stomaco può digerire qualsiasi cosa. Mangia centinaia di chili di cibo al giorno e poi dorme.", 2.1, 460.0, "Orso", "143.png", "Nero", 1, null, 27, "Grassochecola");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (147, "Drago", "Dratini", "Cresce continuamente facendo la muta della pelle. Considerato a lungo un Pokémon leggendario.", 1.8, 3.3, "Serpente", "147.png", "Blu", 14, null, 28, "Corpochiaro");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (148, "Drago", "Dragonair", "Aura mistica lo avvolge. Si dice che sia in grado di modificare le condizioni atmosferiche a suo piacimento.", 4.0, 16.5, "Serpente", "148.png", "Blu", 14, null, 29, "Corpochiaro");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (149, "Drago", "Dragonite", "Può fare il giro del mondo in sole 16 ore. Ha un grande cuore e salva i marinai alla deriva.", 2.2, 210.0, "Drago", "149.png", "Marrone", 14, 5, 30, "Corpochiaro");
 -- fine andre
 
 -- Ale
-insert into POKEMON values (28, "Topo", "Sandslash", "Pokémon terrestre che scava tunnel e si difende con le spine.", 1, 29.5, "Bestia", "028.png", "Giallo", 9, null, 31, "Sabbiavelo");
-insert into POKEMON values (29, "Aculeo", "Nidoranf", "Pokémon velenoso prudente dotato di un piccolo corno tossico.", 0.4, 7, "Mostro", "029.png", "Blu", 7, null, 32, "Velenopunto"); 
-insert into POKEMON values (30, "Aculeo", "Nidorina", "Pokémon velenoso tranquillo che protegge con cura i suoi piccoli.", 0.8, 20, "Mostro", "030.png", "Blu", 7, null, 33, "Velenopunto");
-insert into POKEMON values (31, "Trapano", "Nidoqueen", "Pokémon corazzato molto potente e protettivo verso il suo territorio.", 1.3, 60, "Mostro", "031.png", "Blu", 7, 9, 34, "Velenopunto");
-insert into POKEMON values (32, "Aculeo", "Nidoranm", "Pokémon velenoso vivace che combatte usando il corno velenoso.", 0.5, 9, "Mostro", "032.png", "Viola", 7, null, 35, "Velenopunto");
-insert into POKEMON values (33, "Aculeo", "Nidorino", "Pokémon aggressivo che attacca caricando con il corno appuntito.", 0.9, 19.5, "Mostro", "033.png", "Viola", 7, null, 36, "Velenopunto");
-insert into POKEMON values (34, "Trapano", "Nidoking", "Pokémon estremamente potente dal lungo corno velenoso.", 1.4, 62, "Mostro", "034.png", "Viola", 7, 9, 37, "Velenopunto");
-insert into POKEMON values (37, "Volpe", "Vulpix", "Elegante Pokémon volpe dalle sei code morbide e splendenti.", 0.6, 9.9, "Bestia", "037.png", "Marrone", 2, null, 38, "Fuocardore");
-insert into POKEMON values (38, "Volpe", "Ninetales", "Pokémon volpe leggendario noto per la sua grande longevità.", 1.1, 19.9, "Bestia", "038.png", "Giallo", 2, null, 39, "Fuocardore");
-insert into POKEMON values (58, "Cucciolo", "Growlithe", "Pokémon fedele e coraggioso che difende il proprio allenatore.", 0.7, 19, "Bestia", "058.png", "Marrone", 2, null, 40, "Prepotenza");
-insert into POKEMON values (59, "Leggenda", "Arcanine", "Maestoso Pokémon famoso per velocità, coraggio ed eleganza.", 1.9, 155, "Bestia", "059.png", "Marrone", 2, null, 41, "Prepotenza"); 
-insert into POKEMON values (77, "Cavalfuoco", "Ponyta", "Giovane cavallo di fuoco dalla corsa estremamente rapida.", 1, 30, "Bestia", "077.png", "Giallo", 2, null, 42, "Fuga");
-insert into POKEMON values (78, "Cavalfuoco", "Rapidash", "Pokémon velocissimo dalle criniere infuocate che galoppa rapidamente.", 1.7, 95, "Bestia", "078.png", "Giallo", 2, null, 43, "Fuga");
-insert into POKEMON values (92, "Gas", "Gastly", "Pokémon gassoso che ama spaventare nell’oscurità.", 1.3, 0.1, "Gas", "092.png", "Viola", 15, 7, 44, "Levitazione");
-insert into POKEMON values (93, "Gas", "Haunter", "Pokémon spettro che terrorizza le vittime con artigli e lingua.", 1.6, 0.1, "Gas", "093.png", "Viola", 15, 7, 45, "Levitazione");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (28, "Topo", "Sandslash", "Pokémon terrestre che scava tunnel e si difende con le spine.", 1, 29.5, "Bestia", "028.png", "Giallo", 9, null, 31, "Sabbiavelo");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (29, "Aculeo", "Nidoranf", "Pokémon velenoso prudente dotato di un piccolo corno tossico.", 0.4, 7, "Mostro", "029.png", "Blu", 7, null, 32, "Velenopunto"); 
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (30, "Aculeo", "Nidorina", "Pokémon velenoso tranquillo che protegge con cura i suoi piccoli.", 0.8, 20, "Mostro", "030.png", "Blu", 7, null, 33, "Velenopunto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (31, "Trapano", "Nidoqueen", "Pokémon corazzato molto potente e protettivo verso il suo territorio.", 1.3, 60, "Mostro", "031.png", "Blu", 7, 9, 34, "Velenopunto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (32, "Aculeo", "Nidoranm", "Pokémon velenoso vivace che combatte usando il corno velenoso.", 0.5, 9, "Mostro", "032.png", "Viola", 7, null, 35, "Velenopunto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (33, "Aculeo", "Nidorino", "Pokémon aggressivo che attacca caricando con il corno appuntito.", 0.9, 19.5, "Mostro", "033.png", "Viola", 7, null, 36, "Velenopunto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (34, "Trapano", "Nidoking", "Pokémon estremamente potente dal lungo corno velenoso.", 1.4, 62, "Mostro", "034.png", "Viola", 7, 9, 37, "Velenopunto");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (37, "Volpe", "Vulpix", "Elegante Pokémon volpe dalle sei code morbide e splendenti.", 0.6, 9.9, "Bestia", "037.png", "Marrone", 2, null, 38, "Fuocardore");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (38, "Volpe", "Ninetales", "Pokémon volpe leggendario noto per la sua grande longevità.", 1.1, 19.9, "Bestia", "038.png", "Giallo", 2, null, 39, "Fuocardore");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (58, "Cucciolo", "Growlithe", "Pokémon fedele e coraggioso che difende il proprio allenatore.", 0.7, 19, "Bestia", "058.png", "Marrone", 2, null, 40, "Prepotenza");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (59, "Leggenda", "Arcanine", "Maestoso Pokémon famoso per velocità, coraggio ed eleganza.", 1.9, 155, "Bestia", "059.png", "Marrone", 2, null, 41, "Prepotenza"); 
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (77, "Cavalfuoco", "Ponyta", "Giovane cavallo di fuoco dalla corsa estremamente rapida.", 1, 30, "Bestia", "077.png", "Giallo", 2, null, 42, "Fuga");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (78, "Cavalfuoco", "Rapidash", "Pokémon velocissimo dalle criniere infuocate che galoppa rapidamente.", 1.7, 95, "Bestia", "078.png", "Giallo", 2, null, 43, "Fuga");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (92, "Gas", "Gastly", "Pokémon gassoso che ama spaventare nell’oscurità.", 1.3, 0.1, "Gas", "092.png", "Viola", 15, 7, 44, "Levitazione");
+insert into POKEMON(NumeroPokemon, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, IdElementoPrimario, IdElementoSecondario, IdStatistiche, NomeAbilita)
+	values (93, "Gas", "Haunter", "Pokémon spettro che terrorizza le vittime con artigli e lingua.", 1.6, 0.1, "Gas", "093.png", "Viola", 15, 7, 45, "Levitazione");
 
 
 insert into MOSSA values ("Azione", "Infligge danno e non ha nessun effetto aggiuntivo.", 100, 40, 1);
