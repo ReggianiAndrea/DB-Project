@@ -529,7 +529,159 @@ operazioni del sistema.
 
 \section{Traduzione delle entità}
 
+\begin{itemize}
+\item \textbf{ABILITÀ:} \\
+Abilità (NomeAbilità, DescrizioneAbilità)
+
+\item \textbf{BATTAGLIA:} \\
+Battaglia (\underline{IdBattaglia}, SfidanteVincitore, Data, Luogo, Sfidante, Sfidato)
+
+\quad FK: Sfidante REFERENCES SQUADRA
+
+\quad FK: Sfidato REFERENCES SQUADRA
+
+\item \textbf{BIOMA:} \\
+Bioma (\underline{IdBioma}, Habitat, DescrizioneHabitat)
+
+\item \textbf{BOX\_POKÉMON:} \\
+Box\_Pokémon (\underline{IdBox})
+
+\item \textbf{ELEMENTO:} \\
+Elemento (\underline{IdElemento}, Tipologia)
+
+\item \textbf{ESEMPLARE\_POKÉMON:} \\
+Esemplare\_Pokémon (\underline{IdEsemplare}, NomeAllenatore, NomePrimoAllenatore, Livello, DataCattura, InBox, Sesso, Cromatico, NumeroPokemon)
+
+\quad FK: NumeroPokemon REFERENCES POKÉMON
+
+\item \textbf{EVOLUZIONE:} \\
+Evoluzione (\underline{Metodo}, \underline{PokémonStadioCorrente}, \underline{PokémonStadioSuccessivo}) 
+
+\quad FK: Metodo REFERENCES METODO\_EVOLUTIVO
+
+\quad FK: PokémonStadioCorrente REFERENCES POKÉMON
+
+\quad FK: PokémonStadioSuccessivo REFERENCES POKÉMON
+
+\item \textbf{GIOCATORE:} \\
+Giocatore (\underline{IdGiocatore}, Nome, Cognome, Nickname, Immagine)
+
+\quad AK: Nickname
+
+\item \textbf{METODO\_EVOLUTIVO:} \\
+Metodo\_Evolutivo (\underline{IdMetodo}, Nome, Descrizione)
+
+\item \textbf{MOSSA:} \\
+Mossa (\underline{NomeMossa}, DescrizioneMossa, Precisione, Danno*, Elemento)
+
+\quad FK: Elemento REFERENCES ELEMENTO
+
+\item \textbf{POKÉMON:} \\
+Pokémon (\underline{NumeroPokemon}, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, ElementoPrimario, ElementoSecondario*)
+
+\quad FK: ElementoPrimario REFERENCES ELEMENTO
+
+\quad FK: ElementoSecondario REFERENCES ELEMENTO
+
+\item \textbf{SET\_STATISTICHE:} \\
+Set\_Statistiche (\underline{IdStatistiche}, Attacco, Difesa, PuntiSalute, AttaccoSpeciale, DifesaSpeciale, Velocità)
+
+\item \textbf{SQUADRA:} \\
+Squadra (\underline{IdGiocatore})
+
+\quad FK: IdGiocatore REFERENCES GIOCATORE
+\end{itemize}
+
 \section{Traduzione delle associazioni}
+
+\begin{itemize}
+\item \textbf{ACQUISIZIONE} (lega MOSSA e POKÉMON) \\
+Un pokémon può imparare molteplici mosse \\
+Acquisizione (Mossa, Pokémon)
+
+\quad FK: Mossa REFERENCES MOSSA
+
+\quad FK: Pokémon REFERENCES POKÉMON
+
+\item \textbf{AMICIZIA} (lega GIOCATORE a AMICO) \\
+Amicizia (Giocatore, Amico, Bloccato)
+
+\quad FK: Giocatore REFERENCES GIOCATORE
+
+\quad FK: Amico REFERENCES GIOCATORE
+
+\item \textbf{AVVISTAMENTO} (lega GIOCATORE e POKÉMON) \\
+Avvistamento (GIocatore, Pokémon)
+
+\quad FK: Giocatore REFERENCES GIOCATORE
+
+\quad FK: Pokémon REFERENCES POKÉMON
+
+\item \textbf{CATTURA} (lega GIOCATORE e POKÉMON) \\
+Cattura (Giocatore, Pokémon)
+
+\quad FK: Giocatore REFERENCES GIOCATORE
+
+\quad FK: Pokémon REFERENCES POKÉMON
+
+\item \textbf{COMPETENZA} (lega POKÉMON ed ABILITÀ) \\
+I pokémon possiedono delle abilità, che determinano le loro capacità e possibilità in battaglia \\
+Competenza (Pokémon, Abilità)
+
+\quad FK: Pokémon REFERENCES POKÉMON
+
+\quad FK: Abilità REFERENCES ABILITÀ
+
+\item \textbf{COMPOSIZIONE} (lega ESEMPLARE\_POKÉMON e SQUADRA) \\
+Una squadra pokemon è composta da un massimo di 6 pokemon catturati in precedenza \\
+Composizione (Squadra, Esemplare)
+
+\quad FK: Squadra REFERENCES SQUADRA
+
+\quad FK: Esemplare REFERENCES ESEMPLARE\_POKEMON
+
+\item \textbf{CUSTODIA} (lega ESEMPLARE\_POKÉMON e GIOCATORE) \\
+Custodia (Giocatore, Esemplare)
+
+\quad FK: Giocatore REFERENCES GIOCATORE
+
+\quad FK: Esemplare REFERENCES ESEMPLARE\_POKÉMON 
+
+\item \textbf{DOTAZIONE} (lega GIOCATORE e BOX\_POKÉMON) \\
+Dotazione (Giocatore, Box)
+
+\quad FK: Giocatore REFERENCES GIOCATORE
+
+\quad FK: Box REFERENCES BOX\_POKÉMON
+
+\item \textbf{LOCAZIONE} (lega ESEMPLARE\_POKÉMON e BOX\_POKÉMON) \\
+Locazione (Box, Esemplare)
+
+\quad FK: Box REFERENCES BOX\_POKÉMON
+
+\quad FK: Esemplare REFERENCES ESEMPLARE\_POKÉMON 
+
+\item \textbf{PARAMETRI} (lega POKÉMON e SET\_STATISTICHE) \\
+Parametri (Pokemon, Statistiche)
+
+\quad FK: Pokémon REFERENCES POKÉMON
+
+\quad FK: Statistiche REFERENCES SET\_STATISTICHE
+
+\item \textbf{PERMANENZA} (lega BIOMA e POKÉMON) \\
+Permanenza (Bioma, Pokémon)
+
+\quad FK: Bioma REFERENCES BIOMA
+
+\quad FK: Pokémon REFERENCES POKEMON
+
+\item \textbf{PREFERENZA} (lega ESEMPLARE\_POKÉMON e GIOCATORE) \\
+Preferenza (Giocatore, Esemplare)
+
+\quad FK: Giocatore REFERENCES GIOCATORE
+
+\quad FK: Esemplare REFERENCES ESEMPLARE\_POKÉMON
+\end{itemize}
 
 \section{Traduzione delle Query SQL}
 
@@ -792,12 +944,6 @@ operazioni del sistema.
 		WHERE NumeroPokemon = pokemon
 	\end{verbatim}
 \end{enumerate}
-
-\chapter{Progetto fisico}
-
-\section{Indicizzazione di attributi}
-
-\section{Ordinamento su attributi}
 
 \chapter{Interfaccia utente}
 
