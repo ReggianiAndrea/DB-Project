@@ -14,6 +14,8 @@ public partial class Giocatore
 
     public string Immagine { get; set; } = null!;
 
+    public int NumeroCromatici { get; set; }
+
     public int? IdEsemplarePreferito { get; set; }
 
     public virtual ICollection<Amicizia> AmiciziaIdGiocatoreAmicoNavigations { get; set; } = new List<Amicizia>();
@@ -177,6 +179,7 @@ public partial class Giocatore
         {
             pokemon.IdEsemplare = 1;
         }
+        if (pokemon.Cromatico) db.Giocatores.Where(g => g.IdGiocatore == IdGiocatore).First().NumeroCromatici++;
         pokemon.DataCattura = DateTime.Now;
         pokemon.IdGiocatoreProprietario = IdGiocatore;
         pokemon.NomePrimoAllenatore = Nome;

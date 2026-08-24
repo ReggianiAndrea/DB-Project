@@ -477,12 +477,10 @@ namespace PokedexADA
                     amiciList.Items[i].SubItems[1].Text = a.Bloccato ? "bloccato" : "";
                 }
             }
-            var classificaShiny = (from ep in db.EsemplarePokemons
-                                   join g in db.Giocatores on ep.IdGiocatoreProprietario equals g.IdGiocatore
-                                   where ep.Cromatico == true
-                                   group ep by g.Nickname into gShiny
-                                   orderby gShiny.Count() descending
-                                   select new { Nickname = gShiny.Key, Conteggio = gShiny.Count() }).ToList();
+            var classificaShiny = (from g in db.Giocatores
+                                   where g.NumeroCromatici > 0
+                                   orderby g.NumeroCromatici descending
+                                   select new { Nickname = g.Nickname, Conteggio = g.NumeroCromatici }).ToList();
 
             listShiny.Items.Clear();
             foreach (var s in classificaShiny)
