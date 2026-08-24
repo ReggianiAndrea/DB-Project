@@ -418,6 +418,206 @@ TRAMITE & R & 150 \\
 
 \section{Schemi di navigazione}
 
+\begin{enumerate}
+  \item Aggiungere un giocatore tra gli amici
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 2 \\
+    \hline
+    Amicizia & R & S & 1 \\
+    \hline
+  \end{tabular} \\
+  2L + 1S = 4 accessi => 1080 accessi/anno
+  
+  \item Rimozione di un amico
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 2 \\
+    \hline
+    Amicizia & R & S & 1 \\
+    \hline
+  \end{tabular} \\
+  2L + 1S = 4 accessi => 16 accessi/anno
+  
+  \item Cambiare Pokémon preferito
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 1 \\
+  	\hline
+    Giocatore & E & S & 1 \\
+    \hline
+    Esemplare Pokémon & E & L & 1 \\
+    \hline
+    Preferenza & R & L & 1 \\
+    \hline
+  \end{tabular} \\
+  3L + 1S = 5 accessi => 10 accessi/anno
+  
+  \item Bloccare un amico
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 2 \\
+    \hline
+    Amicizia & R & S & 1 \\
+    \hline
+  \end{tabular} \\
+  2L + 1S = 4 accessi => 144 accessi/anno
+  
+  \item Sbloccare un amico
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 2 \\
+    \hline
+    Amicizia & R & S & 1 \\
+    \hline
+  \end{tabular} \\
+  2L + 1S = 4 accessi => 896 accessi/anno
+  
+  \item Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 100 \\
+    \hline
+    Pokémon & E & L & 250 \\
+    \hline
+    Cattura & R & L & 25000 \\
+    \hline
+  \end{tabular} \\
+  25350L = 25350 accessi => 342000 accessi/anno
+  
+  \item Mostrare gli amici con un certo Pokémon preferito
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 20 \\
+    \hline
+    Esemplare Pokémon & E & L & 20 \\
+    \hline
+    Amicizia & R & L & 20 \\
+	\hline
+    Preferenza & R & L & 20 \\
+    \hline
+  \end{tabular} \\
+  80L = 80 accessi => 960 accessi/anno
+  
+  \item Aggiungere un Pokémon visto
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 1 \\
+    \hline
+    Pokémon & E & L & 1 \\
+    \hline
+    Avvistamento & R & S & 1 \\
+    \hline
+  \end{tabular} \\
+  2L + 1S = 4 accessi => 7200 accessi/anno
+  
+  \item Aggiungere un Pokémon catturato
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+  	\hline
+    Giocatore & E & L & 1 \\
+    \hline
+    Pokémon & E & L & 1 \\
+    \hline
+    Cattura & R & S & 1 \\
+    \hline
+  \end{tabular} \\
+  2L + 1S = 4 accessi => 1440 accessi/anno
+  
+  \item Visualizzare l'intera linea evolutiva di un Pokémon
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+    \hline
+    Pokémon & E & L & 3 \\
+    \hline
+    Evoluzione & E & L & 2 \\
+  	\hline
+    Metodo Evolutivo & E & L & 2 \\
+    \hline
+    Stadio Corrente & R & L & 2 \\
+    \hline
+    Stadio Successivo & R & L & 2 \\
+    \hline
+    Tramite & R & L & 2 \\
+    \hline
+  \end{tabular} \\
+  13L = 13 accessi => 4680 accessi/anno
+  
+  \item Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi
+    \hline
+    Pokémon & E & L & 250 \\
+    \hline
+    Evoluzione & E & L & 150 \\
+  	\hline
+    Metodo Evolutivo & E & L & 1 \\
+    \hline
+    Stadio Corrente & R & L & 150 \\
+    \hline
+    Stadio Successivo & R & L & 150 \\
+    \hline
+    Tramite & R & L & 15 \\
+    \hline
+  \end{tabular} \\
+  716L = 716 accessi => 515520 accessi/anno
+  
+12 & Visualizzare la lista di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
+\hline
+13 & Visualizzare la lista di Pokémon che appartengono al bioma specificato & 1/Settimana \\
+\hline
+14 & Visualizzare la lista di Pokémon che hanno l'abilità specificata & 1/Settimana \\
+\hline
+15 & Visualizzare la lista di Pokémon che hanno l'elemento specificato & 1/Settimana \\
+\hline
+16 & Visualizzare la lista di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
+\hline
+17 & Mostrare i colori dominanti più comuni tra i Pokémon & 1/Settimana \\
+\hline
+18 & Mostrare la lista di Pokémon preferiti scelti più comunemente & 1/Mese \\
+\hline
+19 & Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
+\hline
+20 & Visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
+\hline
+21 & Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico & 2/Settimana \\
+\hline
+22 & Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
+\hline
+23 & Visualizzare lo storico delle battaglie di un utente & 3/Settimana \\
+\hline
+\end{enumerate}
+
 \section{Frequenza e costo degli accessi}
 
 La tabella seguente riporta le principali funzionalità previste dal sistema, distinguendo le operazioni
@@ -462,11 +662,11 @@ operazioni del sistema.
 \hline
 2 & Rimozione di un amico & 2/Anno \\
 \hline
-3 & Possibilità di cambiare il proprio Pokémon preferito & 2/Anno \\
+3 & Cambiare il proprio Pokémon preferito & 2/Anno \\
 \hline
-4 & Possibilità di bloccare un amico & 3/Mese \\
+4 & Bloccare un amico & 3/Mese \\
 \hline
-5 & Possibilità di sbloccare un amico bloccato & 2/Mese \\
+5 & Sbloccare un amico bloccato & 2/Mese \\
 \hline
 6 & Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati & 1/Mese \\
 \hline
@@ -496,7 +696,7 @@ operazioni del sistema.
 \hline
 19 & Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
 \hline
-20 & Possibilità di visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
+20 & Visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
 \hline
 21 & Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico & 2/Settimana \\
 \hline
@@ -700,14 +900,14 @@ Preferenza (Giocatore, Esemplare)
 		WHERE IdGiocatore = giocatore1 AND IdGiocatoreAmico = giocatore2
 	\end{verbatim}
 	
-	\item \textit{Possibilità di cambiare il proprio Pokémon preferito}
+	\item \textit{Cambiare il proprio Pokémon preferito}
 	\begin{verbatim}
 		UPDATE GIOCATORE
 		SET IdEsemplarePreferito = esemplare
 		WHERE IdGiocatore = giocatore
 	\end{verbatim}
 	
-	\item \textit{Possibilità di bloccare un amico}
+	\item \textit{Bloccare un amico}
 	\begin{verbatim}
 		UPDATE AMICIZIA
 		SET BLOCCATO = TRUE
@@ -715,7 +915,7 @@ Preferenza (Giocatore, Esemplare)
 		AND IdGiocatoreAmico = giocatore2
 	\end{verbatim}
 	
-	\item \textit{Possibilità di sbloccare un amico bloccato}
+	\item \textit{Sbloccare un amico bloccato}
 	\begin{verbatim}
 		UPDATE AMICIZIA
 		SET BLOCCATO = FALSE
@@ -880,7 +1080,7 @@ Preferenza (Giocatore, Esemplare)
 		ORDER BY NumeroPokemon DESC
 	\end{verbatim}
 	
-	\item \textit{Possibilità di visualizzare quali Pokémon cromatici possiede un allenatore}
+	\item \textit{Visualizzare quali Pokémon cromatici possiede un allenatore}
 	\begin{verbatim}
 		SELECT ep.IdEsemplare, p.Nome SpeciePokemon,
 			ep.NomeAllenatore, ep.Livello, ep.Sesso
