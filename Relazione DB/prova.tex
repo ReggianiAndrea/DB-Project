@@ -615,18 +615,14 @@ Operazioni utente
   \item Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati
   
   \begin{tabular}{|c|c|c|c|}
-  	\hline
-  	Concetto & Costrutto & Tipo & Accessi \\
-  	\hline
+    \hline
+    Concetto & Costrutto & Tipo & Accessi \\
+    \hline
     Giocatore & E & L & 100 \\
     \hline
-    Pokémon & E & L & 250 \\
-    \hline
-    Cattura & R & L & 25000 \\
-    \hline
   \end{tabular} \\
-  
-  25350L = 25350 accessi => 342000 accessi/anno
+
+  100L = 100 accessi => 1200 accessi/anno \\
   
   \item Mostrare gli amici con un certo Pokémon preferito
   
@@ -1076,7 +1072,37 @@ Si scrive nei seguenti capitoli le scelte progettuali durante il passaggio tra p
 
 \subsection{Analisi delle ridondanze}
 
-Un parametro ridondante utilizzato è il totale di Set Statistiche poiché derivabile dagli altri attributi dell'entità. Poiché le operazioni offerte dal Pokédex non sfruttano molto le ridondanze, si nota che solo due operazioni si possono analizzare con un parametro ridondante.
+Un parametro ridondante utilizzato è il totale di Set Statistiche poiché derivabile dagli altri attributi dell'entità. Poiché le operazioni offerte dal Pokédex non sfruttano molto le ridondanze, si nota che solo tre operazioni si possono analizzare con un parametro ridondante.
+
+\textit{6. Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati}
+
+Senza ridondanza: \\
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & L & 100 \\
+  \hline
+  Pokémon & E & L & 250 \\
+  \hline
+  Cattura & R & L & 25000 \\
+  \hline
+\end{tabular} \\
+
+25350L = 25350 accessi => 342000 accessi/anno \\
+
+Con ridondanza: \\
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & L & 100 \\
+  \hline
+\end{tabular} \\
+
+100L = 100 accessi => 1200 accessi/anno \\
 
 \textit{18. Mostrare la lista di Pokémon preferiti scelti più comunemente}
 
@@ -1229,7 +1255,7 @@ Evoluzione (\underline{Metodo}, \underline{PokémonStadioCorrente}, \underline{P
 \quad FK: PokémonStadioSuccessivo REFERENCES POKÉMON
 
 \item \textbf{GIOCATORE:} \\
-Giocatore (\underline{IdGiocatore}, Nome, Cognome, Nickname, Immagine)
+Giocatore (\underline{IdGiocatore}, Nome, Cognome, Nickname, Immagine, NumeroCromatici, NumeroCatturati)
 
 \quad AK: Nickname
 
@@ -1242,7 +1268,7 @@ Mossa (\underline{NomeMossa}, DescrizioneMossa, Precisione, Danno*, Elemento)
 \quad FK: Elemento REFERENCES ELEMENTO
 
 \item \textbf{POKÉMON:} \\
-Pokémon (\underline{NumeroPokemon}, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, ElementoPrimario, ElementoSecondario*)
+Pokémon (\underline{NumeroPokemon}, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, ElementoPrimario, ElementoSecondario*, NumeroSceltePreferito)
 
 \quad FK: ElementoPrimario REFERENCES ELEMENTO
 
@@ -1390,12 +1416,10 @@ Preferenza (Giocatore, Esemplare)
 	
 	\item \textit{Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati}
 	\begin{verbatim}
-		SELECT G.Nickname, COUNT(*) NumeroPokemonCatturati
-		FROM GIOCATORE g
-		JOIN CATTURA c
-    		ON g.IdGiocatore = c.IdGiocatore
-		GROUP BY g.IdGiocatore, g.Nickname
-		ORDER BY NumeroPokemonCatturati DESC
+		SELECT NumeroCatturati
+		FROM GIOCATORE
+		WHERE NumeroCatturati > 0
+		ORDER BY NumeroCatturati DESC
 	\end{verbatim}
 	
 	\item \textit{Mostrare gli amici con un certo Pokémon preferito}
