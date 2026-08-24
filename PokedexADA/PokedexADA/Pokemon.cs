@@ -35,6 +35,8 @@ public partial class Pokemon
 
     public string NomeAbilita { get; set; } = null!;
 
+    public int NumeroSceltePreferito { get; set; } = 0;
+
     public virtual ICollection<EsemplarePokemon> EsemplarePokemons { get; set; } = new List<EsemplarePokemon>();
 
     public virtual ICollection<Evoluzione> EvoluzioneNumeroPokemonStadioCorrenteNavigations { get; set; } = new List<Evoluzione>();

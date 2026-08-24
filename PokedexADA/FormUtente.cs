@@ -480,16 +480,31 @@ namespace PokedexADA
             var classificaShiny = (from g in db.Giocatores
                                    where g.NumeroCromatici > 0
                                    orderby g.NumeroCromatici descending
-                                   select new { Nickname = g.Nickname, Conteggio = g.NumeroCromatici }).ToList();
+                                   select g).ToList();
 
             listShiny.Items.Clear();
             foreach (var s in classificaShiny)
             {
-                listShiny.Items.Add(new ListViewItem(new[] { s.Nickname, s.Conteggio.ToString() }));
+                listShiny.Items.Add(new ListViewItem(new[] { s.Nickname, s.NumeroCromatici.ToString() }));
             }
             if (classificaShiny.Count == 0)
             {
                 listShiny.Items.Add(new ListViewItem(new[] { "Nessuno", "0" }));
+            }
+
+            var classificaPokemonPreferiti = (from p in db.Pokemons
+                                              where p.NumeroSceltePreferito > 0
+                                              orderby p.NumeroSceltePreferito descending
+                                              select p).ToList();
+
+            pokemonPreferitiComuniListView.Items.Clear();
+            foreach (var s in classificaPokemonPreferiti)
+            {
+                pokemonPreferitiComuniListView.Items.Add(new ListViewItem(new[] { s.Nome, s.NumeroSceltePreferito.ToString() }));
+            }
+            if (classificaPokemonPreferiti.Count == 0)
+            {
+                pokemonPreferitiComuniListView.Items.Add(new ListViewItem(new[] { "Nessuno", "0" }));
             }
         }
 
@@ -1043,6 +1058,7 @@ namespace PokedexADA
                                  join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
                                  where ep.IdEsemplare == Int32.Parse(scegliPokemonPreferitoComboBox.SelectedItem.ToString())
                                  select p).First();
+
             anteprimaPokemonPreferitoPictureBox.Image = new Bitmap(@"..\..\..\res\" + preferito.Immagine);
         }
 

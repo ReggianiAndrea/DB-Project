@@ -14,7 +14,7 @@ public partial class Giocatore
 
     public string Immagine { get; set; } = null!;
 
-    public int NumeroCromatici { get; set; }
+    public int NumeroCromatici { get; set; } = 0;
 
     public int? IdEsemplarePreferito { get; set; }
 
@@ -344,8 +344,22 @@ public partial class Giocatore
         db.Database.EnsureCreated();
         try
         {
+            Pokemon? vecchioPreferito = (from p in db.Pokemons
+                                        join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
+                                        where ep.IdEsemplare == IdEsemplarePreferito
+                                        select p).FirstOrDefault();
+            if (vecchioPreferito != null)
+            {
+                vecchioPreferito.NumeroSceltePreferito--;
+            }
+            Pokemon preferito = (from p in db.Pokemons
+                                 join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
+                                 where ep.IdEsemplare == id
+                                 select p).First();
+            preferito.NumeroSceltePreferito++;
             IdEsemplarePreferito = id;
             db.Giocatores.Update(this);
+            db.Database.EnsureCreated();
         }
         finally
         {
