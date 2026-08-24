@@ -16,6 +16,8 @@ public partial class Giocatore
 
     public int NumeroCromatici { get; set; } = 0;
 
+    public int NumeroCatturati { get; set; } = 0;
+
     public int? IdEsemplarePreferito { get; set; }
 
     public virtual ICollection<Amicizia> AmiciziaIdGiocatoreAmicoNavigations { get; set; } = new List<Amicizia>();
@@ -86,7 +88,7 @@ public partial class Giocatore
         try
         {
             Immagine = path;
-            db.Giocatores.Update(this);
+            db.Giocatores.Where(g => g.IdGiocatore == IdGiocatore).First().Immagine = path;
         }
         finally
         {
@@ -179,7 +181,11 @@ public partial class Giocatore
         {
             pokemon.IdEsemplare = 1;
         }
-        if (pokemon.Cromatico) db.Giocatores.Where(g => g.IdGiocatore == IdGiocatore).First().NumeroCromatici++;
+        if (pokemon.Cromatico)
+        {
+            NumeroCromatici++;
+            db.Giocatores.Where(g => g.IdGiocatore == IdGiocatore).First().NumeroCromatici = NumeroCromatici;
+        }
         pokemon.DataCattura = DateTime.Now;
         pokemon.IdGiocatoreProprietario = IdGiocatore;
         pokemon.NomePrimoAllenatore = Nome;
@@ -196,6 +202,8 @@ public partial class Giocatore
             pokemon.IdBox = db.BoxPokemons.Where(b => b.IdGiocatore == IdGiocatore).Select(b => b.IdBox).First();
             pokemon.InBox = true;
         }
+        NumeroCatturati++;
+        db.Giocatores.Where(g => g.IdGiocatore == IdGiocatore).First().NumeroCatturati = NumeroCatturati;
         db.EsemplarePokemons.Add(pokemon);
         db.SaveChanges();
         if (!catturato)
@@ -344,22 +352,21 @@ public partial class Giocatore
         db.Database.EnsureCreated();
         try
         {
-            Pokemon? vecchioPreferito = (from p in db.Pokemons
-                                        join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
-                                        where ep.IdEsemplare == IdEsemplarePreferito
-                                        select p).FirstOrDefault();
-            if (vecchioPreferito != null)
+            if (IdEsemplarePreferito != null)
             {
-                vecchioPreferito.NumeroSceltePreferito--;
+                Pokemon vecchioPreferito = (from p in db.Pokemons
+                                            join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
+                                            where ep.IdEsemplare == IdEsemplarePreferito
+                                            select p).First();
+                db.Pokemons.Where(p => p.NumeroPokemon == vecchioPreferito.NumeroPokemon).First().NumeroSceltePreferito = Math.Max(vecchioPreferito.NumeroSceltePreferito - 1, 0);
             }
             Pokemon preferito = (from p in db.Pokemons
                                  join ep in db.EsemplarePokemons on p.NumeroPokemon equals ep.NumeroPokemon
                                  where ep.IdEsemplare == id
                                  select p).First();
-            preferito.NumeroSceltePreferito++;
+            db.Pokemons.Where(p => p.NumeroPokemon == preferito.NumeroPokemon).First().NumeroSceltePreferito++;
             IdEsemplarePreferito = id;
-            db.Giocatores.Update(this);
-            db.Database.EnsureCreated();
+            db.Giocatores.Where(g => g.IdGiocatore == IdGiocatore).First().IdEsemplarePreferito = id;
         }
         finally
         {

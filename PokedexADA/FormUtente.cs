@@ -506,6 +506,21 @@ namespace PokedexADA
             {
                 pokemonPreferitiComuniListView.Items.Add(new ListViewItem(new[] { "Nessuno", "0" }));
             }
+
+            var classificaPokemonCatturati = (from p in db.Giocatores
+                                              where p.NumeroCatturati > 0
+                                              orderby p.NumeroCatturati descending
+                                              select p).ToList();
+
+            numeroCatturatiListView.Items.Clear();
+            foreach (var s in classificaPokemonCatturati)
+            {
+                numeroCatturatiListView.Items.Add(new ListViewItem(new[] { s.Nome, s.NumeroCatturati.ToString() }));
+            }
+            if (classificaPokemonCatturati.Count == 0)
+            {
+                numeroCatturatiListView.Items.Add(new ListViewItem(new[] { "Nessuno", "0" }));
+            }
         }
 
         private void SelezionaPokedex()
@@ -1072,7 +1087,7 @@ namespace PokedexADA
             cambiaPokemonPreferitoPictureBox.Image = anteprimaPokemonPreferitoPictureBox.Image;
             giocatore.CambiaPokemonPreferito(Int32.Parse(scegliPokemonPreferitoComboBox.SelectedItem.ToString()));
             using var db = new PokedexAdaContext();
-            bool esemplareShiny = db.EsemplarePokemons.Where(ep => ep.IdEsemplare == giocatore.IdEsemplarePreferito).Select(ep => ep.Cromatico).First();
+            bool esemplareShiny = db.EsemplarePokemons.Where(ep => ep.IdEsemplare == Int32.Parse(scegliPokemonPreferitoComboBox.SelectedItem.ToString())).Select(ep => ep.Cromatico).First();
             profiloCromaticoLabel.Text = esemplareShiny ? "\u2728" : "";
         }
     }

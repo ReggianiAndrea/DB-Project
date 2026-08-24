@@ -103,6 +103,7 @@ create table GIOCATORE (
      Nickname varchar(30) not null,
      Immagine varchar(100) not null,
      NumeroCromatici int not null default 0,
+     NumeroCatturati int not null default 0,
      IdEsemplarePreferito int,
      constraint ID_GIOCATORE_ID primary key (IdGiocatore));
 

@@ -32,6 +32,10 @@ namespace PokedexADA
         private void InitializeComponent()
         {
             visualizzaAmici = new TabPage();
+            groupBox1 = new GroupBox();
+            pokemonPreferitiComuniListView = new ListView();
+            columnHeader20 = new ColumnHeader();
+            columnHeader21 = new ColumnHeader();
             boxShiny = new GroupBox();
             listShiny = new ListView();
             columnHeader11 = new ColumnHeader();
@@ -172,11 +176,12 @@ namespace PokedexADA
             cambiaImmagineProfiloButton = new Button();
             cambiaPokemonPreferitoPictureBox = new PictureBox();
             cambiaImmagineProfiloPictureBox = new PictureBox();
-            groupBox1 = new GroupBox();
-            pokemonPreferitiComuniListView = new ListView();
-            columnHeader20 = new ColumnHeader();
-            columnHeader21 = new ColumnHeader();
+            groupBox2 = new GroupBox();
+            numeroCatturatiListView = new ListView();
+            columnHeader22 = new ColumnHeader();
+            columnHeader23 = new ColumnHeader();
             visualizzaAmici.SuspendLayout();
+            groupBox1.SuspendLayout();
             boxShiny.SuspendLayout();
             cercaGiocatoreGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cercaGiocatorePokemonPreferitoPictureBox).BeginInit();
@@ -195,11 +200,12 @@ namespace PokedexADA
             ((System.ComponentModel.ISupportInitialize)anteprimaImmagineProfiloPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cambiaPokemonPreferitoPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cambiaImmagineProfiloPictureBox).BeginInit();
-            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // visualizzaAmici
             // 
+            visualizzaAmici.Controls.Add(groupBox2);
             visualizzaAmici.Controls.Add(groupBox1);
             visualizzaAmici.Controls.Add(boxShiny);
             visualizzaAmici.Controls.Add(cercaGiocatoreFallitaLabel);
@@ -215,12 +221,44 @@ namespace PokedexADA
             visualizzaAmici.Text = "Visualizza Amici";
             visualizzaAmici.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(pokemonPreferitiComuniListView);
+            groupBox1.Location = new Point(853, 413);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(260, 205);
+            groupBox1.TabIndex = 8;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Pokémon preferiti più comuni";
+            // 
+            // pokemonPreferitiComuniListView
+            // 
+            pokemonPreferitiComuniListView.Columns.AddRange(new ColumnHeader[] { columnHeader20, columnHeader21 });
+            pokemonPreferitiComuniListView.Dock = DockStyle.Fill;
+            pokemonPreferitiComuniListView.GridLines = true;
+            pokemonPreferitiComuniListView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            pokemonPreferitiComuniListView.Location = new Point(3, 19);
+            pokemonPreferitiComuniListView.Name = "pokemonPreferitiComuniListView";
+            pokemonPreferitiComuniListView.Size = new Size(254, 183);
+            pokemonPreferitiComuniListView.TabIndex = 0;
+            pokemonPreferitiComuniListView.UseCompatibleStateImageBehavior = false;
+            pokemonPreferitiComuniListView.View = View.Details;
+            // 
+            // columnHeader20
+            // 
+            columnHeader20.Text = "Pokémon";
+            columnHeader20.Width = 150;
+            // 
+            // columnHeader21
+            // 
+            columnHeader21.Text = "Qt.";
+            // 
             // boxShiny
             // 
             boxShiny.Controls.Add(listShiny);
-            boxShiny.Location = new Point(853, 64);
+            boxShiny.Location = new Point(853, 229);
             boxShiny.Name = "boxShiny";
-            boxShiny.Size = new Size(260, 248);
+            boxShiny.Size = new Size(260, 178);
             boxShiny.TabIndex = 0;
             boxShiny.TabStop = false;
             boxShiny.Text = "Allenatori con Pokémon Shiny ";
@@ -234,7 +272,7 @@ namespace PokedexADA
             listShiny.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listShiny.Location = new Point(3, 19);
             listShiny.Name = "listShiny";
-            listShiny.Size = new Size(254, 226);
+            listShiny.Size = new Size(254, 156);
             listShiny.TabIndex = 0;
             listShiny.UseCompatibleStateImageBehavior = false;
             listShiny.View = View.Details;
@@ -1512,36 +1550,38 @@ namespace PokedexADA
             cambiaImmagineProfiloPictureBox.TabIndex = 0;
             cambiaImmagineProfiloPictureBox.TabStop = false;
             // 
-            // groupBox1
+            // groupBox2
             // 
-            groupBox1.Controls.Add(pokemonPreferitiComuniListView);
-            groupBox1.Location = new Point(853, 315);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(260, 302);
-            groupBox1.TabIndex = 8;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Pokémon preferiti più comuni";
+            groupBox2.Controls.Add(numeroCatturatiListView);
+            groupBox2.Location = new Point(853, 45);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(260, 178);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Allenatori con più catture";
             // 
-            // pokemonPreferitiComuniListView
+            // numeroCatturatiListView
             // 
-            pokemonPreferitiComuniListView.Columns.AddRange(new ColumnHeader[] { columnHeader20, columnHeader21 });
-            pokemonPreferitiComuniListView.GridLines = true;
-            pokemonPreferitiComuniListView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            pokemonPreferitiComuniListView.Location = new Point(3, 22);
-            pokemonPreferitiComuniListView.Name = "pokemonPreferitiComuniListView";
-            pokemonPreferitiComuniListView.Size = new Size(254, 276);
-            pokemonPreferitiComuniListView.TabIndex = 0;
-            pokemonPreferitiComuniListView.UseCompatibleStateImageBehavior = false;
-            pokemonPreferitiComuniListView.View = View.Details;
+            numeroCatturatiListView.Columns.AddRange(new ColumnHeader[] { columnHeader22, columnHeader23 });
+            numeroCatturatiListView.Dock = DockStyle.Fill;
+            numeroCatturatiListView.FullRowSelect = true;
+            numeroCatturatiListView.GridLines = true;
+            numeroCatturatiListView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            numeroCatturatiListView.Location = new Point(3, 19);
+            numeroCatturatiListView.Name = "numeroCatturatiListView";
+            numeroCatturatiListView.Size = new Size(254, 156);
+            numeroCatturatiListView.TabIndex = 0;
+            numeroCatturatiListView.UseCompatibleStateImageBehavior = false;
+            numeroCatturatiListView.View = View.Details;
             // 
-            // columnHeader20
+            // columnHeader22
             // 
-            columnHeader20.Text = "Pokémon";
-            columnHeader20.Width = 150;
+            columnHeader22.Text = "Allenatore";
+            columnHeader22.Width = 130;
             // 
-            // columnHeader21
+            // columnHeader23
             // 
-            columnHeader21.Text = "Qt.";
+            columnHeader23.Text = "Qt.";
             // 
             // FormUtente
             // 
@@ -1554,6 +1594,7 @@ namespace PokedexADA
             Text = "FormUtente";
             visualizzaAmici.ResumeLayout(false);
             visualizzaAmici.PerformLayout();
+            groupBox1.ResumeLayout(false);
             boxShiny.ResumeLayout(false);
             cercaGiocatoreGroupBox.ResumeLayout(false);
             cercaGiocatoreGroupBox.PerformLayout();
@@ -1580,7 +1621,7 @@ namespace PokedexADA
             ((System.ComponentModel.ISupportInitialize)anteprimaImmagineProfiloPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)cambiaPokemonPreferitoPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)cambiaImmagineProfiloPictureBox).EndInit();
-            groupBox1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1731,5 +1772,9 @@ namespace PokedexADA
         private ListView pokemonPreferitiComuniListView;
         private ColumnHeader columnHeader20;
         private ColumnHeader columnHeader21;
+        private GroupBox groupBox2;
+        private ListView numeroCatturatiListView;
+        private ColumnHeader columnHeader22;
+        private ColumnHeader columnHeader23;
     }
 }
