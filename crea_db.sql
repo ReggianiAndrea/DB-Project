@@ -286,6 +286,9 @@ alter table POKEMON add constraint REF_POKEM_ABILI_FK
 --      check(exists(select * from POKEMON
 --                   where POKEMON.IdStatistiche = IdStatistiche)); 
 
+alter table SET_STATISTICHE add constraint ID_SET_STATISTICHE_CHK2
+     check(Totale = PuntiSalute + Attacco + Difesa + AttaccoSpeciale + DifesaSpeciale + Velocita);
+
 -- alter table SQUADRA add constraint ID_SQUAD_GIOCA_CHK
 --      check(exists(select * from ESEMPLARE_POKEMON
 --                   where ESEMPLARE_POKEMON.IdSquadra = IdGiocatore)); 
