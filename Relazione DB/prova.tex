@@ -301,6 +301,96 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
 
 \section{Analisi delle funzionalità richieste}
 
+Prendiamo in esame le operazioni elementari previste per il funzionamento del sistema e per la
+manipolazione dei dati, individuando per ognuna di esse i campi coinvolti e le informazioni da estrarre. Le
+principali funzionalità previste sono le seguenti:
+\begin{itemize}
+
+\item Aggiunta di pokemon al pokedex (amministratori) 
+\item Rimozione di pokemon dal pokedex (amministratori) 
+\item Gestione delle relazioni di amicizia (amministratori)
+
+\item Incontrare pokemon e salvare l'avvistamento (giocatori)
+\item Incontrare pokemon e catturarli (giocatori)
+\item Gestione Box e squadra giocatore (giocatori)
+
+\item Cercare pokemon che vivono in un determinato bioma (giocatori)
+\item Cercare pokemon con un determinato tipo elementare (giocatori)
+\item Cercare pokemon che si evolvono con un metodo evolutivo definito (giocatori)
+
+\item Visualizzare allenatori con pokemon shiny (giocatori)
+\item Visualizzare i pokemon shiny di un determinato allenatore (giocatori)
+\item Visualizzare la squadra attiva di un determinato allenatore (giocatori)
+
+\end{itemize}
+\subsection{Aggiunta di pokemon al pokedex} 
+Questa operazione da lato Amministratore, nel pannello Gestione Pokemon permette di inserire nuovi Pokemon.
+Selezionato il bottone "Aggiungi Pokemon" sarà possibile definire il nome, la specie, altezza, peso, colore dominante, bioma e statistiche di gioco.
+
+Entità coinvolte Pokémon
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
+\end{figure}
+
+\subsection{Aggiunta di pokemon al pokedex} 
+Questa operazione da lato Amministratore, nel pannello Gestione Pokemon permette di inserire nuovi Pokemon.
+Selezionato il bottone "Aggiungi Pokemon" sarà possibile definire il nome, la specie, altezza, peso, colore dominante, bioma e statistiche di gioco.
+
+Entità coinvolte Pokémon
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
+\end{figure}
+
+
+\subsection{Aggiunta linea evolutiva--DACOMPLETARE}
+
+\subsection{Rimozione di pokemon dal pokedex--DACOMPLETARE} 
+QUERYYYYY
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
+\end{figure}
+
+\subsection{Gestione delle relazioni di amicizia}
+Questa operazione da lato Amministratore e Giocatore,permette di impostarelo stato di amicizia tra due allenatori di Pokemon.
+
+La selezione dello stato\textbf{Bloccato} impedirà qualsiasi interazione tra i due Giocatori fino ad una successiva selezione dello stato di \textbf{Sblocco}.
+
+Entità coinvolte Giocatore
+
+\subsection{Incontrare pokemon e salvare l'avvistamento}
+Questa operazione da lato Giocatore esegue un inserimento del pokemon avvistato nella lista dei pokemon avvistati sul Pokedex.
+
+Questo inserimento fornirà informazioni incomplete fino alla cattura completata della data specie di pokemon.
+
+Entità coinvolte Pokémon Giocatore
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
+\end{figure}
+
+\subsection{Incontrare pokemon e catturarlo} 
+Questa operazione da lato Giocatore esegue un inserimento del pokemon catturato nella squadra attiva del giocatore, o nel box se la squadra dovesse risultare al completo.
+
+Questo inserimento fornirà informazioni complete della data specie di pokemon.
+
+Entità coinvolte Pokémon, Giocatore, Esemplare\_Pokemon
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
+\end{figure}
+\subsection{Gestione Box e squadra giocatore--DACOMPLETARE} 
+\subsection{Cercare pokemon che vivono in un determinato bioma--DACOMPLETARE}
+
+\subsection{Cercare pokemon con un determinato tipo elementare--DACOMPLETARE}
+\subsection{Cercare pokemon che si evolvono con un metodo evolutivo definito--DACOMPLETARE} 
+\subsection{Visualizzare allenatori con pokemon shiny--DACOMPLETARE} 
+\subsection{Visualizzare i pokemon shiny di un determinato allenatore--DACOMPLETARE}
+\subsection{Visualizzare la squadra attiva di un determinato allenatore--DACOMPLETARE}
+
+
 \section{DA GUARDARE BENE CON I BOYS}
 
 \section{Carichi di lavoro}
@@ -416,6 +506,30 @@ TRAMITE & R & 150 \\
 
 \chapter{Progetto logico}
 
+\section{Operazioni}
+
+Riassumiamo in breve le funzionalità principali richieste al sistema:
+
+\begin{itemize}
+
+\item Aggiunta di pokemon al pokedex (amministratori) 
+\item Rimozione di pokemon dal pokedex (amministratori) 
+\item Gestione delle relazioni di amicizia (amministratori)
+
+\item Incontrare pokemon e salvare l'avvistamento (giocatori)
+\item Incontrare pokemon e catturarli (giocatori)
+\item Gestione Box e squadra giocatore (giocatori)
+
+\item Cercare pokemon che vivono in un determinato bioma (giocatori)
+\item Cercare pokemon con un determinato tipo elementare (giocatori)
+\item Cercare pokemon che si evolvono con un metodo evolutivo definito (giocatori)
+
+\item Visualizzare allenatori con pokemon shiny (giocatori)
+\item Visualizzare i pokemon shiny di un determinato allenatore (giocatori)
+\item Visualizzare la squadra attiva di un determinato allenatore (giocatori)
+
+\end{itemize}
+
 \section{Schemi di navigazione}
 
 \begin{enumerate}
@@ -423,7 +537,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 2 \\
     \hline
@@ -436,7 +550,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 2 \\
     \hline
@@ -449,7 +563,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 1 \\
   	\hline
@@ -466,7 +580,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 2 \\
     \hline
@@ -479,7 +593,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 2 \\
     \hline
@@ -492,7 +606,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 100 \\
     \hline
@@ -507,7 +621,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 20 \\
     \hline
@@ -524,7 +638,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 1 \\
     \hline
@@ -539,7 +653,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
     Giocatore & E & L & 1 \\
     \hline
@@ -554,7 +668,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
     \hline
     Pokémon & E & L & 3 \\
     \hline
@@ -575,7 +689,7 @@ TRAMITE & R & 150 \\
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
-  	Concetto & Costrutto & Tipo & Accessi
+  	Concetto & Costrutto & Tipo & Accessi \\
     \hline
     Pokémon & E & L & 250 \\
     \hline
@@ -592,30 +706,19 @@ TRAMITE & R & 150 \\
   \end{tabular} \\
   716L = 716 accessi => 515520 accessi/anno
   
-12 & Visualizzare la lista di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
-\hline
-13 & Visualizzare la lista di Pokémon che appartengono al bioma specificato & 1/Settimana \\
-\hline
-14 & Visualizzare la lista di Pokémon che hanno l'abilità specificata & 1/Settimana \\
-\hline
-15 & Visualizzare la lista di Pokémon che hanno l'elemento specificato & 1/Settimana \\
-\hline
-16 & Visualizzare la lista di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
-\hline
-17 & Mostrare i colori dominanti più comuni tra i Pokémon & 1/Settimana \\
-\hline
-18 & Mostrare la lista di Pokémon preferiti scelti più comunemente & 1/Mese \\
-\hline
-19 & Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
-\hline
-20 & Visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
-\hline
-21 & Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico & 2/Settimana \\
-\hline
-22 & Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
-\hline
-23 & Visualizzare lo storico delle battaglie di un utente & 3/Settimana \\
-\hline
+%12 & Visualizzare la lista di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
+%13 & Visualizzare la lista di Pokémon che appartengono al bioma specificato & 1/Settimana \\
+%14 & Visualizzare la lista di Pokémon che hanno l'abilità specificata & 1/Settimana \\
+%15 & Visualizzare la lista di Pokémon che hanno l'elemento specificato & 1/Settimana \\
+%16 & Visualizzare la lista di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
+%17 & Mostrare i colori dominanti più comuni tra i Pokémon & 1/Settimana \\
+%18 & Mostrare la lista di Pokémon preferiti scelti più comunemente & 1/Mese \\
+%19 & Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
+%20 & Visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
+%21 & Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico & 2/Settimana \\
+%22 & Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
+%23 & Visualizzare lo storico delle battaglie di un utente & 3/Settimana \\
+
 \end{enumerate}
 
 \section{Frequenza e costo degli accessi}
