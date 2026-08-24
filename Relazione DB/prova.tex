@@ -1525,12 +1525,10 @@ Preferenza (Giocatore, Esemplare)
 	
 	\item \textit{Mostrare la lista di Pokémon preferiti scelti più comunemente}
 	\begin{verbatim}
-		SELECT p.NumeroPokemon, p.Nome, COUNT(*) NumeroPreferenze
-		FROM GIOCATORE g
-		JOIN ESEMPLARE_POKEMON ep ON g.IdEsemplarePreferito = ep.IdEsemplare
-		JOIN POKEMON p ON ep.NumeroPokemon = p.NumeroPokemon
-		GROUP BY p.NumeroPokemon, p.Nome
-		ORDER BY NumeroPreferenze DESC
+		SELECT NumeroPokemon, Nome, NumeroSceltePreferito
+		FROM POKEMON
+		WHERE NumeroSceltePreferito > 0
+		ORDER BY NumeroSceltePreferito DESC
 	\end{verbatim}
 	
 	\item \textit{Mostrare la lista degli elementi più comuni tra i Pokémon di uno stesso bioma}
@@ -1557,9 +1555,10 @@ Preferenza (Giocatore, Esemplare)
 	
 	\item \textit{Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico}
 	\begin{verbatim}
-		SELECT COUNT(DISTINCT ep.IdGiocatoreProprietario) NumeroUtentiConShiny
-		FROM ESEMPLARE_POKEMON ep
-		WHERE ep.Cromatico = TRUE
+		SELECT NumeroCromatici
+		FROM GIOCATORE
+		WHERE NumeroCromatici > 0
+		ORDER BY NumeroCromatici DESC
 	\end{verbatim}
 	
 	\item \textit{Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon}
