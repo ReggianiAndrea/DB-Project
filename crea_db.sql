@@ -102,6 +102,7 @@ create table GIOCATORE (
      Cognome varchar(30) not null,
      Nickname varchar(30) not null,
      Immagine varchar(100) not null,
+     NumeroCromatici int not null,
      IdEsemplarePreferito int,
      constraint ID_GIOCATORE_ID primary key (IdGiocatore));
 

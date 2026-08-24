@@ -80,6 +80,8 @@ dati.
 
 \chapter{Progetto dello schema concettuale}
 
+\subsection{Descrizione entità e relazioni}
+
 \renewcommand{\arraystretch}{1.5}
 \normalsize
 
@@ -187,8 +189,9 @@ TRAMITE & R & Lega l'evoluzione di un Pokémon al suo metodo evolutivo \\
 \hline
 \end{longtable}
 
-\newpage
-\section{Sviluppo dell'ambito evoluzione}
+\section{Descrizione dettagliata}
+
+\subsection{Sviluppo dell'ambito evoluzione}
 
 Poiché i Pokémon possono evolversi, è stato necessario rappresentare una relazione tra due Pokémon e il metodo evolutivo richiesto. Un Pokémon può avere più stadi successivi di evoluzione legati da uno specifico metodo evolutivo, ma uno stadio evoluto può avere un solo stadio precedente. Un Pokémon non può avere stadi successivi ottenuti dallo stesso metodo evolutivo. Si è scelto di rappresentare la relazione come un'entità Evoluzione, la quale contiene le chiavi dei Pokémon legati dall'evoluzione e dal metodo richiesto per l'evoluzione. I metodi evolutivi utilizzano una gerarchia ereditaria totale ed esclusiva e possono essere di tre tipi:
 \begin{itemize}
@@ -204,7 +207,7 @@ Le evoluzioni per scambio sono particolari poiché richiedono la presenza di un 
     \caption{Schema ER contenente le entità e relazioni per rappresentare la linea evolutiva di un Pokémon}
 \end{figure}
 
-\section{Sviluppo dell'ambito Giocatore - Esemplare Pokémon}
+\subsection{Sviluppo dell'ambito Giocatore - Esemplare Pokémon}
 
 Ogni giocatore ha la possibilità di scegliere un esemplare catturato come suo preferito in modo da mostrarlo agli altri giocatori.
 
@@ -214,7 +217,7 @@ Ogni giocatore ha la possibilità di scegliere un esemplare catturato come suo p
     \caption{Schema ER rappresentante la relazione tra un giocatore e il suo esemplare preferito}
 \end{figure}
 
-\section{Sviluppo dell'ambito Pokémon}
+\subsection{Sviluppo dell'ambito Pokémon}
 
 Il Pokédex di ogni giocatore registra i Pokémon quando avvistati o catturati per la prima volta. Non è richiesto uno storico per mantenere le catture o gli avvistamenti poiché è sufficiente la sola presenza per potere mostrare certi (o tutti) i dati della pagina del Pokédex di una certa specie al giocatore in base al suo progresso.
 
@@ -224,7 +227,7 @@ Il Pokédex di ogni giocatore registra i Pokémon quando avvistati o catturati p
     \caption{Schema ER rappresentante il completamento del Pokédex di un giocatore quando trova e cattura Pokémon per la prima volta}
 \end{figure}
 
-\section{Sviluppo dell'ambito Specie ed Esemplare}
+\subsection{Sviluppo dell'ambito Specie ed Esemplare}
 
 Per gestire correttamente la differenza tra una specie generale e la singola creatura catturata da un allenatore, lo schema separa l'entità POKÉMON (che rappresenta la creatura all'interno del Pokédex) dall'entità ESEMPLARE\_POKÉMON. 
 
@@ -235,7 +238,7 @@ Le due entità sono legate dall'associazione \textit{associazione} (1 a N): una 
     \caption{Schema ER contenente le entità e relazioni per rappresentare la distinzione di un esemplare Pokémon da unaspecie Pokémon}
 \end{figure}
 
-\section{Sviluppo dell'ambito Tipologia Elementale}
+\subsection{Sviluppo dell'ambito Tipologia Elementale}
 
 Ogni Pokémon è caratterizzato da un tipo, modellato tramite l'entità ELEMENTO. 
 Poiché un Pokémon può possedere fino a due tipi distinti, sono state modellate due associazioni separate tra le entità POKÉMON ed ELEMENTO:
@@ -253,7 +256,7 @@ Le mosse tecniche di combattimento, modellate dall'entità MOSSA possiedono a un
     \caption{Schema ER contenente le entità e relazioni per rappresentare gli ELEMENTI che influiscono su abitat e natura dei Pokémon}
 \end{figure}
 
-\section{Sviluppo dell'ambito Giocatore e Archiviazione}
+\subsection{Sviluppo dell'ambito Giocatore e Archiviazione}
 
 Gli esemplari catturati da un allenatore che non trovano spazio nella squadra attiva vengono depositati nel sistema di archiviazione PC. 
 
@@ -269,7 +272,7 @@ La cardinalità di quest'ultima è 0..1 dal lato dell'esemplare, in quanto un Po
     \caption{Schema ER contenente le entità e relazioni per rappresentare il sistema di BOX disponibile per i Giocatori}
 \end{figure}
 
-\section{Sviluppo dell'ambito Battaglia e Squadra}
+\subsection{Sviluppo dell'ambito Battaglia e Squadra}
 
 Le sfide tra allenatori vengono registrate tramite l'entità BATTAGLIA.
 
@@ -285,9 +288,9 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
 \end{figure}
 
 
-\section{Sviluppo dell'ambito ...}
+\subsection{Sviluppo dell'ambito ...}
 
-\section{Sviluppo dell'ambito ...}
+\subsection{Sviluppo dell'ambito ...}
 
 \section{Schema completo}
 
@@ -306,20 +309,16 @@ manipolazione dei dati, individuando per ognuna di esse i campi coinvolti e le i
 principali funzionalità previste sono le seguenti:
 \begin{itemize}
 
-\item Aggiunta di pokemon al pokedex (amministratori) 
-\item Rimozione di pokemon dal pokedex (amministratori) 
-\item Gestione delle relazioni di amicizia (amministratori)
+\item Aggiunta di Pokémon al pokedex (amministratori) 
+\item Rimozione di Pokémon dal pokedex (amministratori) 
+\item Gestione delle relazioni di amicizia tra giocatori (amministratori)
 
-\item Incontrare pokemon e salvare l'avvistamento (giocatori)
-\item Incontrare pokemon e catturarli (giocatori)
-\item Gestione Box e squadra giocatore (giocatori)
-
-\item Cercare pokemon che vivono in un determinato bioma (giocatori)
-\item Cercare pokemon con un determinato tipo elementare (giocatori)
-\item Cercare pokemon che si evolvono con un metodo evolutivo definito (giocatori)
-
-\item Visualizzare allenatori con pokemon shiny (giocatori)
-\item Visualizzare i pokemon shiny di un determinato allenatore (giocatori)
+\item Incontrare Pokémon e salvare gli avvistamenti nel Pokédex (giocatori)
+\item Incontrare Pokémon e salvare le catture nel Pokédex (giocatori)
+\item Gestione Box e squadra di un giocatore (giocatori)
+\item Cercare Pokémon seguendo specifici filtri del Pokédex (giocatori)
+\item Visualizzare allenatori con Pokémon cromatici (giocatori)
+\item Visualizzare i Pokémon cromatici di un determinato allenatore (giocatori)
 \item Visualizzare la squadra attiva di un determinato allenatore (giocatori)
 
 \end{itemize}
@@ -532,6 +531,8 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
 
 \section{Schemi di navigazione}
 
+Operazioni utente
+
 \begin{enumerate}
   \item Aggiungere un giocatore tra gli amici
   
@@ -544,6 +545,7 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Amicizia & R & S & 1 \\
     \hline
   \end{tabular} \\
+  
   2L + 1S = 4 accessi => 1080 accessi/anno
   
   \item Rimozione di un amico
@@ -557,6 +559,7 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Amicizia & R & S & 1 \\
     \hline
   \end{tabular} \\
+  
   2L + 1S = 4 accessi => 16 accessi/anno
   
   \item Cambiare Pokémon preferito
@@ -565,8 +568,6 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
   	\hline
   	Concetto & Costrutto & Tipo & Accessi \\
   	\hline
-    Giocatore & E & L & 1 \\
-  	\hline
     Giocatore & E & S & 1 \\
     \hline
     Esemplare Pokémon & E & L & 1 \\
@@ -574,7 +575,8 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Preferenza & R & L & 1 \\
     \hline
   \end{tabular} \\
-  3L + 1S = 5 accessi => 10 accessi/anno
+  
+  2L + 1S = 4 accessi => 8 accessi/anno
   
   \item Bloccare un amico
   
@@ -587,6 +589,7 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Amicizia & R & S & 1 \\
     \hline
   \end{tabular} \\
+  
   2L + 1S = 4 accessi => 144 accessi/anno
   
   \item Sbloccare un amico
@@ -600,7 +603,8 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Amicizia & R & S & 1 \\
     \hline
   \end{tabular} \\
-  2L + 1S = 4 accessi => 896 accessi/anno
+  
+  2L + 1S = 4 accessi => 96 accessi/anno
   
   \item Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati
   
@@ -615,6 +619,7 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Cattura & R & L & 25000 \\
     \hline
   \end{tabular} \\
+  
   25350L = 25350 accessi => 342000 accessi/anno
   
   \item Mostrare gli amici con un certo Pokémon preferito
@@ -632,6 +637,7 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Preferenza & R & L & 20 \\
     \hline
   \end{tabular} \\
+  
   80L = 80 accessi => 960 accessi/anno
   
   \item Aggiungere un Pokémon visto
@@ -647,6 +653,7 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Avvistamento & R & S & 1 \\
     \hline
   \end{tabular} \\
+  
   2L + 1S = 4 accessi => 7200 accessi/anno
   
   \item Aggiungere un Pokémon catturato
@@ -662,6 +669,7 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Cattura & R & S & 1 \\
     \hline
   \end{tabular} \\
+  
   2L + 1S = 4 accessi => 1440 accessi/anno
   
   \item Visualizzare l'intera linea evolutiva di un Pokémon
@@ -683,6 +691,7 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Tramite & R & L & 2 \\
     \hline
   \end{tabular} \\
+  
   13L = 13 accessi => 4680 accessi/anno
   
   \item Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato
@@ -704,22 +713,259 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
     Tramite & R & L & 15 \\
     \hline
   \end{tabular} \\
+  
   716L = 716 accessi => 515520 accessi/anno
   
-%12 & Visualizzare la lista di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
-%13 & Visualizzare la lista di Pokémon che appartengono al bioma specificato & 1/Settimana \\
-%14 & Visualizzare la lista di Pokémon che hanno l'abilità specificata & 1/Settimana \\
-%15 & Visualizzare la lista di Pokémon che hanno l'elemento specificato & 1/Settimana \\
-%16 & Visualizzare la lista di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
-%17 & Mostrare i colori dominanti più comuni tra i Pokémon & 1/Settimana \\
-%18 & Mostrare la lista di Pokémon preferiti scelti più comunemente & 1/Mese \\
-%19 & Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
-%20 & Visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
-%21 & Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico & 2/Settimana \\
-%22 & Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
-%23 & Visualizzare lo storico delle battaglie di un utente & 3/Settimana \\
+  \item Visualizzare la lista di Pokémon che hanno il colore dominante specificato
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Pokémon & E & L & 250 \\
+    \hline
+  \end{tabular} \\
+  
+  250L = 250 accessi => 12000 accessi/anno
+  
+  \item Visualizzare la lista di Pokémon che appartengono al bioma specificato
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Pokémon & E & L & 250 \\
+  	\hline
+    Bioma & E & L & 15 \\
+    \hline
+    Permanenza & R & L & 500 \\
+    \hline
+  \end{tabular} \\
+  
+  765L = 765 accessi => 36720 accessi/anno
+  
+  \item Visualizzare la lista di Pokémon che hanno l'abilità specificata
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Pokémon & E & L & 250 \\
+  	\hline
+    Abilità & E & L & 1 \\
+    \hline
+    Competenza & R & L & 300 \\
+    \hline
+  \end{tabular} \\
+  
+  551L = 551 accessi => 28652 accessi/anno
+  
+  \item Visualizzare la lista di Pokémon che hanno l'elemento specificato
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Pokémon & E & L & 250 \\
+  	\hline
+    Elemento & E & L & 18 \\
+    \hline
+    Primario & R & L & 250 \\
+    \hline
+    Secondario & R & L & 180 \\
+    \hline
+  \end{tabular} \\
+  
+  698L = 698 accessi => 34296 accessi/anno
+  
+  \item Visualizzare la lista di Pokémon che possono conoscere la mossa specificata
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Pokémon & E & L & 250 \\
+  	\hline
+    Mossa & E & L & 1 \\
+    \hline
+    Acquisizione & R & L & 100 \\
+    \hline
+  \end{tabular} \\
+  
+  351L = 351 accessi => 252720 accessi/anno
+  
+  \item Mostrare i colori dominanti più comuni tra i Pokémon
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Pokémon & E & L & 250 \\
+  	\hline
+  \end{tabular} \\
+  
+  250L = 250 accessi => 13000 accessi/anno
+  
+  \item Mostrare la lista di Pokémon preferiti scelti più comunemente
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Giocatore & E & L & 100 \\
+    \hline
+    Pokémon & E & L & 250 \\
+  	\hline
+    Esemplare Pokémon & E & L & 500 \\
+    \hline
+    Associazione & R & L & 500 \\
+    \hline
+    Preferenza & R & L & 25000 \\
+    \hline
+  \end{tabular} \\
+  
+  26350L = 26350 accessi => 316200 accessi/anno
+  
+  \item Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Pokémon & E & L & 250 \\
+    \hline
+    Bioma & E & L & 15 \\
+  	\hline
+    Elemento & E & L & 18 \\
+    \hline
+    Primario & R & L & 250 \\
+    \hline
+    Secondario & R & L & 180 \\
+    \hline
+    Permanenza & R & L & 500 \\
+    \hline
+  \end{tabular} \\
+  
+  1213L = 1213 accessi => 58224 accessi/anno
+  
+  \item Visualizzare quali Pokémon cromatici possiede un allenatore
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Giocatore & E & L & 1 \\
+  	\hline
+    Esemplare Pokémon & E & L & 75000 \\
+    \hline
+    Custodia & R & L & 25000 \\
+    \hline
+  \end{tabular} \\
+  
+  100001L = 100001 accessi => 10400104 accessi/anno
+  
+  \item Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico
+  
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Giocatore & E & L & 100 \\
+    \hline
+  \end{tabular} \\
+  
+  100L = 100 accessi => 10400 accessi/anno
+  
+  \item Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Evoluzione & E & L & 150 \\
+  	\hline
+    Metodo Evolutivo & E & L & 10 \\
+    \hline
+    Tramite & R & L & 150 \\
+    \hline
+  \end{tabular} \\
+  
+  310L = 310 accessi => 111600 accessi/anno
+  
+  \item Visualizzare lo storico delle battaglie di un utente
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+    \hline
+    Battaglia & E & L & 2000 \\
+  	\hline
+    Squadra & E & L & 10 \\
+  	\hline
+    Giocatore & E & L & 10 \\
+    \hline
+    Possesso & R & L & 10 \\
+    \hline
+    Sfidante & R & L & 2000 \\
+    \hline
+    Sfidato & R & L & 2000 \\
+    \hline
+  \end{tabular} \\
+  
+  6030L = 6030 accessi => 1000980 accessi/anno
 
 \end{enumerate}
+
+Operazioni admin
+
+\begin{enumerate}
+  \item Aggiungere un Pokémon 
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+  	\hline
+    Pokémon & E & S & 1 \\
+    \hline
+  \end{tabular} \\
+  
+  1S = 2 accessi => 2 accessi/anno
+  
+  \item Aggiungere evoluzioni e tipologie di evoluzioni
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+  	\hline
+    Pokémon & E & L & 2 \\
+    \hline
+    Metodo Evolutivo & E & L & 1 \\
+  	\hline
+    Evoluzione & E & S & 1 \\
+    \hline
+    Tramite & R & S & 1 \\
+  	\hline
+    Stadio Corrente & R & S & 1 \\
+  	\hline
+    Stadio Successivo & R & S & 1 \\
+    \hline
+  \end{tabular} \\
+  
+  3L + 4S = 11 accessi => 11 accessi/anno
+  
+  \item Rimozione di un Pokémon
+  
+  \begin{tabular}{|c|c|c|c|}
+  	\hline
+  	Concetto & Costrutto & Tipo & Accessi \\
+  	\hline
+    Pokémon & E & S & 1 \\
+    \hline
+  \end{tabular} \\
+  
+  1S = 2 accessi => 2 accessi/anno
+  
+  \end{enumerate}
 
 \section{Frequenza e costo degli accessi}
 
@@ -827,6 +1073,52 @@ operazioni del sistema.
 \end{longtable}
 
 \section{Trasformazioni dello schema concettuale}
+
+Si scrive nei seguenti capitoli le scelte progettuali durante il passaggio tra progetto concettuale a progetto logico. Si citano le scelte più importanti nelle seguenti sezioni.
+
+\subsection{Analisi delle ridondanze}
+
+Un parametro ridondante utilizzato è il totale di Set Statistiche poiché derivabile dagli altri attributi dell'entità. Poiché le operazioni offerte dal Pokédex non sfruttano molto le ridondanze, si nota che solo un'operazione si può analizzare con un parametro ridondante.
+
+Analizziamo quindi l'operazione \textit{21. Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico}
+
+\textbf{21.}
+
+Si può aggiungere un valore booleano alla tabella Giocatore per indicare se possiede almeno un Pokémon Cromatico, in modo da evitare di cercare su tutti gli esemplari di ogni giocatore.
+
+Senza ridondanza: 
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & L & 100 \\
+  \hline
+  Esemplare Pokémon & E & L & 75000 \\
+  \hline
+  Custodia & R & L & 2500000 \\
+  \hline
+\end{tabular} \\
+  
+2575100L = 2575100 accessi => 267810400 accessi/anno
+
+Con ridondanza: 
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & L & 100 \\
+  \hline
+\end{tabular} \\
+  
+100L = 100 accessi => 10400 accessi/anno
+
+Di conseguenza, si sceglie di implementare la soluzione con ridondanza.
+
+\subsection{Scelta delle chiavi primarie}
+
+\subsection{Eliminazione delle gerarchie di generalizzazione}
 
 \section{Progetto logico per il modello relazionale}
 
@@ -1213,7 +1505,8 @@ Preferenza (Giocatore, Esemplare)
 		
 	\item \textit{Visualizzare lo storico delle battaglie di un utente}
 	\begin{verbatim}
-		SELECT g1.Nickname Sfidante, g2.Nickname Sfidato, b.Data, b.Luogo, b.SfidanteVincitore
+		SELECT g1.Nickname Sfidante, g2.Nickname Sfidato,
+			b.Data, b.Luogo, b.SfidanteVincitore
 		FROM BATTAGLIA b, GIOCATORE g1, GIOCATORE g2
 		WHERE b.IdGiocatoreSfidante = g1.IdGiocatore
 		AND b.IdGiocatoreSfidato = g2.IdGiocatore
