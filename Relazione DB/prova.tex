@@ -319,7 +319,7 @@ Le mosse tecniche di combattimento, modellate dall'entità MOSSA possiedono a un
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{immagini/TipoElementoPokemon.png}
-    \caption{Schema ER contenente le entità e relazioni per rappresentare gli ELEMENTI che influiscono su abitat e natura dei Pokémon}
+    \caption{Schema ER contenente le entità e relazioni per rappresentare gli ELEMENTI che influiscono su habitat e natura dei Pokémon}
 \end{figure}
 
 \subsection{Sviluppo dell'ambito Giocatore e Archiviazione}
@@ -367,125 +367,7 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
     \caption{Schema ER completo}
 \end{figure}
 
-\chapter{Specifiche funzionali}
-
-\section{Analisi delle funzionalità richieste}
-
-Prendiamo in esame le operazioni elementari previste per il funzionamento del sistema e per la
-manipolazione dei dati, individuando per ognuna di esse i campi coinvolti e le informazioni da estrarre. Le
-principali funzionalità previste sono le seguenti:
-\begin{itemize}
-
-\item Aggiunta di Pokémon al pokedex (amministratori) 
-\item Rimozione di Pokémon dal pokedex (amministratori) 
-\item Gestione delle relazioni di amicizia tra giocatori (amministratori)
-
-\item Incontrare Pokémon e salvare gli avvistamenti nel Pokédex (giocatori)
-\item Incontrare Pokémon e salvare le catture nel Pokédex (giocatori)
-\item Gestione Box e squadra di un giocatore (giocatori)
-\item Cercare Pokémon seguendo specifici filtri del Pokédex (giocatori)
-\item Visualizzare allenatori con Pokémon cromatici (giocatori)
-\item Visualizzare i Pokémon cromatici di un determinato allenatore (giocatori)
-\item Visualizzare la squadra attiva di un determinato allenatore (giocatori)
-
-\end{itemize}
-
-\subsection{Aggiunta di pokemon al pokedex} 
-Questa operazione da lato Amministratore, nel pannello Gestione Pokemon permette di inserire nuovi Pokemon.
-Selezionato il bottone "Aggiungi Pokemon" sarà possibile definire il nome, la specie, altezza, peso, colore dominante, bioma e statistiche di gioco.
-
-Entità coinvolte: POKÉMON
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
-\end{figure}
-
-\subsection{Aggiunta linea evolutiva}
-Questa operazione permette all'Amministratore di definire le regole di evoluzione tra due Pokémon già esistenti nel sistema, specificando il metodo necessario affinché avvenga la trasformazione.
-
-Entità coinvolte: POKÉMON, EVOLUZIONE, METODO EVOLUTIVO
- \begin{figure}[H]
-     \centering
-    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
- \end{figure}
-
-\subsection{Aggiunta di pokemon al pokedex} 
-Questa operazione da lato Amministratore, nel pannello Gestione Pokemon permette di inserire nuovi Pokemon.
-Selezionato il bottone "Aggiungi Pokemon" sarà possibile definire il nome, la specie, altezza, peso, colore dominante, bioma e statistiche di gioco.
-
-Entità coinvolte Pokémon
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
-\end{figure}
- 
-\subsection{Rimozione di pokemon dal pokedex} 
-Questa operazione permette all'Amministratore di eliminare definitivamente una voce dal catalogo del Pokédex. Tale operazione si propaga a cascata eliminando anche tutti gli esemplari fisici posseduti dagli allenatori per mantenere la consistenza dei dati.
-
-Entità coinvolte: POKÉMON, ESEMPLARE\_POKÉMON
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
-\end{figure}
-
-\subsection{Gestione delle relazioni di amicizia}
-Questa operazione, eseguibile sia dall'Amministratore che dal Giocatore, permette di impostare lo stato di amicizia tra due allenatori. La selezione dello stato \textbf{Bloccato} impedirà qualsiasi interazione (es. Sfide in Battaglia) tra i due Giocatori fino ad una successiva selezione dello stato di \textbf{Sblocco}.
-
-Entità coinvolte: GIOCATORE, AMICIZIA
-
-\subsection{Incontrare pokemon e salvare l'avvistamento}
-Questa operazione da lato Giocatore esegue un inserimento del pokemon avvistato nella lista dei pokemon avvistati sul Pokédex. Questo inserimento fornirà informazioni incomplete fino alla cattura della data specie.
-
-Entità coinvolte: POKÉMON, GIOCATORE, AVVISTAMENTO
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
-\end{figure}
-
-\subsection{Incontrare pokemon e catturarlo}
-Questa operazione esegue un inserimento del pokemon catturato nella squadra attiva del giocatore, o nel box se la squadra dovesse risultare al completo. Fornirà le informazioni complete della specie sul Pokédex.
-
-Entità coinvolte: POKÉMON, GIOCATORE, ESEMPLARE\_POKÉMON, SQUADRA, BOX\_POKÉMON
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{immagini/schema_er.png} % TODO: togli il placeholder
-\end{figure}
-
-\subsection{Gestione Box e squadra giocatore}
-Operazione che consente al Giocatore di spostare i propri esemplari catturati tra la propria squadra attiva (che può contenere al massimo 6 elementi) e il sistema di archiviazione (Box).
-
-Entità coinvolte: ESEMPLARE\_POKÉMON, SQUADRA, BOX\_POKÉMON, GIOCATORE
-
-\subsection{Cercare pokemon che vivono in un determinato bioma}
-Operazione di filtraggio sul Pokédex. Il giocatore seleziona un bioma specifico (es. Prateria, Monte) e il sistema restituisce tutte le specie di Pokémon che risiedono in tale habitat.
-
-Entità coinvolte: POKÉMON, BIOMA, PERMANENZA
-
-\subsection{Cercare pokemon con un determinato tipo elementare}
-Operazione di ricerca avanzata. Il giocatore inserisce un elemento (es. Fuoco, Acqua) e il sistema filtra il catalogo mostrando i Pokémon che possiedono quell'elemento come tipo primario o secondario.
-
-Entità coinvolte: POKÉMON, ELEMENTO, PRIMARIO, SECONDARIO
-
-\subsection{Cercare pokemon che si evolvono con un metodo evolutivo definito}
-Il giocatore seleziona un metodo evolutivo (es. Pietrafocaia, Scambio) e visualizza le specie correnti, le specie evolute e i relativi dettagli per le evoluzioni innescate da tale metodo.
-
--Entità coinvolte: POKÉMON, EVOLUZIONE, METODO\_EVOLUTIVO, TRAMITE
-
-\subsection{Visualizzare allenatori con pokemon shiny}
-Analisi dei dati per i giocatori. Il sistema scansiona tutti gli esemplari fisici registrati come "cromatici" (shiny) e restituisce la lista e il conteggio degli allenatori che ne possiedono almeno uno.
-
-Entità coinvolte: ESEMPLARE\_POKÉMON, GIOCATORE, CUSTODIA
-
-\subsection{Visualizzare i pokemon shiny di un determinato allenatore}
-Dato un allenatore specifico (es. cercato tramite nickname o lista amici), il sistema mostra i dettagli (Specie, Livello, Sesso) esclusivi degli esemplari cromatici in suo possesso.
-
-Entità coinvolte: ESEMPLARE\_POKÉMON, POKÉMON, GIOCATORE
-
-\subsection{Visualizzare la squadra attiva di un determinato allenatore}
-Selezionando un allenatore (es. prima di avviare una Battaglia), il sistema interroga la squadra del giocatore sfidato per mostrarne gli esemplari attualmente schierati.
-
-Entità coinvolte: GIOCATORE, SQUADRA, ESEMPLARE\_POKÉMON, POKÉMON, COMPOSIZIONE
-
+\chapter{Progetto logico}
 
 \section{Carichi di lavoro}
 
@@ -526,29 +408,29 @@ ACQUISIZIONE & R & 2.500 \\
 \hline
 AMICIZIA & R & 4.000 \\
 \hline
-ASSOCIAZIONE & R & 500 \\
+ASSOCIAZIONE & R & 3.000 \\
 \hline
-AVVISTAMENTO & R & 50.000 \\
+AVVISTAMENTO & R & 10.000 \\
 \hline
-BATTAGLIA & E & 20.000 \\
+BATTAGLIA & E & 2.000 \\
 \hline
 BIOMA & E & 15 \\
 \hline
 BOX POKÉMON & E & 300 \\
 \hline
-CATTURA & R & 25.000 \\
+CATTURA & R & 5.000 \\
 \hline
 COMPETENZA & R & 300 \\
 \hline
 COMPOSIZIONE & R & 500 \\
 \hline
-CUSTODIA & R & 2.500.000 \\
+CUSTODIA & R & 300.000 \\
 \hline
-DOTAZIONE & R & 150.000 \\
+DOTAZIONE & R & 300 \\
 \hline
 ELEMENTO & E & 18 \\
 \hline
-ESEMPLARE POKÉMON & E & 75.000\\
+ESEMPLARE POKÉMON & E & 3.000 \\
 \hline
 EVOLUZIONE & E & 150 \\
 \hline
@@ -556,7 +438,7 @@ FISICO & E & 150 \\
 \hline
 GIOCATORE & E & 100 \\
 \hline
-LOCAZIONE & R & 100.000 \\
+LOCAZIONE & R & 2.500 \\
 \hline
 METODO EVOLUTIVO & E & 10 \\
 \hline
@@ -576,11 +458,11 @@ PRIMARIO & R & 250 \\
 \hline
 SECONDARIO & R & 180 \\
 \hline
-SET\_STATISTICHE & E & 225 \\
+SET\_STATISTICHE & E & 250 \\
 \hline
-SFIDANTE & R & 20.000 \\
+SFIDANTE & R & 2.000 \\
 \hline
-SFIDATO & R & 20.000 \\
+SFIDATO & R & 2.000 \\
 \hline
 SPECIALE & E & 150 \\
 \hline
@@ -588,7 +470,7 @@ SPECIALIZZAZIONE & R & 300 \\
 \hline
 SQUADRA & E & 100 \\
 \hline
-STADIO\_CORRENTE & R & 150 \\
+STADIO\_CORRENTE & R & 250 \\
 \hline
 STADIO\_SUCCESSIVO & R & 150 \\
 \hline
@@ -598,16 +480,19 @@ TRAMITE & R & 150 \\
 \hline
 \end{longtable}
 
-\chapter{Progetto logico}
-
 \section{Schemi di navigazione}
 
 Sulla base delle specifiche funzionali descritte nel capitolo precedente, analizziamo il percorso logico che il sistema deve effettuare attraverso lo schema E/R per recuperare i dati necessari a soddisfare le interrogazioni.
 
+Prendiamo in esame le operazioni elementari previste per il funzionamento del sistema e per la
+manipolazione dei dati, individuando per ognuna di esse i campi coinvolti e le informazioni da estrarre. Le
+principali funzionalità previste sono le seguenti:
+
 \subsection{Operazioni utente}
 
 \begin{enumerate}
-  \item Aggiungere un giocatore tra gli amici
+  \item \textbf{Aggiungere un giocatore tra gli amici} \\
+  Per aggiungere un amico bisogna considerare il giocatore che vuole aggiungere un amico e l'amico stesso, così da avere 2 giocatori, e si crea un istanza di amicizia tra i due.
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -619,9 +504,10 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 2L + 1S = 4 accessi => 1080 accessi/anno
+  \textbf{Totale:} 2L + 1S = 4 accessi => 1.080 accessi/anno
   
-  \item Rimozione di un amico
+  \item \textbf{Rimozione di un amico} \\
+  Il procedimento è lo stesso dell'aggiunta di un amico.
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -635,7 +521,8 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   
   \textbf{Totale:} 2L + 1S = 4 accessi => 16 accessi/anno
   
-  \item Cambiare Pokémon preferito
+  \item \textbf{Cambiare Pokémon preferito} \\
+  Quando un giocatore vuole cambiare il Pokémon preferito, bisogna cercare l'esemplare scelto, scrivere su giocatore il nuovo esemplare scelto e aggiornare il parametro ridondante su Pokémon che riguarda quanti giocatori hanno scelto quella specie come preferito. Poiché deve decrementare il Pokémon preferito precedente e incrementare quello corrente, si accede a 2 Pokémon e 2 Esemplari.
   
   \begin{tabular}{|c|c|c|c|}
     \hline
@@ -643,21 +530,21 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
     Giocatore & E & S & 1 \\
     \hline
-    Esemplare Pokémon & E & L & 1 \\
+    Esemplare Pokémon & E & L & 2 \\
     \hline
-    Pokémon & E & L & 1 \\
+    Pokémon & E & L & 2 \\
     \hline
-    Pokémon & E & S & 1 \\
+    Pokémon & E & S & 2 \\
     \hline
-    Preferenza & R & L & 1 \\
+    Preferenza & R & L & 2 \\
     \hline
-    Associazione & R & L & 1 \\
+    Associazione & R & L & 2 \\
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 4L + 2S = 8 accessi => 16 accessi/anno
+  \textbf{Totale:} 8L + 3S = 14 accessi => 28 accessi/anno
   
-  \item Bloccare un amico
+  \item \textbf{Bloccare un amico}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -671,7 +558,7 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   
   \textbf{Totale:} 2L + 1S = 4 accessi => 144 accessi/anno
   
-  \item Sbloccare un amico
+  \item \textbf{Sbloccare un amico}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -685,7 +572,8 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   
   \textbf{Totale:} 2L + 1S = 4 accessi => 96 accessi/anno
   
-  \item Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati
+  \item \textbf{Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati} \\
+  Poiché è presente una ridondanza in giocatore, è necessario solo leggere da tutte le entità giocatore.
   
   \begin{tabular}{|c|c|c|c|}
     \hline
@@ -695,9 +583,9 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
 
-  \textbf{Totale:} 100L = 100 accessi => 1200 accessi/anno \\
+  \textbf{Totale:} 100L = 100 accessi => 4.800 accessi/anno \\
   
-  \item Aggiungere un Pokémon visto
+  \item \textbf{Aggiungere un Pokémon visto}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -711,9 +599,9 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 2L + 1S = 4 accessi => 7200 accessi/anno
+  \textbf{Totale:} 2L + 1S = 4 accessi => 7.200 accessi/anno
   
-  \item Aggiungere un Pokémon catturato
+  \item \textbf{Aggiungere un Pokémon catturato}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -727,9 +615,10 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 2L + 1S = 4 accessi => 1440 accessi/anno
+  \textbf{Totale:} 2L + 1S = 4 accessi => 1.440 accessi/anno
   
-  \item Visualizzare l'intera linea evolutiva di un Pokémon
+  \item \textbf{Visualizzare l'intera linea evolutiva di un Pokémon} \\
+  Si deve cercare ricorsivamente, partendo da un Pokémon, tutta la sua linea evolutiva. Poiché il Pokémon scelto può essere di un qualsiasi stadio, si ottiene ricorsivamente il suo stadio iniziale e si analizza tutto l'albero delle evoluzioni di quello stadio. Mediamente i Pokémon hanno 2 evoluzioni e 3 nell'intera linea evolutiva.
   
   \begin{tabular}{|c|c|c|c|}
     \hline
@@ -749,9 +638,10 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 13L = 13 accessi => 4680 accessi/anno
+  \textbf{Totale:} 13L = 13 accessi => 4.680 accessi/anno
   
-  \item Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato
+  \item \textbf{Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato} \\
+  Poiché il metodo si sceglie durante l'esecuzione dell'operazione, è necessario un solo accesso.
   
   \begin{tabular}{|c|c|c|c|}
     \hline
@@ -763,7 +653,7 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   	\hline
     Metodo Evolutivo & E & L & 1 \\
     \hline
-    Stadio Corrente & R & L & 150 \\
+    Stadio Corrente & R & L & 250 \\
     \hline
     Stadio Successivo & R & L & 150 \\
     \hline
@@ -771,9 +661,10 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 716L = 716 accessi => 515520 accessi/anno
+  \textbf{Totale:} 816L = 816 accessi => 587.520 accessi/anno
   
-  \item Visualizzare la lista di Pokémon che hanno il colore dominante specificato
+  \item \textbf{Visualizzare la lista di Pokémon che hanno il colore dominante specificato} \\
+  Poiché il colore è un attributo di Pokémon, non si deve accedere ad altre entità o relazioni.
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -783,9 +674,9 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 250L = 250 accessi => 12000 accessi/anno
+  \textbf{Totale:} 250L = 250 accessi => 12.000 accessi/anno
   
-  \item Visualizzare la lista di Pokémon che appartengono al bioma specificato
+  \item \textbf{Visualizzare la lista di Pokémon che appartengono al bioma specificato}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -799,9 +690,9 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 765L = 765 accessi => 36720 accessi/anno
+  \textbf{Totale:} 765L = 765 accessi => 36.720 accessi/anno
   
-  \item Visualizzare la lista di Pokémon che hanno l'abilità specificata
+  \item \textbf{Visualizzare la lista di Pokémon che hanno l'abilità specificata}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -811,13 +702,13 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   	\hline
     Abilità & E & L & 1 \\
     \hline
-    Competenza & R & L & 300 \\
+    Competenza & R & L & 250 \\
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 551L = 551 accessi => 28652 accessi/anno
+  \textbf{Totale:} 501L = 501 accessi => 26.052 accessi/anno
   
-  \item Visualizzare la lista di Pokémon che hanno l'elemento specificato
+  \item \textbf{Visualizzare la lista di Pokémon che hanno l'elemento specificato}
   
   \begin{tabular}{|c|c|c|c|}
     \hline
@@ -825,7 +716,7 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
     Pokémon & E & L & 250 \\
   	\hline
-    Elemento & E & L & 18 \\
+    Elemento & E & L & 1 \\
     \hline
     Primario & R & L & 250 \\
     \hline
@@ -833,9 +724,10 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 698L = 698 accessi => 34296 accessi/anno
+  \textbf{Totale:} 681L = 681 accessi => 32.688 accessi/anno
   
-  \item Visualizzare la lista di Pokémon che possono conoscere la mossa specificata
+  \item \textbf{Visualizzare la lista di Pokémon che possono conoscere la mossa specificata} \\
+  Un Pokémon impara mediamente 10 mosse.
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -845,13 +737,13 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   	\hline
     Mossa & E & L & 1 \\
     \hline
-    Acquisizione & R & L & 100 \\
+    Acquisizione & R & L & 10 \\
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 351L = 351 accessi => 252720 accessi/anno
+  \textbf{Totale:} 261L = 261 accessi => 187.920 accessi/anno
   
-  \item Mostrare i colori dominanti più comuni tra i Pokémon
+  \item \textbf{Mostrare i colori dominanti più comuni tra i Pokémon}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -861,9 +753,10 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   	\hline
   \end{tabular} \\
   
-  \textbf{Totale:} 250L = 250 accessi => 13000 accessi/anno
+  \textbf{Totale:} 250L = 250 accessi => 12.000 accessi/anno
   
-  \item Mostrare la lista di Pokémon preferiti scelti più comunemente
+  \item \textbf{Mostrare la lista di Pokémon preferiti scelti più comunemente} \\
+  Si sfrutta il parametro ridondante contenente la popolarità di un certo Pokémon tra i giocatori.
 
   \begin{tabular}{|c|c|c|c|}
     \hline
@@ -873,9 +766,9 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 250L = 250 accessi => 3000 accessi/anno
+  \textbf{Totale:} 250L = 250 accessi => 3.000 accessi/anno
   
-  \item Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma
+  \item \textbf{Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -895,9 +788,10 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 1213L = 1213 accessi => 58224 accessi/anno
+  \textbf{Totale:} 1.213L = 1.213 accessi => 58.224 accessi/anno
   
-  \item Visualizzare quali Pokémon cromatici possiede un allenatore
+  \item \textbf{Visualizzare quali Pokémon cromatici possiede un allenatore} \\
+  Un giocatore possiede mediamente 30 esemplari.
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -905,17 +799,18 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
     Giocatore & E & L & 1 \\
   	\hline
-    Esemplare Pokémon & E & L & 75000 \\
+    Esemplare Pokémon & E & L & 30 \\
     \hline
-    Custodia & R & L & 25000 \\
+    Custodia & R & L & 30 \\
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 100001L = 100001 accessi => 10400104 accessi/anno
+  \textbf{Totale:} 61L = 61 accessi => 6.344 accessi/anno
   
-  \item Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico
+  \item \textbf{Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico} \\
+  Sfruttando la ridondanza in giocatore, è sufficiente leggere il valore per ogni giocatore.
   
-\begin{tabular}{|c|c|c|c|}
+  \begin{tabular}{|c|c|c|c|}
     \hline
   	\rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
     \hline
@@ -923,9 +818,9 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 100L = 100 accessi => 10400 accessi/anno
+  \textbf{Totale:} 100L = 100 accessi => 10.400 accessi/anno
   
-  \item Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon
+  \item \textbf{Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -939,15 +834,16 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 310L = 310 accessi => 111600 accessi/anno
+  \textbf{Totale:} 310L = 310 accessi => 111.600 accessi/anno
   
-  \item Visualizzare lo storico delle battaglie di un utente
+  \item \textbf{Visualizzare lo storico delle battaglie di un utente} \\
+  Un utente ha partecipato mediamente a 200 battaglie. Ogni utente ha combattuto mediamente con 9 giocatori
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
   	\rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
     \hline
-    Battaglia & E & L & 2000 \\
+    Battaglia & E & L & 200 \\
   	\hline
     Squadra & E & L & 10 \\
   	\hline
@@ -955,20 +851,22 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
     Possesso & R & L & 10 \\
     \hline
-    Sfidante & R & L & 2000 \\
+    Sfidante & R & L & 200 \\
     \hline
-    Sfidato & R & L & 2000 \\
+    Sfidato & R & L & 200 \\
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 6030L = 6030 accessi => 1000980 accessi/anno
+  \textbf{Totale:} 630L = 630 accessi => 104.580 accessi/anno
 
 \end{enumerate}
 
 \subsection{Operazioni amministratore}
 
 \begin{enumerate}
-  \item Aggiungere un Pokémon 
+  \item \textbf{Aggiungere un Pokémon} \\
+  Questa operazione da lato Amministratore, nel pannello Gestione Pokémon permette di inserire nuovi Pokémon.
+  Selezionato il bottone "Aggiungi Pokémon" sarà possibile definire il nome, la specie, altezza, peso, colore dominante, bioma e statistiche di gioco.
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -980,7 +878,7 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   
   \textbf{Totale:} 1S = 2 accessi => 2 accessi/anno
   
-  \item Aggiungere evoluzioni e tipologie di evoluzioni
+  \item \textbf{Aggiungere evoluzioni e tipologie di evoluzioni}
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -1002,15 +900,18 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   
   \textbf{Totale:} 3L + 4S = 11 accessi => 11 accessi/anno
   
-  \item Rimozione di un Pokémon
+  \item \textbf{Rimozione di un Pokémon} \\
+  Questa operazione permette all'Amministratore di eliminare definitivamente una voce dal catalogo del Pokédex. Tale operazione si propaga a cascata eliminando anche tutti gli esemplari fisici posseduti dagli allenatori per mantenere la consistenza dei dati.
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
   	\rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
   	\hline
-    Pokémon & E & S & 2 \\
+    Pokémon & E & L & 1 \\
   	\hline
-    Esemplare Pokémon & E & S & 30 \\
+    Pokémon & E & S & 1 \\
+  	\hline
+    Esemplare Pokémon & E & S & 150 \\
   	\hline
     Giocatore & E & S & 10 \\
   	\hline
@@ -1022,7 +923,7 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
   	\hline
     Custodia & R & S & 300 \\
   	\hline
-    Permanenza & R & S & 2 \\
+    Permanenza & R & S & 1 \\
   	\hline
     Evoluzione & E & S & 1 \\
   	\hline
@@ -1032,7 +933,7 @@ Sulla base delle specifiche funzionali descritte nel capitolo precedente, analiz
     \hline
   \end{tabular} \\
   
-  \textbf{Totale:} 1107S = 2214 accessi => 2214 accessi/anno
+  \textbf{Totale:} 1L + 1.225S = 2.451 accessi => 4.902 accessi/anno
   
   \end{enumerate}
 
@@ -1059,6 +960,54 @@ Riassumiamo in breve le funzionalità principali richieste al sistema:
 \item Visualizzare la squadra attiva di un determinato allenatore (giocatori)
 
 \end{itemize}
+
+\subsection{Aggiunta di Pokémon al Pokédex}
+
+Questa operazione da lato Amministratore permette di inserire nuovi Pokémon. Sarà possibile definire il nome, la specie, altezza, peso, colore dominante, bioma e statistiche.
+
+\subsection{Rimozione di Pokémon dal Pokédex}
+
+Questa operazione permette all'Amministratore di eliminare definitivamente una voce dal catalogo del Pokédex. Tale operazione si propaga a cascata eliminando anche tutti gli esemplari fisici posseduti dagli allenatori per mantenere la consistenza dei dati.
+
+\subsection{Gestione delle relazioni di amicizia}
+
+Questa operazione, eseguibile sia dall'Amministratore che dal Giocatore, permette di impostare lo stato di amicizia tra due allenatori. La selezione dello stato \textbf{Bloccato} impedirà qualsiasi interazione, tra i quali citiamo le battaglie, tra i due Giocatori fino ad una successiva selezione dello stato di \textbf{Sblocco}.
+
+\subsection{Incontrare Pokémon e salvare l'avvistamento}
+
+Questa operazione da lato Giocatore esegue un inserimento del Pokémon avvistato nella lista dei Pokémon avvistati sul Pokédex. Questo inserimento fornirà informazioni incomplete fino alla cattura della data specie.
+
+\subsection{Incontrare Pokémon e catturarlo}
+
+Questa operazione registra sul Pokédex del giocatore un Pokémon come catturato. Fornirà le informazioni complete della specie sul Pokédex.
+
+\subsection{Gestione Box e squadra giocatore}
+
+Operazione che consente al Giocatore di spostare i propri esemplari catturati tra la propria squadra attiva, ricordando che può contenere al massimo 6 elementi, e il sistema di archiviazione.
+
+\subsection{Cercare Pokémon che vivono in un determinato bioma}
+
+Operazione di filtraggio sul Pokédex. Il giocatore seleziona un bioma specifico e il sistema restituisce tutte le specie di Pokémon che risiedono in tale habitat.
+
+\subsection{Cercare Pokémon con un determinato tipo elementare}
+
+Operazione di ricerca avanzata. Il giocatore inserisce un elemento e il sistema filtra il catalogo mostrando i Pokémon che possiedono quell'elemento come tipo primario o secondario.
+
+\subsection{Cercare Pokémon che si evolvono con un metodo evolutivo definito}
+
+Il giocatore seleziona un metodo evolutivo e visualizza le specie correnti, le specie evolute e i relativi dettagli per le evoluzioni innescate da tale metodo.
+
+\subsection{Visualizzare allenatori con Pokémon cromatico}
+
+Analisi dei dati per i giocatori. Il sistema scansiona tutti gli esemplari fisici registrati come cromatici e restituisce la lista e il conteggio degli allenatori che ne possiedono almeno uno.
+
+\subsection{Visualizzare i Pokémon cromatici di un determinato allenatore}
+
+Dato un allenatore specifico, il sistema mostra i dettagli esclusivi degli esemplari cromatici in suo possesso.
+
+\subsection{Visualizzare la squadra attiva di un determinato allenatore}
+
+Selezionando un allenatore, il sistema interroga la squadra del giocatore sfidato per mostrarne gli esemplari attualmente schierati.
 
 \section{Frequenza e costo degli accessi}
 
@@ -1110,7 +1059,7 @@ operazioni del sistema.
 \hline
 5 & Sbloccare un amico bloccato & 2/Mese \\
 \hline
-6 & Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati & 1/Mese \\
+6 & Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati & 1/Settimana \\
 \hline
 7 & Aggiungere un Pokémon visto & 5/Giorno \\
 \hline
@@ -1185,7 +1134,7 @@ Senza ridondanza: \\
   \hline
 \end{tabular} \\
   
-2L + 1S = 4 accessi => 8 accessi/anno \\
+\textbf{Totale:} 2L + 1S = 4 accessi => 8 accessi/anno \\
 
 Con ridondanza: \\
 
@@ -1195,19 +1144,19 @@ Con ridondanza: \\
   \hline
   Giocatore & E & S & 1 \\
   \hline
-  Esemplare Pokémon & E & L & 1 \\
+  Esemplare Pokémon & E & L & 2 \\
   \hline
-  Pokémon & E & L & 1 \\
+  Pokémon & E & L & 2 \\
   \hline
-  Pokémon & E & S & 1 \\
+  Pokémon & E & S & 2 \\
   \hline
-  Preferenza & R & L & 1 \\
+  Preferenza & R & L & 2 \\
   \hline
-  Associazione & R & L & 1 \\
+  Associazione & R & L & 2 \\
   \hline
 \end{tabular} \\
   
-4L + 2S = 8 accessi => 16 accessi/anno \\
+\textbf{Totale:} 8L + 3S = 14 accessi => 28 accessi/anno \\
 \\
 \textit{17. Mostrare la lista di Pokémon preferiti scelti più comunemente} \\
 
@@ -1221,15 +1170,15 @@ Senza ridondanza: \\
   \hline
   Pokémon & E & L & 250 \\
   \hline
-  Esemplare Pokémon & E & L & 500 \\
+  Esemplare Pokémon & E & L & 3.000 \\
   \hline
   Associazione & R & L & 500 \\
   \hline
-  Preferenza & R & L & 25000 \\
+  Preferenza & R & L & 100 \\
   \hline
 \end{tabular} \\
   
-26350L = 26350 accessi => 316200 accessi/anno \\
+\textbf{Totale:} 3.950L = 3.950 accessi => 47.400 accessi/anno \\
 
 Con ridondanza: \\
 
@@ -1241,11 +1190,11 @@ Con ridondanza: \\
   \hline
 \end{tabular} \\
   
-250L = 250 accessi => 3000 accessi/anno \\
+\textbf{Totale:} 250L = 250 accessi => 3.000 accessi/anno \\
 \\
-Consideriamo, quindi, il totale: \\
-Senza ridondanza: 316208 accessi/anno \\
-Con ridondanza: 3016 accessi/anno \\
+\textbf{Risultato:} \\
+Senza ridondanza: 17408 accessi/anno \\
+Con ridondanza: 3028 accessi/anno \\
 \\
 Di conseguenza, si sceglie di implementare la soluzione con ridondanza. \\
 \\
@@ -1263,11 +1212,11 @@ Senza ridondanza: \\
   \hline
   Pokémon & E & L & 250 \\
   \hline
-  Cattura & R & L & 25000 \\
+  Cattura & R & L & 50 \\
   \hline
 \end{tabular} \\
 
-25350L = 25350 accessi => 342000 accessi/anno \\
+\textbf{Totale:} 400L = 400 accessi => 22.400 accessi/anno \\
 
 Con ridondanza: \\
 
@@ -1279,9 +1228,9 @@ Con ridondanza: \\
   \hline
 \end{tabular} \\
 
-100L = 100 accessi => 1200 accessi/anno \\
+\textbf{Totale:} 100L = 100 accessi => 4.800 accessi/anno \\
 
-Di conseguenza, si sceglie di implementare la soluzione con ridondanza. \\
+Vista la frequenza dell'operazione, si opta di utilizzare la ridondanza. \\
 \\
 \textit{20. Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico} \\
 \\
@@ -1295,13 +1244,13 @@ Senza ridondanza:  \\
   \hline
   Giocatore & E & L & 100 \\
   \hline
-  Esemplare Pokémon & E & L & 75000 \\
+  Esemplare Pokémon & E & L & 3.000 \\
   \hline
-  Custodia & R & L & 2500000 \\
+  Custodia & R & L & 300.000 \\
   \hline
 \end{tabular} \\
   
-2575100L = 2575100 accessi => 267810400 accessi/anno \\
+\textbf{Totale:} 303.100L = 303.100 accessi => 31.522.400 accessi/anno \\
 
 Con ridondanza:  \\
 
@@ -1313,7 +1262,7 @@ Con ridondanza:  \\
   \hline
 \end{tabular} \\
   
-100L = 100 accessi => 10400 accessi/anno \\
+\textbf{Totale:} 100L = 100 accessi => 10.400 accessi/anno \\
 
 Di conseguenza, si sceglie di implementare la soluzione con ridondanza.
 
@@ -1391,6 +1340,14 @@ Cattura (\underline{Giocatore}: GIOCATORE, \underline{Pokémon}: POKÉMON)
 \item \textbf{PERMANENZA} (lega BIOMA e POKÉMON) \\
 Permanenza (\underline{Bioma}: BIOMA, \underline{Pokémon}: POKÉMON)
 \end{itemize}
+
+\section{Schema relazionale finale}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/logico.png}
+    \caption{Schema relazionale finale comprendendo tutti gli attributi e le chiavi importate della progettazione logica}
+\end{figure}
 
 \section{Traduzione delle Query SQL}
 
