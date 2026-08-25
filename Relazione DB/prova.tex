@@ -697,24 +697,6 @@ Operazioni utente
 
   100L = 100 accessi => 1200 accessi/anno \\
   
-  \item Mostrare gli amici con un certo Pokémon preferito
-  
-  \begin{tabular}{|c|c|c|c|}
-  	\hline
-  	\rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
-  	\hline
-    Giocatore & E & L & 20 \\
-    \hline
-    Esemplare Pokémon & E & L & 20 \\
-    \hline
-    Amicizia & R & L & 20 \\
-	\hline
-    Preferenza & R & L & 20 \\
-    \hline
-  \end{tabular} \\
-  
-  80L = 80 accessi => 960 accessi/anno
-  
   \item Aggiungere un Pokémon visto
   
   \begin{tabular}{|c|c|c|c|}
@@ -1069,7 +1051,7 @@ operazioni del sistema.
 
 \begin{longtable}{|
 >{\centering\arraybackslash}m{3cm}|
->{\raggedright\arraybackslash}m{10cm}|
+>{\raggedright\arraybackslash}m{7cm}|
 >{\centering\arraybackslash}m{4cm}|
 }
 
@@ -1110,39 +1092,37 @@ operazioni del sistema.
 \hline
 6 & Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati & 1/Mese \\
 \hline
-7 & Mostrare gli amici con un certo Pokémon preferito & 1/Mese \\
+7 & Aggiungere un Pokémon visto & 5/Giorno \\
 \hline
-8 & Aggiungere un Pokémon visto & 5/Giorno \\
+8 & Aggiungere un Pokémon catturato & 1/Giorno \\
 \hline
-9 & Aggiungere un Pokémon catturato & 1/Giorno \\
+9 & Visualizzare l'intera linea evolutiva di un Pokémon & 1/Giorno \\
 \hline
-10 & Visualizzare l'intera linea evolutiva di un Pokémon & 1/Giorno \\
+10 & Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato & 2/Giorno \\
 \hline
-11 & Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato & 2/Giorno \\
+11 & Visualizzare la lista di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
 \hline
-12 & Visualizzare la lista di Pokémon che hanno il colore dominante specificato & 1/Settimana \\
+12 & Visualizzare la lista di Pokémon che appartengono al bioma specificato & 1/Settimana \\
 \hline
-13 & Visualizzare la lista di Pokémon che appartengono al bioma specificato & 1/Settimana \\
+13 & Visualizzare la lista di Pokémon che hanno l'abilità specificata & 1/Settimana \\
 \hline
-14 & Visualizzare la lista di Pokémon che hanno l'abilità specificata & 1/Settimana \\
+14 & Visualizzare la lista di Pokémon che hanno l'elemento specificato & 1/Settimana \\
 \hline
-15 & Visualizzare la lista di Pokémon che hanno l'elemento specificato & 1/Settimana \\
+15 & Visualizzare la lista di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
 \hline
-16 & Visualizzare la lista di Pokémon che possono conoscere la mossa specificata & 2/Giorno \\
+16 & Mostrare i colori dominanti più comuni tra i Pokémon & 1/Settimana \\
 \hline
-17 & Mostrare i colori dominanti più comuni tra i Pokémon & 1/Settimana \\
+17 & Mostrare la lista di Pokémon preferiti scelti più comunemente & 1/Mese \\
 \hline
-18 & Mostrare la lista di Pokémon preferiti scelti più comunemente & 1/Mese \\
+18 & Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
 \hline
-19 & Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma & 1/Settimana \\
+19 & Visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
 \hline
-20 & Visualizzare quali Pokémon cromatici possiede un allenatore & 2/Settimana \\
+20 & Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico & 2/Settimana \\
 \hline
-21 & Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico & 2/Settimana \\
+21 & Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
 \hline
-22 & Visualizzare la lista dei metodi evolutivi più comuni tra i Pokémon & 1/Giorno \\
-\hline
-23 & Visualizzare lo storico delle battaglie di un utente & 3/Settimana \\
+22 & Visualizzare lo storico delle battaglie di un utente & 3/Settimana \\
 \hline
 
 \multicolumn{3}{|c|}{\textbf{\large OPERAZIONI ADMIN}} \\
@@ -1170,6 +1150,88 @@ Si scrive nei seguenti capitoli le scelte progettuali durante il passaggio tra p
 \subsection{Analisi delle ridondanze}
 
 Un parametro ridondante utilizzato è il totale di Set Statistiche poiché derivabile dagli altri attributi dell'entità. Poiché le operazioni offerte dal Pokédex non sfruttano molto le ridondanze, si nota che solo tre operazioni si possono analizzare con un parametro ridondante. \\
+\\
+Si può aggiungere un valore numerico alla tabella Pokémon per indicare quanti Giocatori lo hanno scelto come Pokémon preferito. Questo parametro riguarda due operazioni: \\
+\\
+\textit{3. Cambiare Pokémon preferito} \\
+
+Senza ridondanza: \\
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  \rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & S & 1 \\
+  \hline
+  Esemplare Pokémon & E & L & 1 \\
+  \hline
+  Preferenza & R & L & 1 \\
+  \hline
+\end{tabular} \\
+  
+2L + 1S = 4 accessi => 8 accessi/anno \\
+
+Con ridondanza: \\
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  \rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & S & 1 \\
+  \hline
+  Esemplare Pokémon & E & L & 1 \\
+  \hline
+  Pokémon & E & L & 1 \\
+  \hline
+  Pokémon & E & S & 1 \\
+  \hline
+  Preferenza & R & L & 1 \\
+  \hline
+  Associazione & R & L & 1 \\
+  \hline
+\end{tabular} \\
+  
+4L + 2S = 8 accessi => 16 accessi/anno \\
+\\
+\textit{17. Mostrare la lista di Pokémon preferiti scelti più comunemente} \\
+
+Senza ridondanza: \\
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  \rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Giocatore & E & L & 100 \\
+  \hline
+  Pokémon & E & L & 250 \\
+  \hline
+  Esemplare Pokémon & E & L & 500 \\
+  \hline
+  Associazione & R & L & 500 \\
+  \hline
+  Preferenza & R & L & 25000 \\
+  \hline
+\end{tabular} \\
+  
+26350L = 26350 accessi => 316200 accessi/anno \\
+
+Con ridondanza: \\
+
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  \rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
+  \hline
+  Pokémon & E & L & 250 \\
+  \hline
+\end{tabular} \\
+  
+250L = 250 accessi => 3000 accessi/anno \\
+\\
+Consideriamo, quindi, il totale: \\
+Senza ridondanza: 316208 accessi/anno \\
+Con ridondanza: 3016 accessi/anno \\
+\\
+Di conseguenza, si sceglie di implementare la soluzione con ridondanza. \\
 \\
 \textit{6. Mostrare la classifica degli utenti con il maggior numero di Pokémon catturati} \\
 \\
@@ -1205,83 +1267,7 @@ Con ridondanza: \\
 
 Di conseguenza, si sceglie di implementare la soluzione con ridondanza. \\
 \\
-\textit{18. Mostrare la lista di Pokémon preferiti scelti più comunemente} \\
-\\
-Si può aggiungere un valore numerico alla tabella Pokémon per indicare quanti Giocatori lo hanno scelto come Pokémon preferito. \\
-
-Senza ridondanza: \\
-
-\begin{tabular}{|c|c|c|c|}
-  \hline
-  \rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
-  \hline
-  Giocatore & E & L & 100 \\
-  \hline
-  Pokémon & E & L & 250 \\
-  \hline
-  Esemplare Pokémon & E & L & 500 \\
-  \hline
-  Associazione & R & L & 500 \\
-  \hline
-  Preferenza & R & L & 25000 \\
-  \hline
-\end{tabular} \\
-  
-26350L = 26350 accessi => 316200 accessi/anno \\
-  
-\begin{tabular}{|c|c|c|c|}
-  \hline
-  \rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
-  \hline
-  Giocatore & E & S & 1 \\
-  \hline
-  Esemplare Pokémon & E & L & 1 \\
-  \hline
-  Preferenza & R & L & 1 \\
-  \hline
-\end{tabular} \\
-  
-2L + 1S = 4 accessi => 8 accessi/anno \\
-
-Tot: 316208 accessi/anno \\
-
-Con ridondanza: \\
-
-\begin{tabular}{|c|c|c|c|}
-  \hline
-  \rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
-  \hline
-  Pokémon & E & L & 250 \\
-  \hline
-\end{tabular} \\
-  
-250L = 250 accessi => 3000 accessi/anno \\
-  
-\begin{tabular}{|c|c|c|c|}
-  \hline
-  \rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
-  \hline
-  Giocatore & E & S & 1 \\
-  \hline
-  Esemplare Pokémon & E & L & 1 \\
-  \hline
-  Pokémon & E & L & 1 \\
-  \hline
-  Pokémon & E & S & 1 \\
-  \hline
-  Preferenza & R & L & 1 \\
-  \hline
-  Associazione & R & L & 1 \\
-  \hline
-\end{tabular} \\
-  
-4L + 2S = 8 accessi => 16 accessi/anno \\
-
-Tot: 3016 accessi/anno \\
-
-Di conseguenza, si sceglie di implementare la soluzione con ridondanza. \\
-\\
-\textit{21. Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico} \\
+\textit{20. Visualizzare la classifica di utenti che hanno almeno un Pokémon cromatico} \\
 \\
 Si può aggiungere un valore numerico alla tabella Giocatore per indicare quanti Pokémon Cromatici possiede. \\
 
@@ -1319,7 +1305,7 @@ Di conseguenza, si sceglie di implementare la soluzione con ridondanza.
 
 \subsection{Eliminazione delle gerarchie di generalizzazione}
 
-\section{Progetto logico per il modello relazionale}
+\chapter{Progetto logico per il modello relazionale}
 
 \section{Traduzione delle entità}
 
@@ -1328,62 +1314,42 @@ Di conseguenza, si sceglie di implementare la soluzione con ridondanza.
 Abilità (NomeAbilità, DescrizioneAbilità)
 
 \item \textbf{BATTAGLIA:} \\
-Battaglia (\underline{IdBattaglia}, SfidanteVincitore, Data, Luogo, Sfidante, Sfidato)
-
-\quad FK: Sfidante REFERENCES SQUADRA
-
-\quad FK: Sfidato REFERENCES SQUADRA
+Battaglia (\underline{IdBattaglia}, SfidanteVincitore, Data, Luogo, Sfidante: SQUADRA, Sfidato: SQUADRA)
 
 \item \textbf{BIOMA:} \\
 Bioma (\underline{IdBioma}, Habitat, DescrizioneHabitat)
 
 \item \textbf{BOX\_POKÉMON:} \\
-Box\_Pokémon (\underline{IdBox})
+Box\_Pokémon (\underline{IdBox}, Giocatore: GIOCATORE)
 
 \item \textbf{ELEMENTO:} \\
 Elemento (\underline{IdElemento}, Tipologia)
 
 \item \textbf{ESEMPLARE\_POKÉMON:} \\
-Esemplare\_Pokémon (\underline{IdEsemplare}, NomeAllenatore, NomePrimoAllenatore, Livello, DataCattura, InBox, Sesso, Cromatico, NumeroPokemon)
-
-\quad FK: NumeroPokemon REFERENCES POKÉMON
+Esemplare\_Pokémon (\underline{IdEsemplare}, NomeAllenatore, NomePrimoAllenatore, Livello, DataCattura, InBox, Sesso, Cromatico, NumeroPokemon: POKÉMON, Proprietario: GIOCATORE, Squadra*: SQUADRA, Box*: BOX)
 
 \item \textbf{EVOLUZIONE:} \\
-Evoluzione (\underline{Metodo}, \underline{PokémonStadioCorrente}, \underline{PokémonStadioSuccessivo}) 
-
-\quad FK: Metodo REFERENCES METODO\_EVOLUTIVO
-
-\quad FK: PokémonStadioCorrente REFERENCES POKÉMON
-
-\quad FK: PokémonStadioSuccessivo REFERENCES POKÉMON
+Evoluzione (\underline{Metodo}: METODO\_EVOLUTIVO, \underline{PokémonStadioCorrente}: POKÉMON, \underline{PokémonStadioSuccessivo}: POKÉMON) 
 
 \item \textbf{GIOCATORE:} \\
 Giocatore (\underline{IdGiocatore}, Nome, Cognome, Nickname, Immagine, NumeroCromatici, NumeroCatturati)
 
-\quad AK: Nickname
+\quad Unique: Nickname
 
 \item \textbf{METODO\_EVOLUTIVO:} \\
 Metodo\_Evolutivo (\underline{IdMetodo}, Nome, Descrizione)
 
 \item \textbf{MOSSA:} \\
-Mossa (\underline{NomeMossa}, DescrizioneMossa, Precisione, Danno*, Elemento)
-
-\quad FK: Elemento REFERENCES ELEMENTO
+Mossa (\underline{NomeMossa}, DescrizioneMossa, Precisione, Danno*, Elemento: ELEMENTO)
 
 \item \textbf{POKÉMON:} \\
-Pokémon (\underline{NumeroPokemon}, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, ElementoPrimario, ElementoSecondario*, NumeroSceltePreferito)
-
-\quad FK: ElementoPrimario REFERENCES ELEMENTO
-
-\quad FK: ElementoSecondario REFERENCES ELEMENTO
+Pokémon (\underline{NumeroPokemon}, Specie, Nome, DescrizionePokemon, Altezza, Peso, Impronta, Immagine, ColoreDominante, NumeroSceltePreferito, ElementoPrimario: ELEMENTO, ElementoSecondario*: ELEMENTO, Statistiche: SET\_STATISTICHE, NomeAbilità: ABILITÀ)
 
 \item \textbf{SET\_STATISTICHE:} \\
 Set\_Statistiche (\underline{IdStatistiche}, Attacco, Difesa, PuntiSalute, AttaccoSpeciale, DifesaSpeciale, Velocità)
 
 \item \textbf{SQUADRA:} \\
-Squadra (\underline{IdGiocatore})
-
-\quad FK: IdGiocatore REFERENCES GIOCATORE
+Squadra (\underline{IdGiocatore}: GIOCATORE)
 \end{itemize}
 
 \section{Traduzione delle associazioni}
@@ -1391,90 +1357,19 @@ Squadra (\underline{IdGiocatore})
 \begin{itemize}
 \item \textbf{ACQUISIZIONE} (lega MOSSA e POKÉMON) \\
 Un pokémon può imparare molteplici mosse \\
-Acquisizione (Mossa, Pokémon)
-
-\quad FK: Mossa REFERENCES MOSSA
-
-\quad FK: Pokémon REFERENCES POKÉMON
+Acquisizione (\underline{Mossa}: MOSSA, \underline{Pokémon}: POKÉMON)
 
 \item \textbf{AMICIZIA} (lega GIOCATORE a AMICO) \\
-Amicizia (Giocatore, Amico, Bloccato)
-
-\quad FK: Giocatore REFERENCES GIOCATORE
-
-\quad FK: Amico REFERENCES GIOCATORE
+Amicizia (\underline{Giocatore}: GIOCATORE, \underline{Amico}: GIOCATORE, Bloccato)
 
 \item \textbf{AVVISTAMENTO} (lega GIOCATORE e POKÉMON) \\
-Avvistamento (GIocatore, Pokémon)
-
-\quad FK: Giocatore REFERENCES GIOCATORE
-
-\quad FK: Pokémon REFERENCES POKÉMON
+Avvistamento (\underline{Giocatore}: GIOCATORE, \underline{Pokémon}: POKÉMON)
 
 \item \textbf{CATTURA} (lega GIOCATORE e POKÉMON) \\
-Cattura (Giocatore, Pokémon)
-
-\quad FK: Giocatore REFERENCES GIOCATORE
-
-\quad FK: Pokémon REFERENCES POKÉMON
-
-\item \textbf{COMPETENZA} (lega POKÉMON ed ABILITÀ) \\
-I pokémon possiedono delle abilità, che determinano le loro capacità e possibilità in battaglia \\
-Competenza (Pokémon, Abilità)
-
-\quad FK: Pokémon REFERENCES POKÉMON
-
-\quad FK: Abilità REFERENCES ABILITÀ
-
-\item \textbf{COMPOSIZIONE} (lega ESEMPLARE\_POKÉMON e SQUADRA) \\
-Una squadra pokemon è composta da un massimo di 6 pokemon catturati in precedenza \\
-Composizione (Squadra, Esemplare)
-
-\quad FK: Squadra REFERENCES SQUADRA
-
-\quad FK: Esemplare REFERENCES ESEMPLARE\_POKEMON
-
-\item \textbf{CUSTODIA} (lega ESEMPLARE\_POKÉMON e GIOCATORE) \\
-Custodia (Giocatore, Esemplare)
-
-\quad FK: Giocatore REFERENCES GIOCATORE
-
-\quad FK: Esemplare REFERENCES ESEMPLARE\_POKÉMON 
-
-\item \textbf{DOTAZIONE} (lega GIOCATORE e BOX\_POKÉMON) \\
-Dotazione (Giocatore, Box)
-
-\quad FK: Giocatore REFERENCES GIOCATORE
-
-\quad FK: Box REFERENCES BOX\_POKÉMON
-
-\item \textbf{LOCAZIONE} (lega ESEMPLARE\_POKÉMON e BOX\_POKÉMON) \\
-Locazione (Box, Esemplare)
-
-\quad FK: Box REFERENCES BOX\_POKÉMON
-
-\quad FK: Esemplare REFERENCES ESEMPLARE\_POKÉMON 
-
-\item \textbf{PARAMETRI} (lega POKÉMON e SET\_STATISTICHE) \\
-Parametri (Pokemon, Statistiche)
-
-\quad FK: Pokémon REFERENCES POKÉMON
-
-\quad FK: Statistiche REFERENCES SET\_STATISTICHE
+Cattura (\underline{Giocatore}: GIOCATORE, \underline{Pokémon}: POKÉMON)
 
 \item \textbf{PERMANENZA} (lega BIOMA e POKÉMON) \\
-Permanenza (Bioma, Pokémon)
-
-\quad FK: Bioma REFERENCES BIOMA
-
-\quad FK: Pokémon REFERENCES POKEMON
-
-\item \textbf{PREFERENZA} (lega ESEMPLARE\_POKÉMON e GIOCATORE) \\
-Preferenza (Giocatore, Esemplare)
-
-\quad FK: Giocatore REFERENCES GIOCATORE
-
-\quad FK: Esemplare REFERENCES ESEMPLARE\_POKÉMON
+Permanenza (\underline{Bioma}: BIOMA, \underline{Pokémon}: POKÉMON)
 \end{itemize}
 
 \section{Traduzione delle Query SQL}
@@ -1523,18 +1418,6 @@ Preferenza (Giocatore, Esemplare)
 		FROM GIOCATORE
 		WHERE NumeroCatturati > 0
 		ORDER BY NumeroCatturati DESC
-	\end{verbatim}
-	
-	\item \textit{Mostrare gli amici con un certo Pokémon preferito}
-	\begin{verbatim}
-		SELECT am.IdGiocatore, am.Nickname, am.Immagine
-		FROM AMICIZIA a
-		JOIN GIOCATORE am
-		JOIN ESEMPLARE_POKEMON e ON am.IdEsemplarePreferito = e.IdEsemplare
-		JOIN POKEMON p ON p.NumeroPokemon = e.NumeroPokemon
-		WHERE a.IdGiocatore = giocatore
-		AND e.NumeroPokemon = pokemon
-		AND a.Bloccato = FALSE
 	\end{verbatim}
 	
 	\item \textit{Aggiungere un Pokémon visto}
