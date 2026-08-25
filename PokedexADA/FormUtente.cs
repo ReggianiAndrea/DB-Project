@@ -129,6 +129,7 @@ namespace PokedexADA
                 List<string> amiciLista = new List<string>();
                 foreach (Amicizia a in giocatore.GetListaAmici())
                 {
+                    if (a.Bloccato) continue;
                     int idAmico;
                     if (a.IdGiocatore == giocatore.IdGiocatore)
                     {
@@ -932,6 +933,7 @@ namespace PokedexADA
             if (avversario != null)
             {
                 // Il giocatore attuale ha almeno un Pokémon in squadra?
+                var amicizia = giocatore.AmiciziaCon(avversario);
                 if (!HaPokemonInSquadra(giocatore.IdGiocatore))
                 {
                     MessageBox.Show("Non puoi lottare! Devi avere almeno un Pokémon nella tua squadra attiva.", "La tua Squadra è vuota", MessageBoxButtons.OK, MessageBoxIcon.Warning);
