@@ -2,52 +2,53 @@
 \babel@toc {italian}{}\relax 
 \contentsline {chapter}{\numberline {1}Introduzione}{3}{}%
 \contentsline {section}{\numberline {1.1}Analisi dei requisiti}{3}{}%
-\contentsline {section}{\numberline {1.2}Estrazione dei concetti fondamentali}{3}{}%
-\contentsline {chapter}{\numberline {2}Progetto dello schema concettuale}{4}{}%
-\contentsline {section}{\numberline {2.1}Descrizione entità e relazioni}{4}{}%
-\contentsline {section}{\numberline {2.2}Descrizione dettagliata}{6}{}%
-\contentsline {subsection}{\numberline {2.2.1}Sviluppo dell'ambito evoluzione}{6}{}%
-\contentsline {subsection}{\numberline {2.2.2}Sviluppo dell'ambito Giocatore - Esemplare Pokémon}{7}{}%
-\contentsline {subsection}{\numberline {2.2.3}Sviluppo dell'ambito Pokémon}{7}{}%
-\contentsline {subsection}{\numberline {2.2.4}Sviluppo dell'ambito Specie ed Esemplare}{8}{}%
-\contentsline {subsection}{\numberline {2.2.5}Sviluppo dell'ambito Tipologia Elementale}{8}{}%
-\contentsline {subsection}{\numberline {2.2.6}Sviluppo dell'ambito Giocatore e Archiviazione}{9}{}%
-\contentsline {subsection}{\numberline {2.2.7}Sviluppo dell'ambito Battaglia e Squadra}{10}{}%
-\contentsline {subsection}{\numberline {2.2.8}Sviluppo dell'ambito ...}{11}{}%
-\contentsline {subsection}{\numberline {2.2.9}Sviluppo dell'ambito ...}{11}{}%
-\contentsline {section}{\numberline {2.3}Schema completo}{11}{}%
-\contentsline {chapter}{\numberline {3}Specifiche funzionali}{12}{}%
-\contentsline {section}{\numberline {3.1}Analisi delle funzionalità richieste}{12}{}%
-\contentsline {subsection}{\numberline {3.1.1}Aggiunta linea evolutiva}{12}{}%
-\contentsline {subsection}{\numberline {3.1.2}Rimozione di pokemon dal pokedex}{13}{}%
-\contentsline {subsection}{\numberline {3.1.3}Aggiunta di pokemon al pokedex}{14}{}%
-\contentsline {subsection}{\numberline {3.1.4}Aggiunta di pokemon al pokedex}{14}{}%
-\contentsline {subsection}{\numberline {3.1.5}Gestione delle relazioni di amicizia}{15}{}%
-\contentsline {subsection}{\numberline {3.1.6}Incontrare pokemon e salvare l'avvistamento}{15}{}%
-\contentsline {subsection}{\numberline {3.1.7}Incontrare pokemon e catturarlo}{16}{}%
-\contentsline {subsection}{\numberline {3.1.8}Gestione Box e squadra giocatore}{17}{}%
-\contentsline {subsection}{\numberline {3.1.9}Cercare pokemon che vivono in un determinato bioma}{17}{}%
-\contentsline {subsection}{\numberline {3.1.10}Cercare pokemon con un determinato tipo elementare}{17}{}%
-\contentsline {subsection}{\numberline {3.1.11}Cercare pokemon che si evolvono con un metodo evolutivo definito}{17}{}%
-\contentsline {subsection}{\numberline {3.1.12}Visualizzare allenatori con pokemon shiny}{17}{}%
-\contentsline {subsection}{\numberline {3.1.13}Visualizzare i pokemon shiny di un determinato allenatore}{17}{}%
-\contentsline {subsection}{\numberline {3.1.14}Visualizzare la squadra attiva di un determinato allenatore}{17}{}%
-\contentsline {section}{\numberline {3.2}DA GUARDARE BENE CON I BOYS}{18}{}%
-\contentsline {section}{\numberline {3.3}Carichi di lavoro}{18}{}%
-\contentsline {chapter}{\numberline {4}Progetto logico}{20}{}%
-\contentsline {section}{\numberline {4.1}Schemi di navigazione}{20}{}%
-\contentsline {section}{\numberline {4.2}Operazioni}{25}{}%
-\contentsline {section}{\numberline {4.3}Frequenza e costo degli accessi}{26}{}%
-\contentsline {section}{\numberline {4.4}Trasformazioni dello schema concettuale}{27}{}%
-\contentsline {subsection}{\numberline {4.4.1}Analisi delle ridondanze}{28}{}%
-\contentsline {subsection}{\numberline {4.4.2}Scelta delle chiavi primarie}{30}{}%
-\contentsline {subsection}{\numberline {4.4.3}Eliminazione delle gerarchie di generalizzazione}{30}{}%
-\contentsline {section}{\numberline {4.5}Progetto logico per il modello relazionale}{30}{}%
-\contentsline {section}{\numberline {4.6}Traduzione delle entità}{30}{}%
-\contentsline {section}{\numberline {4.7}Traduzione delle associazioni}{31}{}%
-\contentsline {section}{\numberline {4.8}Traduzione delle Query SQL}{33}{}%
-\contentsline {subsection}{\numberline {4.8.1}Utente}{33}{}%
-\contentsline {subsection}{\numberline {4.8.2}Admin}{38}{}%
-\contentsline {chapter}{\numberline {5}Interfaccia utente}{39}{}%
-\contentsline {section}{\numberline {5.1}L'amministratore}{39}{}%
-\contentsline {section}{\numberline {5.2}Il giocatore}{42}{}%
+\contentsline {section}{\numberline {1.2}Estrazione dei concetti fondamentali}{4}{}%
+\contentsline {chapter}{\numberline {2}Progetto dello schema concettuale}{7}{}%
+\contentsline {section}{\numberline {2.1}Descrizione entità e relazioni}{7}{}%
+\contentsline {section}{\numberline {2.2}Descrizione dettagliata}{9}{}%
+\contentsline {subsection}{\numberline {2.2.1}Sviluppo dell'ambito evoluzione}{9}{}%
+\contentsline {subsection}{\numberline {2.2.2}Sviluppo dell'ambito Giocatore - Esemplare Pokémon}{10}{}%
+\contentsline {subsection}{\numberline {2.2.3}Sviluppo dell'ambito Pokémon}{10}{}%
+\contentsline {subsection}{\numberline {2.2.4}Sviluppo dell'ambito Specie ed Esemplare}{11}{}%
+\contentsline {subsection}{\numberline {2.2.5}Sviluppo dell'ambito Tipologia Elementale}{11}{}%
+\contentsline {subsection}{\numberline {2.2.6}Sviluppo dell'ambito Giocatore e Archiviazione}{12}{}%
+\contentsline {subsection}{\numberline {2.2.7}Sviluppo dell'ambito Battaglia e Squadra}{13}{}%
+\contentsline {subsection}{\numberline {2.2.8}Sviluppo dell'ambito Mossa}{14}{}%
+\contentsline {subsection}{\numberline {2.2.9}Sviluppo dell'ambito Abilità}{14}{}%
+\contentsline {subsection}{\numberline {2.2.10}Sviluppo dell'ambito Statistiche}{14}{}%
+\contentsline {subsection}{\numberline {2.2.11}Sviluppo dell'ambito Bioma}{14}{}%
+\contentsline {section}{\numberline {2.3}Schema completo}{14}{}%
+\contentsline {chapter}{\numberline {3}Specifiche funzionali}{15}{}%
+\contentsline {section}{\numberline {3.1}Analisi delle funzionalità richieste}{15}{}%
+\contentsline {subsection}{\numberline {3.1.1}Aggiunta di pokemon al pokedex}{15}{}%
+\contentsline {subsection}{\numberline {3.1.2}Aggiunta linea evolutiva}{16}{}%
+\contentsline {subsection}{\numberline {3.1.3}Aggiunta di pokemon al pokedex}{17}{}%
+\contentsline {subsection}{\numberline {3.1.4}Rimozione di pokemon dal pokedex}{17}{}%
+\contentsline {subsection}{\numberline {3.1.5}Gestione delle relazioni di amicizia}{18}{}%
+\contentsline {subsection}{\numberline {3.1.6}Incontrare pokemon e salvare l'avvistamento}{18}{}%
+\contentsline {subsection}{\numberline {3.1.7}Incontrare pokemon e catturarlo}{19}{}%
+\contentsline {subsection}{\numberline {3.1.8}Gestione Box e squadra giocatore}{20}{}%
+\contentsline {subsection}{\numberline {3.1.9}Cercare pokemon che vivono in un determinato bioma}{20}{}%
+\contentsline {subsection}{\numberline {3.1.10}Cercare pokemon con un determinato tipo elementare}{20}{}%
+\contentsline {subsection}{\numberline {3.1.11}Cercare pokemon che si evolvono con un metodo evolutivo definito}{20}{}%
+\contentsline {subsection}{\numberline {3.1.12}Visualizzare allenatori con pokemon shiny}{20}{}%
+\contentsline {subsection}{\numberline {3.1.13}Visualizzare i pokemon shiny di un determinato allenatore}{20}{}%
+\contentsline {subsection}{\numberline {3.1.14}Visualizzare la squadra attiva di un determinato allenatore}{20}{}%
+\contentsline {section}{\numberline {3.2}Carichi di lavoro}{21}{}%
+\contentsline {chapter}{\numberline {4}Progetto logico}{23}{}%
+\contentsline {section}{\numberline {4.1}Schemi di navigazione}{23}{}%
+\contentsline {section}{\numberline {4.2}Operazioni}{28}{}%
+\contentsline {section}{\numberline {4.3}Frequenza e costo degli accessi}{29}{}%
+\contentsline {section}{\numberline {4.4}Trasformazioni dello schema concettuale}{30}{}%
+\contentsline {subsection}{\numberline {4.4.1}Analisi delle ridondanze}{31}{}%
+\contentsline {subsection}{\numberline {4.4.2}Scelta delle chiavi primarie}{33}{}%
+\contentsline {subsection}{\numberline {4.4.3}Eliminazione delle gerarchie di generalizzazione}{33}{}%
+\contentsline {section}{\numberline {4.5}Progetto logico per il modello relazionale}{33}{}%
+\contentsline {section}{\numberline {4.6}Traduzione delle entità}{33}{}%
+\contentsline {section}{\numberline {4.7}Traduzione delle associazioni}{34}{}%
+\contentsline {section}{\numberline {4.8}Traduzione delle Query SQL}{36}{}%
+\contentsline {subsection}{\numberline {4.8.1}Utente}{36}{}%
+\contentsline {subsection}{\numberline {4.8.2}Admin}{41}{}%
+\contentsline {chapter}{\numberline {5}Interfaccia utente}{42}{}%
+\contentsline {section}{\numberline {5.1}L'amministratore}{42}{}%
+\contentsline {section}{\numberline {5.2}Il giocatore}{45}{}%

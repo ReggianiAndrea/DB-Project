@@ -46,7 +46,7 @@
         \textbf{Studente:} Mancini Davide\\
         \hspace*{2em}\textbf{Matricola:} 0001114441\\[0.5cm]
         \textbf{Studente:} Marzano Alessia\\
-        \hspace*{2em}\textbf{Matricola:} DA MODIFICARE\\[0.5cm]
+        \hspace*{2em}\textbf{Matricola:} 0001125441\\[0.5cm]
         \textbf{Studente:} Reggiani Andrea\\
         \hspace*{2em}\textbf{Matricola:} 0001125263
     \end{flushleft}
@@ -73,9 +73,74 @@ implementative, nel rispetto delle metodologie di progettazione delle basi di
 dati.
 
 \section{Analisi dei requisiti}
+Il dominio applicativo riguarda la progettazione di un sistema digitale ispirato al mondo Pokémon, sviluppato a partire dal concetto del Pokédex e ampliato con una serie di funzionalità legate alla gestione dei Pokémon e all'interazione tra gli utenti.
+
+\vspace{0,5 cm}
+Il sistema è pensato principalmente come un Pokédex digitale, all'interno del quale vengono raccolte e organizzate le informazioni relative alle diverse specie di Pokémon. Per ogni Pokémon vengono considerate le principali caratteristiche che ne descrivono l'identità e le proprietà, insieme alle informazioni relative ai tipi, alle abilità, alle mosse, alle statistiche, all'habitat e alle caratteristiche fisiche. Il sistema permette inoltre di rappresentare le relazioni esistenti tra i Pokémon, in particolare quelle relative alle loro evoluzioni e ai diversi metodi attraverso i quali queste possono avvenire.
+
+\vspace{0,5 cm}
+Accanto alla componente informativa, il dominio comprende una componente di gestione dei Pokémon da parte degli utenti. Ogni utente può avere una propria collezione, nella quale vengono distinti i Pokémon che sono stati avvistati da quelli che sono stati effettivamente catturati. Questa distinzione permette di rappresentare il progressivo completamento del Pokédex personale e di mantenere traccia dell'esperienza del singolo utente rispetto ai Pokémon presenti nel sistema.
+
+\vspace{0,5 cm}
+I Pokémon catturati possono essere successivamente gestiti dall'utente e utilizzati all'interno delle attività previste dall'applicazione. In particolare, il sistema permette di organizzare i Pokémon posseduti e di impiegarli nella composizione di squadre, introducendo una componente di gioco e di confronto tra gli utenti. Le squadre possono infatti essere coinvolte in battaglie simulate, collegando la gestione della collezione alla componente competitiva del sistema.
+
+\vspace{0,5 cm}
+Il dominio comprende anche una componente sociale legata alla presenza di più utenti. Gli utenti possono instaurare rapporti di amicizia e confrontare le proprie collezioni e attività con quelle di altri giocatori. Sono previste inoltre funzionalità che permettono di effettuare confronti e classifiche sulla base delle informazioni gestite dal sistema, favorendo una dimensione sociale e competitiva dell'applicazione.
+
+\vspace{0,5 cm}
+Un ulteriore aspetto riguarda la possibilità di consultare e analizzare le informazioni contenute nel Pokédex. Il sistema permette di ricercare e filtrare i Pokémon sulla base delle loro caratteristiche e di effettuare diverse forme di consultazione dei dati. Sono inoltre previste statistiche generali relative ai Pokémon e agli utenti, con l'obiettivo di fornire una visione complessiva delle informazioni raccolte e delle principali caratteristiche presenti nel sistema.
+
+\vspace{0,5 cm}
+La gestione del dominio prevede infine la distinzione tra utenti ordinari e amministratori. Gli amministratori hanno il compito di mantenere e aggiornare le informazioni che costituiscono il Pokédex e di gestire alcuni aspetti relativi agli utenti. In questo modo il sistema comprende sia una componente di utilizzo da parte dei giocatori sia una componente di amministrazione e manutenzione dei dati.
+
+\vspace{0,5 cm}
+Nel complesso, il dominio applicativo integra quindi la natura enciclopedica del Pokédex con una componente di collezionismo, una simulazione delle principali attività legate ai Pokémon e una dimensione sociale e competitiva. L'elemento centrale rimane la gestione delle informazioni sui Pokémon e della loro relazione con gli utenti, mentre le funzionalità di cattura, avvistamento, evoluzione, organizzazione delle squadre e battaglia contribuiscono a rendere il sistema più interattivo e vicino all'esperienza del mondo Pokémon.
 
 \section{Estrazione dei concetti fondamentali}
 
+L'analisi del dominio applicativo permette di individuare i principali concetti che caratterizzano il sistema e che costituiscono la base per la successiva progettazione della base di dati. Il dominio considerato è incentrato sul mondo Pokémon e, in particolare, sulla realizzazione di un sistema digitale che riprende il concetto di Pokédex, estendendolo con funzionalità relative alla gestione delle collezioni personali, all'interazione tra gli utenti e alla componente competitiva.
+
+\vspace{0,5 cm}
+Il concetto centrale del dominio è rappresentato dal \textbf{Pokémon}. Ogni Pokémon costituisce un elemento del sistema del quale devono essere raccolte e organizzate diverse informazioni. Tra queste rientrano le caratteristiche che ne definiscono l'identità e le proprietà, come i tipi di appartenenza, le abilità, le mosse, le statistiche, l'habitat e le caratteristiche fisiche. La gestione di tali informazioni costituisce la componente principale del Pokédex e permette agli utenti di consultare e confrontare le diverse specie presenti nel sistema.
+
+\vspace{0,5 cm}
+Il \textbf{Pokédex} rappresenta quindi il principale insieme di informazioni del dominio. Esso ha la funzione di raccogliere e organizzare i dati relativi ai Pokémon, rendendoli disponibili per la consultazione. Il sistema deve permettere di ricercare i Pokémon e di filtrare le informazioni sulla base delle loro caratteristiche, in modo da consentire diverse modalità di esplorazione e consultazione dei dati. Il Pokédex non rappresenta quindi solamente un archivio informativo, ma costituisce il punto di partenza per le altre funzionalità del sistema.
+
+\vspace{0,5 cm}
+Un ulteriore concetto fondamentale è costituito dalle \textbf{relazioni tra i Pokémon}. Le diverse specie non devono essere considerate come elementi indipendenti, poiché possono essere collegate tra loro attraverso specifiche relazioni. In particolare, assume rilevanza il concetto di \textbf{evoluzione}, che permette di rappresentare il passaggio da una specie di Pokémon a un'altra e i diversi metodi attraverso i quali tale evoluzione può avvenire. La rappresentazione di queste relazioni consente quindi di descrivere in maniera più completa le caratteristiche e i legami esistenti all'interno del mondo Pokémon.
+
+\vspace{0,5 cm}
+Accanto alla componente puramente informativa è presente il concetto di \textbf{utente o giocatore}, che rappresenta il soggetto che utilizza il sistema e interagisce con i Pokémon. Ogni utente dispone di una propria esperienza all'interno dell'applicazione, legata principalmente ai Pokémon che ha incontrato e a quelli che è riuscito a catturare. Per questo motivo il rapporto tra utente e Pokémon costituisce uno degli elementi centrali del dominio.
+
+\vspace{0,5 cm}
+In particolare, il sistema distingue tra \textbf{avvistamento} e \textbf{cattura}. L'avvistamento rappresenta la situazione in cui un utente entra in contatto con un determinato Pokémon e ne registra la presenza, mentre la cattura rappresenta il momento in cui il Pokémon viene effettivamente acquisito dall'utente. Questa distinzione permette di rappresentare il progressivo completamento dell'esperienza dell'utente all'interno del Pokédex personale e di mantenere separati i Pokémon semplicemente osservati da quelli effettivamente posseduti.
+
+\vspace{0,5 cm}
+Gli avvistamenti e le catture confluiscono quindi nella \textbf{collezione personale (o BoxPokémon)} dell'utente. La collezione rappresenta l'insieme dei Pokémon associati a uno specifico giocatore e permette di tenere traccia dei suoi progressi. Al suo interno possono essere individuati i Pokémon che l'utente ha catturato con la possibilità che siano presenti più esemplari della stessa specie con dati diversi (esempio livelli diversi), mentre nel Pokédex i dati visibili sono quelli generali della specie e non quelli relativi al singolo esemplare. La collezione assume quindi un ruolo importante perché collega la componente informativa del Pokédex all'esperienza individuale del giocatore.
+
+\vspace{0,5 cm}
+I \textbf{Pokémon catturati} possono inoltre essere successivamente gestiti dall'utente e utilizzati all'interno delle altre funzionalità previste dal sistema. In particolare, essi possono essere organizzati per formare una \textbf{squadra}. La squadra rappresenta un insieme di Pokémon posseduti da un giocatore che vengono selezionati e organizzati per essere utilizzati nelle attività di gioco. Questo concetto introduce una componente di organizzazione e di strategia che si sviluppa a partire dalla gestione della collezione personale.
+
+\vspace{0,5 cm}
+Le squadre possono essere impiegate nelle \textbf{battaglie simulate}, introducendo una componente competitiva all'interno del dominio. La battaglia rappresenta quindi un confronto tra squadre e permette di collegare direttamente la gestione dei Pokémon catturati alla possibilità di utilizzarli in un'attività competitiva. In questo modo il sistema non si limita alla sola raccolta e consultazione delle informazioni, ma comprende anche una componente di gioco basata sui Pokémon posseduti dagli utenti.
+
+\vspace{0,5 cm}
+Un'altra area fondamentale del dominio riguarda la \textbf{componente sociale}. Il sistema prevede infatti la presenza di più utenti che possono interagire tra loro. In particolare, gli utenti possono instaurare rapporti di \textbf{amicizia}, creando delle relazioni tra i diversi giocatori.Vi è anche la possibilità per un utente di bloccare ed eventualmente sbloccare un determinato "amico", dando al giocatore il totale controllo sulle sue relazioni di amicizia sulla piattaforma. La presenza di queste relazioni permette di ampliare il dominio oltre la gestione individuale della collezione e di introdurre una dimensione condivisa tra gli utenti.
+
+\vspace{0,5 cm}
+La componente sociale è collegata anche alla possibilità di effettuare \textbf{confronti e classifiche}. Gli utenti possono confrontare le proprie collezioni, le attività svolte e i risultati ottenuti all'interno del sistema. Le classifiche permettono di organizzare gli utenti sulla base delle informazioni e delle attività gestite dall'applicazione, contribuendo alla componente competitiva e fornendo una visione complessiva dei progressi dei diversi giocatori.
+
+\vspace{0,5 cm}
+Un ulteriore concetto da analizzare è quello della \textbf{ricerca e del filtraggio delle informazioni}. Considerata la quantità di dati relativa ai Pokémon, il sistema deve permettere agli utenti di effettuare ricerche e consultazioni mirate. I Pokémon possono essere ricercati e filtrati sulla base delle loro caratteristiche, consentendo di individuare più facilmente le informazioni di interesse. Questa funzionalità riguarda principalmente la modalità con cui vengono utilizzati e consultati i dati contenuti nel Pokédex.
+
+\vspace{0,5 cm}
+A supporto della consultazione sono inoltre previste \textbf{statistiche generali} relative sia ai Pokémon sia agli utenti. Le statistiche permettono di elaborare le informazioni raccolte dal sistema e di fornire una visione complessiva dei dati disponibili. Possono quindi essere considerate come una componente trasversale, in quanto utilizzano informazioni provenienti dalle diverse attività del dominio, come la gestione dei Pokémon, le catture, le collezioni e le attività degli utenti.
+
+\vspace{0,5 cm}
+Infine, il dominio prevede una distinzione tra \textbf{utenti ordinari e amministratori}. Gli utenti ordinari utilizzano il sistema principalmente per consultare le informazioni, gestire la propria collezione e partecipare alle attività previste. Gli amministratori, invece, dispongono di responsabilità aggiuntive legate alla gestione e alla manutenzione del sistema. In particolare, hanno il compito di mantenere aggiornate le informazioni che costituiscono il Pokédex e di gestire alcuni aspetti relativi agli utenti. Questa distinzione introduce quindi una differenziazione dei ruoli all'interno del sistema e permette di separare le normali attività di utilizzo dalle operazioni di amministrazione.
+
+\vspace{0,5 cm}
+Nel complesso, i concetti individuati definiscono un dominio articolato nel quale il \textbf{Pokémon} e il \textbf{Pokédex} costituiscono il nucleo informativo, mentre l'\textbf{utente} rappresenta il principale elemento di interazione con tale nucleo. A partire da questi due elementi si sviluppano le diverse funzionalità del sistema: gli utenti possono \textbf{avvistare e catturare Pokémon}, costruire una propria \textbf{collezione}, organizzare i Pokémon catturati in \textbf{squadre} e utilizzarle nelle \textbf{battaglie}. Parallelamente, possono instaurare \textbf{amicizie}, effettuare \textbf{confronti}, partecipare a \textbf{classifiche} e consultare le informazioni attraverso strumenti di \textbf{ricerca, filtraggio e analisi statistica}. A partire da questi concetti sarà possibile individuare le principali entità del sistema, le relative caratteristiche, le relazioni che le collegano e i vincoli necessari a rappresentare correttamente il funzionamento dell'applicazione. 
 \newpage
 
 \chapter{Progetto dello schema concettuale}
@@ -288,10 +353,11 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
 \end{figure}
 
 
-\subsection{Sviluppo dell'ambito ...}
+\subsection{Sviluppo dell'ambito Mossa}
 
-\subsection{Sviluppo dell'ambito ...}
-
+\subsection{Sviluppo dell'ambito Abilità}
+\subsection{Sviluppo dell'ambito Statistiche}
+\subsection{Sviluppo dell'ambito Bioma}
 \section{Schema completo}
 
 \begin{figure}[H]
@@ -419,7 +485,6 @@ Selezionando un allenatore (es. prima di avviare una Battaglia), il sistema inte
 
 Entità coinvolte: GIOCATORE, SQUADRA, ESEMPLARE\_POKÉMON, POKÉMON, COMPOSIZIONE
 
-\section{DA GUARDARE BENE CON I BOYS}
 
 \section{Carichi di lavoro}
 
