@@ -275,7 +275,7 @@ Le evoluzioni per scambio sono particolari poiché richiedono la presenza di un 
 
 \subsection{Sviluppo dell'ambito Giocatore - Esemplare Pokémon}
 
-Ogni giocatore ha la possibilità di scegliere un esemplare catturato come suo preferito in modo da mostrarlo agli altri giocatori.
+Ogni giocatore ha la possibilità di scegliere un esemplare catturato come suo preferito in modo da mostrarlo agli altri giocatori. Poiché i giocatori non iniziano con un Pokémon preferito assegnato, la relazione è (0-1) e poiché ogni esemplare può non essere scelto come preferito del giocatore anche dalla parte opposta la relazione è (0-1).
 
 \begin{figure}[H]
     \centering
@@ -314,7 +314,7 @@ L'associazione \textit{primario} ha cardinalità 1, indicando che ogni Pokémon 
 L'associazione \textit{secondario}, invece, ha cardinalità 0, permettendo così la corretta rappresentazione sia di Pokémon con un unico tipo, sia di quelli con un doppio tipo.
 
 Questa tipologia influenza direttamente l'ecosistema in cui la specie si stabilisce: l'entità BIOMA è legata al Pokémon tramite l'entità associativa PERMANENZA.
-Le mosse tecniche di combattimento, modellate dall'entità MOSSA possiedono a un legame con l'entità ELEMENTO (tramite l'associazione specializzazione), garantendo coerenza  tra il tipo del Pokémon e gli attacchi a sua disposizione.
+Le mosse tecniche di combattimento, modellate dall'entità MOSSA possiedono a un legame con l'entità ELEMENTO (tramite l'associazione specializzazione), in modo da svincolare l'elemento del Pokémon dai possibili effetti di una mossa e utilità nel prendere alla sprovvista un avversario.
 
 \begin{figure}[H]
     \centering
@@ -357,7 +357,7 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
 DA GUARDARE CON I RAGAZZI EPRCHè NON L'HO IMPLEMENTATA DATO CHE SVILUPPO DELL'AMBITO MOSSA è GIà PRESENTE NELLO SVILUPPO DELL'AMBITO DELLA TIPOLOGIA ELEMENTARE
 
 \subsection{Sviluppo dell'ambito Abilità}
-Un Pokémon può avere solo un'abilità, ma un abilità può essere di competenza di più Pokémon. L'associazione\textit{competenza} ha, quindi, cardinalità (1,N) lato Pokémon. Ogni abilità è identificata da un NomeAbilità e dalla sua descrizione.
+Un Pokémon può avere solo un'abilità, ma un abilità può essere di competenza di più Pokémon. L'associazione \textit{competenza} ha, quindi, cardinalità (1,N) lato Pokémon. Ogni abilità è identificata da un NomeAbilità e dalla sua descrizione.
 
 \begin{figure}[H]
     \centering
@@ -547,6 +547,12 @@ principali funzionalità previste sono le seguenti:
   
   \item \textbf{Cambiare Pokémon preferito} \\
   Quando un giocatore vuole cambiare il Pokémon preferito, bisogna cercare l'esemplare scelto, scrivere su giocatore il nuovo esemplare scelto e aggiornare il parametro ridondante su Pokémon che riguarda quanti giocatori hanno scelto quella specie come preferito. Poiché deve decrementare il Pokémon preferito precedente e incrementare quello corrente, si accede a 2 Pokémon e 2 Esemplari.
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/EsemplarePokemonNavigazione.png}
+    \caption{Schema ER completo}
+  \end{figure}  
   
   \begin{tabular}{|c|c|c|c|}
     \hline
