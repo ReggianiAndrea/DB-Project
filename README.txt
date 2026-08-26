@@ -1,4 +1,4 @@
-Credenziali utenti:
+Credenziali utenti (solo per i giocatori):
 - ash
 - ash2
 - ash3
