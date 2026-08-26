@@ -257,7 +257,7 @@ TRAMITE & R & Lega l'evoluzione di un Pokémon al suo metodo evolutivo \\
 
 \section{Descrizione dettagliata}
 
-\subsection{Sviluppo dell'ambito evoluzione}
+\subsection{Sviluppo dell'ambito Evoluzione}
 
 Poiché i Pokémon possono evolversi, si è ritenuto necessario rappresentare una relazione tra due Pokémon e il metodo evolutivo richiesto. Un Pokémon può avere più stadi successivi di evoluzione legati da uno specifico metodo evolutivo, ma uno stadio evoluto può avere un solo stadio precedente. Un Pokémon non può avere stadi successivi ottenuti dallo stesso metodo evolutivo. Si è scelto, quindi, di rappresentare la relazione come un'entità Evoluzione, la quale contiene le chiavi dei Pokémon legati dall'evoluzione e dal metodo richiesto per l'evoluzione. I metodi evolutivi utilizzano una gerarchia ereditaria totale ed esclusiva e possono essere di tre tipi:
 \begin{itemize}
@@ -354,7 +354,25 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
 \end{figure}
 
 \subsection{Sviluppo dell'ambito Mossa}
-DA GUARDARE CON I RAGAZZI EPRCHè NON L'HO IMPLEMENTATA DATO CHE SVILUPPO DELL'AMBITO MOSSA è GIà PRESENTE NELLO SVILUPPO DELL'AMBITO DELLA TIPOLOGIA ELEMENTARE
+Una mossa è un attacco che un Pokémon può effettuare in una battaglia, questa possiede un nome specifico che la identifica, una descrizione e un parametro molto importante, quale la \textit{precisione}. Quest'ultima indica la probabilità percentuale che una mossa centri il bersaglio, ma esistono mosse dove il bersaglio non può essere mancato, quindi che si dicono \textit{infallibili}.
+Non tutte le mosse hanno come obiettivo quello di arrecare danno all'avversario, ma sono presenti anche mosse di \textit{Stato}.
+
+Ogni Pokémon può imparare più mosse e la stessa mossa può essere imparata da più Pokémon. Ogni mossa ha un unico elemento a cui è collegata ma ad un elemento possono essere associate più mosse. Un Pokémon può avere una mossa di un elemento diverso dai suoi elementi caratteristici. Le mosse possono essere di tre tipologie:
+\begin{itemize}
+       \item Fisico
+       \item Speciale
+       \item Stato
+\end{itemize}
+
+Le mosse di tipo \textit{Fisico} sono mosse che richiedono al Pokémon uno sforzo fisico, queste possono danneggiare il bersaglio dell'attacco.
+Le mosse di tipo \textit{Speciale} sono mosse che, rispetto a quelle fisiche, non richiedono uno sforzo fisico al Pokémon, bensì le sue capacità elementali.
+Le mosse di tipo \textit{Stato} sono mosse che alterano lo stato del Pokémon, ovvero possono potenziare o depotenziare il bersaglio in base alle necessità; per bersaglio si può intendere anche il Pokémon stesso che esegue la mossa.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/PokemonElementoMossa.png}
+    \caption{Schema ER rappresentante la relazione tra un Pokémon e la sua abilità}
+\end{figure}
 
 \subsection{Sviluppo dell'ambito Abilità}
 Un Pokémon può avere solo un'abilità, ma un abilità può essere di competenza di più Pokémon. L'associazione \textit{competenza} ha, quindi, cardinalità (1,N) lato Pokémon. Ogni abilità è identificata da un NomeAbilità e dalla sua descrizione.
@@ -1729,25 +1747,25 @@ L'accesso come giocatore permette una di esplorare le varie funzionalità del Po
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{immagini/VisualizzaPokedex.png}
+    \includegraphics[width=0.9\linewidth]{immagini/VisualizzaPokedex.png}
     \caption{Immagine dimostrativa del pannello Giocatore Visualizza Pokédex}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{immagini/VisualizzaAmici.png}
+    \includegraphics[width=0.9\linewidth]{immagini/VisualizzaAmici.png}
     \caption{Immagine dimostrativa del pannello Giocatore Visualizza Amici}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{immagini/GestisciSquadra.png}
+    \includegraphics[width=0.9\linewidth]{immagini/GestisciSquadra.png}
     \caption{Immagine dimostrativa del pannello Giocatore Gestisci Squadra}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{immagini/Profilo.png}
+    \includegraphics[width=0.9\linewidth]{immagini/Profilo.png}
     \caption{Immagine dimostrativa del pannello Giocatore Personalizza Profilo}
 \end{figure}
 
