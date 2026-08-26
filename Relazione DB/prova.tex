@@ -354,25 +354,7 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
 \end{figure}
 
 \subsection{Sviluppo dell'ambito Mossa}
-Una mossa è un attacco che un Pokémon può effettuare in una battaglia, questa possiede un nome specifico che la identifica, una descrizione e un parametro molto importante, quale la \textit{precisione}. Quest'ultima indica la probabilità percentuale che una mossa centri il bersaglio, ma esistono mosse dove il bersaglio non può essere mancato, quindi che si dicono \textit{infallibili}.
-Non tutte le mosse hanno come obiettivo quello di arrecare danno all'avversario, ma sono presenti anche mosse di \textit{Stato}.
-
-Ogni Pokémon può imparare più mosse e la stessa mossa può essere imparata da più Pokémon. Ogni mossa ha un unico elemento a cui è collegata ma ad un elemento possono essere associate più mosse. Un Pokémon può avere una mossa di un elemento diverso dai suoi elementi caratteristici. Le mosse possono essere di tre tipologie:
-\begin{itemize}
-	\item Fisico
-	\item Speciale
-	\item Stato
-\end{itemize}
-
-Le mosse di tipo \textbf{Fisico} sono mosse che richiedono al Pokémon uno sforzo fisico, queste possono danneggiare il bersaglio dell'attacco. 
-Le mosse di tipo \textbf{Speciale} sono mosse che, rispetto a quelle fisiche, non richiedono uno sforzo fisico al Pokémon, bensì le sue capacità elementali. 
-Le mosse di tipo \textbf{Stato} sono mosse che alterano lo stato del Pokémon, ovvero possono potenziare o depotenziare il bersaglio in base alle necessità; per bersaglio si può intendere anche il Pokémon stesso che esegue la mossa. 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{immagini/PokemonElementoMossa.png}
-    \caption{Schema ER rappresentante la relazione tra un Pokémon e la sua abilità}
-\end{figure}
+DA GUARDARE CON I RAGAZZI EPRCHè NON L'HO IMPLEMENTATA DATO CHE SVILUPPO DELL'AMBITO MOSSA è GIà PRESENTE NELLO SVILUPPO DELL'AMBITO DELLA TIPOLOGIA ELEMENTARE
 
 \subsection{Sviluppo dell'ambito Abilità}
 Un Pokémon può avere solo un'abilità, ma un abilità può essere di competenza di più Pokémon. L'associazione \textit{competenza} ha, quindi, cardinalità (1,N) lato Pokémon. Ogni abilità è identificata da un NomeAbilità e dalla sua descrizione.
@@ -569,7 +551,7 @@ principali funzionalità previste sono le seguenti:
   \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{immagini/EsemplarePokemonNavigazione.png}
-    \caption{Schema ER completo}
+    \caption{Schema di navigazione per cambiare il Pokémon preferito di un giocatore}
   \end{figure}  
   
   \begin{tabular}{|c|c|c|c|}
@@ -668,6 +650,12 @@ principali funzionalità previste sono le seguenti:
   \item \textbf{Visualizzare l'intera linea evolutiva di un Pokémon} \\
   Si deve cercare ricorsivamente, partendo da un Pokémon, tutta la sua linea evolutiva. Poiché il Pokémon scelto può essere di un qualsiasi stadio, si ottiene ricorsivamente il suo stadio iniziale e si analizza tutto l'albero delle evoluzioni di quello stadio. Mediamente i Pokémon hanno 2 evoluzioni e 3 nell'intera linea evolutiva.
   
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/EvoluzioneNavigazione.png}
+    \caption{Schema di navigazione per visualizzare la linea evolutiva di un Pokémon}
+  \end{figure}  
+  
   \begin{tabular}{|c|c|c|c|}
     \hline
   	\rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
@@ -690,6 +678,14 @@ principali funzionalità previste sono le seguenti:
   
   \item \textbf{Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato} \\
   Poiché il metodo si sceglie durante l'esecuzione dell'operazione, è necessario un solo accesso.
+  
+
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/MetodoEvolutivoNavigazione.png}
+    \caption{Schema di navigazione per visualizzare i Pokémon che si evolvono tramite un certo metodo evolutivo}
+  \end{figure}    
   
   \begin{tabular}{|c|c|c|c|}
     \hline
@@ -817,6 +813,11 @@ principali funzionalità previste sono le seguenti:
   \textbf{Totale:} 250L = 250 accessi => 3.000 accessi/anno
   
   \item \textbf{Mostrare gli elementi più comuni tra i Pokémon di uno stesso bioma}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/BiomaElementoNavigazione.png}
+    \caption{Schema di navigazione per visualizzare gli elementi di Pokémon che appartengono allo stesso bioma}
+  \end{figure}  
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
@@ -886,6 +887,11 @@ principali funzionalità previste sono le seguenti:
   
   \item \textbf{Visualizzare lo storico delle battaglie di un utente} \\
   Un utente ha partecipato mediamente a 200 battaglie. Ogni utente ha combattuto mediamente con 9 giocatori
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/StoricoBattaglieNavigazione.png}
+    \caption{Schema di navigazione per visualizzare lo storico delle battglie dei giocatori}
+  \end{figure}  
   
   \begin{tabular}{|c|c|c|c|}
   	\hline
