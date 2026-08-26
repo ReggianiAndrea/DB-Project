@@ -551,7 +551,7 @@ principali funzionalità previste sono le seguenti:
   \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{immagini/EsemplarePokemonNavigazione.png}
-    \caption{Schema ER completo}
+    \caption{Schema di navigazione per cambiare il Pokémon preferito di un giocatore}
   \end{figure}  
   
   \begin{tabular}{|c|c|c|c|}
@@ -650,6 +650,12 @@ principali funzionalità previste sono le seguenti:
   \item \textbf{Visualizzare l'intera linea evolutiva di un Pokémon} \\
   Si deve cercare ricorsivamente, partendo da un Pokémon, tutta la sua linea evolutiva. Poiché il Pokémon scelto può essere di un qualsiasi stadio, si ottiene ricorsivamente il suo stadio iniziale e si analizza tutto l'albero delle evoluzioni di quello stadio. Mediamente i Pokémon hanno 2 evoluzioni e 3 nell'intera linea evolutiva.
   
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/EvoluzioneNavigazione.png}
+    \caption{Schema di navigazione per visualizzare la linea evolutiva di un Pokémon}
+  \end{figure}  
+  
   \begin{tabular}{|c|c|c|c|}
     \hline
   	\rowcolor{gray!30}Concetto & Costrutto & Tipo & Accessi \\
@@ -672,6 +678,14 @@ principali funzionalità previste sono le seguenti:
   
   \item \textbf{Visualizzare la lista di Pokémon che si evolvono tramite il metodo evolutivo specificato} \\
   Poiché il metodo si sceglie durante l'esecuzione dell'operazione, è necessario un solo accesso.
+  
+
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/MetodoEvolutivoNavigazione.png}
+    \caption{Schema di navigazione per visualizzare i Pokémon che si evolvono tramite un certo metodo evolutivo}
+  \end{figure}    
   
   \begin{tabular}{|c|c|c|c|}
     \hline
