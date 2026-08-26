@@ -353,12 +353,36 @@ A sua volta, l'entità SQUADRA funge da contenitore logico per i Pokémon attual
     \caption{Schema ER contenente le entità e relazioni per rappresentare il sistema di Sfida tra 2 Allenatori}
 \end{figure}
 
-
 \subsection{Sviluppo dell'ambito Mossa}
+DA GUARDARE CON I RAGAZZI EPRCHè NON L'HO IMPLEMENTATA DATO CHE SVILUPPO DELL'AMBITO MOSSA è GIà PRESENTE NELLO SVILUPPO DELL'AMBITO DELLA TIPOLOGIA ELEMENTARE
 
 \subsection{Sviluppo dell'ambito Abilità}
+Un Pokémon può avere solo un'abilità, ma un abilità può essere di competenza di più Pokémon. L'associazione\textit{competenza} ha, quindi, cardinalità (1,N) lato Pokémon. Ogni abilità è identificata da un NomeAbilità e dalla sua descrizione.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/PokemonAbilita.png}
+    \caption{Schema ER rappresentante la relazione tra un Pokémon e la sua abilità}
+\end{figure}
+
 \subsection{Sviluppo dell'ambito Statistiche}
+Ogni Pokémon è caratterizzato da un set di statistiche. L'associazione che lega queste due entità è identificata come \textit{parametri} e ha come cardinalità (1,N) lato Pokémon in quanto un Pokémon può avere come parametro un unico set di statistiche mentre un'istanza di quest'ultima tabella può parametrizzare anche Pokémon diversi.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/PokemonStatistiche.png}
+    \caption{Schema ER rappresentante la relazione tra un Pokémon e il suo set di statistiche}
+\end{figure}
+
 \subsection{Sviluppo dell'ambito Bioma}
+I Pokémon sono presenti in vari biomi, ogni bioma ha Pokémon specifici a suo interno. Questa relazione  è stata modellata grazie all'associazione \textit{permanenza}. Si tratta di un'associazione molti-a-molti (N:N), con cardinalità 1-N da entrambe le parti: un bioma può essere associato a uno o più Pokémon, mentre un Pokémon può essere associato a uno o più biomi.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{immagini/PokemonBioma.png}
+    \caption{Schema ER rappresentante la relazione tra un Pokémon e il bioma a cui appartiene}
+\end{figure}
+
 \section{Schema completo}
 
 \begin{figure}[H]
